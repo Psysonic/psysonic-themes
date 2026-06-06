@@ -1,0 +1,11 @@
+{
+  "id": "ci-smoke-test",
+  "name": "CI Smoke Test",
+  "author": "Psychotoxical",
+  "version": "1.0.0",
+  "description": "Throwaway theme to exercise the validate workflow.",
+  "mode": "dark",
+  "tags": [
+    "test"
+  ]
+}
