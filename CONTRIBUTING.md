@@ -9,7 +9,7 @@ tokens — validated automatically and served to the in-app store over a CDN.
 2. Copy [`template/`](template/) to `themes/<your-id>/` (id = lowercase
    kebab-case, **must match the folder name**).
 3. Recolour the tokens in `theme.css`, fill in `manifest.json`, add a
-   `thumbnail.png`.
+   `thumbnail.png` (or `.jpg`) — a **16:9 screenshot** of Psysonic.
 4. Validate locally — it must print `PASS`:
    ```
    npm install
@@ -27,9 +27,9 @@ no external `url()` — the only `url()` allowed is the inline `data:` SVG on
 tokens are not. The `validate` workflow checks every bit of this, so run it
 before you push.
 
-**`thumbnail.png`:** PNG, ≤ 300 KB, 320–960 × 200–600 px, aspect ratio 1.4–1.7
-(recommended **720×450**). A screenshot of Psysonic with your theme applied
-works great.
+**`thumbnail.png` (or `.jpg`):** a **16:9 screenshot** of Psysonic with your
+theme applied, **at least 1280×720** (aspect 1.5–1.85, source ≤ 6 MB). You don't
+need to resize or convert — CI optimises it to a `thumbnail.webp` on merge.
 
 ## Naming & description
 
