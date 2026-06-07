@@ -1,0 +1,55 @@
+# yaml-language-server: $schema=https://coderabbit.ai/schema.json
+# CodeRabbit config for the Psysonic community theme catalogue.
+# The hard safety floor is enforced by CI (scripts/validate-theme.mjs); this
+# tunes the AI reviewer to what a human judges — performance, accessibility,
+# and the store conventions.
+language: en-US
+tone_instructions: >-
+  Friendly and concise. These are community theme contributions (CSS plus a
+  small JSON manifest), not application code — keep feedback short and welcoming.
+reviews:
+  # Content repo, not app code — avoid nitpicky noise; the validator does the
+  # hard checks.
+  profile: chill
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!registry.json"      # auto-generated, never hand-edited
+    - "!**/*.png"           # thumbnails are binary
+    - "!package-lock.json"
+    - "!node_modules/**"
+  path_instructions:
+    - path: "themes/**/theme.css"
+      instructions: >-
+        Community theme CSS for the Psysonic music player. Themes are free-form
+        CSS and a CI validator already enforces the hard safety floor (no
+        @import; url() only as a data: URI; no scripts/expression()/javascript:;
+        @keyframes names must start with "<id>-"; size cap) — do NOT re-flag
+        those. Focus on what a human judges:
+        (1) Performance — themes reach a large install base on some weak
+        hardware. Flag continuous or expensive animations, especially animated
+        or constantly-repainting backgrounds, large blur, animated box-shadow,
+        or infinite @keyframes over large areas. Prefer short, state-triggered
+        effects and transitions over always-on animation.
+        (2) Accessibility — flag low text-on-background contrast and very low
+        text opacity.
+        (3) Scope hygiene — styling app elements is allowed, but flag selectors
+        that could hide or break core controls (e.g. display:none on the player
+        bar, sidebar, or buttons).
+        Keep feedback concise and friendly.
+    - path: "themes/**/manifest.json"
+      instructions: >-
+        Community theme manifest. The CI validator already checks the JSON
+        schema; focus on the store conventions:
+        (1) The `description` is the store's search anchor. If the theme
+        recolours or imitates a real-world thing (an app, OS, film, game), the
+        description MUST name the real inspiration in plain words (e.g.
+        "Inspired by Winamp."), because display names are often altered or
+        trademark-safe.
+        (2) A recolour of an existing open-source palette (Catppuccin, Nord,
+        Gruvbox, Dracula, Kanagawa, Nightfox, Atom One, …) MUST credit the
+        palette AND its author in the description.
+        (3) Do not invent a fake inspiration for original/abstract themes —
+        plain descriptive copy is fine.
+        (4) `id` must be lowercase kebab-case and equal the folder name.
