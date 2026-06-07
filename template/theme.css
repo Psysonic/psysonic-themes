@@ -1,7 +1,12 @@
 /* Template theme — copy this folder to themes/<your-id>/ and recolour.
    Rename the [data-theme='template'] selector to [data-theme='<your-id>'].
-   Set every core token; the optional block may be trimmed. All values must be
-   colours (hex / rgb / rgba / hsl). Only --select-arrow may hold a url(data:). */
+
+   Setting these semantic tokens is the simplest way to recolour the whole app
+   and the recommended starting point. Themes are FREE-FORM, though — you may add
+   any selectors, structure, @media and @keyframes (see the commented examples at
+   the bottom). The only hard rules are the safety floor: no @import, url() may
+   only be a data: URI, no scripts, and @keyframes names must start with
+   "<your-id>-". Validate with `node scripts/validate-theme.mjs themes/<your-id>`. */
 [data-theme='template'] {
   color-scheme: dark;
 
@@ -58,3 +63,26 @@
   --row-playing-text: #6ea8fe;
   --menu-item-hover: #1c2030;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Optional, free-form extras (uncomment + adapt). Delete this block if unused.
+
+   React to app state — these attributes are set on the theme root alongside
+   data-theme: data-playing, data-fullscreen, data-sidebar-collapsed,
+   data-lyrics-open (each "true" | "false"):
+
+   [data-theme='template'][data-playing='true'] {
+     --accent: #8ec8ff;
+   }
+
+   Animations — @keyframes names MUST start with your id ("template-…") so they
+   never collide with other installed themes:
+
+   @keyframes template-pulse {
+     from { opacity: 1; }
+     to   { opacity: 0.6; }
+   }
+   [data-theme='template'][data-playing='true'] .player-bar-title {
+     animation: template-pulse 2s ease-in-out infinite;
+   }
+   ───────────────────────────────────────────────────────────────────────── */

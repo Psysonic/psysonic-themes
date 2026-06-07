@@ -1,13 +1,22 @@
 {
   "schemaVersion": 1,
   "frozenAt": "2026-06-05",
-  "description": "The community Theme Store contract surface. A community theme.css may set ONLY these custom properties (plus color-scheme) on its single [data-theme='<id>'] selector. Frozen from the real token surface of the built-in themes (B0 semantic-token refactor). --ctp-* (Catppuccin palette) and the global design-system tokens (spacing/radii/elevation-shadows/transitions/fonts) are intentionally NOT part of the contract.",
+  "description": "The recommended semantic token surface the app reads. Community themes are FREE-FORM (any selectors, structure, @keyframes, animations) — the hard gate is the safety floor in scripts/validate-theme.mjs, not this list. Setting these tokens on the theme root is the simplest way to recolour the whole app and keeps a theme visually integrated; they are not mandatory. Frozen from the built-in themes' token surface. --ctp-* (Catppuccin palette) and the global design-system tokens (spacing/radii/elevation-shadows/transitions/fonts) are not part of this surface.",
   "colorScheme": {
     "required": true,
     "values": ["dark", "light"],
     "note": "Declared on the same selector (not a custom property). Must match manifest.mode. Drives OS-level form/scrollbar theming and the store dark/light filter."
   },
   "dataUriTokens": ["--select-arrow"],
+  "stateSelectors": {
+    "note": "App state the app exposes on the theme root (the same element as data-theme), for themes to react to — e.g. [data-theme='<id>'][data-playing='true'] { … }. Listed so authors know which states they can target; CSS is otherwise free-form.",
+    "attributes": {
+      "data-playing": ["true", "false"],
+      "data-fullscreen": ["true", "false"],
+      "data-sidebar-collapsed": ["true", "false"],
+      "data-lyrics-open": ["true", "false"]
+    }
+  },
   "core": {
     "--accent": "Primary accent / brand colour.",
     "--accent-dim": "Low-alpha accent for fills/backgrounds (e.g. selected row).",

@@ -1,12 +1,21 @@
 #!/usr/bin/env node
-// Validate one community theme folder against the Psysonic theme-store contract.
+// Validate one community theme folder against the Psysonic theme-store safety floor.
 //
 //   node scripts/validate-theme.mjs themes/<id>
 //   node scripts/validate-theme.mjs            # validates every folder in themes/
 //
-// A theme folder must contain: manifest.json, theme.css, thumbnail.png.
-// The CSS contract: a single [data-theme='<id>'] rule whose declarations are
-// color-scheme plus custom properties drawn only from schema/allowed-tokens.json.
+// Community themes are free-form (any selectors, structure, @keyframes,
+// animations). This validator is an *assistant*: it enforces only the hard
+// safety floor, a well-formed manifest, and a valid thumbnail. Quality, taste
+// and performance are handled by manual moderation; sideloaded themes are the
+// user's own risk. The floor mirrors the in-app guard
+// (psysonic/src/utils/themes/themeInjection.ts):
+//   - a theme folder must contain manifest.json, theme.css, thumbnail.png
+//   - no network: no @import, and url() only as a data: URI
+//   - no global custom-property registration (@property)
+//   - no script-in-CSS (expression(), javascript:, -moz-binding) or <style>/<script>
+//   - @keyframes must be namespaced as <id>-…
+//   - a size cap
 // Exits non-zero on the first failing theme; prints every problem it found.
 
 import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
@@ -18,21 +27,12 @@ import Ajv from 'ajv';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, '..');
 
-const tokens = JSON.parse(readFileSync(join(REPO, 'schema', 'allowed-tokens.json'), 'utf8'));
 const manifestSchema = JSON.parse(readFileSync(join(REPO, 'schema', 'manifest.schema.json'), 'utf8'));
-
-const noMeta = (o) => Object.keys(o || {}).filter((k) => !k.startsWith('$'));
-const CORE = noMeta(tokens.core);
-const OPTIONAL = noMeta(tokens.optional);
-const GRANULAR = noMeta(tokens.granular);
-// Core is required; optional + granular are allowed but never required.
-const ALLOWED = new Set([...CORE, ...OPTIONAL, ...GRANULAR]);
-const DATA_URI_TOKENS = new Set(tokens.dataUriTokens);
-const SCHEME_VALUES = new Set(tokens.colorScheme.values);
 
 // Thumbnail constraints.
 const THUMB_MAX_BYTES = 300 * 1024;
 const THUMB = { minW: 320, maxW: 960, minH: 200, maxH: 600, minAspect: 1.4, maxAspect: 1.7 };
+const CSS_MAX_BYTES = 256 * 1024;
 
 const ajv = new Ajv({ allErrors: true });
 const validateManifest = ajv.compile(manifestSchema);
@@ -69,8 +69,15 @@ function validateTheme(folder) {
     push(`manifest.id "${manifest.id}" must equal the folder name "${id}"`);
   }
 
-  // ---- css ----
+  // ---- css safety floor ----
   const css = readFileSync(cssPath, 'utf8');
+  if (Buffer.byteLength(css, 'utf8') > CSS_MAX_BYTES) {
+    push(`theme.css is larger than ${CSS_MAX_BYTES / 1024} KB`);
+  }
+  if (/<\/?\s*(?:style|script)\b/i.test(css)) {
+    push('theme.css must not contain <style> or <script>');
+  }
+
   let root;
   try {
     root = postcss.parse(css, { from: cssPath });
@@ -79,69 +86,31 @@ function validateTheme(folder) {
     return errors;
   }
 
-  // No at-rules at all (@import / @media / @keyframes ...).
-  root.walkAtRules((at) => push(`@${at.name} is not allowed in a theme.css`));
-
-  // Exactly one rule, selecting exactly [data-theme='<id>'].
-  const rules = [];
-  root.walkRules((r) => rules.push(r));
-  if (rules.length === 0) {
-    push('theme.css has no [data-theme] rule');
-    return errors;
-  }
-  if (rules.length > 1) {
-    push(`theme.css must contain exactly one rule; found ${rules.length}`);
-  }
-  const rule = rules[0];
-  const wantSelectors = new Set([`[data-theme='${id}']`, `[data-theme="${id}"]`]);
-  if (!wantSelectors.has(rule.selector.trim())) {
-    push(`selector must be exactly [data-theme='${id}'] (got: ${rule.selector.trim()})`);
-  }
-
-  // Declarations: color-scheme + whitelisted custom props only.
-  const seen = new Set();
-  let scheme = null;
-  rule.walkDecls((decl) => {
-    const prop = decl.prop.trim();
-    const value = decl.value.trim();
-
-    if (prop === 'color-scheme') {
-      scheme = value;
-      if (!SCHEME_VALUES.has(value)) push(`color-scheme must be one of ${[...SCHEME_VALUES].join(' | ')} (got: ${value})`);
-      return;
-    }
-    if (!prop.startsWith('--')) {
-      push(`only custom properties and color-scheme are allowed (found plain property: ${prop})`);
-      return;
-    }
-    if (!ALLOWED.has(prop)) {
-      push(`token ${prop} is not in the contract whitelist`);
-      return;
-    }
-    if (seen.has(prop)) push(`token ${prop} is declared more than once`);
-    seen.add(prop);
-
-    // Value safety.
-    const lower = value.toLowerCase();
-    if (lower.includes('@import')) push(`${prop}: @import is not allowed`);
-    if (/expression\s*\(/.test(lower) || lower.includes('javascript:')) push(`${prop}: forbidden value`);
-    const urls = lower.match(/url\(([^)]*)\)/g) || [];
-    for (const u of urls) {
-      const isData = /url\(\s*["']?\s*data:/.test(u);
-      if (!isData) push(`${prop}: only url(data:...) is allowed (got: ${u})`);
-      else if (!DATA_URI_TOKENS.has(prop)) push(`${prop}: data-URI values are only allowed on ${[...DATA_URI_TOKENS].join(', ')}`);
+  root.walkAtRules((at) => {
+    const name = at.name.toLowerCase();
+    if (name === 'import') {
+      push('@import is not allowed (themes may not reach the network)');
+    } else if (name.endsWith('property')) {
+      push('@property is not allowed (it registers a global custom property)');
+    } else if (name.endsWith('keyframes')) {
+      const kf = at.params.trim();
+      if (!kf.startsWith(`${id}-`)) {
+        push(`@keyframes "${kf}" must be namespaced as "${id}-…" to avoid collisions between themes`);
+      }
     }
   });
 
-  if (scheme === null) push('color-scheme is required');
-  if (manifest.mode && scheme && manifest.mode !== scheme) {
-    push(`manifest.mode "${manifest.mode}" must match color-scheme "${scheme}"`);
-  }
-
-  // All core tokens required.
-  for (const t of CORE) {
-    if (!seen.has(t)) push(`missing required core token ${t}`);
-  }
+  root.walkDecls((decl) => {
+    const value = decl.value.toLowerCase();
+    if (/expression\s*\(/.test(value) || value.includes('javascript:') || value.includes('-moz-binding')) {
+      push(`${decl.prop}: forbidden value (script-in-CSS)`);
+    }
+    const urls = value.match(/url\(\s*['"]?\s*[^'")]*/g) || [];
+    for (const u of urls) {
+      const inner = u.replace(/^url\(\s*['"]?\s*/i, '');
+      if (!/^data:/i.test(inner)) push(`${decl.prop}: only url(data:...) is allowed (got: ${u})`);
+    }
+  });
 
   // ---- thumbnail ----
   validateThumbnail(thumbPath, push);
