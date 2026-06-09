@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-08T21:13:06.531Z",
+  "generatedAt": "2026-06-09T18:32:03.663Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -121,7 +121,7 @@
       "id": "chameleon-light",
       "name": "Chameleon Light",
       "author": "Psychotoxical",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "description": "A light theme in fresh greens over a deep-teal ink. Inspired by openSUSE.",
       "mode": "light",
       "tags": [
@@ -133,7 +133,7 @@
       "css": "themes/chameleon-light/theme.css",
       "thumbnail": "themes/chameleon-light/thumbnail.webp",
       "installs": 0,
-      "updatedAt": "2026-06-08T23:04:24+02:00"
+      "updatedAt": "2026-06-09T20:24:17+02:00"
     },
     {
       "id": "copper-oxide",
