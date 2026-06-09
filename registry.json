@@ -56,7 +56,7 @@
       ],
       "css": "themes/barb-and-ken/theme.css",
       "thumbnail": "themes/barb-and-ken/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -86,7 +86,7 @@
       ],
       "css": "themes/braindead/theme.css",
       "thumbnail": "themes/braindead/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -98,7 +98,7 @@
       "mode": "dark",
       "css": "themes/carbon-grey/theme.css",
       "thumbnail": "themes/carbon-grey/thumbnail.webp",
-      "installs": 4,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -114,7 +114,7 @@
       ],
       "css": "themes/carbonfox/theme.css",
       "thumbnail": "themes/carbonfox/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -144,7 +144,7 @@
       "mode": "dark",
       "css": "themes/copper-oxide/theme.css",
       "thumbnail": "themes/copper-oxide/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -174,7 +174,7 @@
       ],
       "css": "themes/cupertino-dark/theme.css",
       "thumbnail": "themes/cupertino-dark/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -263,7 +263,7 @@
       ],
       "css": "themes/doh-matic/theme.css",
       "thumbnail": "themes/doh-matic/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -278,7 +278,7 @@
       ],
       "css": "themes/dos/theme.css",
       "thumbnail": "themes/dos/thumbnail.webp",
-      "installs": 3,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -371,7 +371,7 @@
       ],
       "css": "themes/grand-theft-audio/theme.css",
       "thumbnail": "themes/grand-theft-audio/thumbnail.webp",
-      "installs": 4,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -572,7 +572,7 @@
       ],
       "css": "themes/jayfin/theme.css",
       "thumbnail": "themes/jayfin/thumbnail.webp",
-      "installs": 4,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -853,7 +853,7 @@
       "mode": "light",
       "css": "themes/nucleo/theme.css",
       "thumbnail": "themes/nucleo/thumbnail.webp",
-      "installs": 5,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -1032,7 +1032,7 @@
       ],
       "css": "themes/t-800/theme.css",
       "thumbnail": "themes/t-800/thumbnail.webp",
-      "installs": 4,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -1191,7 +1191,7 @@
       ],
       "css": "themes/vs-1984-cyberpunk/theme.css",
       "thumbnail": "themes/vs-1984-cyberpunk/thumbnail.webp",
-      "installs": 0,
+      "installs": 9,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
@@ -1313,7 +1313,7 @@
       ],
       "css": "themes/wnamp/theme.css",
       "thumbnail": "themes/wnamp/thumbnail.webp",
-      "installs": 4,
+      "installs": 0,
       "updatedAt": "2026-06-07T19:05:13+02:00"
     }
   ]
