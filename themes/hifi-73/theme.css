@@ -1,0 +1,608 @@
+/* ============================================================
+   Hi-Fi 73 — inspired by the stereo receivers of the golden era: Pioneer, Marantz & Co.
+
+   Design language:
+   - Aluminium faceplate (silver body, sidebar, header)
+   - Deep black dial glass (player bar, queue now-playing area)
+   - Vivid cyan-blue dial illumination (accents, glows, text)
+   - Walnut side panels (borders, dividers, header seam)
+   - Amber tuning-scale indicator (active sidebar bar)
+   - Red pilot light (connection LED, now-playing dot)
+   - Green AUX indicators (queue toolbar buttons)
+
+   CSS is organised top-to-bottom by UI position:
+   Tokens → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: light
+   Validate: node scripts/validate-theme.mjs themes/hifi-73
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='hifi-73'] {
+  color-scheme: light;
+
+  /* ── Accent — cyan-blue dial illumination ── */
+  --accent:      #0069D1;
+  --accent-dim:  rgba(56, 169, 255, 0.20);  /* focus ring, selected rows */
+  --accent-glow: #0069D1;
+  --accent-2:    #0069D1;
+
+  /* ── Backgrounds ── */
+  --bg-app:      #f7f7f7;   /* main content — silver faceplate */
+  --bg-sidebar:  #D7DBDD;   /* sidebar — brushed aluminium */
+  --bg-card:     #eeeeee;   /* album/artist cards */
+  --bg-hover:    #f2f2f2;   /* hover surfaces */
+  --bg-elevated: #D7DBDD;   /* elevated panels */
+  --bg-player:   #0a0c0e;   /* player bar — black dial glass */
+  --bg-deep:     #DAD9D2;   /* deepest background */
+  --bg-glass:    rgba(140, 147, 153, 0.20);
+  --modal-bg:    #D7DBDD;
+
+  /* ── Borders  */
+  --border:          #D7DBDD;   /* default border */
+  --border-subtle:   #D7DBDD;   /* hairline border */
+  --border-dropdown: #201e1c;   /* dropdown/popover border */
+
+  /* ── Text — black engraving on faceplate ── */
+  --text-primary:   #171717;
+  --text-secondary: #3d3c36;
+  --text-muted:     rgba(23, 23, 23, 0.81);
+  --text-on-accent: #f2f2f2;
+
+  /* ── Status ── */
+  --danger:    #c2424a;   /* error / destructive */
+  --positive:  #5bbf4a;   /* success */
+  --warning:   #b8791f;   /* warning */
+  --highlight: #c0902a;   /* rating stars — warm gold */
+
+  /* ── Select arrow — dark stroke for light faceplate ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%233d3c36%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.30);
+
+  /* ── Sidebar ── */
+  --sidebar-text:             #171717;
+  --sidebar-item-hover:       rgba(255, 255, 255, 0.50);
+  --sidebar-item-active-bg:   transparent;   /* amber bar carries active state */
+  --sidebar-item-active-text: #171717;
+  --sidebar-border:           #ababab;
+
+  /* ── Library rows ── */
+  --row-hover:          #D7DBDD;
+  --row-divider:        #4A4F54;
+  --row-text:           #1a1a17;
+  --row-text-secondary: #494841;
+  --row-text-muted:     #6b695f;
+  --row-playing-bg:     rgba(46, 155, 212, 0.16);
+  --row-playing-text:   #1B76ED;
+  --col-header-text:    #3d3c36;
+
+  /* ── Cards ── */
+  --card-title:          #1a1a17;
+  --card-subtitle:       #5a5851;
+  --card-hover-border:   #23242A;
+  --card-placeholder-bg: #cccdc8;
+
+  /* ── Menus / inputs ── */
+  --menu-bg:               #d0d1cc;
+  --menu-item-hover:       #c4c5bf;
+  --menu-item-active-text: #cccdc8;
+  --menu-divider:          #9a8068;
+  --input-bg:              #D7DBDD;
+  --input-focus-border:    #0069D1;
+  --button-hover:          #c4c5bf;
+
+  /* ── Sliders — bright silver knobs ── */
+  --slider-track:       #9a9a93;
+  --slider-thumb:       #e4e4de;   /* aluminium knob */
+  --slider-thumb-hover: #f2f2ec;
+
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #a8a499;
+  --scrollbar-thumb-hover: #8c887d;
+  --scrollbar-track:       transparent;
+
+  /* ── Player bar — black dial glass ── */
+  --volume-accent:             #38A9FF;   /* volume slider fill */
+  --waveform-played:           #38A9FF;   /* played portion — dial blue */
+  --waveform-unplayed:         #0f1215;   /* unplayed — near-black on black */
+  --waveform-buffered:         #3a4048;
+  --player-title:              #87D1FF;   /* track name — lit dial readout */
+  --player-artist:             #87D1FF;   /* artist — same dial blue */
+  --player-control:            #e4e4de;   /* transport icon color — champagne */
+  --player-control-hover:      #0069D1;
+  --player-control-hover-bg:   #242424;
+  --player-border:             #23242A;   /* top seam of dial */
+  --player-time-toggle-hover:  #242424;
+  --player-time-toggle-active: #0069D1;
+}
+
+
+/* Section labels (LIBRARY, SYSTEM) */
+[data-theme='hifi-73'] .sidebar-section-label {
+  letter-spacing: 0.12em;
+  font-weight:   800;
+  text-transform:  uppercase;
+}
+
+
+/* ============================================================
+   SIDEBAR
+   Left panel — aluminium faceplate surface.
+   Light enters from the right (toward main content) so the
+   gradient goes from lighter at the right edge to the base
+   aluminium at the left.
+   ============================================================ */
+
+[data-theme='hifi-73'] .sidebar {
+  background-color: #D7DBDD;
+  background-image: linear-gradient(270deg, #EBEBED 0%, #D7DBDD 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-right: 0px solid #EBEBED !important;
+}
+
+[data-theme='hifi-73'] {
+  --logo-color-start: #171717;
+  --logo-color-end:   #171717;
+
+}
+
+/* Sidebar nav labels — all-caps engraved faceplate feel */
+[data-theme='hifi-73'] .nav-link {
+  text-transform:  uppercase;
+  font-size: 0.9em;
+  font-weight:     800;
+}
+
+
+
+/* Smooth hover — items fade in/out like a lamp warming up */
+[data-theme='hifi-73'] .nav-link {
+  transition:
+    background 0.30s ease-out,
+    color      0.30s ease-out;
+}
+
+/* Active indicator bar — amber tuning-scale glow.
+   The bar carries the full active state; no background fill needed.
+   To adjust intensity: raise/lower the box-shadow opacity values.
+   To adjust color: change #E8A020 and the rgba values to match. */
+[data-theme='hifi-73'] .nav-link.active::before {
+  background: #E8A020;
+  width: 3px;
+  box-shadow:
+    0 0 5px  rgba(232, 160, 32, 1.00),
+    0 0 14px rgba(232, 160, 32, 0.75),
+    0 0 28px rgba(200, 120, 10, 0.50),
+    0 0 45px rgba(200, 120, 10, 0.25);
+  transition:
+    box-shadow 0.30s ease-out,
+    background 0.30s ease-out,
+    opacity    0.30s ease-out;
+}
+
+[data-theme='hifi-73'] .nav-link::before {
+  transition:
+    box-shadow 0.30s ease-out,
+    background 0.30s ease-out,
+    opacity    0.30s ease-out;
+}
+
+/* Now Playing nav item — stays same color as other items.
+   The pulsing dot below carries the "something is playing" signal. */
+[data-theme='hifi-73'] .nav-link-nowplaying,
+[data-theme='hifi-73'] .nav-link-nowplaying:hover,
+[data-theme='hifi-73'] .nav-link-nowplaying.active {
+  color: #00081a;
+}
+
+/* Now Playing pulse dot — red pilot lamp.
+   Always physically present (never disappears), just breathes
+   between full-bright and 40% opacity like a lamp on a dimmer.
+   To adjust speed: change the 2.0s duration.
+   To adjust dim point: change the 50% opacity value (currently 0.40). */
+[data-theme='hifi-73'] .nav-np-dot {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #e32525 0%,
+    #dd2020 45%,
+    #8a0a0a 100%
+  );
+  animation: hifi-73-np-pulse 2.0s ease-in-out infinite;
+}
+
+@keyframes hifi-73-np-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow:
+      0 0 4px  rgba(210, 59, 48, 0.95),
+      0 0 12px rgba(210, 59, 48, 0.70),
+      0 0 24px rgba(180, 20, 20, 0.45);
+  }
+  50% {
+    opacity: 0.40;
+    box-shadow:
+      0 0 2px rgba(210, 59, 48, 0.30);
+  }
+}
+
+
+/* ============================================================
+   CONTENT HEADER
+   Top bar across the main content area — continues the
+   faceplate surface. Gradient mirrors the sidebar direction
+   so the whole face reads as one continuous panel.
+   ============================================================ */
+
+[data-theme='hifi-73'] .content-header {
+  background: linear-gradient(270deg, #D7DBDD 0%, #EBEBED 100%);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #ababab 0%,
+    #c4c4cc 50%,   /* bright silver catch at center */
+    #8a8a94 75%,
+    #ababab 100%
+  ) 1;
+
+}
+
+/* Search bar — blue focus ring when active */
+[data-theme='hifi-73'] .live-search-field-cluster:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(56, 169, 255, 0.30),
+    0 0 10px rgba(0, 105, 209, 0.20);
+}
+
+/* Connection LED — red jewel pilot light.
+   Connected: warm up fast (ease-out), lamp reaches full brightness quickly.
+   Disconnected: hold briefly then fade out (ease-in), filament cooling.
+   To change color: replace the red values throughout with your target hue. */
+[data-theme='hifi-73'] .connection-led--connected {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #ee3535 0%,    /* warm red center */
+    #dd2020 45%,   /* saturated body */
+    #8a0a0a 100%   /* deep dark rim */
+  );
+  box-shadow:
+    0 0 6px  rgba(210, 59, 48, 0.90),
+    0 0 14px rgba(210, 59, 48, 0.50),
+    0 0 24px rgba(180, 20, 20, 0.28);
+  transition:
+    background 0.4s ease-out,   /* lamp warms up fast, settles slowly */
+    box-shadow 0.4s ease-out;
+}
+
+[data-theme='hifi-73'] .connection-led--disconnected {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #2a0808 0%,    /* dark red — lens still visible when off */
+    #150303 55%,
+    #0a0202 100%
+  );
+  box-shadow: none;
+  transition:
+    background 0.6s ease-in,    /* lamp holds briefly then fades */
+    box-shadow 0.5s ease-in;    /* glow dies just before lens goes dark */
+}
+
+
+/* ============================================================
+   QUEUE PANEL
+   Right panel — continues the faceplate surface.
+   Gradient runs left-to-right (light from the main content
+   side), darker at left edge where it meets the body.
+   The queue header, now-playing card, and toolbar form a
+   vertical stack: silver → black dial → black toolbar.
+   ============================================================ */
+
+/* Queue panel body — silver faceplate */
+[data-theme='hifi-73'] .queue-panel {
+  background: linear-gradient(90deg, #D7DBDD 0%, #EBEBED 100%);
+  border-left: 1px solid #D7DBDD !important;
+  border-bottom: 2px solid #ababab !important; 
+}
+
+/* Queue header — matches faceplate */
+[data-theme='hifi-73'] .queue-header {
+  background: linear-gradient(45deg, #D7DBDD 0%, #EBEBED 100%);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(
+    270deg,
+    #ababab 0%,
+    #c4c4cc 50%,   /* bright silver catch at center */
+    #8a8a94 75%,
+    #ababab 100%
+  ) 1;
+}
+
+
+/* Now-playing card — slightly deeper black */
+[data-theme='hifi-73'] .queue-current-track,
+[data-theme='hifi-73'] .queue-current-track * {
+  border-bottom: none !important;
+  border-color: transparent !important;
+}
+
+[data-theme='hifi-73'] .queue-current-track {
+  background: #0a0c0e;
+}
+
+/* Track title — full dial glow */
+[data-theme='hifi-73'] .queue-current-info h3 {
+  color: #87D1FF;
+  text-transform:  uppercase;
+  font-weight:     800;
+  text-shadow:
+    0 0 5px #38A9FF,
+    0 0 8px #0069D1,
+    0 0 11px #0019D7;
+}
+
+/* Artist / album / year */
+[data-theme='hifi-73'] .queue-current-sub,
+[data-theme='hifi-73'] .queue-current-sub.is-link,
+[data-theme='hifi-73'] .queue-current-sub .is-link {
+  color: #87D1FF;
+  text-transform:  uppercase;
+   font-weight:     500;
+  text-shadow:
+    0 0 4px #38A9FF,
+    0 0 7px #0069D1,
+    0 0 10px #0019D7;
+}
+
+[data-theme='hifi-73'] .queue-current-sub.is-link:hover,
+[data-theme='hifi-73'] .queue-current-sub .is-link:hover {
+  color: #aadeff;
+   font-weight:    500;
+  text-shadow:
+    0 0 5px #38A9FF,
+    0 0 9px #0069D1,
+    0 0 13px #0019D7;
+}
+
+/* Tech info strip — red glow */
+[data-theme='hifi-73'] .queue-current-tech {
+  background: #0a0c0e;
+  color: #d23b30;
+  text-shadow:
+    0 0 4px  rgba(210, 59, 48, 0.95),
+    0 0 10px rgba(210, 59, 48, 0.65),
+    0 0 20px rgba(210, 59, 48, 0.30);
+  border-top:    1px solid #1a0f0e;
+  border-bottom: 1px solid #1a0f0e;
+}
+
+/* RG / Loudness badge */
+[data-theme='hifi-73'] .queue-current-tech-rg-badge {
+  color: #87D1FF;
+  border-color: rgba(56, 169, 255, 0.45);
+  background: rgba(56, 169, 255, 0.10);
+  box-shadow:
+    0 0 4px  rgba(56, 169, 255, 0.50),
+    0 0 10px rgba(0,  105, 209, 0.25);
+}
+
+[data-theme='hifi-73'] .queue-current-tech-rg-badge:hover {
+  color: #aadeff;
+  border-color: rgba(56, 169, 255, 0.70);
+  background: rgba(56, 169, 255, 0.18);
+  box-shadow:
+    0 0 6px  rgba(56, 169, 255, 0.70),
+    0 0 14px rgba(0,  105, 209, 0.40);
+}
+
+/* Queue toolbar — same green AUX treatment, reads even better on dark */
+[data-theme='hifi-73'] .queue-toolbar {
+  background: #0a0c0e;
+  border-top:    none;
+  border-bottom: 1px solid #050605;
+  box-shadow: none;
+}
+
+[data-theme='hifi-73'] .queue-toolbar-sep {
+  background: #1a221a;
+}
+
+[data-theme='hifi-73'] .queue-round-btn {
+  background: #0a110a;
+  color: #1e361e;
+  border: 1px solid #111f11;
+}
+
+[data-theme='hifi-73'] .queue-round-btn:hover:not(:disabled) {
+  background: #122412;
+  color: #5bbf4a;
+  border-color: #2a5a2a;
+  box-shadow:
+    0 0 4px  rgba(91, 191, 74, 0.50),
+    0 0 10px rgba(91, 191, 74, 0.25);
+}
+
+[data-theme='hifi-73'] .queue-round-btn.active {
+  background: #0d1a0d;
+  color: #7AE870;
+  border-color: #2a5a2a;
+  box-shadow:
+    0 0 4px  rgba(122, 232, 112, 0.80),
+    0 0 10px rgba(91,  191, 74,  0.50),
+    0 0 20px rgba(91,  191, 74,  0.25);
+}
+
+[data-theme='hifi-73'] .queue-round-btn.active svg {
+  filter:
+    drop-shadow(0 0 2px rgba(122, 232, 112, 0.90))
+    drop-shadow(0 0 5px rgba(91,  191, 74,  0.60));
+}
+
+
+/* ============================================================
+   PLAYER BAR — BLACK DIAL
+   The bottom strip is the dial glass: deep black with all
+   readouts glowing in the SX-626's cyan-blue illumination.
+   Text glows use the same four-stop palette throughout:
+   #38A9FF (bright) → #0069D1 (mid) → #0019D7 (deep) → #000F32 (atmospheric)
+   ============================================================ */
+
+/* Force solid black even when the floating player option is on */
+
+[data-theme='hifi-73'] .player-bar {
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #1e1e22 0%,
+    #8a8a94 25%,
+    #c4c4cc 50%,   /* bright silver catch at center */
+    #8a8a94 75%,
+    #1e1e22 100%
+  ) 1;
+}
+
+
+[data-theme='hifi-73'] .player-bar.floating {
+  background: var(--bg-player);
+}
+
+/* Track name — full dial glow.
+   Intensifies with a fourth atmospheric layer when playing. */
+[data-theme='hifi-73'] .player-track-name {
+  text-transform:  uppercase;
+  font-weight:     800;
+  text-shadow:
+    0 0 5px  #38A9FF,
+    0 0 8px  #0069D1,
+    0 0 11px #0019D7;
+}
+
+[data-theme='hifi-73'][data-playing='true'] .player-track-name {
+  text-transform:  uppercase;
+  font-weight:     800;
+  text-shadow:
+    0 0 5px  #38A9FF,
+    0 0 8px  #0069D1,
+    0 0 11px #0019D7,
+    0 0 16px #000F32;
+}
+
+/* Artist name — same glow language as track name */
+[data-theme='hifi-73'] .player-track-artist {
+  text-transform:  uppercase;
+  text-shadow:
+    0 0 5px  #38A9FF,
+    0 0 8px  #0069D1,
+    0 0 11px #0019D7;
+}
+
+/* Time counter */
+[data-theme='hifi-73'] .player-time {
+  color: #87D1FF;
+   letter-spacing: 0.05em;
+  text-shadow:
+    0 0 5px  #38A9FF,
+    0 0 8px  #0069D1,
+    0 0 11px #0019D7,
+    0 0 16px #000F32;
+}
+
+/* Waveform seekbar — blue played portion glows over dark unplayed.
+   Note: filter applies to the whole canvas so both played and unplayed
+   bars receive some glow — unplayed is near-black so it's barely visible. */
+/*[data-theme='hifi-73'] .waveform-seek-container canvas {
+  filter:
+    drop-shadow(0 0 3px rgba(56, 169, 255, 0.70))
+    drop-shadow(0 0 7px rgba(0, 105, 209, 0.40));
+}*/
+
+/* Transport icons (stop, prev, next, shuffle, repeat, etc.)
+   Faint champagne glow at rest — icon brightens on hover, no circle. */
+[data-theme='hifi-73'] .player-btn:not(.player-btn-primary) svg {
+  filter: drop-shadow(0 0 2px rgba(228, 228, 222, 0.45));
+}
+
+[data-theme='hifi-73'] .player-btn:not(.player-btn-primary):hover {
+  color: var(--player-control) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+[data-theme='hifi-73'] .player-btn:not(.player-btn-primary):hover svg {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.80));
+}
+
+/* Mute button — overrides inline style; matches other transport icons.
+   Goes red when muted (if :has() is supported), gracefully stays
+   champagne if not — either way the VolumeX icon communicates muted. */
+[data-theme='hifi-73'] .player-volume-section .player-btn {
+  color: var(--player-control) !important;
+}
+
+[data-theme='hifi-73'] .player-volume-section .player-btn:has(.lucide-volume-x) {
+  color: #d23b30 !important;
+  filter: drop-shadow(0 0 3px rgba(210, 59, 48, 0.70));
+}
+
+/* Rating stars — gold glow matching --highlight */
+[data-theme='hifi-73'] .player-star-btn.is-starred svg {
+  filter:
+    drop-shadow(0 0 2px rgba(192, 144, 42, 0.80))
+    drop-shadow(0 0 5px rgba(192, 144, 42, 0.40));
+}
+
+/* Play button — three states like a physical indicator lamp.
+   Rest: unlit dark navy — lamp is off, triangle barely visible.
+   Playing: muted blue face with dial-blue triangle and ring glow.
+   Hover: brightest state — lamp fully driven.
+   To adjust the hierarchy: ring (border) is always lightest,
+   face (background) is mid, triangle (color) sits between them. */
+
+/* Rest — unlit */
+[data-theme='hifi-73'] .player-btn-primary {
+  background: #0d1525;
+  color: #1e3a6e;
+  border: 1px solid #1a2d4a;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.70),
+    0 0 6px  rgba(56, 169, 255, 0.15);
+}
+
+[data-theme='hifi-73'] .player-btn-primary svg {
+  filter: none;
+}
+
+/* Playing — lit */
+[data-theme='hifi-73'][data-playing='true'] .player-btn-primary {
+  background: #1565B0;                        /* muted blue face */
+  color: #87D1FF;                             /* dial-blue triangle */
+  border: 1px solid rgba(56, 169, 255, 0.60); /* accent blue ring */
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.60),
+    0 0 10px rgba(56,  169, 255, 0.70),
+    0 0 28px rgba(0,   105, 209, 0.45),
+    0 0 60px rgba(0,   25,  215, 0.22);
+}
+
+[data-theme='hifi-73'][data-playing='true'] .player-btn-primary svg {
+  filter: drop-shadow(0 0 3px rgba(56, 169, 255, 0.65));
+}
+
+/* Hover — brightest */
+[data-theme='hifi-73'] .player-btn-primary:hover {
+  background: #1A78CC;                          /* brighter face */
+  color: #C4E8FF;                               /* brighter triangle */
+  border: 1px solid rgba(180, 230, 255, 0.95);  /* bright ring */
+  box-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.60),
+    0 0 14px rgba(56,  169, 255, 0.85),
+    0 0 32px rgba(0,   105, 209, 0.55),
+    0 0 65px rgba(0,   25,  215, 0.28);
+}
+
+[data-theme='hifi-73'] .player-btn-primary:hover svg {
+  filter: drop-shadow(0 0 4px rgba(196, 232, 255, 0.70));
+}
