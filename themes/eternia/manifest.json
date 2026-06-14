@@ -1,0 +1,9 @@
+{
+  "id": "eternia",
+  "name": "Eternia",
+  "author": "Psychotoxical",
+  "version": "1.0.0",
+  "description": "Light chrome theme in silver, steel-blue and power-red, inspired by the 1980s Masters of the Universe logo. Headings use the Macondo font by John Vargas Beltran (SIL OFL).",
+  "mode": "light",
+  "tags": ["light", "silver", "steel-blue", "red", "chrome", "retro", "cartoon"]
+}
