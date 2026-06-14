@@ -311,9 +311,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   transition: background var(--transition-fast),
   border-color var(--transition-fast),
   box-shadow var(--transition-fast);
+}
+
+[data-theme='mainframe-dark'] .titlebar-btn::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
 }
 
 [data-theme='mainframe-dark'] .titlebar-btn-close::before   { content: '×'; font-size: 14px; }
