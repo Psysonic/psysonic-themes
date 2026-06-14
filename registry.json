@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-14T03:14:57.900Z",
+  "generatedAt": "2026-06-14T03:32:22.452Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -339,7 +339,7 @@
       "animated": true,
       "css": "themes/eternia/theme.css",
       "thumbnail": "themes/eternia/thumbnail.webp",
-      "updatedAt": "2026-06-14T05:14:37+02:00"
+      "updatedAt": "2026-06-14T03:14:58Z"
     },
     {
       "id": "frappe",
@@ -883,6 +883,25 @@
       "css": "themes/obsidian-gold/theme.css",
       "thumbnail": "themes/obsidian-gold/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "oceanic-next",
+      "name": "Oceanic Next",
+      "author": "Psychotoxical",
+      "version": "1.0.0",
+      "description": "Dark theme based on the Oceanic Next palette by Dmitri Voronianski (MIT) — deep slate blues with teal and blue accents and warm reds and yellows.",
+      "mode": "dark",
+      "tags": [
+        "dark",
+        "blue",
+        "teal",
+        "slate",
+        "base16",
+        "editor"
+      ],
+      "css": "themes/oceanic-next/theme.css",
+      "thumbnail": "themes/oceanic-next/thumbnail.webp",
+      "updatedAt": "2026-06-14T05:31:56+02:00"
     },
     {
       "id": "one-dark",
