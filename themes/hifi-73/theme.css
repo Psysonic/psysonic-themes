@@ -154,6 +154,7 @@
 /* Sidebar nav labels — all-caps engraved faceplate feel */
 [data-theme='hifi-73'] .nav-link {
   text-transform:  uppercase;
+  letter-spacing: 0.02em;
   font-size: 0.9em;
   font-weight:     800;
 }
@@ -172,7 +173,7 @@
    To adjust intensity: raise/lower the box-shadow opacity values.
    To adjust color: change #E8A020 and the rgba values to match. */
 [data-theme='hifi-73'] .nav-link.active::before {
-  background: #E8A020;
+  background: #e39816;
   width: 3px;
   box-shadow:
     0 0 5px  rgba(232, 160, 32, 1.00),
@@ -462,6 +463,12 @@
     #8a8a94 75%,
     #1e1e22 100%
   ) 1;
+}
+
+[data-theme='hifi-73'] .player-album-art-wrap,
+[data-theme='hifi-73'] .player-album-art,
+[data-theme='hifi-73'] .player-album-art-placeholder {
+  background: #0a0c0e;
 }
 
 
