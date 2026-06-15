@@ -2,10 +2,15 @@
   "id": "dark-side-of-the-moon",
   "name": "Dark Side of the Moon (inspired)",
   "author": "Psysonic",
-  "version": "1.0.0",
-  "description": "Inspired by Pink Floyd's Dark Side of the Moon.",
+  "version": "1.0.1",
+  "description": "Inspired by Pink Floyd's Dark Side of the Moon. Pure void black with a prism-spectrum rainbow accent.",
   "mode": "dark",
   "tags": [
-    "famous-albums"
+    "famous-albums",
+    "dark",
+    "black",
+    "spectrum",
+    "rainbow",
+    "pink-floyd"
   ]
 }
