@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-14T21:57:53.813Z",
+  "generatedAt": "2026-06-15T04:56:12.084Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -528,7 +528,7 @@
       "animated": true,
       "css": "themes/hifi-73-noir/theme.css",
       "thumbnail": "themes/hifi-73-noir/thumbnail.webp",
-      "updatedAt": "2026-06-13T23:30:32-07:00"
+      "updatedAt": "2026-06-14T16:36:36-07:00"
     },
     {
       "id": "hill-valley-85",
@@ -717,7 +717,7 @@
       "mode": "dark",
       "css": "themes/monolith-dark/theme.css",
       "thumbnail": "themes/monolith-dark/thumbnail.webp",
-      "updatedAt": "2026-06-14T23:28:47+02:00"
+      "updatedAt": "2026-06-14T21:57:53Z"
     },
     {
       "id": "monolith-light",
@@ -728,7 +728,7 @@
       "mode": "light",
       "css": "themes/monolith-light/theme.css",
       "thumbnail": "themes/monolith-light/thumbnail.webp",
-      "updatedAt": "2026-06-14T23:53:21+02:00"
+      "updatedAt": "2026-06-14T21:57:53Z"
     },
     {
       "id": "morpheus",
