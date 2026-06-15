@@ -1,0 +1,650 @@
+/* ============================================================
+   Hi-Fi 83 — inspired by the black-face receivers of the early 1980s.
+   Nakamichi, black-series Pioneer, early black Marantz.
+
+
+   CSS organised top-to-bottom by UI position:
+   Tokens → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: dark
+   Validate: node scripts/validate-theme.mjs themes/hifi-83
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='hifi-83'] {
+  color-scheme: dark;
+
+  /* ── Accent — amber VFD illumination ── */
+  --accent:      #FFB000;
+  --accent-dim:  rgba(255, 176, 0, 0.18);
+  --accent-glow: rgba(255, 176, 0, 0.35);
+  --accent-2:    #E8900A;
+
+  /* ── Backgrounds — black anodized faceplate ── */
+  --bg-app:      #18191c;
+  --bg-sidebar:  #141518;
+  --bg-card:     #202326;
+  --bg-hover:    #252729;
+  --bg-elevated: #2a2c30;
+  --bg-player:   #0a0c0e;
+  --bg-deep:     #0e0f12;
+  --bg-glass:    rgba(20, 21, 24, 0.82);
+  --modal-bg:    #1e2024;
+
+  /* ── Borders — dark grey ── */
+  --border:          #2e2e33;
+  --border-subtle:   #1e1e22;
+  --border-dropdown: #38383e;
+
+  /* ── Text — champagne engraving on dark metal ── */
+  --text-primary:   #efeade;
+  --text-secondary: #c4bfb1;
+  --text-muted:     rgba(239, 234, 222, 0.50);
+  --text-on-accent: #0a0500;
+
+  /* ── Status ── */
+  --danger:    #e3686f;
+  --positive:  #5cc6a0;
+  --warning:   #FFB000;
+  --highlight: #FFB000;   /* rating stars — VFD amber */
+
+  /* ── Select arrow ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23c4bfb1%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.60);
+
+  /* ── Sidebar ── */
+  --sidebar-text:             #c4bfb1;
+  --sidebar-item-hover:       rgba(255, 255, 255, 0.06);
+  --sidebar-item-active-bg:   transparent;
+  --sidebar-item-active-text: #c4bfb1;
+  --sidebar-border:           #2e2e33;
+
+  /* ── Library rows ── */
+  --row-hover:          #252729;
+  --row-divider:        #3a3530;
+  --row-text:           #efeade;
+  --row-text-secondary: #c4bfb1;
+  --row-text-muted:     #8a8576;
+  --row-playing-bg:     rgba(255, 176, 0, 0.12);
+  --row-playing-text:   #FFB000;
+  --col-header-text:    #8a8576;
+
+  /* ── Cards ── */
+  --card-title:          #efeade;
+  --card-subtitle:       #c4bfb1;
+  --card-hover-border:   #6b4a33;
+  --card-placeholder-bg: #202326;
+
+  /* ── Menus / inputs ── */
+  --menu-bg:               #1e2024;
+  --menu-item-hover:       #252729;
+  --menu-item-active-text: #efeade;
+  --menu-divider:          #2e2e33;
+  --input-bg:              #202326;
+  --input-focus-border:    #FFB000;
+  --button-hover:          #252729;
+
+  /* ── Sliders — bright silver knobs ── */
+  --slider-track:       #3a3832;
+  --slider-thumb:       #e4e4de;
+  --slider-thumb-hover: #f2f2ec;
+
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #3a3530;
+  --scrollbar-thumb-hover: #4a4540;
+  --scrollbar-track:       transparent;
+
+  /* ── Player bar — amber VFD dial ── */
+  --volume-accent:             #FFB000;
+  --waveform-played:           #FFB000;
+  --waveform-unplayed:         #1a1608;
+  --waveform-buffered:         #2a2010;
+  --player-title:              #FFB000;
+  --player-artist:             #E8900A;
+  --player-control:            #e4e4de;
+  --player-control-hover:      #FFB000;
+  --player-control-hover-bg:   #141518;
+  --player-border:             #4a3b28;
+  --player-time-toggle-hover:  #141518;
+  --player-time-toggle-active: #FFB000;
+
+  
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+[data-theme='hifi-83'] .sidebar {
+  background-color: #141518;
+  background-image: linear-gradient(270deg, #1e2024 0%, #141518 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-right: 0px solid #141518 !important;
+}
+
+[data-theme='hifi-83'] .sidebar-brand svg stop:first-child {
+  stop-color: #f0f0f8 !important;
+}
+
+[data-theme='hifi-83'] .sidebar-brand svg stop:last-child {
+  stop-color: #909098 !important;
+}
+
+[data-theme='hifi-83'] .nav-link {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.9em;
+  font-weight: 800;
+  transition:
+    background 0.30s ease-out,
+    color      0.30s ease-out;
+}
+
+[data-theme='hifi-83'] .sidebar-section-label {
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}
+
+/* Active bar — red pilot lamp, offsets the amber VFD display */
+[data-theme='hifi-83'] .nav-link.active::before {
+  background: linear-gradient(
+    180deg,
+    #ff6060 0%,
+    #e02020 35%,
+    #ad1111 70%,
+    #e02020 100%
+  );
+  width: 3px;
+  box-shadow:
+    0 0 4px  rgba(220, 40, 40, 0.90),
+    0 0 10px rgba(210, 30, 30, 0.65),
+    0 0 22px rgba(180, 20, 20, 0.40),
+    0 0 38px rgba(160, 10, 10, 0.20);
+  transition:
+    box-shadow 0.30s ease-out,
+    background 0.30s ease-out,
+    opacity    0.30s ease-out;
+}
+
+[data-theme='hifi-83'] .nav-link::before {
+  transition:
+    box-shadow 0.30s ease-out,
+    background 0.30s ease-out,
+    opacity    0.30s ease-out;
+}
+
+/* Now Playing */
+[data-theme='hifi-83'] .nav-link-nowplaying,
+[data-theme='hifi-83'] .nav-link-nowplaying:hover,
+[data-theme='hifi-83'] .nav-link-nowplaying.active {
+  color: #c4bfb1;
+}
+
+/* Now Playing dot — red pilot lamp */
+[data-theme='hifi-83'] .nav-np-dot {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #e32525 0%,
+    #dd2020 45%,
+    #8a0a0a 100%
+  );
+  animation: hifi-83-np-pulse 2.0s ease-in-out infinite;
+}
+
+@keyframes hifi-83-np-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow:
+      0 0 4px  rgba(210, 59, 48, 0.95),
+      0 0 12px rgba(210, 59, 48, 0.70),
+      0 0 24px rgba(180, 20, 20, 0.45);
+  }
+  50% {
+    opacity: 0.40;
+    box-shadow:
+      0 0 2px rgba(210, 59, 48, 0.30);
+  }
+}
+
+
+/* ============================================================
+   CONTENT HEADER
+   ============================================================ */
+
+[data-theme='hifi-83'] .content-header {
+  background: linear-gradient(270deg, #141518 0%, #1e2024 100%);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #2e2e33 0%,
+    #93939a 40%,   /* bright silver catch at center */
+    #a3a3ad 60%,
+    #2e2e33 100%
+  ) 1;
+}
+
+/* Search bar focus — amber glow */
+[data-theme='hifi-83'] .live-search-field-cluster:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(255, 176, 0, 0.35),
+    0 0 10px rgba(232, 144, 10, 0.25);
+}
+
+/* Connection LED — red jewel pilot light */
+[data-theme='hifi-83'] .connection-led--connected {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #ee3535 0%,
+    #dd2020 45%,
+    #8a0a0a 100%
+  );
+  box-shadow:
+    0 0 6px  rgba(210, 59, 48, 0.90),
+    0 0 14px rgba(210, 59, 48, 0.50),
+    0 0 24px rgba(180, 20, 20, 0.28);
+  transition:
+    background 0.4s ease-out,
+    box-shadow 0.4s ease-out;
+}
+
+[data-theme='hifi-83'] .connection-led--disconnected {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #2a0808 0%,
+    #150303 55%,
+    #0a0202 100%
+  );
+  box-shadow: none;
+  transition:
+    background 0.6s ease-in,
+    box-shadow 0.5s ease-in;
+}
+
+
+/* ============================================================
+   QUEUE PANEL
+   ============================================================ */
+
+[data-theme='hifi-83'] .queue-panel {
+  background: linear-gradient(90deg, #141518 0%, #1a1b1f 100%);
+  border-left: 1px solid #141518;
+}
+
+[data-theme='hifi-83'] .queue-header {
+  background: linear-gradient(90deg, #141518 0%, #1e2024 100%);
+  border-bottom: 1px solid #2e2e33;
+}
+
+/* Now-playing card — black VFD panel */
+[data-theme='hifi-83'] .queue-current-track,
+[data-theme='hifi-83'] .queue-current-track * {
+  border-bottom: none !important;
+  border-color: transparent !important;
+}
+
+[data-theme='hifi-83'] .queue-current-track {
+  background: #0a0c0e;
+  position: relative;
+}
+
+[data-theme='hifi-83'] .queue-current-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent         0px,
+    transparent         3px,
+    rgba(0, 0, 0, 0.10) 3px,
+    rgba(0, 0, 0, 0.10) 4px
+  );
+  z-index: 2;
+}
+
+/* Track title — bright amber VFD */
+[data-theme='hifi-83'] .queue-current-info h3 {
+  color: #FFB000;
+  text-transform: uppercase;
+  font-weight: 800;
+  text-shadow:
+    0 0 5px  rgba(255, 176, 0, 0.90),
+    0 0 10px rgba(255, 176, 0, 0.60),
+    0 0 18px rgba(232, 144, 10, 0.35);
+}
+
+/* Artist / album / year — slightly dimmer amber */
+[data-theme='hifi-83'] .queue-current-sub,
+[data-theme='hifi-83'] .queue-current-sub.is-link,
+[data-theme='hifi-83'] .queue-current-sub .is-link {
+  color: #E8900A;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-shadow:
+    0 0 4px  rgba(232, 144, 10, 0.80),
+    0 0 8px  rgba(232, 144, 10, 0.45),
+    0 0 14px rgba(200, 110, 0, 0.25);
+}
+
+[data-theme='hifi-83'] .queue-current-sub.is-link:hover,
+[data-theme='hifi-83'] .queue-current-sub .is-link:hover {
+  color: #FFB000;
+  text-shadow:
+    0 0 5px  rgba(255, 176, 0, 0.90),
+    0 0 10px rgba(255, 176, 0, 0.55),
+    0 0 18px rgba(232, 144, 10, 0.30);
+}
+
+/* Tech info strip — red glow */
+[data-theme='hifi-83'] .queue-current-tech {
+  background: #0a0c0e;
+  position: relative;
+  color: #d23b30;
+  text-shadow:
+    0 0 4px  rgba(210, 59, 48, 0.95),
+    0 0 10px rgba(210, 59, 48, 0.65),
+    0 0 20px rgba(210, 59, 48, 0.30);
+  border-top:    1px solid #1a0f0e;
+  border-bottom: 1px solid #1a0f0e;
+}
+
+[data-theme='hifi-83'] .queue-current-tech::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent         0px,
+    transparent         3px,
+    rgba(0, 0, 0, 0.10) 3px,
+    rgba(0, 0, 0, 0.10) 4px
+  );
+  z-index: 2;
+}
+
+/* RG badge — amber to match display */
+[data-theme='hifi-83'] .queue-current-tech-rg-badge {
+  color: #FFB000;
+  border-color: rgba(255, 176, 0, 0.45);
+  background: rgba(255, 176, 0, 0.10);
+  box-shadow:
+    0 0 4px  rgba(255, 176, 0, 0.50),
+    0 0 10px rgba(232, 144, 10, 0.25);
+}
+
+[data-theme='hifi-83'] .queue-current-tech-rg-badge:hover {
+  color: #FFD060;
+  border-color: rgba(255, 176, 0, 0.70);
+  background: rgba(255, 176, 0, 0.18);
+  box-shadow:
+    0 0 6px  rgba(255, 176, 0, 0.70),
+    0 0 14px rgba(232, 144, 10, 0.40);
+}
+
+/* Queue toolbar — green AUX buttons */
+[data-theme='hifi-83'] .queue-toolbar {
+  background: #0a0c0e;
+  border-top:    none;
+  border-bottom: 1px solid #050605;
+  box-shadow: none;
+}
+
+[data-theme='hifi-83'] .queue-toolbar-sep {
+  background: #2a1e00;
+}
+
+/* Resting — dim amber, lamp off */
+[data-theme='hifi-83'] .queue-round-btn {
+  background: #110d00;
+  color: #3a2800;
+  border: 1px solid #2a1e00;
+}
+
+/* Hover — warming up */
+[data-theme='hifi-83'] .queue-round-btn:hover:not(:disabled) {
+  background: #221500;
+  color: #E8900A;
+  border-color: #6a4400;
+  box-shadow:
+    0 0 4px  rgba(232, 144, 10, 0.50),
+    0 0 10px rgba(232, 144, 10, 0.25);
+}
+
+/* Active — fully lit VFD amber */
+[data-theme='hifi-83'] .queue-round-btn.active {
+  background: #1a1000;
+  color: #FFB000;
+  border-color: #6a4400;
+  box-shadow:
+    0 0 4px  rgba(255, 176, 0, 0.80),
+    0 0 10px rgba(232, 144, 10, 0.50),
+    0 0 20px rgba(200, 110, 0, 0.25);
+}
+
+[data-theme='hifi-83'] .queue-round-btn.active svg {
+  filter:
+    drop-shadow(0 0 2px rgba(255, 176, 0, 0.90))
+    drop-shadow(0 0 5px rgba(232, 144, 10, 0.60));
+}
+
+
+
+/* Album art — scanlines applied directly via ::after on the cover container */
+[data-theme='hifi-83'] .player-album-art-wrap {
+  position: relative;
+  z-index: 11;  /* still above player bar text scanlines */
+}
+
+/* Player bar art — fine pitch, matches text scanlines */
+[data-theme='hifi-83'] .player-album-art-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent         0px,
+    transparent         3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  z-index: 1;
+}
+
+/* Queue panel art — wider pitch for the larger image */
+[data-theme='hifi-83'] .queue-current-cover {
+  position: relative;
+}
+
+[data-theme='hifi-83'] .queue-current-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent         0px,
+    transparent         5px,
+    rgba(0, 0, 0, 0.12) 5px,
+    rgba(0, 0, 0, 0.12) 6px
+  );
+  z-index: 1;
+}
+
+/* ============================================================
+   PLAYER BAR — AMBER VFD DIAL
+   All readouts glow in vacuum fluorescent amber.
+   Three-stop glow: bright (#FFB000) → body (#E8900A) → deep (#7A4000)
+   ============================================================ */
+
+[data-theme='hifi-83'] .player-bar {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    #1e1e22 0%,
+    #8a8a94 25%,
+    #c4c4cc 50%,
+    #8a8a94 75%,
+    #1e1e22 100%
+  ) 1;
+}
+
+[data-theme='hifi-83'] .player-bar.floating {
+  background: var(--bg-player);
+}
+
+/* Scanline overlay — fine VFD pixel-row texture */
+[data-theme='hifi-83'] .player-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent         0px,
+    transparent         3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  z-index: 10;
+}
+
+/* Track name — bright VFD amber */
+[data-theme='hifi-83'] .player-track-name {
+  text-transform: uppercase;
+  font-weight: 800;
+  text-shadow:
+    0 0 5px  rgba(255, 176, 0, 0.90),
+    0 0 10px rgba(255, 176, 0, 0.60),
+    0 0 18px rgba(232, 144, 10, 0.35);
+}
+
+[data-theme='hifi-83'][data-playing='true'] .player-track-name {
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px  rgba(255, 176, 0, 0.95),
+    0 0 10px rgba(255, 176, 0, 0.70),
+    0 0 18px rgba(232, 144, 10, 0.45),
+    0 0 28px rgba(200, 110, 0, 0.20);
+}
+
+/* Artist — slightly dimmer */
+[data-theme='hifi-83'] .player-track-artist {
+  text-transform: uppercase;
+  text-shadow:
+    0 0 4px  rgba(232, 144, 10, 0.80),
+    0 0 8px  rgba(232, 144, 10, 0.45),
+    0 0 14px rgba(200, 110, 0, 0.25);
+}
+
+/* Time counter */
+[data-theme='hifi-83'] .player-time {
+  color: #FFB000;
+  letter-spacing: 0.05em;
+  text-shadow:
+    0 0 5px  rgba(255, 176, 0, 0.90),
+    0 0 10px rgba(255, 176, 0, 0.60),
+    0 0 18px rgba(232, 144, 10, 0.35),
+    0 0 28px rgba(200, 110, 0, 0.18);
+}
+
+/* Waveform — no glow, clean amber bars */
+[data-theme='hifi-83'] .waveform-seek-container canvas {
+  filter: none;
+}
+
+/* Transport icons — champagne at rest */
+[data-theme='hifi-83'] .player-btn:not(.player-btn-primary) svg {
+  filter: drop-shadow(0 0 2px rgba(228, 228, 222, 0.45));
+}
+
+[data-theme='hifi-83'] .player-btn:not(.player-btn-primary):hover {
+  color: var(--player-control) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+[data-theme='hifi-83'] .player-btn:not(.player-btn-primary):hover svg {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.80));
+}
+
+/* Mute button */
+[data-theme='hifi-83'] .player-volume-section .player-btn {
+  color: var(--player-control) !important;
+}
+
+[data-theme='hifi-83'] .player-volume-section .player-btn:has(.lucide-volume-x) {
+  color: #d23b30 !important;
+  filter: drop-shadow(0 0 3px rgba(210, 59, 48, 0.70));
+}
+
+/* Rating stars — amber glow */
+[data-theme='hifi-83'] .player-star-btn.is-starred svg {
+  filter:
+    drop-shadow(0 0 2px rgba(255, 176, 0, 0.90))
+    drop-shadow(0 0 5px rgba(232, 144, 10, 0.55));
+}
+
+/* Album art corners */
+[data-theme='hifi-83'] .player-album-art-wrap,
+[data-theme='hifi-83'] .player-album-art,
+[data-theme='hifi-83'] .player-album-art-placeholder {
+  background: #0a0c0e;
+}
+
+/* Play button — three-state amber lamp */
+
+/* Rest — unlit */
+[data-theme='hifi-83'] .player-btn-primary {
+  background: #1a1000;
+  color: #5a3800;
+  border: 1px solid #3a2400;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.70),
+    0 0 6px  rgba(255, 176, 0, 0.10);
+}
+
+[data-theme='hifi-83'] .player-btn-primary svg {
+  filter: none;
+}
+
+/* Playing — lit amber */
+[data-theme='hifi-83'][data-playing='true'] .player-btn-primary {
+  background: #7A4000;
+  color: #FFB000;
+  border: 1px solid rgba(255, 176, 0, 0.60);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.60),
+    0 0 10px rgba(255, 176, 0, 0.70),
+    0 0 28px rgba(232, 144, 10, 0.45),
+    0 0 60px rgba(200, 110, 0, 0.22);
+}
+
+[data-theme='hifi-83'][data-playing='true'] .player-btn-primary svg {
+  filter: drop-shadow(0 0 3px rgba(255, 176, 0, 0.65));
+}
+
+/* Hover — brightest amber */
+[data-theme='hifi-83'] .player-btn-primary:hover {
+  background: #9A5400;
+  color: #FFD060;
+  border: 1px solid rgba(255, 208, 96, 0.95);
+  box-shadow:
+    0 2px 14px rgba(0, 0, 0, 0.60),
+    0 0 14px rgba(255, 176, 0, 0.85),
+    0 0 32px rgba(232, 144, 10, 0.55),
+    0 0 65px rgba(200, 110, 0, 0.28);
+}
+
+[data-theme='hifi-83'] .player-btn-primary:hover svg {
+  filter: drop-shadow(0 0 4px rgba(255, 208, 96, 0.70));
+}
