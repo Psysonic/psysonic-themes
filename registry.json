@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-15T04:56:12.084Z",
+  "generatedAt": "2026-06-15T21:20:51.733Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -677,25 +677,25 @@
       "id": "mainframe-dark",
       "name": "Mainframe Dark",
       "author": "Asra",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Cold steel terminal aesthetic with animated PCB circuit sidebar. Deep dark backgrounds, Breeze-style titlebar buttons.",
       "mode": "dark",
       "animated": true,
       "css": "themes/mainframe-dark/theme.css",
       "thumbnail": "themes/mainframe-dark/thumbnail.webp",
-      "updatedAt": "2026-06-08T18:09:03+02:00"
+      "updatedAt": "2026-06-15T09:48:51+02:00"
     },
     {
       "id": "mainframe-light",
       "name": "Mainframe Light",
       "author": "Asra",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Inspired by Arch Linux terminal aesthetics and KDE Breeze titlebar controls. Recolor of Catppuccin Latte by the Catppuccin team, with an animated PCB-style sidebar.",
       "mode": "light",
       "animated": true,
       "css": "themes/mainframe-light/theme.css",
       "thumbnail": "themes/mainframe-light/thumbnail.webp",
-      "updatedAt": "2026-06-07T19:27:47+02:00"
+      "updatedAt": "2026-06-15T09:49:12+02:00"
     },
     {
       "id": "midnight-blue",
