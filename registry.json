@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-15T22:01:03.909Z",
+  "generatedAt": "2026-06-16T11:23:41.862Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -554,7 +554,7 @@
       "animated": true,
       "css": "themes/hifi-83/theme.css",
       "thumbnail": "themes/hifi-83/thumbnail.webp",
-      "updatedAt": "2026-06-15T21:22:34Z"
+      "updatedAt": "2026-06-15T21:02:53-07:00"
     },
     {
       "id": "hill-valley-85",
