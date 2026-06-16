@@ -2,8 +2,8 @@
   "id": "borealis",
   "name": "Borealis",
   "author": "Psysonic",
-  "version": "1.0.0",
-  "description": "Mid-tone slate-blue with animated aurora ribbons drifting across the player bar and sidebar. Not quite dark, not quite light.",
+  "version": "1.0.1",
+  "description": "Mid-tone slate-blue with an aurora ribbon drifting across the player bar. Not quite dark, not quite light.",
   "mode": "dark",
   "tags": [
     "animated",
