@@ -1,9 +1,11 @@
 /* ─── Borealis ─── */
-/* Mid-tone slate-blue — deliberately between dark and light. Aurora ribbons
-   (green → teal → cyan → violet) drift across the player bar, a slow aurora sky
-   shifts behind the main view, and the sidebar logo glows in the same spectrum.
-   No browns or ochres — cool northern-light palette only.
-   Animations respect prefers-reduced-motion (see the bottom of this file). */
+/* Mid-tone slate-blue — deliberately between dark and light. An aurora ribbon
+   (green → teal → cyan → violet) drifts across the player bar, a static aurora
+   band sits behind the main view, and the sidebar logo glows in the same
+   spectrum. No browns or ochres — cool northern-light palette only.
+   The only animation is the thin player-bar ribbon; the main-view sky is a
+   static gradient (animating it repainted the whole main view every frame and
+   burned CPU/GPU). The ribbon respects prefers-reduced-motion (bottom of file). */
 
 [data-theme='borealis'] {
   color-scheme: dark;
@@ -65,10 +67,11 @@
   --menu-item-hover: #352c4a;
 }
 
-/* ── The sky. A fixed vertical twilight gradient (plum night up top → petrol
-   horizon at the bottom) with a slow, subtle aurora band drifting across it.
-   The aurora layer animates via background-position (no blur/overlay → cheap);
-   the twilight layer stays put. ── */
+/* ── The sky. A static vertical twilight gradient (plum night up top → petrol
+   horizon at the bottom) with a subtle aurora band laid across it. This used to
+   animate via background-position, but that repaints the entire main view every
+   frame (no GPU compositing for background-position) and pegged the CPU/GPU on
+   large/HiDPI windows — so it is now a static gradient. ── */
 [data-theme='borealis'] .main-content {
   background:
     linear-gradient(
@@ -81,17 +84,7 @@
     ),
     linear-gradient(180deg, #2d2640 0%, #332b44 52%, #2b3a43 100%);
   background-size: 260% 260%, 100% 100%;
-  animation: borealis-sky 26s ease-in-out infinite;
-}
-
-@keyframes borealis-sky {
-  0%,
-  100% {
-    background-position: 0% 0%, 0 0;
-  }
-  50% {
-    background-position: 100% 100%, 0 0;
-  }
+  background-position: 50% 50%, 0 0;
 }
 
 /* ── Player bar — the aurora ribbon. A drifting multi-stop gradient on a thin
@@ -159,12 +152,9 @@
 }
 
 
-/* ── Reduced motion: keep the colours, drop the movement. ── */
+/* ── Reduced motion: keep the colours, drop the movement. The sky is already
+   static; this stills the player-bar ribbon (the only remaining animation). ── */
 @media (prefers-reduced-motion: reduce) {
-  [data-theme='borealis'] .main-content {
-    animation: none;
-    background-position: 50% 50%, 0 0;
-  }
   [data-theme='borealis'] .player-bar::before {
     animation: none;
     background-position: 50% 0;
