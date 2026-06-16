@@ -1,0 +1,16 @@
+{
+  "id": "borealis",
+  "name": "Borealis",
+  "author": "Psysonic",
+  "version": "1.0.0",
+  "description": "Mid-tone slate-blue with animated aurora ribbons drifting across the player bar and sidebar. Not quite dark, not quite light.",
+  "mode": "dark",
+  "tags": [
+    "animated",
+    "blue",
+    "teal",
+    "violet",
+    "aurora",
+    "mid-tone"
+  ]
+}

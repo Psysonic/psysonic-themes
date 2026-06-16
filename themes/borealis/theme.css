@@ -1,0 +1,172 @@
+/* ─── Borealis ─── */
+/* Mid-tone slate-blue — deliberately between dark and light. Aurora ribbons
+   (green → teal → cyan → violet) drift across the player bar, a slow aurora sky
+   shifts behind the main view, and the sidebar logo glows in the same spectrum.
+   No browns or ochres — cool northern-light palette only.
+   Animations respect prefers-reduced-motion (see the bottom of this file). */
+
+[data-theme='borealis'] {
+  color-scheme: dark;
+
+  /* Accent — aurora teal-mint + violet */
+  --accent: #5eead4;
+  --accent-dim: rgba(94, 234, 212, 0.16);
+  --accent-glow: rgba(94, 234, 212, 0.34);
+  --accent-2: #a78bfa;
+
+  /* Backgrounds — polar-night twilight: muted aubergine/plum with a petrol
+     undertone. Mid-tone, cool, and deliberately not the usual slate-blue. */
+  --bg-app: #332b44;
+  --bg-sidebar: #2a2438;
+  --bg-card: #3b3251;
+  --bg-hover: #463c5e;
+  --bg-elevated: #50456b;
+  --bg-player: #2a2438;
+  --bg-deep: #201b2c;
+  --bg-glass: rgba(51, 43, 68, 0.80);
+
+  /* Borders */
+  --border: #463c5e;
+  --border-subtle: #3a3150;
+  --border-dropdown: #564a73;
+
+  /* Text */
+  --text-primary: #eef2fb;
+  --text-secondary: #bcc6e0;
+  --text-muted: #8794b4;
+  --text-on-accent: #10131c;
+
+  /* Status */
+  --danger: #fb7185;
+  --positive: #4ade80;
+  --warning: #fde047;
+  --highlight: #fde047;
+
+  /* Dropdown chevron — stroke matches --text-secondary */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23bcc6e0%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.50);
+
+  /* Player + waveform */
+  --volume-accent: #5eead4;
+  --waveform-played: #5eead4;
+  --waveform-unplayed: #3a4360;
+  --waveform-buffered: #4b5878;
+  --player-title: #eef2fb;
+  --player-artist: #bcc6e0;
+
+  /* Sidebar logo — aurora gradient */
+  --logo-color-start: #5eead4;
+  --logo-color-end: #a78bfa;
+
+  /* Granular */
+  --sidebar-item-hover: #352c4a;
+  --row-playing-bg: rgba(94, 234, 212, 0.16);
+  --row-playing-text: #5eead4;
+  --menu-item-hover: #352c4a;
+}
+
+/* ── The sky. A fixed vertical twilight gradient (plum night up top → petrol
+   horizon at the bottom) with a slow, subtle aurora band drifting across it.
+   The aurora layer animates via background-position (no blur/overlay → cheap);
+   the twilight layer stays put. ── */
+[data-theme='borealis'] .main-content {
+  background:
+    linear-gradient(
+      115deg,
+      transparent 26%,
+      rgba(94, 234, 212, 0.07) 42%,
+      rgba(56, 189, 248, 0.07) 54%,
+      rgba(167, 139, 250, 0.08) 66%,
+      transparent 82%
+    ),
+    linear-gradient(180deg, #2d2640 0%, #332b44 52%, #2b3a43 100%);
+  background-size: 260% 260%, 100% 100%;
+  animation: borealis-sky 26s ease-in-out infinite;
+}
+
+@keyframes borealis-sky {
+  0%,
+  100% {
+    background-position: 0% 0%, 0 0;
+  }
+  50% {
+    background-position: 100% 100%, 0 0;
+  }
+}
+
+/* ── Player bar — the aurora ribbon. A drifting multi-stop gradient on a thin
+   top band, with a soft glow. ── */
+[data-theme='borealis'] .player-bar {
+  position: relative;
+}
+[data-theme='borealis'] .player-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #4ade80 18%,
+    #5eead4 36%,
+    #38bdf8 54%,
+    #a78bfa 72%,
+    #4ade80 90%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: borealis-drift 9s linear infinite;
+  box-shadow: 0 0 9px var(--accent-glow);
+  pointer-events: none;
+}
+
+@keyframes borealis-drift {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── While playing, the ribbon comes alive: faster drift. ── */
+[data-theme='borealis'][data-playing='true'] .player-bar::before {
+  animation-duration: 5s;
+}
+
+/* ── Now-playing row carries a faint aurora glow. ── */
+[data-theme='borealis'] .sidebar-brand {
+  filter: drop-shadow(0 0 6px rgba(94, 234, 212, 0.35));
+}
+
+/* ── Mainstage album rails drop the card shadow by default (horizontal scroll).
+   Bring it back so the album tiles lift like the artist cards do — both at rest
+   and on hover. ── */
+[data-theme='borealis'] .album-grid .album-card {
+  box-shadow: var(--shadow-md), inset 0 0 0 1px var(--border-subtle);
+}
+[data-theme='borealis'] .album-grid .album-card:hover {
+  box-shadow: var(--shadow-md), inset 0 0 0 1px var(--card-hover-border);
+}
+/* The rail clips the shadow at its edges (overflow-x: auto, padding only on the
+   bottom). Add breathing room on the other sides so the lift isn't cut off.
+   Padding (not negative margin) keeps the rail within its parent — no risk of
+   horizontal overflow in the main view. */
+[data-theme='borealis'] .album-grid {
+  padding-top: var(--space-4);
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+
+/* ── Reduced motion: keep the colours, drop the movement. ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='borealis'] .main-content {
+    animation: none;
+    background-position: 50% 50%, 0 0;
+  }
+  [data-theme='borealis'] .player-bar::before {
+    animation: none;
+    background-position: 50% 0;
+  }
+}
