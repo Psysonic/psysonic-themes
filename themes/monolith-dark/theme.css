@@ -1,14 +1,13 @@
 /*
   name: Monolith-dark
   author: asra
-  version: 1.1.6
+  version: 1.1.7
   color-scheme: dark
   description: Monochrome charcoal and white neumorphic theme with circular record player esque album grid patches.
 */
 
 [data-theme='monolith-dark'] {
   color-scheme: dark;
-
 
   --accent:            #ffffff;
   --accent-dim:        rgba(255, 255, 255, 0.12);
@@ -412,12 +411,27 @@
   box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
   padding: 6px !important; 
   overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='monolith-dark'] .album-card-cover img,
+[data-theme='monolith-dark'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+/* FIX: Makes the dark hover overlay container circular so it never flat-clips against the mask edges */
+[data-theme='monolith-dark'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 [data-theme='monolith-dark'] .album-card-cover img {
   border-radius: 50% !important;
   width: 100% !important;
   height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
   object-fit: cover !important;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5) !important;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
