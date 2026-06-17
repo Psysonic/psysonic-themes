@@ -120,14 +120,71 @@
   --player-time-toggle-active: #0069D1;
 }
 
+/* ============================================================
+   CONTEXT MENU & SUBMENUS
+   Default menu clashed with the faceplate and the selected-item
+   text was near-white (--menu-item-active-text). Re-skin as
+   aluminium: engraved black text, blue dial-glow on hover,
+   walnut hairline dividers.
+   ============================================================ */
 
-/* Section labels (LIBRARY, SYSTEM) */
-[data-theme='hifi-73'] .sidebar-section-label {
-  letter-spacing: 0.12em;
-  font-weight:   800;
-  text-transform:  uppercase;
+/* The readability bug: selected/active text was #cccdc8 */
+[data-theme='hifi-73'] {
+  --menu-item-active-text: #0a3a6e;
 }
 
+/* Menu + submenu surface */
+[data-theme='hifi-73'] .context-menu,
+[data-theme='hifi-73'] .context-submenu {
+  background: linear-gradient(270deg, #EBEBED 0%, #D7DBDD 100%);
+  border: 1px solid #b9bdbf;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.30);
+  color: #171717;
+}
+
+/* Rows — engraved black text + champagne icons */
+[data-theme='hifi-73'] .context-menu-item {
+  color: #171717;
+}
+[data-theme='hifi-73'] .context-menu-item svg {
+  color: #3d3c36;
+}
+
+/* Hover + keyboard focus — blue dial illumination */
+[data-theme='hifi-73'] .context-menu-item:hover,
+[data-theme='hifi-73'] .context-menu-item.context-menu-keyboard-active {
+  background: rgba(255, 255, 255, 0.50);
+  color: #171717;
+}
+[data-theme='hifi-73'] .context-menu-item:hover svg,
+[data-theme='hifi-73'] .context-menu-item.context-menu-keyboard-active svg {
+  color: #e32525;
+}
+
+/* "New Playlist" row — keep the blue accent at rest and on hover */
+[data-theme='hifi-73'] .context-submenu-new,
+[data-theme='hifi-73'] .context-submenu-new:hover {
+  color: #171717;
+  font-weight: 700;
+}
+
+/* Walnut hairline divider */
+[data-theme='hifi-73'] .context-menu-divider {
+  background: #1717174c;
+}
+
+/* Empty state + create-playlist input */
+[data-theme='hifi-73'] .context-submenu-empty {
+  color: rgba(23, 23, 23, 0.60);
+}
+[data-theme='hifi-73'] .context-submenu-input {
+  background: #eeeeee;
+  border: 1px solid #b9bdbf;
+  color: #171717;
+}
+[data-theme='hifi-73'] .context-submenu-input::placeholder {
+  color: rgba(23, 23, 23, 0.45);
+}
 
 /* ============================================================
    SIDEBAR
@@ -136,6 +193,13 @@
    gradient goes from lighter at the right edge to the base
    aluminium at the left.
    ============================================================ */
+
+/* Section labels (LIBRARY, SYSTEM) */
+[data-theme='hifi-73'] .sidebar-section-label {
+  letter-spacing: 0.12em;
+  font-weight:   800;
+  text-transform:  uppercase;
+}
 
 [data-theme='hifi-73'] .sidebar {
   background-color: #D7DBDD;
@@ -469,12 +533,6 @@
   ) 1;
 }
 
-[data-theme='hifi-73'] .player-album-art-wrap,
-[data-theme='hifi-73'] .player-album-art,
-[data-theme='hifi-73'] .player-album-art-placeholder {
-  background: #0a0c0e;
-}
-
 
 [data-theme='hifi-73'] .player-album-art-wrap,
 [data-theme='hifi-73'] .player-album-art,
@@ -489,7 +547,12 @@
 /* Favorite heart — red pilot light when active, matching the mute button */
 [data-theme='hifi-73'] .player-star-btn.is-starred {
   color: #d23b30 !important;
-  filter: drop-shadow(0 0 1px rgba(210, 59, 48, 0.70));
+}
+
+[data-theme='hifi-73'] .player-star-btn.is-starred:has(.lucide-heart) svg {
+  filter:
+    drop-shadow(0 0 2px rgba(210, 59, 48, 0.80))
+    drop-shadow(0 0 5px rgba(210, 59, 48, 0.40));
 }
 
 /* Track name — full dial glow.
@@ -622,7 +685,8 @@
 }
 
 
-/* ── Custom logo — psysonic wordmark (outlines) ── */
+/* ── Custom logo — psysonic wordmark (outlines) ──
+   For private import only, not for store submission. */
 
 [data-theme='hifi-73'] .sidebar-brand svg {
   display: none !important;
@@ -639,7 +703,7 @@
   background-position: left center;
 }
 
-/* ── Stereophonic wordmark — content header, left of connection LED ──
+/*── Stereophonic wordmark — content header, left of connection LED ──
    .spacer is an empty flex:1 div between the search bar and the LED;
    ::before anchors content at its start, right where the gap begins. */
 
