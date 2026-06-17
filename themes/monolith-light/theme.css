@@ -356,11 +356,6 @@
   overflow: hidden !important;
 }
 
-[data-theme='monolith-light'] .album-card-details-btn:hover {
-  box-shadow: var(--nm-shadow-lg), 0 0 8px rgba(0, 0, 0, 0.08) !important;
-  background: #f2f3f7 !important;
-}
-
 [data-theme='monolith-light'] .album-card-details-btn svg {
   color: var(--text-secondary) !important;
   transition: color 0.18s ease !important;
@@ -410,12 +405,21 @@
   box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
   padding: 6px !important;
   overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='monolith-light'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 [data-theme='monolith-light'] .album-card-cover img {
   border-radius: 50% !important;
   width: 100% !important;
   height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
   object-fit: cover !important;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2) !important;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
@@ -424,6 +428,11 @@
 
 [data-theme='monolith-light'] .album-card:hover .album-card-cover img {
   transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='monolith-light'] .album-card-details-btn:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+  background: #f2f3f7 !important;
 }
 
 [data-theme='monolith-light'] .album-card [class*="badge"],
@@ -525,4 +534,9 @@
 [data-theme='monolith-light'] .play-btn:hover,
 [data-theme='monolith-light'] .transport-btn:hover {
   box-shadow: var(--nm-shadow), 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='monolith-light'] .np-info-card,
+[data-theme='monolith-light'] .np-dash-hero {
+  background-color: #edeef3 !important;
 }
