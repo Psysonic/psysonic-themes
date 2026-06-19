@@ -186,6 +186,16 @@
   color: rgba(23, 23, 23, 0.45);
 }
 
+/* Play triangle stays white on hover/active in the Tracks & Search list,
+   even on the currently-playing (.is-current) row where the row's
+   --row-playing-text was bleeding blue into the icon. */
+[data-theme='hifi-73'] .song-list-row-btn--play:hover svg,
+[data-theme='hifi-73'] .song-list-row-btn--play:active svg,
+[data-theme='hifi-73'] .song-list-row-btn--play:focus-visible svg {
+  color: #eeeeee !important;
+  fill:  #eeeeee !important;
+}
+
 /* ============================================================
    SIDEBAR
    Left panel — aluminium faceplate surface.
