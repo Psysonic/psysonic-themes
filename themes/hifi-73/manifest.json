@@ -1,9 +1,9 @@
 {
   "id": "hifi-73",
   "name": "Hi-Fi 73",
-  "author": "1U3R6",
-  "version": "1.1.1",
+  "author": "JU3RG",
+  "version": "1.1.2",
   "description": "Inspired by the stereo receivers from the golden era of Hi-Fi.",
   "mode": "light",
-  "tags": ["vintage", "hifi", "light", "silver", "blue", "walnut", "analog"]
+  "tags": ["vintage", "hifi", "light", "silver", "blue", "analog"]
 }
