@@ -1,7 +1,7 @@
 /*
   name: Monolith-dark
   author: asra
-  version: 1.1.7
+  version: 1.1.8
   color-scheme: dark
   description: Monochrome charcoal and white neumorphic theme with circular record player esque album grid patches.
 */
@@ -300,9 +300,11 @@
   color: var(--accent);
 }
 
-[data-theme='monolith-dark'] .queue-round-btn[data-active='true'] {
-  box-shadow: var(--nm-inset-sm);
-  color: var(--accent);
+[data-theme='monolith-dark'] .queue-round-btn[data-active='true'],
+[data-theme='monolith-dark'] .queue-round-btn.active {
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--accent) !important;
+  background: #18191f !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════
