@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-20T14:18:00.949Z",
+  "generatedAt": "2026-06-21T23:50:50.483Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1202,7 +1202,7 @@
       "id": "the-wall",
       "name": "The Wall",
       "author": "Psychotoxical",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Brick-wall sidebar and player bar in cream, pale-blue mortar and scrawled red. Inspired by Pink Floyd's The Wall (1979). Floydian heading font by Gaia (free for commercial use).",
       "mode": "light",
       "tags": [
@@ -1217,7 +1217,7 @@
       "animated": true,
       "css": "themes/the-wall/theme.css",
       "thumbnail": "themes/the-wall/thumbnail.webp",
-      "updatedAt": "2026-06-19T19:13:01Z"
+      "updatedAt": "2026-06-22T01:50:30+02:00"
     },
     {
       "id": "tomorrow-night-blue",
