@@ -87,8 +87,17 @@
   border: none;
 }
 
+Friday, June 26, 2026 — 12:55 PM CEST
+
+Finding that Goldilocks zone between "GPU fire hazard" and "practically invisible" is always a balancing act. If it's too stealthy, we lose the "Ember" entirely.
+
+To bring back that heavy, radiant theatricality without reintroducing the performance-heavy filter: blur() properties, we can aggressively crank up the opacity scaling and pack denser color stops into the radial-gradient itself. This creates a much richer, vibrant core that blooms outward while remaining completely zero-cost on the hardware.
+
+Here is the dialed-up, high-vibrancy replacement for theme.css:
+CSS
+
 /* ═══════════════════════════════════════════════════════════════
-   DYNAMIC EMBER GLOW TRANSITIONS - ENHANCED VIBRANCY
+   DYNAMIC EMBER GLOW TRANSITIONS - HIGH VIBRANCY (OPTIMIZED)
 ═══════════════════════════════════════════════════════════════ */
 
 /* Base App Canvas Layers */
@@ -100,32 +109,41 @@
   z-index: 0;
 }
 
-/* Construct the dynamic glow overlay sheet */
+/* 
+  ⚡ PERFORMANCE-SAFE RADIANT BLOSSOM
+  Uses a multi-stage dense color alpha ramp to simulate a heavy blur 
+  without forcing the browser to calculate runtime spatial pixel convolutions.
+*/
 [data-theme='graceful-ember'] .app-shell::before,
 [data-theme='graceful-ember'] #app::before,
 [data-theme='graceful-ember'] .app-root::before {
   content: '' !important;
   position: absolute !important;
   inset: 0 !important;
-  background: radial-gradient(ellipse 70% 35% at 50% 100%, rgb(255, 51, 0) 0%, #f5f2eb 70%) !important;
+  
+  /* Pumped up alpha weights and added a dense mid-stop for a dramatic, thick glow core */
+  background: radial-gradient(
+    ellipse 85% 40% at 50% 100%, 
+    rgba(255, 51, 0, 0.38) 0%, 
+    rgba(212, 64, 16, 0.18) 35%,
+    rgba(245, 242, 235, 0) 75%
+  ) !important;
   z-index: -1 !important;
   pointer-events: none !important;
   
-  /* Initial State */
+  /* Fast Composite Transition Path */
   opacity: 0 !important;
-  filter: saturate(0.6) blur(4px);
-  transition: opacity 1.0s ease, filter 1.0s ease !important;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
-/* Trigger Smooth Fade-In when data-playing changes */
+/* Trigger Rich Warmth when music plays */
 [data-theme='graceful-ember'][data-playing='true'] .app-shell::before,
 [data-theme='graceful-ember'][data-playing='true'] #app::before,
 [data-theme='graceful-ember'][data-playing='true'] .app-root::before,
 [data-theme='graceful-ember'] [data-playing='true'] .app-shell::before,
 [data-theme='graceful-ember'] [data-playing='true'] #app::before,
 [data-theme='graceful-ember'] [data-playing='true'] .app-root::before {
-  opacity: 0.45 !important;
-  filter: saturate(1.2) blur(0px) !important;
+  opacity: 1 !important;
 }
 
 /* ─── Main Content Window Glow ─── */
@@ -139,14 +157,25 @@
   content: '' !important;
   position: absolute !important;
   inset: 0 !important;
-  background: radial-gradient(ellipse 100% 25% at 50% 100%, rgba(255, 51, 0, 0.24) 0%, transparent 70%) !important;
+  /* Deepened base layer saturation */
+  background: radial-gradient(
+    ellipse 100% 30% at 50% 100%, 
+    rgba(255, 51, 0, 0.16) 0%, 
+    rgba(212, 64, 16, 0.05) 40%,
+    transparent 80%
+  ) !important;
   z-index: -1 !important;
   pointer-events: none !important;
   
-  /* Initial Ambient State */
-  opacity: 0.50 !important;
-  filter: grayscale(0.2);
-  transition: opacity 1.0s ease, filter 1.0s ease !important;
+  /* High Ambient Base State */
+  opacity: 0.30 !important;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Push to full saturation instantly upon playback entry */
+[data-theme='graceful-ember'][data-playing='true'] .main-content::before,
+[data-theme='graceful-ember'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
 }
 
 /* Amplify warmth instantly when music plays */
