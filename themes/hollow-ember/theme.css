@@ -703,10 +703,10 @@
 /* --- data-sidebar-collapsed --- */
 
 /* Active nav item picks up an orange ring when sidebar is icon-only */
-[data-theme='hollow-ember'][data-sidebar-collapsed] .nav-link.active,
-[data-theme='hollow-ember'] [data-sidebar-collapsed] .nav-link.active,
-[data-theme='hollow-ember'][data-sidebar-collapsed] .nav-link[aria-current],
-[data-theme='hollow-ember'] [data-sidebar-collapsed] .nav-link[aria-current] {
+[data-theme='hollow-ember'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='hollow-ember'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='hollow-ember'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='hollow-ember'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
   box-shadow: var(--nm-inset-sm), 0 0 12px rgba(212, 64, 16, 0.3) !important;
 }
 
