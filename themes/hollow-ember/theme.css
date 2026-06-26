@@ -728,13 +728,21 @@
 
 /* --- 2. Target SVG Vector Based Star Ratings (Track Rows & Queue) --- */
 
-/* Hide vector paths completely on lucide-star components within the rating widget */
-[data-theme='hollow-ember'] .star-rating svg.lucide-star path {
+/* Hide vector paths completely on stars within known rating parents or multi-star blocks */
+[data-theme='hollow-ember'] .queue-current-info svg.lucide-star path,
+[data-theme='hollow-ember'] .track-row svg.lucide-star path,
+[data-theme='hollow-ember'] .track-item svg.lucide-star path,
+[data-theme='hollow-ember'] svg.lucide-star:has(~ svg.lucide-star) path,
+[data-theme='hollow-ember'] svg.lucide-star ~ svg.lucide-star path {
     display: none !important;
 }
 
-/* Base configuration for SVG stars in the rating widget to display the custom emoji asset */
-[data-theme='hollow-ember'] .star-rating svg.lucide-star {
+/* Base configuration for rating bar widgets to display the custom emoji asset */
+[data-theme='hollow-ember'] .queue-current-info svg.lucide-star,
+[data-theme='hollow-ember'] .track-row svg.lucide-star,
+[data-theme='hollow-ember'] .track-item svg.lucide-star,
+[data-theme='hollow-ember'] svg.lucide-star:has(~ svg.lucide-star),
+[data-theme='hollow-ember'] svg.lucide-star ~ svg.lucide-star {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='21' font-size='22'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
     background-size: contain !important;
     background-repeat: no-repeat !important;
@@ -747,9 +755,12 @@
     transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
-/* State A: If the rating SVG has an active highlight color fill or isn't set to "none" */
-[data-theme='hollow-ember'] .star-rating svg.lucide-star:not([fill="none"]),
-[data-theme='hollow-ember'] .star-rating svg.lucide-star[fill*="highlight"] {
+/* Active Highlight State: Triggers when the rating star has an active color value */
+[data-theme='hollow-ember'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='hollow-ember'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='hollow-ember'] .track-item svg.lucide-star:not([fill="none"]),
+[data-theme='hollow-ember'] svg.lucide-star:has(~ svg.lucide-star):not([fill="none"]),
+[data-theme='hollow-ember'] svg.lucide-star ~ svg.lucide-star:not([fill="none"]) {
     opacity: 1 !important;
     filter: brightness(90%) 
             invert(26%) 
