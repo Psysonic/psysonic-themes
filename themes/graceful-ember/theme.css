@@ -1,0 +1,795 @@
+/*
+  name: Graceful Ember
+  author: asra
+  version: 1.3.4
+  color-scheme: light
+  description: Elegant neumorphic light theme. Radiant red-orange accents glowing softly over a warm, comforting cream canvas.
+*/
+
+[data-theme='graceful-ember'] {
+  color-scheme: light;
+
+  --accent:            #d44010;
+  --accent-dim:        rgba(212, 64, 16, 0.15);
+  --accent-glow:       rgba(212, 64, 16, 0.35);
+  --bg-app:            #f5f2eb;
+  --bg-card:           #f5f2eb;
+  --bg-elevated:       #faf8f5;
+  --border:            rgba(212, 64, 16, 0.09);
+  --text-primary:      #2b1d11;
+  --text-secondary:    #5c4533;
+  --text-muted:        #94785f;
+  --positive:          #d44010;
+  --warning:           #c07030;
+  --volume-accent:     #d44010;
+  --logo-color-start:  #d44010;
+  --logo-color-end:    #5c4533;
+
+  --ctp-base:      #f5f2eb;
+  --ctp-mantle:    #ebe7de;
+  --ctp-crust:     #e0dacd;
+  --ctp-surface0:  #faf8f5;
+  --ctp-surface1:  #f0ede6;
+  --ctp-surface2:  #e6e2da;
+  --ctp-overlay0:  #a69580;
+  --ctp-overlay1:  #8c7b66;
+  --ctp-overlay2:  #73634d;
+  --ctp-text:      #2b1d11;
+  --ctp-subtext0:  #5c4533;
+  --ctp-subtext1:  #403022;
+  --ctp-blue:      #d44010;
+  --ctp-lavender:  #c07030;
+  --ctp-sapphire:  #2b1d11;
+  --ctp-sky:       #2b1d11;
+  --ctp-mauve:     #d44010;
+  --ctp-green:     #2b1d11;
+  --ctp-yellow:    #c07030;
+  --ctp-red:       #d44010;
+  --ctp-pink:      #2b1d11;
+  --ctp-flamingo:  #2b1d11;
+  --ctp-peach:     #c07030;
+  --ctp-teal:      #5c4533;
+  --ctp-rosewater: #d44010;
+
+  --waveform-played:   #d44010;
+  --waveform-buffered: rgba(212, 64, 16, 0.35);
+  --waveform-unplayed: rgba(212, 64, 16, 0.10);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d44010' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --nm-shadow-sm:  3px 3px 6px #ded8cb, -3px -3px 6px #ffffff;
+  --nm-shadow:     6px 6px 12px #ded8cb, -6px -6px 12px #ffffff;
+  --nm-shadow-lg:  9px 9px 18px #d4cdbe, -9px -9px 18px #ffffff;
+  --nm-inset-sm:   inset 2px 2px 4px #ded8cb, inset -2px -2px 4px #ffffff;
+  --nm-inset:      inset 4px 4px 8px #ded8cb, inset -4px -4px 8px #ffffff;
+  --nm-inset-lg:   inset 6px 6px 12px #d4cdbe, inset -6px -6px 12px #ffffff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL LAYOUT & SHAPE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] div,
+[data-theme='graceful-ember'] button,
+[data-theme='graceful-ember'] input,
+[data-theme='graceful-ember'] a,
+[data-theme='graceful-ember'] span,
+[data-theme='graceful-ember'] section,
+[data-theme='graceful-ember'] main,
+[data-theme='graceful-ember'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='graceful-ember'] .app-shell,
+[data-theme='graceful-ember'] .sidebar,
+[data-theme='graceful-ember'] .player-bar,
+[data-theme='graceful-ember'] .main-content {
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DYNAMIC EMBER GLOW TRANSITIONS - ENHANCED VIBRANCY
+═══════════════════════════════════════════════════════════════ */
+
+/* Base App Canvas Layers */
+[data-theme='graceful-ember'] .app-shell,
+[data-theme='graceful-ember'] #app,
+[data-theme='graceful-ember'] .app-root {
+  background-color: #f5f2eb !important;
+  position: relative;
+  z-index: 0;
+}
+
+/* Construct the dynamic glow overlay sheet */
+[data-theme='graceful-ember'] .app-shell::before,
+[data-theme='graceful-ember'] #app::before,
+[data-theme='graceful-ember'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 70% 35% at 50% 100%, rgb(255, 51, 0) 0%, #f5f2eb 70%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  /* Initial State */
+  opacity: 0 !important;
+  filter: saturate(0.6) blur(4px);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+/* Trigger Smooth Fade-In when data-playing changes */
+[data-theme='graceful-ember'][data-playing='true'] .app-shell::before,
+[data-theme='graceful-ember'][data-playing='true'] #app::before,
+[data-theme='graceful-ember'][data-playing='true'] .app-root::before,
+[data-theme='graceful-ember'] [data-playing='true'] .app-shell::before,
+[data-theme='graceful-ember'] [data-playing='true'] #app::before,
+[data-theme='graceful-ember'] [data-playing='true'] .app-root::before {
+  opacity: 0.45 !important;
+  filter: saturate(1.2) blur(0px) !important;
+}
+
+/* ─── Main Content Window Glow ─── */
+
+[data-theme='graceful-ember'] .main-content {
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='graceful-ember'] .main-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 100% 25% at 50% 100%, rgba(255, 51, 0, 0.24) 0%, transparent 70%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  /* Initial Ambient State */
+  opacity: 0.50 !important;
+  filter: grayscale(0.2);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+/* Amplify warmth instantly when music plays */
+[data-theme='graceful-ember'][data-playing='true'] .main-content::before,
+[data-theme='graceful-ember'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
+  filter: grayscale(0) saturate(1.6) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW CONTROLS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='graceful-ember'] .window-controls button,
+[data-theme='graceful-ember'] .titlebar-button,
+[data-theme='graceful-ember'] .frame-button {
+  background: #f5f2eb !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='graceful-ember'] .titlebar-btn svg,
+[data-theme='graceful-ember'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='graceful-ember'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='graceful-ember'] .window-controls button:hover,
+[data-theme='graceful-ember'] .titlebar-button:hover,
+[data-theme='graceful-ember'] .frame-button:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #faf8f5 !important;
+}
+
+[data-theme='graceful-ember'] .titlebar-btn-close:hover,
+[data-theme='graceful-ember'] .window-controls .close:hover,
+[data-theme='graceful-ember'] button[aria-label='Close']:hover {
+  background: #d44010 !important;
+  color: #f5f2eb !important;
+  box-shadow: 0 0 14px rgba(212, 64, 16, 0.5) !important;
+}
+
+[data-theme='graceful-ember'] .titlebar-btn:active,
+[data-theme='graceful-ember'] .window-controls button:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .sidebar {
+  background: linear-gradient(180deg, #ebe7de 0%, #f5f2eb 60%, rgba(212, 64, 16, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='graceful-ember'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+}
+
+[data-theme='graceful-ember'] .nav-link:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #f5f2eb;
+}
+
+[data-theme='graceful-ember'] .nav-link.active,
+[data-theme='graceful-ember'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm);
+  background: #ebe7de;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .player-bar {
+  background: linear-gradient(180deg, #ebe7de 0%, #f5f2eb 100%);
+  box-shadow: 0 -8px 24px #ded8cb, 0 -2px 6px #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='graceful-ember'] .waveform-container,
+[data-theme='graceful-ember'] .seekbar-trough {
+  box-shadow: var(--nm-inset);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+[data-theme='graceful-ember'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='graceful-ember'] input[type='range']::-webkit-slider-runnable-track {
+  background: #e6ded2;
+  box-shadow: var(--nm-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='graceful-ember'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #faf8f5;
+  box-shadow: var(--nm-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='graceful-ember'] input[type='range']::-webkit-slider-thumb:hover {
+  background: #f0ede6;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(212, 64, 16, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] button:active,
+[data-theme='graceful-ember'] .btn-primary:active,
+[data-theme='graceful-ember'] .hero-play-btn:active,
+[data-theme='graceful-ember'] .btn-surface:active,
+[data-theme='graceful-ember'] .btn-ghost:active,
+[data-theme='graceful-ember'] .queue-round-btn:active,
+[data-theme='graceful-ember'] .song-list-row-btn:active,
+[data-theme='graceful-ember'] .song-card-action-btn:active,
+[data-theme='graceful-ember'] .album-card-details-btn:active,
+[data-theme='graceful-ember'] .play-btn:active,
+[data-theme='graceful-ember'] .transport-btn:active,
+[data-theme='graceful-ember'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #ebe7de !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='graceful-ember'] .btn-primary,
+[data-theme='graceful-ember'] .hero-play-btn {
+  background: #f5f2eb;
+  color: var(--accent);
+  border: 1px solid rgba(212, 64, 16, 0.25);
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='graceful-ember'] .btn-primary:hover,
+[data-theme='graceful-ember'] .hero-play-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 22px rgba(212, 64, 16, 0.25);
+  border-color: rgba(212, 64, 16, 0.5);
+}
+
+[data-theme='graceful-ember'] .btn-surface {
+  background: #f5f2eb;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='graceful-ember'] .btn-surface:hover {
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='graceful-ember'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='graceful-ember'] .btn-ghost:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #f5f2eb;
+}
+
+[data-theme='graceful-ember'] .queue-round-btn {
+  background: #f5f2eb;
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--nm-shadow-sm);
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='graceful-ember'] .queue-round-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow);
+  color: var(--accent);
+}
+
+/* Corrects toolbars using .active class or data attributes to prevent blank/white states */
+[data-theme='graceful-ember'] .queue-round-btn.active,
+[data-theme='graceful-ember'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #ebe7de !important;
+  color: var(--accent) !important;
+}
+
+/* Filled highlight style on hover matching image_c9c9ff.png */
+[data-theme='graceful-ember'] .queue-round-btn.active:hover,
+[data-theme='graceful-ember'] .queue-round-btn[data-active='true']:hover {
+  background: var(--accent) !important;
+  color: #faf8f5 !important;
+  box-shadow: var(--nm-shadow-sm), 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='graceful-ember'] .play-btn,
+[data-theme='graceful-ember'] .transport-btn {
+  background: #f5f2eb;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nm-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='graceful-ember'] .play-btn:hover,
+[data-theme='graceful-ember'] .transport-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px rgba(212, 64, 16, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SONG & TRACK INLINE ACTIONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .song-list-row-btn,
+[data-theme='graceful-ember'] .song-list-row-btn--play,
+[data-theme='graceful-ember'] .song-card-action-btn {
+  background: #f5f2eb !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='graceful-ember'] .song-list-row-btn:hover,
+[data-theme='graceful-ember'] .song-list-row-btn--play:hover,
+[data-theme='graceful-ember'] .song-card-action-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow) !important;
+}
+
+[data-theme='graceful-ember'] .song-list-row-btn svg,
+[data-theme='graceful-ember'] .song-list-row-btn--play svg,
+[data-theme='graceful-ember'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='graceful-ember'] .song-list-row-btn:hover svg,
+[data-theme='graceful-ember'] .song-list-row-btn--play:hover svg,
+[data-theme='graceful-ember'] .song-card-action-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALBUM CARDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .album-card-details-btn {
+  background: #faf8f5 !important;
+  border-radius: 10px !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(212, 64, 16, 0.07) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='graceful-ember'] .album-card-details-btn:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 12px rgba(212, 64, 16, 0.18) !important;
+  background: #f0ede6 !important;
+}
+
+[data-theme='graceful-ember'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='graceful-ember'] .album-card-details-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+[data-theme='graceful-ember'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.45 !important;
+}
+
+[data-theme='graceful-ember'] .long-press-wave .long-press-wave__fill {
+  background: rgba(212, 64, 16, 0.18) !important;
+}
+
+[data-theme='graceful-ember'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
+}
+
+[data-theme='graceful-ember'] .album-card {
+  background: #f5f2eb !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(212, 64, 16, 0.04) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='graceful-ember'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: #ebe7de !important;
+  box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.1) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='graceful-ember'] .album-card-cover img,
+[data-theme='graceful-ember'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='graceful-ember'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='graceful-ember'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='graceful-ember'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='graceful-ember'] .album-card [class*="badge"],
+[data-theme='graceful-ember'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 4px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INPUTS & FIELDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .input,
+[data-theme='graceful-ember'] input[type='text'],
+[data-theme='graceful-ember'] input[type='search'],
+[data-theme='graceful-ember'] input[type='password'],
+[data-theme='graceful-ember'] textarea,
+[data-theme='graceful-ember'] select {
+  background: #f5f2eb;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='graceful-ember'] .input:focus,
+[data-theme='graceful-ember'] input:focus,
+[data-theme='graceful-ember'] textarea:focus {
+  box-shadow: var(--nm-inset), 0 0 0 2px rgba(212, 64, 16, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   QUEUE & TRACK ROWS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .queue-panel {
+  background: #ebe7de;
+  box-shadow: -8px 0 24px #ded8cb;
+}
+
+[data-theme='graceful-ember'] .queue-item,
+[data-theme='graceful-ember'] .track-row {
+  border-radius: 10px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='graceful-ember'] .track-row:hover,
+[data-theme='graceful-ember'] .queue-item:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #f5f2eb;
+}
+
+[data-theme='graceful-ember'] .queue-item.active,
+[data-theme='graceful-ember'] .track-row.active {
+  box-shadow: var(--nm-inset-sm);
+  background: #f5f2eb;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS & SEEK (HYBRID ENGINE - RESPECTS USER CHOICE)
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── MODE A: TRADITIONAL LINE SEEKBAR ─── */
+
+/* Collapses the standard slider container down to a sleek 2px laser line */
+[data-theme='graceful-ember'] .seekbar-trough {
+  background: rgba(212, 64, 16, 0.12) !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+  height: 2px !important;
+  padding: 0px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Ensure the tracking fill line keeps its modern flat look */
+[data-theme='graceful-ember'] .progress-fill,
+[data-theme='graceful-ember'] .seek-fill {
+  background: #d44010 !important;
+  border-radius: 0px !important;
+  height: 2px !important;
+  box-shadow: 0 0 6px #d44010, 
+              0 0 16px #d44010 !important;
+}
+
+
+/* ─── MODE B: DYNAMIC WAVEFORM SEEKBAR ─── */
+
+/* Allow the waveform framework to maintain its native layout spacing */
+[data-theme='graceful-ember'] .player-waveform-wrap,
+[data-theme='graceful-ember'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Style the audio canvas itself without crushing its physical wave data */
+[data-theme='graceful-ember'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px #732308) 
+          drop-shadow(0 0 1px rgba(212, 64, 16, 0.5)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISC
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] ::-webkit-scrollbar-thumb {
+  background: #f0ede6;
+  border-radius: 999px;
+  box-shadow: inset 1px 1px 2px #ded8cb;
+}
+
+[data-theme='graceful-ember'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(212, 64, 16, 0.55));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA STATE OVERRIDES
+   Both selector forms: with space (data attr on child wrapper)
+   and without space (data attr on same root as data-theme)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- data-playing='true' --- */
+
+/* Player bar: base structure and outer glow layout */
+[data-theme='graceful-ember'][data-playing='true'] .player-bar,
+[data-theme='graceful-ember'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #ebe7de 0%, #f5f2eb 100%) !important;
+  box-shadow:
+    0 -1px 24px #ded8cb,
+    0 -0px 3px #ffffff,
+    0 -8px 20px rgba(212, 64, 16, 0.40) !important;
+}
+
+/* The top orange part: Isolated to allow the light warm vignette overlay */
+[data-theme='graceful-ember'][data-playing='true'] .player-bar::before,
+[data-theme='graceful-ember'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(40, 30, 20, 0.3) 20%, transparent 85%), 
+              linear-gradient(#d44010, #d44010) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* Track name in player: orange + glow */
+[data-theme='graceful-ember'][data-playing='true'] .player-track-name,
+[data-theme='graceful-ember'] [data-playing='true'] .player-track-name,
+[data-theme='graceful-ember'][data-playing='true'] .player-bar .track-name,
+[data-theme='graceful-ember'] [data-playing='true'] .player-bar .track-name,
+[data-theme='graceful-ember'][data-playing='true'] .player-bar .track-title,
+[data-theme='graceful-ember'] [data-playing='true'] .player-bar .track-title,
+[data-theme='graceful-ember'][data-playing='true'] .now-playing-title,
+[data-theme='graceful-ember'] [data-playing='true'] .now-playing-title {
+  color: var(--accent) !important;
+  text-shadow: 0 0 12px rgba(212, 64, 16, 0.6) !important;
+}
+
+/* Active track row in queue: stronger orange highlight */
+[data-theme='graceful-ember'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* --- data-sidebar-collapsed --- */
+
+/* Active nav item picks up an orange ring when sidebar is icon-only */
+[data-theme='graceful-ember'][data-sidebar-collapsed] .nav-link.active,
+[data-theme='graceful-ember'] [data-sidebar-collapsed] .nav-link.active,
+[data-theme='graceful-ember'][data-sidebar-collapsed] .nav-link[aria-current],
+[data-theme='graceful-ember'] [data-sidebar-collapsed] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm), 0 0 12px rgba(212, 64, 16, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STAR RATING EMOTE OVERRIDES (UNIVERSAL ENGINE)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- 1. Target Text/Button Based Star Ratings (Trackbar) --- */
+
+/* Hide the original text stars */
+[data-theme='graceful-ember'] .star-rating .star {
+    color: transparent !important; 
+    position: relative;
+}
+
+/* Inject new rating shape */
+[data-theme='graceful-ember'] .star-rating .star::before {
+    content: "\1F918";     
+    color: #d44010 !important;  
+    font-size: 12px;         
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3; 
+    filter: brightness(80%) grayscale(1);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Fill shape color transitions */
+[data-theme='graceful-ember'] .star-rating .star.filled::before {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(26%) 
+            sepia(91%) 
+            saturate(4000%) 
+            hue-rotate(350deg) 
+            brightness(90%) 
+            contrast(100%) !important;  
+}
+
+
+/* --- 2. Target SVG Vector Based Star Ratings (Track Rows & Queue) --- */
+
+/* Hide vector paths completely on any lucide-star component */
+[data-theme='graceful-ember'] svg.lucide-star path {
+    display: none !important;
+}
+
+/* Base configuration for all SVG stars to display the custom emoji asset */
+[data-theme='graceful-ember'] svg.lucide-star {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='21' font-size='22'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    display: inline-block !important;
+    
+    /* Default: Dim/unfilled state */
+    opacity: 0.3 !important;
+    filter: brightness(80%) grayscale(1) !important;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* State A: If the SVG has an active highlight color fill or isn't set to "none" */
+[data-theme='graceful-ember'] svg.lucide-star:not([fill="none"]),
+[data-theme='graceful-ember'] svg.lucide-star[fill*="highlight"] {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(26%) 
+            sepia(91%) 
+            saturate(4000%) 
+            hue-rotate(350deg) 
+            brightness(90%) 
+            contrast(100%) !important;
+}
