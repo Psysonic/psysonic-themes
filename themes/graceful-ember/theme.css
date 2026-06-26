@@ -622,35 +622,8 @@ CSS
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PROGRESS & SEEK (HYBRID ENGINE - RESPECTS USER CHOICE)
+   PROGRESS & SEEK
 ═══════════════════════════════════════════════════════════════ */
-
-/* ─── MODE A: TRADITIONAL LINE SEEKBAR ─── */
-
-/* Collapses the standard slider container down to a sleek 2px laser line */
-[data-theme='graceful-ember'] .seekbar-trough {
-  background: rgba(212, 64, 16, 0.12) !important;
-  box-shadow: none !important;
-  border-radius: 0px !important;
-  height: 2px !important;
-  padding: 0px !important;
-  overflow: visible !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Ensure the tracking fill line keeps its modern flat look */
-[data-theme='graceful-ember'] .progress-fill,
-[data-theme='graceful-ember'] .seek-fill {
-  background: #d44010 !important;
-  border-radius: 0px !important;
-  height: 2px !important;
-  box-shadow: 0 0 6px #d44010, 
-              0 0 16px #d44010 !important;
-}
-
-
-/* ─── MODE B: DYNAMIC WAVEFORM SEEKBAR ─── */
 
 /* Allow the waveform framework to maintain its native layout spacing */
 [data-theme='graceful-ember'] .player-waveform-wrap,
