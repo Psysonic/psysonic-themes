@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-21T23:50:50.483Z",
+  "generatedAt": "2026-06-26T17:47:16.260Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -420,6 +420,17 @@
       "updatedAt": "2026-06-07T19:05:13+02:00"
     },
     {
+      "id": "graceful-ember",
+      "name": "Graceful Ember",
+      "author": "Asra",
+      "version": "1.3.6",
+      "description": "Inspired by Bad Omens - THE DEATH OF PEACE OF MIND. Elegant neumorphic light theme with radiant red-orange accents over a warm, comforting cream canvas.",
+      "mode": "light",
+      "css": "themes/graceful-ember/theme.css",
+      "thumbnail": "themes/graceful-ember/thumbnail.webp",
+      "updatedAt": "2026-06-26T19:46:55+02:00"
+    },
+    {
       "id": "grand-theft-audio",
       "name": "Grand Theft Audio",
       "author": "Psysonic",
@@ -625,6 +636,17 @@
       "css": "themes/hill-valley-85/theme.css",
       "thumbnail": "themes/hill-valley-85/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "hollow-ember",
+      "name": "Hollow Ember",
+      "author": "Asra",
+      "version": "1.3.3",
+      "description": "Warm ember and ash neumorphic theme. Deep near-black base with smouldering orange accent. inpired by Bad Omens – THE DEATH OF PEACE OF MIND",
+      "mode": "dark",
+      "css": "themes/hollow-ember/theme.css",
+      "thumbnail": "themes/hollow-ember/thumbnail.webp",
+      "updatedAt": "2026-06-26T19:46:55+02:00"
     },
     {
       "id": "horde",
