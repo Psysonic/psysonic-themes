@@ -1,0 +1,788 @@
+/*
+  name: Hollow Ember
+  author: asra
+  version: 1.3.1
+  color-scheme: dark
+  description: Warm ember and ash neumorphic theme. Smouldering red-orange over dark brown-black.
+*/
+
+[data-theme='hollow-ember'] {
+  color-scheme: dark;
+
+  --accent:            #d44010;
+  --accent-dim:        rgba(212, 64, 16, 0.15);
+  --accent-glow:       rgba(212, 64, 16, 0.35);
+  --bg-app:            #141008;
+  --bg-card:           #141008;
+  --bg-elevated:       #1c1710;
+  --border:            rgba(212, 64, 16, 0.09);
+  --text-primary:      #f0e0cc;
+  --text-secondary:    #8a6540;
+  --text-muted:        #5a4028;
+  --positive:          #d44010;
+  --warning:           #c07030;
+  --volume-accent:     #d44010;
+  --logo-color-start:  #d44010;
+  --logo-color-end:    #8a6540;
+
+  --ctp-base:      #141008;
+  --ctp-mantle:    #0f0c07;
+  --ctp-crust:     #0a0805;
+  --ctp-surface0:  #1c1710;
+  --ctp-surface1:  #231e14;
+  --ctp-surface2:  #2a2418;
+  --ctp-overlay0:  #50381a;
+  --ctp-overlay1:  #6a4a24;
+  --ctp-overlay2:  #80602e;
+  --ctp-text:      #f0e0cc;
+  --ctp-subtext0:  #8a6540;
+  --ctp-subtext1:  #b08050;
+  --ctp-blue:      #d44010;
+  --ctp-lavender:  #c07030;
+  --ctp-sapphire:  #f0e0cc;
+  --ctp-sky:       #f0e0cc;
+  --ctp-mauve:     #d44010;
+  --ctp-green:     #f0e0cc;
+  --ctp-yellow:    #c07030;
+  --ctp-red:       #d44010;
+  --ctp-pink:      #f0e0cc;
+  --ctp-flamingo:  #f0e0cc;
+  --ctp-peach:     #c07030;
+  --ctp-teal:      #8a6540;
+  --ctp-rosewater: #d44010;
+
+  --waveform-played:   #d44010;
+  --waveform-buffered: rgba(212, 64, 16, 0.35);
+  --waveform-unplayed: rgba(212, 64, 16, 0.10);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d44010' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --nm-shadow-sm:  3px 3px 6px #080502, -3px -3px 6px #201a0e;
+  --nm-shadow:     6px 6px 12px #080502, -6px -6px 12px #201a0e;
+  --nm-shadow-lg:  9px 9px 18px #060401, -9px -9px 18px #241e10;
+  --nm-inset-sm:   inset 2px 2px 4px #080502, inset -2px -2px 4px #201a0e;
+  --nm-inset:      inset 4px 4px 8px #080502, inset -4px -4px 8px #201a0e;
+  --nm-inset-lg:   inset 6px 6px 12px #060401, inset -6px -6px 12px #241e10;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL LAYOUT & SHAPE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] div,
+[data-theme='hollow-ember'] button,
+[data-theme='hollow-ember'] input,
+[data-theme='hollow-ember'] a,
+[data-theme='hollow-ember'] span,
+[data-theme='hollow-ember'] section,
+[data-theme='hollow-ember'] main,
+[data-theme='hollow-ember'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='hollow-ember'] .app-shell,
+[data-theme='hollow-ember'] .sidebar,
+[data-theme='hollow-ember'] .player-bar,
+[data-theme='hollow-ember'] .main-content {
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DYNAMIC EMBER GLOW TRANSITIONS - ENHANCED HOLLOW (DARK)
+═══════════════════════════════════════════════════════════════ */
+
+/* Base App Canvas Layers */
+[data-theme='hollow-ember'] .app-shell,
+[data-theme='hollow-ember'] #app,
+[data-theme='hollow-ember'] .app-root {
+  background-color: #141008 !important;
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='hollow-ember'] .app-shell::before,
+[data-theme='hollow-ember'] #app::before,
+[data-theme='hollow-ember'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  /* Shifted from alpha 0.08 to 0.24 to counteract dark room crushing */
+  background: radial-gradient(ellipse 85% 45% at 50% 100%, rgba(255, 51, 0, 0.24) 0%, #141008 72%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  opacity: 0 !important;
+  filter: blur(2px);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+[data-theme='hollow-ember'][data-playing='true'] .app-shell::before,
+[data-theme='hollow-ember'][data-playing='true'] #app::before,
+[data-theme='hollow-ember'][data-playing='true'] .app-root::before,
+[data-theme='hollow-ember'] [data-playing='true'] .app-shell::before,
+[data-theme='hollow-ember'] [data-playing='true'] #app::before,
+[data-theme='hollow-ember'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+}
+
+/* ─── Main Content Window Glow ─── */
+
+[data-theme='hollow-ember'] .main-content {
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='hollow-ember'] .main-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  /* Pushed alpha up to 0.16 and height to 35% to leak beautifully into the track fields */
+  background: radial-gradient(ellipse 100% 35% at 50% 100%, rgba(255, 51, 0, 0.16) 0%, transparent 65%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  opacity: 0.2 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+[data-theme='hollow-ember'][data-playing='true'] .main-content::before,
+[data-theme='hollow-ember'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
+}D
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW CONTROLS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='hollow-ember'] .window-controls button,
+[data-theme='hollow-ember'] .titlebar-button,
+[data-theme='hollow-ember'] .frame-button {
+  background: #141008 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='hollow-ember'] .titlebar-btn svg,
+[data-theme='hollow-ember'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='hollow-ember'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='hollow-ember'] .window-controls button:hover,
+[data-theme='hollow-ember'] .titlebar-button:hover,
+[data-theme='hollow-ember'] .frame-button:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #1c1710 !important;
+}
+
+[data-theme='hollow-ember'] .titlebar-btn-close:hover,
+[data-theme='hollow-ember'] .window-controls .close:hover,
+[data-theme='hollow-ember'] button[aria-label='Close']:hover {
+  background: #d44010 !important;
+  color: #141008 !important;
+  box-shadow: 0 0 14px rgba(212, 64, 16, 0.5) !important;
+}
+
+[data-theme='hollow-ember'] .titlebar-btn:active,
+[data-theme='hollow-ember'] .window-controls button:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .sidebar {
+  background: linear-gradient(180deg, #0f0c07 0%, #141008 60%, rgba(212, 64, 16, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='hollow-ember'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+}
+
+[data-theme='hollow-ember'] .nav-link:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #141008;
+}
+
+[data-theme='hollow-ember'] .nav-link.active,
+[data-theme='hollow-ember'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm);
+  background: #0f0c07;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .player-bar {
+  background: linear-gradient(180deg, #0f0c07 0%, #141008 100%);
+  box-shadow: 0 -8px 24px #060401, 0 -2px 6px #231e14;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='hollow-ember'] .waveform-container,
+[data-theme='hollow-ember'] .seekbar-trough {
+  box-shadow: var(--nm-inset);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+[data-theme='hollow-ember'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='hollow-ember'] input[type='range']::-webkit-slider-runnable-track {
+  background: #1f0f08;
+  box-shadow: var(--nm-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='hollow-ember'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1c1710;
+  box-shadow: var(--nm-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='hollow-ember'] input[type='range']::-webkit-slider-thumb:hover {
+  background: #231e14;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(212, 64, 16, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] button:active,
+[data-theme='hollow-ember'] .btn-primary:active,
+[data-theme='hollow-ember'] .hero-play-btn:active,
+[data-theme='hollow-ember'] .btn-surface:active,
+[data-theme='hollow-ember'] .btn-ghost:active,
+[data-theme='hollow-ember'] .queue-round-btn:active,
+[data-theme='hollow-ember'] .song-list-row-btn:active,
+[data-theme='hollow-ember'] .song-card-action-btn:active,
+[data-theme='hollow-ember'] .album-card-details-btn:active,
+[data-theme='hollow-ember'] .play-btn:active,
+[data-theme='hollow-ember'] .transport-btn:active,
+[data-theme='hollow-ember'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #0f0c07 !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='hollow-ember'] .btn-primary,
+[data-theme='hollow-ember'] .hero-play-btn {
+  background: #141008;
+  color: var(--accent);
+  border: 1px solid rgba(212, 64, 16, 0.25);
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow), 0 0 12px rgba(212, 64, 16, 0.07);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='hollow-ember'] .btn-primary:hover,
+[data-theme='hollow-ember'] .hero-play-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 22px rgba(212, 64, 16, 0.25);
+  border-color: rgba(212, 64, 16, 0.5);
+}
+
+[data-theme='hollow-ember'] .btn-surface {
+  background: #141008;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='hollow-ember'] .btn-surface:hover {
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='hollow-ember'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='hollow-ember'] .btn-ghost:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #141008;
+}
+
+/* Hollow Ember toolbar button base state */
+[data-theme='hollow-ember'] .queue-round-btn {
+  background: #141008;
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--nm-shadow-sm); /* Replace with dark theme equivalent if needed */
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='hollow-ember'] .queue-round-btn:hover {
+  color: var(--accent);
+}
+
+[data-theme='hollow-ember'] .queue-round-btn.active,
+[data-theme='hollow-ember'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--nm-inset-sm) !important; 
+  background: #1c170d !important;
+  color: var(--accent) !important;
+}
+
+[data-theme='hollow-ember'] .queue-round-btn.active:hover,
+[data-theme='hollow-ember'] .queue-round-btn[data-active='true']:hover {
+  background: var(--accent) !important;
+  color: #141008 !important; 
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='hollow-ember'] .play-btn,
+[data-theme='hollow-ember'] .transport-btn {
+  background: #141008;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nm-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='hollow-ember'] .play-btn:hover,
+[data-theme='hollow-ember'] .transport-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px rgba(212, 64, 16, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SONG & TRACK INLINE ACTIONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .song-list-row-btn,
+[data-theme='hollow-ember'] .song-list-row-btn--play,
+[data-theme='hollow-ember'] .song-card-action-btn {
+  background: #141008 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='hollow-ember'] .song-list-row-btn:hover,
+[data-theme='hollow-ember'] .song-list-row-btn--play:hover,
+[data-theme='hollow-ember'] .song-card-action-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow) !important;
+}
+
+[data-theme='hollow-ember'] .song-list-row-btn svg,
+[data-theme='hollow-ember'] .song-list-row-btn--play svg,
+[data-theme='hollow-ember'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='hollow-ember'] .song-list-row-btn:hover svg,
+[data-theme='hollow-ember'] .song-list-row-btn--play:hover svg,
+[data-theme='hollow-ember'] .song-card-action-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALBUM CARDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .album-card-details-btn {
+  background: #1c1710 !important;
+  border-radius: 10px !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(212, 64, 16, 0.07) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='hollow-ember'] .album-card-details-btn:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 12px rgba(212, 64, 16, 0.18) !important;
+  background: #231e14 !important;
+}
+
+[data-theme='hollow-ember'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='hollow-ember'] .album-card-details-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+[data-theme='hollow-ember'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.45 !important;
+}
+
+[data-theme='hollow-ember'] .long-press-wave .long-press-wave__fill {
+  background: rgba(212, 64, 16, 0.18) !important;
+}
+
+[data-theme='hollow-ember'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) !important;
+}
+
+[data-theme='hollow-ember'] .album-card {
+  background: #141008 !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(212, 64, 16, 0.04) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='hollow-ember'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: #0f0c07 !important;
+  box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='hollow-ember'] .album-card-cover img,
+[data-theme='hollow-ember'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='hollow-ember'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='hollow-ember'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='hollow-ember'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='hollow-ember'] .album-card [class*="badge"],
+[data-theme='hollow-ember'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 4px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INPUTS & FIELDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .input,
+[data-theme='hollow-ember'] input[type='text'],
+[data-theme='hollow-ember'] input[type='search'],
+[data-theme='hollow-ember'] input[type='password'],
+[data-theme='hollow-ember'] textarea,
+[data-theme='hollow-ember'] select {
+  background: #141008;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='hollow-ember'] .input:focus,
+[data-theme='hollow-ember'] input:focus,
+[data-theme='hollow-ember'] textarea:focus {
+  box-shadow: var(--nm-inset), 0 0 0 2px rgba(212, 64, 16, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   QUEUE & TRACK ROWS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .queue-panel {
+  background: #0f0c07;
+  box-shadow: -8px 0 24px #060401;
+}
+
+[data-theme='hollow-ember'] .queue-item,
+[data-theme='hollow-ember'] .track-row {
+  border-radius: 10px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='hollow-ember'] .track-row:hover,
+[data-theme='hollow-ember'] .queue-item:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #141008;
+}
+
+[data-theme='hollow-ember'] .queue-item.active,
+[data-theme='hollow-ember'] .track-row.active {
+  box-shadow: var(--nm-inset-sm);
+  background: #141008;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS & SEEK (HYBRID ENGINE - RESPECTS USER CHOICE)
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── MODE A: TRADITIONAL LINE SEEKBAR ─── */
+
+/* Collapses the standard slider container down to a sleek 2px laser line */
+[data-theme='hollow-ember'] .seekbar-trough {
+  background: rgba(212, 64, 16, 0.12) !important;
+  box-shadow: none !important;
+  border-radius: 0px !important;
+  height: 2px !important;
+  padding: 0px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Ensure the tracking fill line keeps its modern flat look */
+[data-theme='hollow-ember'] .progress-fill,
+[data-theme='hollow-ember'] .seek-fill {
+  background: #d44010 !important;
+  border-radius: 0px !important;
+  height: 2px !important;
+  box-shadow: 0 0 6px #d44010, 
+              0 0 16px #d44010 !important;
+}
+
+
+/* ─── MODE B: DYNAMIC WAVEFORM SEEKBAR ─── */
+
+/* Allow the waveform framework to maintain its native layout spacing */
+[data-theme='hollow-ember'] .player-waveform-wrap,
+[data-theme='hollow-ember'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Style the audio canvas itself without crushing its physical wave data */
+[data-theme='hollow-ember'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px #732308) 
+          drop-shadow(0 0 1px rgba(212, 64, 16, 0.5)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISC
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] ::-webkit-scrollbar-thumb {
+  background: #231e14;
+  border-radius: 999px;
+  box-shadow: inset 1px 1px 2px #080502;
+}
+
+[data-theme='hollow-ember'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(212, 64, 16, 0.55));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA STATE OVERRIDES
+   Both selector forms: with space (data attr on child wrapper)
+   and without space (data attr on same root as data-theme)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- data-playing='true' --- */
+
+/* Player bar: base structure and outer glow layout */
+[data-theme='hollow-ember'][data-playing='true'] .player-bar,
+[data-theme='hollow-ember'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #0f0c07 0%, #141008 100%) !important;
+  box-shadow:
+    0 -1px 24px #060401,
+    0 -0px 3px #231e14,
+    0 -8px 20px rgba(212, 64, 16, 0.60) !important;
+}
+
+/* The top orange part: Isolated to allow the black vignette overlay */
+[data-theme='hollow-ember'][data-playing='true'] .player-bar::before,
+[data-theme='hollow-ember'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(0, 0, 0, 0.75) 20%, transparent 85%), 
+              linear-gradient(#d44010, #d44010) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* Track name in player: orange + glow */
+[data-theme='hollow-ember'][data-playing='true'] .player-track-name,
+[data-theme='hollow-ember'] [data-playing='true'] .player-track-name,
+[data-theme='hollow-ember'][data-playing='true'] .player-bar .track-name,
+[data-theme='hollow-ember'] [data-playing='true'] .player-bar .track-name,
+[data-theme='hollow-ember'][data-playing='true'] .player-bar .track-title,
+[data-theme='hollow-ember'] [data-playing='true'] .player-bar .track-title,
+[data-theme='hollow-ember'][data-playing='true'] .now-playing-title,
+[data-theme='hollow-ember'] [data-playing='true'] .now-playing-title {
+  color: var(--accent) !important;
+  text-shadow: 0 0 12px rgba(212, 64, 16, 0.6) !important;
+}
+
+/* Active track row in queue: stronger orange highlight */
+[data-theme='hollow-ember'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* --- data-sidebar-collapsed --- */
+
+/* Active nav item picks up an orange ring when sidebar is icon-only */
+[data-theme='hollow-ember'][data-sidebar-collapsed] .nav-link.active,
+[data-theme='hollow-ember'] [data-sidebar-collapsed] .nav-link.active,
+[data-theme='hollow-ember'][data-sidebar-collapsed] .nav-link[aria-current],
+[data-theme='hollow-ember'] [data-sidebar-collapsed] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm), 0 0 12px rgba(212, 64, 16, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STAR RATING EMOTE OVERRIDES (UNIVERSAL ENGINE - DARK HOLLOW)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- 1. Target Text/Button Based Star Ratings (Trackbar) --- */
+
+/* Hide the original text stars ONLY under Hollow Ember */
+[data-theme='hollow-ember'] .star-rating .star {
+    color: transparent !important; 
+    position: relative;
+}
+
+/* Inject new rating shape ONLY under Hollow Ember */
+[data-theme='hollow-ember'] .star-rating .star::before {
+    content: "\1F918";     
+    color: #d44010 !important;  
+    font-size: 12px;         
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.18; 
+    filter: brightness(40%) grayscale(1);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Fill shape color transitions ONLY under Hollow Ember */
+[data-theme='hollow-ember'] .star-rating .star.filled::before {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(26%) 
+            sepia(91%) 
+            saturate(4000%) 
+            hue-rotate(350deg) 
+            brightness(90%) 
+            contrast(100%) !important;  
+}
+
+
+/* --- 2. Target SVG Vector Based Star Ratings (Track Rows & Queue) --- */
+
+/* Hide vector lines completely under Hollow Ember */
+[data-theme='hollow-ember'] svg.lucide-star path {
+    display: none !important;
+}
+
+/* Force the SVG container to load the emoji graphic ONLY under Hollow Ember */
+[data-theme='hollow-ember'] svg.lucide-star {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='21' font-size='22'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    display: inline-block !important;
+    
+    /* Default: Dim/unfilled state for dark theme canvas */
+    opacity: 0.18 !important;
+    filter: brightness(40%) grayscale(1) !important;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* State A: If the SVG has an active highlight color fill or isn't set to "none" */
+[data-theme='hollow-ember'] svg.lucide-star:not([fill="none"]),
+[data-theme='hollow-ember'] svg.lucide-star[fill*="highlight"] {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(26%) 
+            sepia(91%) 
+            saturate(4000%) 
+            hue-rotate(350deg) 
+            brightness(90%) 
+            contrast(100%) !important;
+}
