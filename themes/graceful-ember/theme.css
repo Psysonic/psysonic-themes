@@ -777,8 +777,8 @@
   display: inline-block !important;
   
   /* Default: Dim/unfilled state */
-  opacity: 0.3 !important;
-  filter: brightness(80%) grayscale(1) !important;
+  opacity: 0.55 !important;
+  filter: brightness(85%) grayscale(0.65) !important;
   transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
