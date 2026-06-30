@@ -120,6 +120,18 @@
   --player-time-toggle-active: #0069D1;
 }
 
+
+[data-theme='hifi-73'] .titlebar {
+  background: linear-gradient(
+    to right,
+    #D7DBDD 0,
+    #EBEBED var(--sidebar-width),
+    #D7DBDD calc(100% - var(--queue-width)),
+    #EBEBED 100%
+  );
+  border-bottom: none;
+}
+
 /* ============================================================
    CONTEXT MENU & SUBMENUS
    Default menu clashed with the faceplate and the selected-item
@@ -168,7 +180,7 @@
   font-weight: 700;
 }
 
-/* Walnut hairline divider */
+/*  hairline divider */
 [data-theme='hifi-73'] .context-menu-divider {
   background: #1717174c;
 }
@@ -429,7 +441,7 @@
 [data-theme='hifi-73'] .queue-current-sub .is-link {
   color: #87D1FF;
   text-transform:  uppercase;
-   font-weight:     500;
+  font-weight:     500;
   text-shadow:
     0 0 4px #38A9FF,
     0 0 7px #0069D1,
@@ -439,7 +451,7 @@
 [data-theme='hifi-73'] .queue-current-sub.is-link:hover,
 [data-theme='hifi-73'] .queue-current-sub .is-link:hover {
   color: #aadeff;
-   font-weight:    500;
+  font-weight:    500;
   text-shadow:
     0 0 5px #38A9FF,
     0 0 9px #0069D1,
@@ -695,7 +707,8 @@
 }
 
 
-/* ── Custom logo — psysonic wordmark (outlines) ── */
+/* ── Custom logo — psysonic wordmark (outlines) ──
+   For private import only, not for store submission. */
 
 [data-theme='hifi-73'] .sidebar-brand svg {
   display: none !important;
