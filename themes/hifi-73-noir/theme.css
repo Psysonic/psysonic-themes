@@ -136,6 +136,7 @@
   fill:  #171717 !important;
 }
 
+
 /* ============================================================
    SIDEBAR
    Left panel — black anodized faceplate. Subtle gradient so
@@ -229,6 +230,17 @@
     box-shadow:
       0 0 2px rgba(210, 59, 48, 0.30);
   }
+}
+
+[data-theme='hifi-73-noir'] .titlebar {
+  background: linear-gradient(
+    to right,
+    #000000 0,
+    #3a3f47 var(--sidebar-width),
+    #000000 calc(100% - var(--queue-width)),
+    #3a3f47 100%
+  );
+  border-bottom: none;
 }
 
 
@@ -587,7 +599,8 @@
 }
 
 
-/* ── Custom logo — psysonic wordmark (outlines) ── */
+/* ── Custom logo — psysonic wordmark (outlines) ──
+   For private import only, not for store submission. */
 
 [data-theme='hifi-73-noir'] .sidebar-brand svg {
   display: none !important;
@@ -603,6 +616,7 @@
   background-repeat: no-repeat;
   background-position: left center;
 }
+
 
 /* ── Stereophonic Console wordmark — content header, left of connection LED ── */
 
