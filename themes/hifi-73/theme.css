@@ -129,7 +129,7 @@
     #D7DBDD calc(100% - var(--queue-width)),
     #EBEBED 100%
   );
-  border-bottom: none;
+  border-bottom: 1px solid #ababab55;
 }
 
 /* ============================================================
