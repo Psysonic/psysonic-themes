@@ -1,6 +1,5 @@
 /* ============================================================
-   Hi-Fi 73 Noir — inspired by the Pioneer SX-626 stereo receiver.
-   Dark companion to Hi-Fi 73.
+   Hi-Fi 73 Noir - Dark companion to Hi-Fi 73.
 
    Design language:
    - Black anodized faceplate (dark body, sidebar, header)
@@ -297,6 +296,13 @@
   transition:
     background 0.6s ease-in,
     box-shadow 0.5s ease-in;
+}
+
+
+/*  Now-Playing hero favorite heart */
+[data-theme='hifi-73-noir'] .np-dash-hero-actions svg.lucide-heart[fill="var(--highlight)"] {
+  fill:   #d23b30 !important;
+  stroke: #d23b30 !important;
 }
 
 
@@ -607,8 +613,7 @@
 }
 
 
-/* ── Custom logo — psysonic wordmark (outlines) ──
-   For private import only, not for store submission. */
+/* ── Custom logo — psysonic wordmark (outlines) ──*/
 
 [data-theme='hifi-73-noir'] .sidebar-brand svg {
   display: none !important;
