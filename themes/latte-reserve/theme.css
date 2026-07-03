@@ -310,13 +310,13 @@
   color: var(--accent);
   border: 1px solid rgba(136, 57, 239, 0.20);
   border-radius: 12px;
-  box-shadow: var(--nm-shadow);
+  box-shadow: none;
   transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
 }
 
 [data-theme='latte-reserve'] .btn-primary:hover,
 [data-theme='latte-reserve'] .hero-play-btn:hover {
-  box-shadow: var(--nm-shadow), 0 0 10px rgba(136, 57, 239, 0.18);
+  box-shadow: none;
   border-color: rgba(136, 57, 239, 0.40);
 }
 
