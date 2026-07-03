@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-02T09:18:36.091Z",
+  "generatedAt": "2026-07-03T21:52:05.242Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -419,6 +419,17 @@
       "css": "themes/eyeseekyou/theme.css",
       "thumbnail": "themes/eyeseekyou/thumbnail.webp",
       "updatedAt": "2026-06-27T16:48:44Z"
+    },
+    {
+      "id": "feywild",
+      "name": "Feywild",
+      "author": "Asra",
+      "version": "1.2.6",
+      "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
+      "mode": "dark",
+      "css": "themes/feywild/theme.css",
+      "thumbnail": "themes/feywild/thumbnail.webp",
+      "updatedAt": "2026-07-03T23:51:48+02:00"
     },
     {
       "id": "frappe",
