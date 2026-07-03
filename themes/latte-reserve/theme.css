@@ -308,16 +308,16 @@
 [data-theme='latte-reserve'] .hero-play-btn {
   background: #eff1f5;
   color: var(--accent);
-  border: 1px solid rgba(136, 57, 239, 0.25);
+  border: 1px solid rgba(136, 57, 239, 0.20);
   border-radius: 12px;
-  box-shadow: var(--nm-shadow), 0 0 12px rgba(136, 57, 239, 0.07);
+  box-shadow: var(--nm-shadow);
   transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
 }
 
 [data-theme='latte-reserve'] .btn-primary:hover,
 [data-theme='latte-reserve'] .hero-play-btn:hover {
-  box-shadow: var(--nm-shadow), 0 0 22px rgba(136, 57, 239, 0.25);
-  border-color: rgba(136, 57, 239, 0.5);
+  box-shadow: var(--nm-shadow), 0 0 10px rgba(136, 57, 239, 0.18);
+  border-color: rgba(136, 57, 239, 0.40);
 }
 
 [data-theme='latte-reserve'] .btn-surface {
