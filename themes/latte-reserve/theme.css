@@ -1,0 +1,771 @@
+/*
+  name: Latte Reserve
+  author: Asra
+  version: 1.0.0
+  color-scheme: light
+  description: Catppuccin Latte neumorphic theme. Deep mauve accent over warm cream base.
+*/
+
+[data-theme='latte-reserve'] {
+  color-scheme: light;
+
+  --accent:            #8839ef;
+  --accent-dim:        rgba(136, 57, 239, 0.15);
+  --accent-glow:       rgba(136, 57, 239, 0.35);
+  --bg-app:            #eff1f5;
+  --bg-card:           #eff1f5;
+  --bg-elevated:       #e6e9ef;
+  --border:            rgba(136, 57, 239, 0.09);
+  --text-primary:      #4c4f69;
+  --text-secondary:    #6c6f85;
+  --text-muted:        #9ca0b0;
+  --positive:          #40a02b;
+  --warning:           #df8e1d;
+  --volume-accent:     #8839ef;
+  --logo-color-start:  #8839ef;
+  --logo-color-end:    #6c6f85;
+
+  --ctp-base:      #eff1f5;
+  --ctp-mantle:    #e6e9ef;
+  --ctp-crust:     #dce0e8;
+  --ctp-surface0:  #e6e9ef;
+  --ctp-surface1:  #ccd0da;
+  --ctp-surface2:  #bcc0cc;
+  --ctp-overlay0:  #9ca0b0;
+  --ctp-overlay1:  #8c8fa1;
+  --ctp-overlay2:  #7c7f93;
+  --ctp-text:      #4c4f69;
+  --ctp-subtext0:  #6c6f85;
+  --ctp-subtext1:  #5c5e72;
+  --ctp-blue:      #1e66f5;
+  --ctp-lavender:  #7287fd;
+  --ctp-sapphire:  #209fb5;
+  --ctp-sky:       #04a5e5;
+  --ctp-mauve:     #8839ef;
+  --ctp-green:     #40a02b;
+  --ctp-yellow:    #df8e1d;
+  --ctp-red:       #d20f39;
+  --ctp-pink:      #ea76cb;
+  --ctp-flamingo:  #dd7878;
+  --ctp-peach:     #fe640b;
+  --ctp-teal:      #179299;
+  --ctp-rosewater: #dc8a78;
+
+  --waveform-played:   #8839ef;
+  --waveform-buffered: rgba(136, 57, 239, 0.35);
+  --waveform-unplayed: rgba(136, 57, 239, 0.10);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238839ef' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --nm-shadow-sm:  3px 3px 6px #dce0e8, -3px -3px 6px #ffffff;
+  --nm-shadow:     6px 6px 12px #dce0e8, -6px -6px 12px #ffffff;
+  --nm-shadow-lg:  9px 9px 18px #dce0e8, -9px -9px 18px #ffffff;
+  --nm-inset-sm:   inset 2px 2px 4px #dce0e8, inset -2px -2px 4px #ffffff;
+  --nm-inset:      inset 4px 4px 8px #dce0e8, inset -4px -4px 8px #ffffff;
+  --nm-inset-lg:   inset 6px 6px 12px #dce0e8, inset -6px -6px 12px #ffffff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL LAYOUT & SHAPE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] div,
+[data-theme='latte-reserve'] button,
+[data-theme='latte-reserve'] input,
+[data-theme='latte-reserve'] a,
+[data-theme='latte-reserve'] span,
+[data-theme='latte-reserve'] section,
+[data-theme='latte-reserve'] main,
+[data-theme='latte-reserve'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='latte-reserve'] .app-shell,
+[data-theme='latte-reserve'] .sidebar,
+[data-theme='latte-reserve'] .player-bar,
+[data-theme='latte-reserve'] .main-content {
+  border: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DYNAMIC MAUVE GLOW TRANSITIONS - LATTE RESERVE (LIGHT)
+═══════════════════════════════════════════════════════════════ */
+
+/* Base App Canvas Layers */
+[data-theme='latte-reserve'] .app-shell,
+[data-theme='latte-reserve'] #app,
+[data-theme='latte-reserve'] .app-root {
+  background-color: #eff1f5 !important;
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='latte-reserve'] .app-shell::before,
+[data-theme='latte-reserve'] #app::before,
+[data-theme='latte-reserve'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 85% 45% at 50% 100%, rgba(136, 57, 239, 0.18) 0%, #eff1f5 72%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  opacity: 0 !important;
+  filter: blur(2px);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+[data-theme='latte-reserve'][data-playing='true'] .app-shell::before,
+[data-theme='latte-reserve'][data-playing='true'] #app::before,
+[data-theme='latte-reserve'][data-playing='true'] .app-root::before,
+[data-theme='latte-reserve'] [data-playing='true'] .app-shell::before,
+[data-theme='latte-reserve'] [data-playing='true'] #app::before,
+[data-theme='latte-reserve'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+}
+
+/* ─── Main Content Window Glow ─── */
+
+[data-theme='latte-reserve'] .main-content {
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='latte-reserve'] .main-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 100% 35% at 50% 100%, rgba(136, 57, 239, 0.12) 0%, transparent 65%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  opacity: 0.2 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+[data-theme='latte-reserve'][data-playing='true'] .main-content::before,
+[data-theme='latte-reserve'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   WINDOW CONTROLS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='latte-reserve'] .window-controls button,
+[data-theme='latte-reserve'] .titlebar-button,
+[data-theme='latte-reserve'] .frame-button {
+  background: #eff1f5 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='latte-reserve'] .titlebar-btn svg,
+[data-theme='latte-reserve'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='latte-reserve'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='latte-reserve'] .window-controls button:hover,
+[data-theme='latte-reserve'] .titlebar-button:hover,
+[data-theme='latte-reserve'] .frame-button:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(136, 57, 239, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #e6e9ef !important;
+}
+
+[data-theme='latte-reserve'] .titlebar-btn-close:hover,
+[data-theme='latte-reserve'] .window-controls .close:hover,
+[data-theme='latte-reserve'] button[aria-label='Close']:hover {
+  background: #8839ef !important;
+  color: #eff1f5 !important;
+  box-shadow: 0 0 14px rgba(136, 57, 239, 0.5) !important;
+}
+
+[data-theme='latte-reserve'] .titlebar-btn:active,
+[data-theme='latte-reserve'] .window-controls button:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .sidebar {
+  background: linear-gradient(180deg, #e6e9ef 0%, #eff1f5 60%, rgba(136, 57, 239, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='latte-reserve'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+}
+
+[data-theme='latte-reserve'] .nav-link:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #eff1f5;
+}
+
+[data-theme='latte-reserve'] .nav-link.active,
+[data-theme='latte-reserve'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm);
+  background: #e6e9ef;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .player-bar {
+  background: linear-gradient(180deg, #e6e9ef 0%, #eff1f5 100%);
+  box-shadow: 0 -8px 24px #dce0e8, 0 -2px 6px #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='latte-reserve'] .waveform-container,
+[data-theme='latte-reserve'] .seekbar-trough {
+  box-shadow: var(--nm-inset);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+[data-theme='latte-reserve'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='latte-reserve'] input[type='range']::-webkit-slider-runnable-track {
+  background: #dce0e8;
+  box-shadow: var(--nm-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='latte-reserve'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #e6e9ef;
+  box-shadow: var(--nm-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='latte-reserve'] input[type='range']::-webkit-slider-thumb:hover {
+  background: #eff1f5;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(136, 57, 239, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] button:active,
+[data-theme='latte-reserve'] .btn-primary:active,
+[data-theme='latte-reserve'] .hero-play-btn:active,
+[data-theme='latte-reserve'] .btn-surface:active,
+[data-theme='latte-reserve'] .btn-ghost:active,
+[data-theme='latte-reserve'] .queue-round-btn:active,
+[data-theme='latte-reserve'] .song-list-row-btn:active,
+[data-theme='latte-reserve'] .song-card-action-btn:active,
+[data-theme='latte-reserve'] .album-card-details-btn:active,
+[data-theme='latte-reserve'] .play-btn:active,
+[data-theme='latte-reserve'] .transport-btn:active,
+[data-theme='latte-reserve'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #e6e9ef !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='latte-reserve'] .btn-primary,
+[data-theme='latte-reserve'] .hero-play-btn {
+  background: #eff1f5;
+  color: var(--accent);
+  border: 1px solid rgba(136, 57, 239, 0.25);
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow), 0 0 12px rgba(136, 57, 239, 0.07);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='latte-reserve'] .btn-primary:hover,
+[data-theme='latte-reserve'] .hero-play-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 22px rgba(136, 57, 239, 0.25);
+  border-color: rgba(136, 57, 239, 0.5);
+}
+
+[data-theme='latte-reserve'] .btn-surface {
+  background: #eff1f5;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='latte-reserve'] .btn-surface:hover {
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='latte-reserve'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='latte-reserve'] .btn-ghost:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #eff1f5;
+}
+
+/* Latte Reserve toolbar button base state */
+[data-theme='latte-reserve'] .queue-round-btn {
+  background: #eff1f5;
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--nm-shadow-sm);
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='latte-reserve'] .queue-round-btn:hover {
+  color: var(--accent);
+}
+
+[data-theme='latte-reserve'] .queue-round-btn.active,
+[data-theme='latte-reserve'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--nm-inset-sm) !important; 
+  background: #e6e9ef !important;
+  color: var(--accent) !important;
+}
+
+[data-theme='latte-reserve'] .queue-round-btn.active:hover,
+[data-theme='latte-reserve'] .queue-round-btn[data-active='true']:hover {
+  background: var(--accent) !important;
+  color: #eff1f5 !important; 
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='latte-reserve'] .play-btn,
+[data-theme='latte-reserve'] .transport-btn {
+  background: #eff1f5;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nm-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='latte-reserve'] .play-btn:hover,
+[data-theme='latte-reserve'] .transport-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px rgba(136, 57, 239, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SONG & TRACK INLINE ACTIONS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .song-list-row-btn,
+[data-theme='latte-reserve'] .song-list-row-btn--play,
+[data-theme='latte-reserve'] .song-card-action-btn {
+  background: #eff1f5 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='latte-reserve'] .song-list-row-btn:hover,
+[data-theme='latte-reserve'] .song-list-row-btn--play:hover,
+[data-theme='latte-reserve'] .song-card-action-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow) !important;
+}
+
+[data-theme='latte-reserve'] .song-list-row-btn svg,
+[data-theme='latte-reserve'] .song-list-row-btn--play svg,
+[data-theme='latte-reserve'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='latte-reserve'] .song-list-row-btn:hover svg,
+[data-theme='latte-reserve'] .song-list-row-btn--play:hover svg,
+[data-theme='latte-reserve'] .song-card-action-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ALBUM CARDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .album-card-details-btn {
+  background: #e6e9ef !important;
+  border-radius: 10px !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(136, 57, 239, 0.07) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='latte-reserve'] .album-card-details-btn:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 12px rgba(136, 57, 239, 0.18) !important;
+  background: #eff1f5 !important;
+}
+
+[data-theme='latte-reserve'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='latte-reserve'] .album-card-details-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+[data-theme='latte-reserve'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.45 !important;
+}
+
+[data-theme='latte-reserve'] .long-press-wave .long-press-wave__fill {
+  background: rgba(136, 57, 239, 0.18) !important;
+}
+
+[data-theme='latte-reserve'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15)) !important;
+}
+
+[data-theme='latte-reserve'] .album-card {
+  background: #eff1f5 !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(136, 57, 239, 0.04) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='latte-reserve'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: #e6e9ef !important;
+  box-shadow: var(--nm-inset), 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='latte-reserve'] .album-card-cover img,
+[data-theme='latte-reserve'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='latte-reserve'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='latte-reserve'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.6) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='latte-reserve'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='latte-reserve'] .album-card [class*="badge"],
+[data-theme='latte-reserve'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 4px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INPUTS & FIELDS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .input,
+[data-theme='latte-reserve'] input[type='text'],
+[data-theme='latte-reserve'] input[type='search'],
+[data-theme='latte-reserve'] input[type='password'],
+[data-theme='latte-reserve'] textarea,
+[data-theme='latte-reserve'] select {
+  background: #eff1f5;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='latte-reserve'] .input:focus,
+[data-theme='latte-reserve'] input:focus,
+[data-theme='latte-reserve'] textarea:focus {
+  box-shadow: var(--nm-inset), 0 0 0 2px rgba(136, 57, 239, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   QUEUE & TRACK ROWS
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] .queue-panel {
+  background: #e6e9ef;
+  box-shadow: -8px 0 24px #dce0e8;
+}
+
+[data-theme='latte-reserve'] .queue-item,
+[data-theme='latte-reserve'] .track-row {
+  border-radius: 10px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='latte-reserve'] .track-row:hover,
+[data-theme='latte-reserve'] .queue-item:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #eff1f5;
+}
+
+[data-theme='latte-reserve'] .queue-item.active,
+[data-theme='latte-reserve'] .track-row.active {
+  box-shadow: var(--nm-inset-sm);
+  background: #eff1f5;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS & SEEK
+═══════════════════════════════════════════════════════════════ */
+
+/* Allow the waveform framework to maintain its native layout spacing */
+[data-theme='latte-reserve'] .player-waveform-wrap,
+[data-theme='latte-reserve'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Style the audio canvas itself without crushing its physical wave data */
+[data-theme='latte-reserve'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px #6a3ec2) 
+          drop-shadow(0 0 1px rgba(136, 57, 239, 0.5)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISC
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='latte-reserve'] ::-webkit-scrollbar-thumb {
+  background: #ccd0da;
+  border-radius: 999px;
+  box-shadow: inset 1px 1px 2px #dce0e8;
+}
+
+[data-theme='latte-reserve'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(136, 57, 239, 0.55));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA STATE OVERRIDES
+   Both selector forms: with space (data attr on child wrapper)
+   and without space (data attr on same root as data-theme)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- data-playing='true' --- */
+
+/* Player bar: base structure and outer glow layout */
+[data-theme='latte-reserve'][data-playing='true'] .player-bar,
+[data-theme='latte-reserve'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #e6e9ef 0%, #eff1f5 100%) !important;
+  box-shadow:
+    0 -1px 24px #dce0e8,
+    0 -0px 3px #ffffff,
+    0 -8px 20px rgba(136, 57, 239, 0.60) !important;
+}
+
+/* The top mauve part: Isolated to allow the light vignette overlay */
+[data-theme='latte-reserve'][data-playing='true'] .player-bar::before,
+[data-theme='latte-reserve'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(255, 255, 255, 0.85) 20%, transparent 85%), 
+              linear-gradient(#8839ef, #8839ef) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* Track name in player: mauve + glow */
+[data-theme='latte-reserve'][data-playing='true'] .player-track-name,
+[data-theme='latte-reserve'] [data-playing='true'] .player-track-name,
+[data-theme='latte-reserve'][data-playing='true'] .player-bar .track-name,
+[data-theme='latte-reserve'] [data-playing='true'] .player-bar .track-name,
+[data-theme='latte-reserve'][data-playing='true'] .player-bar .track-title,
+[data-theme='latte-reserve'] [data-playing='true'] .player-bar .track-title,
+[data-theme='latte-reserve'][data-playing='true'] .now-playing-title,
+[data-theme='latte-reserve'] [data-playing='true'] .now-playing-title {
+  color: var(--accent) !important;
+  text-shadow: 0 0 12px rgba(136, 57, 239, 0.6) !important;
+}
+
+/* Active track row in queue: stronger mauve highlight */
+[data-theme='latte-reserve'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* --- data-sidebar-collapsed --- */
+
+/* Active nav item picks up a mauve ring when sidebar is icon-only */
+[data-theme='latte-reserve'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='latte-reserve'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='latte-reserve'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='latte-reserve'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm), 0 0 12px rgba(136, 57, 239, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STAR RATING EMOTE OVERRIDES (UNIVERSAL ENGINE - LIGHT RESERVE)
+═══════════════════════════════════════════════════════════════ */
+
+/* --- 1. Target Text/Button Based Star Ratings (Trackbar) --- */
+
+/* Hide the original text stars ONLY under Latte Reserve */
+[data-theme='latte-reserve'] .star-rating .star {
+    color: transparent !important; 
+    position: relative;
+}
+
+/* Inject new rating shape ONLY under Latte Reserve */
+[data-theme='latte-reserve'] .star-rating .star::before {
+    content: "\1F918";     
+    color: #8839ef !important;  
+    font-size: 12px;         
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.18; 
+    filter: brightness(40%) grayscale(1);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Fill shape color transitions ONLY under Latte Reserve */
+[data-theme='latte-reserve'] .star-rating .star.filled::before {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(60%) 
+            sepia(50%) 
+            saturate(4000%) 
+            hue-rotate(230deg) 
+            brightness(90%) 
+            contrast(100%) !important;  
+}
+
+
+/* --- 2. Target SVG Vector Based Star Ratings (Track Rows, Queue, Inline Containers) --- */
+
+/* Hide vector paths completely on any lucide-star matching target lists or sibling ratings groups */
+[data-theme='latte-reserve'] .queue-current-info svg.lucide-star path,
+[data-theme='latte-reserve'] .track-row svg.lucide-star path,
+[data-theme='latte-reserve'] .track-item svg.lucide-star path,
+[data-theme='latte-reserve'] svg.lucide-star:has(~ svg.lucide-star) path,
+[data-theme='latte-reserve'] svg.lucide-star ~ svg.lucide-star path {
+  display: none !important;
+}
+
+/* Base configuration for all target SVG rating clusters to display the custom emoji asset */
+[data-theme='latte-reserve'] .queue-current-info svg.lucide-star,
+[data-theme='latte-reserve'] .track-row svg.lucide-star,
+[data-theme='latte-reserve'] .track-item svg.lucide-star,
+[data-theme='latte-reserve'] svg.lucide-star:has(~ svg.lucide-star),
+[data-theme='latte-reserve'] svg.lucide-star ~ svg.lucide-star {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='21' font-size='22'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: inline-block !important;
+  
+  /* Default: Dim/unfilled state */
+  opacity: 0.3 !important;
+  filter: brightness(80%) grayscale(1) !important;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Active State Validation: Correctly ordered token checking to protect the CSS parser engine */
+[data-theme='latte-reserve'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='latte-reserve'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='latte-reserve'] .track-item svg.lucide-star:not([fill="none"]),
+[data-theme='latte-reserve'] svg.lucide-star:not([fill="none"]):has(~ svg.lucide-star),
+[data-theme='latte-reserve'] svg.lucide-star ~ svg.lucide-star:not([fill="none"]),
+[data-theme='latte-reserve'] svg.lucide-star[fill*="highlight"] {
+  opacity: 1 !important;
+  filter: brightness(90%) 
+          invert(60%) 
+          sepia(50%) 
+          saturate(4000%) 
+          hue-rotate(230deg) 
+          brightness(90%) 
+          contrast(100%) !important;
+}
