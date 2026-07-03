@@ -1,0 +1,800 @@
+/*
+  name: Feywild
+  author: asra
+  version: 1.2.6
+  color-scheme: dark
+  description: Forest green and earthy tones neumorphic theme with warm moss accents.
+*/
+[data-theme='feywild'] {
+  color-scheme: dark;
+
+  --accent:            #6a994e;
+  --accent-secondary:  #7d6b9e;
+  --accent-tertiary:   #a67c52;
+  --accent-dim:        rgba(106, 153, 78, 0.15);
+  --accent-glow:       rgba(106, 153, 78, 0.35);
+  --bg-app:            #1a2e1a;
+  --bg-card:           #1a2e1a;
+  --bg-elevated:       #253d25;
+  --border:            rgba(106, 153, 78, 0.09);
+  --text-primary:      #e8e4d9;
+  --text-secondary:    #a8b89a;
+  --text-muted:        #7a8a6c;
+  --positive:          #6a994e;
+  --warning:           #b8953f;
+  --volume-accent:     #6a994e;
+  --logo-color-start:  #6a994e;
+  --logo-color-end:    #7d6b9e;
+
+  --ctp-base:      #1a2e1a;
+  --ctp-mantle:    #102010;
+  --ctp-crust:     #0d180d;
+  --ctp-surface0:  #253d25;
+  --ctp-surface1:  #2f472f;
+  --ctp-surface2:  #395139;
+  --ctp-overlay0:  #6a8a5c;
+  --ctp-overlay1:  #8b9d6e;
+  --ctp-overlay2:  #a8b89a;
+  --ctp-text:      #e8e4d9;
+  --ctp-subtext0:  #a8b89a;
+  --ctp-subtext1:  #c8d4b8;
+  --ctp-blue:      #6a7d9e;
+  --ctp-lavender:  #7d6b9e;
+  --ctp-sapphire:  #6a994e;
+  --ctp-sky:       #b8953f;
+  --ctp-mauve:     #7d6b9e;
+  --ctp-green:     #6a994e;
+  --ctp-yellow:    #a67c52;
+  --ctp-red:       #8b5a3c;
+  --ctp-pink:      #9e6b8a;
+  --ctp-flamingo:  #8b5a3c;
+  --ctp-peach:     #a67c52;
+  --ctp-teal:      #5a8a6a;
+  --ctp-rosewater: #6a8a5c;
+
+  --waveform-played:   #6a994e;
+  --waveform-buffered: rgba(166, 124, 82, 0.35);
+  --waveform-unplayed: rgba(209, 167, 105, 0.384);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236a994e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --nm-shadow-sm:  3px 3px 6px #0d180d, -3px -3px 6px #2f472f;
+  --nm-shadow:     6px 6px 12px #0d180d, -6px -6px 12px #2f472f;
+  --nm-shadow-lg:  9px 9px 18px #0a150a, -9px -9px 18px #395139;
+  --nm-inset-sm:   inset 2px 2px 4px #0d180d, inset -2px -2px 4px #2f472f;
+  --nm-inset:      inset 4px 4px 8px #0d180d, inset -4px -4px 8px #2f472f;
+  --nm-inset-lg:   inset 6px 6px 12px #0a150a, inset -6px -6px 12px #395139;
+
+  /* Purple accent variants for hover states */
+  --accent-purple:  #7d6b9e;
+  --accent-purple-dim: rgba(125, 107, 158, 0.15);
+  --accent-purple-glow: rgba(125, 107, 158, 0.4);
+}
+
+[data-theme='feywild'] div,
+[data-theme='feywild'] button,
+[data-theme='feywild'] input,
+[data-theme='feywild'] a,
+[data-theme='feywild'] span,
+[data-theme='feywild'] section,
+[data-theme='feywild'] main,
+[data-theme='feywild'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='feywild'] .app-shell,
+[data-theme='feywild'] .sidebar,
+[data-theme='feywild'] .player-bar,
+[data-theme='feywild'] .main-content {
+  border: none;
+}
+
+/* Dynamic Moss Glow Transitions - Earthen Forest (Dark) */
+
+[data-theme='feywild'] .app-shell,
+[data-theme='feywild'] #app,
+[data-theme='feywild'] .app-root {
+  background-color: #1a2e1a !important;
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='feywild'] .app-shell::before,
+[data-theme='feywild'] #app::before,
+[data-theme='feywild'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 85% 45% at 50% 100%, rgba(125, 107, 158, 0.20) 0%, #1a2e1a 72%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+
+  opacity: 0 !important;
+  filter: blur(2px);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+[data-theme='feywild'][data-playing='true'] .app-shell::before,
+[data-theme='feywild'][data-playing='true'] #app::before,
+[data-theme='feywild'][data-playing='true'] .app-root::before,
+[data-theme='feywild'] [data-playing='true'] .app-shell::before,
+[data-theme='feywild'] [data-playing='true'] #app::before,
+[data-theme='feywild'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+}
+
+/* Main Content Window Glow */
+
+[data-theme='feywild'] .main-content {
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='feywild'] .main-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(ellipse 100% 35% at 50% 100%, rgba(125, 107, 158, 0.12) 0%, transparent 65%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+
+  opacity: 0.2 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+[data-theme='feywild'][data-playing='true'] .main-content::before,
+[data-theme='feywild'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
+}
+
+/* Window Controls */
+
+[data-theme='feywild'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='feywild'] .window-controls button,
+[data-theme='feywild'] .titlebar-button,
+[data-theme='feywild'] .frame-button {
+  background: #1a2e1a !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='feywild'] .titlebar-btn svg,
+[data-theme='feywild'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='feywild'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='feywild'] .window-controls button:hover,
+[data-theme='feywild'] .titlebar-button:hover,
+[data-theme='feywild'] .frame-button:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(125, 107, 158, 0.35) !important;
+  color: var(--text-primary) !important;
+  background: #253d25 !important;
+}
+
+[data-theme='feywild'] .titlebar-btn-close:hover,
+[data-theme='feywild'] .window-controls .close:hover,
+[data-theme='feywild'] button[aria-label='Close']:hover {
+  background: #6a994e !important;
+  color: #1a2e1a !important;
+  box-shadow: 0 0 14px rgba(106, 153, 78, 0.5) !important;
+}
+
+[data-theme='feywild'] .titlebar-btn:active,
+[data-theme='feywild'] .window-controls button:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* Sidebar */
+
+[data-theme='feywild'] .sidebar {
+  background: linear-gradient(180deg, #102010 0%, #1a2e1a 60%, rgba(106, 153, 78, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+}
+
+[data-theme='feywild'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+}
+
+[data-theme='feywild'] .nav-link:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #1a2e1a;
+}
+
+[data-theme='feywild'] .nav-link.active,
+[data-theme='feywild'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm);
+  background: #102010;
+  color: #b8953f;
+}
+
+/* Player Bar & Transport */
+
+[data-theme='feywild'] .player-bar {
+  background: linear-gradient(180deg, #102010 0%, #1a2e1a 100%);
+  box-shadow: 0 -8px 24px #0d180d, 0 -2px 6px #2f472f;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='feywild'] .waveform-container,
+[data-theme='feywild'] .seekbar-trough {
+  box-shadow: var(--nm-inset);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+[data-theme='feywild'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='feywild'] input[type='range']::-webkit-slider-runnable-track {
+  background: #1f2d1f;
+  box-shadow: var(--nm-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='feywild'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #253d25;
+  box-shadow: var(--nm-shadow-sm);
+  margin-top: -6px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='feywild'] input[type='range']::-webkit-slider-thumb:hover {
+  background: #2f472f;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(106, 153, 78, 0.4);
+}
+
+/* Buttons */
+
+[data-theme='feywild'] button:active,
+[data-theme='feywild'] .btn-primary:active,
+[data-theme='feywild'] .hero-play-btn:active,
+[data-theme='feywild'] .btn-surface:active,
+[data-theme='feywild'] .btn-ghost:active,
+[data-theme='feywild'] .queue-round-btn:active,
+[data-theme='feywild'] .song-list-row-btn:active,
+[data-theme='feywild'] .song-card-action-btn:active,
+[data-theme='feywild'] .album-card-details-btn:active,
+[data-theme='feywild'] .play-btn:active,
+[data-theme='feywild'] .transport-btn:active,
+[data-theme='feywild'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #102010 !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='feywild'] .btn-primary,
+[data-theme='feywild'] .hero-play-btn {
+  background: #1a2e1a;
+  color: #b8953f;
+  border: 1px solid rgba(125, 107, 158, 0.35);
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow), 0 0 12px rgba(106, 153, 78, 0.07);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='feywild'] .btn-primary:hover,
+[data-theme='feywild'] .hero-play-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 22px rgba(125, 107, 158, 0.35), 0 0 18px var(--accent-purple-glow);
+  border-color: rgba(106, 153, 78, 0.5);
+}
+
+[data-theme='feywild'] .btn-surface {
+  background: #1a2e1a;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='feywild'] .btn-surface:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px var(--accent-purple-glow);
+}
+
+[data-theme='feywild'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='feywild'] .btn-ghost:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #1a2e1a;
+  color: #b8953f !important;
+}
+
+/* Hollow Earth toolbar button base state */
+
+[data-theme='feywild'] .queue-round-btn {
+  background: #1a2e1a;
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--nm-shadow-sm);
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='feywild'] .queue-round-btn:hover {
+  color: #b8953f;
+}
+
+[data-theme='feywild'] .queue-round-btn.active,
+[data-theme='feywild'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #253d25 !important;
+  color: #b8953f !important;
+}
+
+[data-theme='feywild'] .queue-round-btn.active:hover,
+[data-theme='feywild'] .queue-round-btn[data-active='true']:hover {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-purple) 100%) !important;
+  color: #1a2e1a !important;
+  box-shadow: 0 0 12px var(--accent-glow), 0 0 8px var(--accent-purple-glow) !important;
+}
+
+[data-theme='feywild'] .play-btn,
+[data-theme='feywild'] .transport-btn {
+  background: linear-gradient(145deg, #c49a6c 0%, #a67c52 100%);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nm-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='feywild'] .play-btn:hover,
+[data-theme='feywild'] .transport-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px rgba(125, 107, 158, 0.35), 0 0 12px var(--accent-purple-glow);
+}
+
+/* Song & Track Inline Actions */
+
+[data-theme='feywild'] .song-list-row-btn,
+[data-theme='feywild'] .song-list-row-btn--play,
+[data-theme='feywild'] .song-card-action-btn {
+  background: #1a2e1a !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='feywild'] .song-list-row-btn:hover,
+[data-theme='feywild'] .song-list-row-btn--play:hover,
+[data-theme='feywild'] .song-card-action-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow), 0 0 8px var(--accent-purple-glow) !important;
+}
+
+[data-theme='feywild'] .song-list-row-btn svg,
+[data-theme='feywild'] .song-list-row-btn--play svg,
+[data-theme='feywild'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='feywild'] .song-list-row-btn:hover svg,
+[data-theme='feywild'] .song-list-row-btn--play:hover svg,
+[data-theme='feywild'] .song-card-action-btn:hover svg {
+  color: #b8953f !important;
+}
+
+/* Album Cards */
+
+[data-theme='feywild'] .album-card-details-btn {
+  background: #253d25 !important;
+  border-radius: 10px !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(106, 153, 78, 0.07) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='feywild'] .album-card-details-btn:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 12px rgba(166, 124, 82, 0.25), 0 0 10px var(--accent-purple-glow) !important;
+  background: #2f472f !important;
+}
+
+[data-theme='feywild'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='feywild'] .album-card-details-btn:hover svg {
+  color: #b8953f !important;
+}
+
+[data-theme='feywild'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.45 !important;
+}
+
+[data-theme='feywild'] .long-press-wave .long-press-wave__fill {
+  background: rgba(166, 124, 82, 0.25) !important;
+}
+
+[data-theme='feywild'] .long-press-play-btn__icon svg {
+  color: #b8953f !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) !important;
+}
+
+[data-theme='feywild'] .album-card {
+  background: #1a2e1a !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(106, 153, 78, 0.04) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='feywild'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: #102010 !important;
+  box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='feywild'] .album-card-cover img,
+[data-theme='feywild'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='feywild'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='feywild'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='feywild'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='feywild'] .album-card [class*="badge"],
+[data-theme='feywild'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 4px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* Inputs & Fields */
+
+[data-theme='feywild'] .input,
+[data-theme='feywild'] input[type='text'],
+[data-theme='feywild'] input[type='search'],
+[data-theme='feywild'] input[type='password'],
+[data-theme='feywild'] textarea,
+[data-theme='feywild'] select {
+  background: #1a2e1a;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='feywild'] .input:focus,
+[data-theme='feywild'] input:focus,
+[data-theme='feywild'] textarea:focus {
+  box-shadow: var(--nm-inset), 0 0 0 2px rgba(166, 124, 82, 0.3);
+}
+
+/* Queue & Track Rows */
+
+[data-theme='feywild'] .queue-panel {
+  background: #102010;
+  box-shadow: -8px 0 24px #0d180d;
+}
+
+[data-theme='feywild'] .queue-item,
+[data-theme='feywild'] .track-row {
+  border-radius: 10px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='feywild'] .track-row:hover,
+[data-theme='feywild'] .queue-item:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #1a2e1a;
+}
+
+[data-theme='feywild'] .queue-item.active,
+[data-theme='feywild'] .track-row.active {
+  box-shadow: var(--nm-inset-sm);
+  background: #1a2e1a;
+  color: #b8953f;
+}
+
+/* Progress & Seek */
+
+[data-theme='feywild'] .player-waveform-wrap,
+[data-theme='feywild'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Style the audio canvas itself without crushing its physical wave data */
+
+[data-theme='feywild'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 2px rgba(166, 124, 82, 0.4)) drop-shadow(0 0 1px rgba(166, 124, 82, 0.6)) !important;
+}
+
+/* Misc */
+
+[data-theme='feywild'] ::-webkit-scrollbar-thumb {
+  background: #3a2a1a;
+  background: #2f472f;
+  border-radius: 999px;
+  box-shadow: inset 1px 1px 2px #0d180d, 0 0 4px rgba(166, 124, 82, 0.2);
+}
+
+[data-theme='feywild'] .is-starred {
+  color: #b8953f;
+  filter: drop-shadow(0 0 6px rgba(106, 153, 78, 0.55)) drop-shadow(0 0 4px rgba(125, 107, 158, 0.4));
+}
+
+/* Data State Overrides */
+
+[data-theme='feywild'][data-playing='true'] .player-bar,
+[data-theme='feywild'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #102010 0%, #1a2e1a 100%) !important;
+  box-shadow:
+    0 -1px 24px #0d180d,
+    0 -0px 3px #2f472f,
+    0 -8px 20px rgba(106, 153, 78, 0.60),
+    0 -4px 16px rgba(125, 107, 158, 0.25) !important;
+}
+
+/* The top green part: Isolated to allow the black vignette overlay */
+
+[data-theme='feywild'][data-playing='true'] .player-bar::before,
+[data-theme='feywild'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(0, 0, 0, 0.75) 20%, transparent 85%),
+              linear-gradient(135deg, #6a994e 0%, #7d6b9e 100%) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* Track name in player: green + glow */
+
+[data-theme='feywild'][data-playing='true'] .player-track-name,
+[data-theme='feywild'] [data-playing='true'] .player-track-name,
+[data-theme='feywild'][data-playing='true'] .player-bar .track-name,
+[data-theme='feywild'] [data-playing='true'] .player-bar .track-name,
+[data-theme='feywild'][data-playing='true'] .player-bar .track-title,
+[data-theme='feywild'] [data-playing='true'] .player-bar .track-title,
+[data-theme='feywild'][data-playing='true'] .now-playing-title,
+[data-theme='feywild'] [data-playing='true'] .now-playing-title {
+  color: #b8953f !important;
+  text-shadow: 0 0 12px rgba(106, 153, 78, 0.6) !important;
+}
+
+/* Active track row in queue: stronger green highlight */
+
+[data-theme='feywild'] .queue-item-info {
+  color: #b8953f !important;
+}
+
+/* Active nav item picks up a green ring when sidebar is icon-only */
+
+[data-theme='feywild'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='feywild'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='feywild'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='feywild'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm), 0 0 12px rgba(106, 153, 78, 0.3) !important;
+}
+
+/* Star Rating Emote Overrides (Universal Engine - Dark Earthen) */
+
+/* Target Text/Button Based Star Ratings (Trackbar) */
+
+/* Hide the original text stars ONLY under Earthen Forest */
+
+
+/* Inject new rating shape ONLY under Earthen Forest */
+
+
+/* Fill shape color transitions ONLY under Earthen Forest */
+
+
+
+
+/* Active State Validation: Correctly ordered token checking to protect the CSS parser engine */
+
+[data-theme='feywild'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='feywild'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='feywild'] .track-item svg.lucide-star:not([fill="none"]),
+[data-theme='feywild'] svg.lucide-star:not([fill="none"]):has(~ svg.lucide-star),
+[data-theme='feywild'] svg.lucide-star ~ svg.lucide-star:not([fill="none"]),
+[data-theme='feywild'] svg.lucide-star[fill*="highlight"] {
+  opacity: 1 !important;
+}/*
+  Player Bar Button Overrides - Feywild Brown Theme
+  This file targets the actual player buttons from your HTML
+*/
+
+/* All player buttons - brown theme */
+[data-theme='feywild'] .player-bar .player-btn {
+  background: linear-gradient(145deg, #c49a6c 0%, #a67c52 100%) !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(196, 154, 108, 0.25) !important;
+  color: var(--text-primary) !important;
+  transition: all 0.18s ease !important;
+}
+
+[data-theme='feywild'] .player-bar .player-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 16px rgba(196, 154, 108, 0.45) !important;
+  transform: scale(1.08) !important;
+  background: linear-gradient(145deg, #d4aa7c 0%, #b68c62 100%) !important;
+}
+
+[data-theme='feywild'] .player-bar .player-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.95) !important;
+}
+
+/* Primary play button - larger, more prominent */
+[data-theme='feywild'] .player-btn-primary {
+  width: 48px !important;
+  height: 48px !important;
+  background: linear-gradient(145deg, #d4aa7c 0%, #b68c62 100%) !important;
+  box-shadow: var(--nm-shadow), 0 0 20px rgba(196, 154, 108, 0.4) !important;
+}
+
+[data-theme='feywild'] .player-btn-primary:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 28px rgba(196, 154, 108, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Star ratings in player bar - brown stars */
+
+[data-theme='feywild'] .star-rating .star:hover {
+  opacity: 0.7;
+  color: #a67c52 !important;
+  transform: scale(1.15);
+}
+
+[data-theme='feywild'] .star-rating .star.filled,
+[data-theme='feywild'] .star-rating .star[aria-checked="true"] {
+  opacity: 1 !important;
+  color: #c49a6c !important;
+  filter: drop-shadow(0 0 5px rgba(196, 154, 108, 0.7));
+  text-shadow: 0 0 8px rgba(196, 154, 108, 0.6);
+}
+
+/* Star ratings - brown stars */
+[data-theme='feywild'] .star-rating .star {
+  color: #8b5a3c !important;
+  opacity: 0.4;
+  background: transparent !important;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+[data-theme='feywild'] .star-rating .star:hover {
+  opacity: 0.7;
+  color: #a67c52 !important;
+  transform: scale(1.15);
+}
+
+[data-theme='feywild'] .star-rating .star.filled,
+[data-theme='feywild'] .star-rating .star[aria-checked="true"] {
+  opacity: 1 !important;
+  color: #c49a6c !important;
+  filter: drop-shadow(0 0 5px rgba(196, 154, 108, 0.7));
+  text-shadow: 0 0 8px rgba(196, 154, 108, 0.6);
+}
+
+
+/* Volume slider knob - lighter brown */
+[data-theme='feywild'] .player-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, #d4aa7c 0%, #b68c62 100%) !important;
+  box-shadow: var(--nm-shadow-sm), 0 0 14px rgba(196, 154, 108, 0.5) !important;
+  margin-top: -6px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-theme='feywild'] .player-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15) !important;
+  box-shadow: var(--nm-shadow), 0 0 20px rgba(196, 154, 108, 0.7) !important;
+}
+/* Orbit button - brown text */
+[data-theme='feywild'] .orbit-btn,
+[data-theme='feywild'] button[aria-label*='Orbit'],
+[data-theme='feywild'] [class*='orbit'],
+[data-theme='feywild'] .btn-ghost {
+  color: #b8953f !important;
+}
+
+/* Queue current info star ratings - brown stars */
+[data-theme='feywild'] .queue-current-info svg.lucide-star {
+  fill: #b8953f !important;
+  stroke: #b8953f !important;
+  filter: drop-shadow(0 0 3px rgba(184, 149, 63, 0.6));
+}
+
+[data-theme='feywild'] .queue-current-info svg.lucide-star[fill="none"] {
+  fill: none !important;
+  stroke: #7a6a4a !important;
+  opacity: 0.5;
+}
