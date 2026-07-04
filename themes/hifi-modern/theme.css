@@ -826,8 +826,104 @@
   pointer-events: none;
   z-index: 4;
   background:
-    linear-gradient(to right,  rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 46px),
-    linear-gradient(to left,   rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 46px),
-    linear-gradient(to top,    rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 52px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 48px);
+    linear-gradient(to right,  rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to left,   rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to top,    rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 52px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 48px);
+}
+
+
+/* ============================================================
+   TOP LIGHT CONES — light content (subtle; reads mainly against
+   dark album art at the top of a page, near-invisible on open faceplate)
+   Shape analysis: NOT flush to the top edge. A thin shadow "lip"
+   sits at the very top (the frame edge, in shadow), then the light
+   is OFFSET below it — the offset is what creates the depth (frame
+   in front, lit surface behind). The lights are tall beam/cone
+   shapes (taller than wide), three of them, fanning down from just
+   behind the lip. Pinned to the non-scrolling route host so it
+   holds on scroll. pointer-events:none.
+   ============================================================ */
+[data-theme='hifi-modern'] .content-body.app-shell-route-host::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 380px;
+  pointer-events: none;
+  z-index: 5;
+  /* warm glow: offset ~7px below the top edge (dark gap = depth),
+     brightest just under the lip and fading down */
+  background:
+    /* CYLINDRICAL source — a wide, thin glowing tube (70s fuse / LED strip)
+       sized to the cone's top width, not a dot. Bright thin body + soft glow. */
+    radial-gradient(48px 3px at 22% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
+    radial-gradient(48px 3px at 50% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
+    radial-gradient(48px 3px at 78% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
+    radial-gradient(56px 8px at 22% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
+    radial-gradient(56px 8px at 50% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
+    radial-gradient(56px 8px at 78% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
+    /* the beams (spill) */
+    linear-gradient(
+      to bottom,
+      rgba(255, 250, 240, 0)    0,
+      rgba(255, 250, 240, 0)    2px,    /* 2px gap under the header */
+      rgba(255, 250, 240, 0.62) 11px,   /* source */
+      rgba(255, 250, 240, 0.38) 34px,   /* upper region */
+      rgba(255, 250, 240, 0.17) 130px,  /* long, slow tail... */
+      rgba(255, 250, 240, 0.07) 250px,
+      rgba(255, 250, 240, 0)    380px
+    );
+  /* clip the glow into three TRAPEZOID beams — conic wedges whose apex sits
+     46px above the top edge, so the visible part is a truncated triangle that
+     fans WIDER toward the bottom (a real light cone, not a taper). */
+  -webkit-mask-image:
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+  mask-image:
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+}
+
+
+/* ============================================================
+   SEAM CATCH — the header's silver lip catches the tube light
+   Three warm glows on the content-header's bottom edge, aligned
+   to the three light tubes below (22/50/78%), so the metal lip
+   itself reads as lit from beneath — grounds the light source.
+   pointer-events:none; sits at the bottom edge (below the header
+   content), so it never touches the search bar or title.
+   ============================================================ */
+[data-theme='hifi-modern'] .content-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;                 /* thin — a specular rim ON the border, not a wash into the header */
+  pointer-events: none;
+  background:
+    radial-gradient(52px 2.5px at 22% 100%, rgba(255, 255, 255, 0.6), transparent 74%),
+    radial-gradient(52px 2.5px at 50% 100%, rgba(255, 255, 255, 0.6), transparent 74%),
+    radial-gradient(52px 2.5px at 78% 100%, rgba(255, 255, 255, 0.6), transparent 74%);
+}
+
+
+/* ============================================================
+   PLAYBACK REACTIVITY — the console "powers up"
+   The top light (cones + seam catch) sits ~15% dimmer when paused
+   and warms up to full when a track is playing. data-playing is on
+   the theme root, same as data-theme. Slow transition = warm-up.
+   ============================================================ */
+[data-theme='hifi-modern'] .content-body.app-shell-route-host::before,
+[data-theme='hifi-modern'] .content-header::after {
+  opacity: 0.85;
+  transition: opacity 0.8s ease-out;
+}
+[data-theme='hifi-modern'][data-playing='true'] .content-body.app-shell-route-host::before,
+[data-theme='hifi-modern'][data-playing='true'] .content-header::after {
+  opacity: 1;
 }
