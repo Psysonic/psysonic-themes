@@ -811,3 +811,23 @@
   --accent: #E4ECF5;   /* engaged: blueish-white (inline color:var(--accent)) */
   color: #5f6670;      /* disengaged: darker gray so on/off read differently */
 }
+
+
+/* ============================================================
+   RECESSED CONTENT WELL — content sits inset below the sidebar /
+   queue for depth. Soft gray shadows fade in from the left/right
+   edges (tuned light for the silver faceplate). No top light on
+   the light themes — the cones are dark-only.
+   ============================================================ */
+[data-theme='hifi-modern'] .content-body.app-shell-route-host::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    linear-gradient(to right,  rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to left,   rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to top,    rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 52px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 0, rgba(0, 0, 0, 0) 48px);
+}
