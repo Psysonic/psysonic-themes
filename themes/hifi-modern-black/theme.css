@@ -933,5 +933,6 @@
   z-index: 4;
   background:
     linear-gradient(to right, rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
-    linear-gradient(to left,  rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px);
+    linear-gradient(to left,  rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to top,   rgba(0, 0, 0, 0.34) 0, rgba(0, 0, 0, 0) 58px);
 }
