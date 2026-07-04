@@ -916,3 +916,22 @@
 [data-theme='hifi-modern-black'][data-playing='true'] .content-header::after {
   opacity: 1;
 }
+
+
+/* ============================================================
+   RECESSED CONTENT WELL — makes the middle section read as inset
+   below the sidebar / queue panel, so the light falls into a well
+   rather than onto a flat surface. Inner shadows fade in from the
+   left and right edges (the recess walls); the top is already the
+   lit lip. Static (not playback-reactive). Below the light (z 5).
+   ============================================================ */
+[data-theme='hifi-modern-black'] .content-body.app-shell-route-host::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to left,  rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px);
+}
