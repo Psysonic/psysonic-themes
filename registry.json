@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-05T17:35:18.456Z",
+  "generatedAt": "2026-07-05T21:57:24.241Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1199,12 +1199,21 @@
       "id": "psychowave",
       "name": "Psychowave",
       "author": "Psysonic",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Psychedelic purple waves over deep dusk.",
       "mode": "dark",
+      "changelog": {
+        "1.0.1": [
+          "Added release notes so store updates show what changed.",
+          "No visual changes in this version."
+        ],
+        "1.0.0": [
+          "Initial release."
+        ]
+      },
       "css": "themes/psychowave/theme.css",
       "thumbnail": "themes/psychowave/thumbnail.webp",
-      "updatedAt": "2026-06-07T19:05:13+02:00"
+      "updatedAt": "2026-07-05T23:57:07+02:00"
     },
     {
       "id": "readit",
