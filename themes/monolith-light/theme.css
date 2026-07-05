@@ -182,6 +182,44 @@
   box-shadow: 0 -8px 24px #c5c7ce, 0 -2px 6px #d8d9df;
 }
 
+/* Player bar glow when playing */
+[data-theme='monolith-light'][data-playing='true'] .player-bar,
+[data-theme='monolith-light'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #edeef3 0%, #e8e9ef 100%) !important;
+  box-shadow:
+    0 -1px 24px #c5c7ce,
+    0 -0px 3px #d8d9df,
+    0 -8px 20px rgba(0, 0, 0, 0.60) !important;
+}
+
+[data-theme='monolith-light'][data-playing='true'] .player-bar::before,
+[data-theme='monolith-light'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(255, 255, 255, 0.85) 20%, transparent 85%), 
+              linear-gradient(#111216, #111216) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+[data-theme='monolith-light'][data-playing='true'] .player-track-name,
+[data-theme='monolith-light'] [data-playing='true'] .player-track-name,
+[data-theme='monolith-light'][data-playing='true'] .player-bar .track-name,
+[data-theme='monolith-light'] [data-playing='true'] .player-bar .track-name,
+[data-theme='monolith-light'][data-playing='true'] .player-bar .track-title,
+[data-theme='monolith-light'] [data-playing='true'] .player-bar .track-title,
+[data-theme='monolith-light'][data-playing='true'] .now-playing-title,
+[data-theme='monolith-light'] [data-playing='true'] .now-playing-title {
+  color: var(--accent) !important;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.6) !important;
+}
+
 [data-theme='monolith-light'] [data-playing='true'] .player-track-name,
 [data-theme='monolith-light'] .player-bar .track-name {
   color: var(--accent);
@@ -349,6 +387,21 @@
 /* ═══════════════════════════════════════════════════════════════
  *  ALBUM BUTTON CARDS
  ═ *══════════════════════════════════════════════════════════════ */
+
+/* Fix neumorphic shadow clipping — allow box-shadow glow to render above album cards */
+[data-theme='monolith-light'] .album-grid,
+[data-theme='monolith-light'] .album-grid-wrapper,
+[data-theme='monolith-light'] .album-row-section,
+[data-theme='monolith-light'] .album-row-section > div,
+[data-theme='monolith-light'] .album-grid-wrap {
+  overflow: visible !important;
+}
+
+/* Give the first row of album cards breathing room so top/left shadows aren't clipped by viewport */
+[data-theme='monolith-light'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
 
 [data-theme='monolith-light'] .album-card-details-btn {
   background: #edeef3 !important;

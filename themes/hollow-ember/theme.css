@@ -431,6 +431,21 @@
    ALBUM CARDS
 ═══════════════════════════════════════════════════════════════ */
 
+/* Fix neumorphic shadow clipping — allow box-shadow glow to render above album cards */
+[data-theme='hollow-ember'] .album-grid,
+[data-theme='hollow-ember'] .album-grid-wrapper,
+[data-theme='hollow-ember'] .album-row-section,
+[data-theme='hollow-ember'] .album-row-section > div,
+[data-theme='hollow-ember'] .album-grid-wrap {
+  overflow: visible !important;
+}
+
+/* Give the first row of album cards breathing room so top/left shadows aren't clipped by viewport */
+[data-theme='hollow-ember'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
+
 [data-theme='hollow-ember'] .album-card-details-btn {
   background: #1c1710 !important;
   border-radius: 10px !important;
@@ -743,8 +758,8 @@
 [data-theme='hollow-ember'] .track-item svg.lucide-star,
 [data-theme='hollow-ember'] svg.lucide-star:has(~ svg.lucide-star),
 [data-theme='hollow-ember'] svg.lucide-star ~ svg.lucide-star {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='21' font-size='22'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
-  background-size: contain !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='18' font-size='20'%3E%F0%9F%A4%98%3C/text%3E%3C/svg%3E") !important;
+  background-size: 12px 12px !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   display: inline-block !important;
