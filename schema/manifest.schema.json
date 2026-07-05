@@ -55,6 +55,25 @@
       "type": "string",
       "description": "Optional minimum Psysonic version. Clients hide themes they are too old for.",
       "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "changelog": {
+      "type": "object",
+      "description": "Optional per-version release notes shown in the store's expandable \"What's new\". Keys are X.Y.Z versions; each maps to a list of short change lines.",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 50,
+      "patternProperties": {
+        "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      }
     }
   }
 }

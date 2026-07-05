@@ -5,5 +5,8 @@
   "version": "1.0.0",
   "description": "Starting point for a community theme. Copy this folder, rename, recolour.",
   "mode": "dark",
-  "tags": ["template"]
+  "tags": ["template"],
+  "changelog": {
+    "1.0.0": ["Initial release."]
+  }
 }

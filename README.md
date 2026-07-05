@@ -32,7 +32,7 @@ thumbnail on demand. Nothing here is bundled into the app.
 
 ```
 themes/<id>/
-├── manifest.json   # id, name, author, version, description, mode, [tags], [minAppVersion]
+├── manifest.json   # id, name, author, version, description, mode, [tags], [minAppVersion], [changelog]
 ├── theme.css       # your theme's CSS (recolour the semantic tokens, and more)
 └── thumbnail.png   # store preview screenshot — PNG/JPG, 16:9 (CI converts to WebP)
 ```
@@ -50,6 +50,24 @@ your design: no `@import` and `url()` only as `data:` (themes never touch the
 network), no scripts (`expression()`, `javascript:`), no `<style>` breakout, and
 `@keyframes` names must start with `<id>-` so animations don't collide between
 themes. Quality and taste are handled by review.
+
+### Changelog (optional)
+
+Every version bump signals an update to installed clients, but users can't see
+*what* changed — especially for non-visual fixes. Add an optional `changelog`
+object to your manifest so the store can show an expandable **What's new** on
+your theme's card. Keys are `X.Y.Z` versions, each a short list of change lines:
+
+```json
+"changelog": {
+  "1.2.0": ["Fixed hover contrast on sidebar icons", "Fixed data-playing pulse lag"],
+  "1.1.0": ["Softened the accent colour"]
+}
+```
+
+When you bump `version`, add the matching entry. The store lists every version
+you provide, newest first; themes without a changelog simply don't show the
+section.
 
 ## Make a theme
 
