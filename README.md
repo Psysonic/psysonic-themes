@@ -69,6 +69,10 @@ When you bump `version`, add the matching entry. The store lists every version
 you provide, newest first; themes without a changelog simply don't show the
 section.
 
+Keys must be plain `X.Y.Z` versions matching your released versions (no
+pre-release or build suffixes). Each version lists 1–20 lines of up to 200
+characters, and a manifest may carry up to 50 versions.
+
 ## Make a theme
 
 1. Copy [`template/`](template/) to `themes/<your-id>/`.

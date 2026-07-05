@@ -58,20 +58,17 @@
     },
     "changelog": {
       "type": "object",
-      "description": "Optional per-version release notes shown in the store's expandable \"What's new\". Keys are X.Y.Z versions; each maps to a list of short change lines.",
-      "additionalProperties": false,
+      "description": "Optional per-version release notes shown in the store's expandable \"What's new\". Each key is a released X.Y.Z version (up to 50); each value lists 1-20 short change lines (up to 200 characters each). Key format is checked by scripts/validate-theme.mjs.",
       "minProperties": 1,
       "maxProperties": 50,
-      "patternProperties": {
-        "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$": {
-          "type": "array",
-          "minItems": 1,
-          "maxItems": 20,
-          "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 200
-          }
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
         }
       }
     }

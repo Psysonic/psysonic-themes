@@ -74,6 +74,18 @@ async function validateTheme(folder) {
     push(`manifest.id "${manifest.id}" must equal the folder name "${id}"`);
   }
 
+  // Changelog keys must be plain X.Y.Z versions — the store sorts them
+  // numerically. The schema validates only the value shape, so report a precise
+  // message here instead of ajv's generic "additional properties" error.
+  if (manifest.changelog && typeof manifest.changelog === 'object' && !Array.isArray(manifest.changelog)) {
+    const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+    for (const key of Object.keys(manifest.changelog)) {
+      if (!SEMVER.test(key)) {
+        push(`changelog key "${key}" must be a plain X.Y.Z version (no pre-release or build suffix)`);
+      }
+    }
+  }
+
   // ---- css safety floor ----
   const css = readFileSync(cssPath, 'utf8');
   if (Buffer.byteLength(css, 'utf8') > CSS_MAX_BYTES) {
