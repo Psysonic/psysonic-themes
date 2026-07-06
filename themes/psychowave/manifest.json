@@ -2,7 +2,14 @@
   "id": "psychowave",
   "name": "Psychowave",
   "author": "Psysonic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Psychedelic purple waves over deep dusk.",
-  "mode": "dark"
+  "mode": "dark",
+  "changelog": {
+    "1.0.1": [
+      "Added release notes so store updates show what changed.",
+      "No visual changes in this version."
+    ],
+    "1.0.0": ["Initial release."]
+  }
 }

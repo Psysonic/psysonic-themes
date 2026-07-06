@@ -27,6 +27,11 @@ updates by comparing the version, so a change shipped with the same version is
 never offered to users who already installed it. CI enforces this: a PR that
 edits an existing theme without raising its version fails the `validate` check.
 
+Consider adding a matching entry to the optional `changelog` object in
+`manifest.json` — keyed by the new version (a plain `X.Y.Z`, no pre-release
+suffix) — so users can see *what* changed in the store's **What's new**. See the
+README for the shape and limits.
+
 ## The CSS contract (enforced by CI)
 
 `theme.css` is **free-form CSS** — any selectors, structure, `@media`, and

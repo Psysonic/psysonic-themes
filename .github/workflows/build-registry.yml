@@ -35,13 +35,34 @@ jobs:
         # full clone fetched above).
         run: node scripts/build-registry.mjs
       - name: Commit if changed
+        # Two theme merges close together spawn concurrent runs; the one checked
+        # out on the older main loses the push race (non-fast-forward). On a
+        # rejected push, sync with origin/main, rebuild against whatever landed
+        # meanwhile, and retry so registry.json stays complete instead of failing.
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: rebuild registry + normalise thumbnails [skip ci]"
+          for attempt in $(seq 1 5); do
+            if git push; then
+              exit 0
+            fi
+            echo "push rejected (attempt ${attempt}); syncing with origin/main and rebuilding"
+            git reset --hard HEAD^
+            git pull --rebase origin main
+            node scripts/make-webp.mjs --themes themes
+            node scripts/build-registry.mjs
+            if [ -z "$(git status --porcelain)" ]; then
+              echo "registry already complete after sync"
+              exit 0
+            fi
             git add -A
             git commit -m "chore: rebuild registry + normalise thumbnails [skip ci]"
-            git push
-          else
-            echo "nothing to commit"
-          fi
+          done
+          echo "::error::push still rejected after 5 attempts"
+          exit 1

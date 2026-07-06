@@ -56,6 +56,7 @@ function build() {
         mode: m.mode,
         ...(m.tags ? { tags: m.tags } : {}),
         ...(m.minAppVersion ? { minAppVersion: m.minAppVersion } : {}),
+        ...(m.changelog ? { changelog: m.changelog } : {}),
         ...(animated ? { animated: true } : {}),
         css: `themes/${id}/theme.css`,
         thumbnail: `themes/${id}/thumbnail.webp`,

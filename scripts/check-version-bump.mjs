@@ -6,6 +6,10 @@
 // leaves the version untouched, the store never offers the update. This check
 // runs in the `validate` workflow on PRs and fails when a changed theme folder
 // did not bump its version. Brand-new themes are exempt.
+//
+// Exempt too: a change whose only difference is the `changelog` field — pure
+// release-note documentation ships no functional change, so forcing a bump
+// would just push a spurious "update available" for identical CSS.
 import { readFileSync, existsSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
@@ -28,6 +32,23 @@ function isNewer(a, b) {
     if ((pa[i] ?? 0) < (pb[i] ?? 0)) return false;
   }
   return false;
+}
+
+// Canonical (recursively key-sorted) JSON so a field reorder does not read as a
+// change.
+function canon(v) {
+  if (Array.isArray(v)) return `[${v.map(canon).join(',')}]`;
+  if (v && typeof v === 'object') {
+    return `{${Object.keys(v).sort().map(k => `${JSON.stringify(k)}:${canon(v[k])}`).join(',')}}`;
+  }
+  return JSON.stringify(v);
+}
+
+// True when two manifests are identical except for the `changelog` field — the
+// edit only documents release notes and ships no functional change.
+function sameIgnoringChangelog(a, b) {
+  const strip = ({ changelog, ...rest }) => rest;
+  return canon(strip(a)) === canon(strip(b));
 }
 
 const baseRef = `origin/${base}`;
@@ -57,27 +78,37 @@ for (const id of ids) {
   const manifestPath = join(REPO, 'themes', id, 'manifest.json');
   if (!existsSync(manifestPath)) continue; // theme deleted in this PR
 
-  let baseVersion;
+  let baseManifest;
   try {
-    baseVersion = JSON.parse(sh(`git show ${baseRef}:themes/${id}/manifest.json`)).version;
+    baseManifest = JSON.parse(sh(`git show ${baseRef}:themes/${id}/manifest.json`));
   } catch {
     continue; // not on base = brand-new theme, no bump required
   }
 
-  let headVersion;
+  let headManifest;
   try {
-    headVersion = JSON.parse(readFileSync(manifestPath, 'utf8')).version;
+    headManifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
   } catch {
     continue; // malformed manifest — validate-theme.mjs reports that
   }
 
-  if (!isNewer(headVersion, baseVersion)) {
-    errors.push(
-      `${id}: files changed but manifest version is still "${headVersion}" ` +
-        `(base "${baseVersion}"). Bump "version" in themes/${id}/manifest.json ` +
-        `so the in-app theme store detects the update.`,
-    );
-  }
+  if (isNewer(headManifest.version, baseManifest.version)) continue; // version bumped — fine
+
+  // Version not bumped. Allow it only when the sole change to this theme is the
+  // `changelog` field (documenting already-shipped versions). A theme.css edit
+  // or any other manifest change still requires a bump.
+  const themeFiles = changed.filter(p => p.startsWith(`themes/${id}/`));
+  const changelogOnly =
+    themeFiles.length === 1 &&
+    themeFiles[0] === `themes/${id}/manifest.json` &&
+    sameIgnoringChangelog(baseManifest, headManifest);
+  if (changelogOnly) continue;
+
+  errors.push(
+    `${id}: files changed but manifest version is still "${headManifest.version}" ` +
+      `(base "${baseManifest.version}"). Bump "version" in themes/${id}/manifest.json ` +
+      `so the in-app theme store detects the update.`,
+  );
 }
 
 if (errors.length) {

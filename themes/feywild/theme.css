@@ -1,7 +1,7 @@
 /*
   name: Feywild
   author: asra
-  version: 1.2.6
+  version: 1.2.7
   color-scheme: dark
   description: Forest green and earthy tones neumorphic theme with warm moss accents.
 */
@@ -417,6 +417,21 @@
 }
 
 /* Album Cards */
+
+/* Fix neumorphic shadow clipping — allow box-shadow glow to render above album cards */
+[data-theme='feywild'] .album-grid,
+[data-theme='feywild'] .album-grid-wrapper,
+[data-theme='feywild'] .album-row-section,
+[data-theme='feywild'] .album-row-section > div,
+[data-theme='feywild'] .album-grid-wrap {
+  overflow: visible !important;
+}
+
+/* Give the first row of album cards breathing room so top/left shadows aren't clipped by viewport */
+[data-theme='feywild'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
 
 [data-theme='feywild'] .album-card-details-btn {
   background: #253d25 !important;
