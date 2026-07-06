@@ -4,5 +4,12 @@
   "author": "Asra",
   "version": "1.0.1",
   "description": "Catppuccin Mocha neumorphic theme. Cream and mauve smoke over deep navy-mauve.",
-  "mode": "dark"
+  "mode": "dark",
+  "changelog": {
+    "1.0.1": [
+      "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
+      "Add breathing room for first row of album cards.",
+      "Normalize star rating rendering (emoji SVG adjusted and background-size set to 12x12)."
+    ]
+  }
 }
