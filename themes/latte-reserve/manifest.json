@@ -4,5 +4,12 @@
   "author": "Asra",
   "version": "1.0.1",
   "description": "Catppuccin Latte neumorphic theme. Deep mauve accent over warm cream base.",
-  "mode": "light"
+  "mode": "light",
+  "changelog": {
+    "1.0.1": [
+      "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
+      "Add breathing room for first row of album cards.",
+      "Normalize star rating rendering (emoji SVG adjusted and background-size set to 12x12)."
+    ]
+  }
 }

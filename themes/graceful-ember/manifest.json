@@ -4,5 +4,13 @@
   "author": "Asra",
   "version": "1.3.7",
   "description": "Inspired by Bad Omens - THE DEATH OF PEACE OF MIND. Elegant neumorphic light theme with radiant red-orange accents over a warm, comforting cream canvas.",
-  "mode": "light"
+  "mode": "light",
+  "changelog": {
+    "1.3.7": [
+      "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
+      "Fix: star rating clipping in the queue (queue-current-info / queue-current-track-body overflow: visible).",
+      "Add breathing room for first row of album cards.",
+      "Adjust star rating SVG/size for consistent appearance."
+    ]
+  }
 }

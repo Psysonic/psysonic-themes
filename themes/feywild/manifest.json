@@ -4,5 +4,11 @@
   "author": "Asra",
   "version": "1.2.7",
   "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
-  "mode": "dark"
+  "mode": "dark",
+  "changelog": {
+    "1.2.7": [
+      "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
+      "Add breathing room for first row of album cards."
+    ]
+  }
 }
