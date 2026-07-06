@@ -2,11 +2,11 @@
   "id": "hollow-ember",
   "name": "Hollow Ember",
   "author": "Asra",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "Warm ember and ash neumorphic theme. Deep near-black base with smouldering orange accent. inspired by Bad Omens – THE DEATH OF PEACE OF MIND",
   "mode": "dark",
   "changelog": {
-    "1.3.5": [
+    "1.3.6": [
     "made volume slider more visible by making it brighter"
     ],
     "1.3.4": [
