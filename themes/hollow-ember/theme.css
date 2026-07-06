@@ -1,7 +1,7 @@
 /*
   name: Hollow Ember
   author: asra
-  version: 1.3.4
+  version: 1.3.5
   color-scheme: dark
   description: Warm ember and ash neumorphic theme. Smouldering red-orange over dark brown-black.
 */
@@ -261,7 +261,7 @@
 }
 
 [data-theme='hollow-ember'] input[type='range']::-webkit-slider-runnable-track {
-  background: #1f0f08;
+  background: #852e03;
   box-shadow: var(--nm-inset-sm);
   border-radius: 999px;
   height: 6px;
@@ -272,7 +272,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #1c1710;
+  background: #50381a;
   box-shadow: var(--nm-shadow-sm);
   margin-top: -5px;
   cursor: pointer;
