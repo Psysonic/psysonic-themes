@@ -780,7 +780,10 @@
    pointer-events:none keeps controls clickable.
    ============================================================ */
 
-[data-theme='hifi-modern'] .player-bar,
+/* :not(.floating) — the floating bar is positioned (fixed) by the app; forcing
+   position:relative here dropped it out of flow and pushed it off-window. The
+   docked bar still needs relative to anchor the dot-matrix ::after. */
+[data-theme='hifi-modern'] .player-bar:not(.floating),
 [data-theme='hifi-modern'] .queue-current-track,
 [data-theme='hifi-modern'] .queue-toolbar {
   position: relative;
