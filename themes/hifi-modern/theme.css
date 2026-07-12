@@ -3,14 +3,6 @@
    audio player (Technics-style). Same silver faceplate, borders and blue
    accent as 73; only the screens, AUX and standby light change.
 
-   Design language (identical to Hi-Fi 73 except where noted):
-   - Aluminium faceplate (silver body, sidebar, header)      — as 73
-   - Walnut side panels, seams, borders                       — as 73
-   - Blue accent + blue glow on the faceplate                 — as 73
-   - LCD screens: white-blue readouts + fine dot-matrix grid  — NEW
-   - Blue standby light (connection LED, now-playing dot)     — was red pilot
-   - Blue AUX indicators (queue toolbar buttons)              — was green
-
    CSS is organised top-to-bottom by UI position:
    Tokens → Sidebar → Content Header → Queue Panel → Player Bar
 
@@ -267,6 +259,23 @@
   transition:
     background 0.30s ease-out,
     color      0.30s ease-out;
+}
+
+/* Playlist names keep their natural case for readability — only the fixed
+   main-menu items stay all-caps. .sidebar-playlist-item is the per-playlist
+   link; the "PLAYLISTS" entry is .sidebar-playlists-main-link (not matched
+   here), so it stays uppercase. */
+[data-theme='hifi-modern'] .nav-link.sidebar-playlist-item {
+  text-transform: none;
+  letter-spacing: -0.02em;  /* pulled in a bit for name width */
+  font-weight: 500;      /* lighter than the 800 nav caps — readable in a tight sidebar */
+}
+
+/* Tighter playlist indent — the app uses padding-left:16px (--space-4); halve it
+   so long playlist names get more room. Wraps the whole tree, so folders and
+   their nested items both pull left while staying visibly nested. */
+[data-theme='hifi-modern'] .sidebar-playlists-list {
+  padding-left: 6px;
 }
 
 /* Active indicator bar — amber tuning-scale glow.
