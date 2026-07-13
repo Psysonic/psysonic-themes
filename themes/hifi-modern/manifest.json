@@ -2,7 +2,7 @@
   "id": "hifi-modern",
   "name": "Hi-Fi Modern",
   "author": "JU3RG",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A modern network audio player (Technics-style): brushed silver, a white-blue dot-matrix LCD, a blue standby light, and blue AUX buttons.",
   "mode": "light",
   "tags": [
