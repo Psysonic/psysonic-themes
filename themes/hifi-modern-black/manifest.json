@@ -2,7 +2,7 @@
   "id": "hifi-modern-black",
   "name": "Hi-Fi Modern (Black)",
   "author": "JU3RG",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Dark companion to Hi-Fi Modern. A modern network audio player in black, with white-blue dot-matrix LCD screens, a blue standby light, and blue AUX buttons.",
   "mode": "dark",
   "tags": [

@@ -2,15 +2,6 @@
    Hi-Fi Modern (Black) — dark companion to Hi-Fi Modern. Same theme, black
    faceplate: a modern network audio player (Technics-style) in black.
 
-   Design language (same as Hi-Fi Modern; only the faceplate flips silver->black):
-   - Black anodized faceplate (dark body, sidebar, header)    — was silver
-   - Silver metal-trim seams on the black face                — kept
-   - Champagne text/icons on the dark face                    — was black
-   - Blue accent + blue glow                                  — same
-   - LCD screens: white-blue readouts + fine dot-matrix grid  — same
-   - Blue standby light (connection LED); amber now-playing bulb
-   - Blue AUX indicators; warm top light bar over the content
-
    CSS is organised top-to-bottom by UI position:
    Tokens → Sidebar → Content Header → Queue Panel → Player Bar
 
@@ -267,6 +258,23 @@
   transition:
     background 0.30s ease-out,
     color      0.30s ease-out;
+}
+
+/* Playlist names keep their natural case for readability — only the fixed
+   main-menu items stay all-caps. .sidebar-playlist-item is the per-playlist
+   link; the "PLAYLISTS" entry is .sidebar-playlists-main-link (not matched
+   here), so it stays uppercase. */
+[data-theme='hifi-modern-black'] .nav-link.sidebar-playlist-item {
+  text-transform: none;
+  letter-spacing: -0.02em;  /* pulled in a bit for name width */
+  font-weight: 500;      /* lighter than the 800 nav caps — readable in a tight sidebar */
+}
+
+/* Tighter playlist indent — the app uses padding-left:16px (--space-4); halve it
+   so long playlist names get more room. Wraps the whole tree, so folders and
+   their nested items both pull left while staying visibly nested. */
+[data-theme='hifi-modern-black'] .sidebar-playlists-list {
+  padding-left: 6px;
 }
 
 /* Active indicator bar — amber tuning-scale glow.
