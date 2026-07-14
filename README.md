@@ -51,6 +51,16 @@ network), no scripts (`expression()`, `javascript:`), no `<style>` breakout, and
 `@keyframes` names must start with `<id>-` so animations don't collide between
 themes. Quality and taste are handled by review.
 
+**Restyle appearance, not behaviour.** Free-form means you *can* override any
+property, but a few carry behaviour rather than looks, and overriding them breaks
+the feature — usually somewhere you won't connect to the change. The known trap:
+the horizontal album rails scroll *because* `.album-grid` has `overflow-x: auto`,
+and that scroll container is what the rails' `‹` / `›` arrows drive. Setting
+`overflow: visible` on it — the intuitive fix when a card's shadow looks clipped —
+kills both arrows. Use the `--rail-shadow-room` token (see
+[`allowed-tokens.json`](schema/allowed-tokens.json) → `layout`) to give the shadow
+room instead, and leave `overflow` alone.
+
 ### Changelog (optional)
 
 Every version bump signals an update to installed clients, but users can't see

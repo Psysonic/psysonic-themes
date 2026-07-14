@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "frozenAt": "2026-06-05",
-  "description": "The recommended semantic token surface the app reads. Community themes are FREE-FORM (any selectors, structure, @keyframes, animations) — the hard gate is the safety floor in scripts/validate-theme.mjs, not this list. Setting these tokens on the theme root is the simplest way to recolour the whole app and keeps a theme visually integrated; they are not mandatory. Frozen from the built-in themes' token surface. --ctp-* (Catppuccin palette) and the global design-system tokens (spacing/radii/elevation-shadows/transitions/fonts) are not part of this surface.",
+  "description": "The recommended semantic token surface the app reads. Community themes are FREE-FORM (any selectors, structure, @keyframes, animations) — the hard gate is the safety floor in scripts/validate-theme.mjs, not this list. Setting these tokens on the theme root is the simplest way to recolour the whole app and keeps a theme visually integrated; they are not mandatory. Frozen from the built-in themes' token surface. core/optional/granular are colour values only. --ctp-* (Catppuccin palette) and the global design-system tokens (spacing/radii/elevation-shadows/transitions/fonts) are not part of this surface — the sole exception is the `layout` group below, which exists because overriding the underlying CSS by hand breaks app behaviour.",
   "colorScheme": {
     "required": true,
     "values": ["dark", "light"],
@@ -95,5 +95,9 @@
     "--scrollbar-thumb": "Scrollbar thumb.",
     "--scrollbar-thumb-hover": "Scrollbar thumb on hover.",
     "--scrollbar-track": "Scrollbar track."
+  },
+  "layout": {
+    "$comment": "Lengths, not colours — the one non-colour group (added 2026-07-14, app >= 1.50.0). These exist because the intuitive way to get the same effect is to override app CSS that carries BEHAVIOUR, which silently breaks a feature. Set the token instead; never override the underlying property.",
+    "--rail-shadow-room": "Space reserved inside a horizontal album rail's clip box so an outer card shadow can paint (default 8px). A rail scrolls, so it must clip — its `overflow-x: auto` makes `overflow-y` compute to `auto` — and a drop shadow would be cut off at the edges. Raise this if your cards use a larger shadow or glow. DO NOT set `overflow: visible` on `.album-grid` to stop the clipping: that removes the scroll container the rail's prev/next arrows drive, leaving both arrows permanently disabled."
   }
 }
