@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-14T16:05:21.871Z",
+  "generatedAt": "2026-07-14T16:10:12.380Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -438,7 +438,7 @@
       },
       "css": "themes/feywild/theme.css",
       "thumbnail": "themes/feywild/thumbnail.webp",
-      "updatedAt": "2026-07-06T13:53:14+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "frappe",
@@ -475,7 +475,7 @@
       },
       "css": "themes/graceful-ember/theme.css",
       "thumbnail": "themes/graceful-ember/thumbnail.webp",
-      "updatedAt": "2026-07-06T13:53:14+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "grand-theft-audio",
@@ -750,7 +750,7 @@
       },
       "css": "themes/hollow-ember/theme.css",
       "thumbnail": "themes/hollow-ember/thumbnail.webp",
-      "updatedAt": "2026-07-06T21:07:58+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "horde",
@@ -871,7 +871,7 @@
       },
       "css": "themes/latte-reserve/theme.css",
       "thumbnail": "themes/latte-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-06T13:53:14+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "london-79",
@@ -924,25 +924,35 @@
       "id": "mainframe-dark",
       "name": "Mainframe Dark",
       "author": "ImAsra",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "Cold steel terminal aesthetic with animated PCB circuit sidebar. Deep dark backgrounds, Breeze-style titlebar buttons.",
       "mode": "dark",
+      "changelog": {
+        "1.0.2": [
+          "Fix: corrected the author credit to ImAsra. No visual change."
+        ]
+      },
       "animated": true,
       "css": "themes/mainframe-dark/theme.css",
       "thumbnail": "themes/mainframe-dark/thumbnail.webp",
-      "updatedAt": "2026-06-15T09:48:51+02:00"
+      "updatedAt": "2026-07-14T18:06:50+02:00"
     },
     {
       "id": "mainframe-light",
       "name": "Mainframe Light",
       "author": "ImAsra",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "Inspired by Arch Linux terminal aesthetics and KDE Breeze titlebar controls. Recolor of Catppuccin Latte by the Catppuccin team, with an animated PCB-style sidebar.",
       "mode": "light",
+      "changelog": {
+        "1.0.2": [
+          "Fix: corrected the author credit to ImAsra. No visual change."
+        ]
+      },
       "animated": true,
       "css": "themes/mainframe-light/theme.css",
       "thumbnail": "themes/mainframe-light/thumbnail.webp",
-      "updatedAt": "2026-06-15T09:49:12+02:00"
+      "updatedAt": "2026-07-14T18:06:50+02:00"
     },
     {
       "id": "midnight-blue",
@@ -974,7 +984,7 @@
       },
       "css": "themes/mocha-reserve/theme.css",
       "thumbnail": "themes/mocha-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-06T13:53:14+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "monolith-dark",
@@ -998,7 +1008,7 @@
       },
       "css": "themes/monolith-dark/theme.css",
       "thumbnail": "themes/monolith-dark/thumbnail.webp",
-      "updatedAt": "2026-07-06T21:07:58+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "monolith-light",
@@ -1019,7 +1029,7 @@
       },
       "css": "themes/monolith-light/theme.css",
       "thumbnail": "themes/monolith-light/thumbnail.webp",
-      "updatedAt": "2026-07-06T13:53:14+02:00"
+      "updatedAt": "2026-07-14T18:07:00+02:00"
     },
     {
       "id": "morpheus",

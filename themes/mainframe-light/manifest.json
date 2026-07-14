@@ -2,7 +2,12 @@
   "id": "mainframe-light",
   "name": "Mainframe Light",
   "author": "ImAsra",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Inspired by Arch Linux terminal aesthetics and KDE Breeze titlebar controls. Recolor of Catppuccin Latte by the Catppuccin team, with an animated PCB-style sidebar.",
-  "mode": "light"
+  "mode": "light",
+  "changelog": {
+    "1.0.2": [
+      "Fix: corrected the author credit to ImAsra. No visual change."
+    ]
+  }
 }
