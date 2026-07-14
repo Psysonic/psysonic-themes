@@ -1,11 +1,14 @@
 {
   "id": "monolith-light",
   "name": "Monolith-light",
-  "author": "Asra",
-  "version": "1.2.4",
+  "author": "ImAsra",
+  "version": "1.2.5",
   "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
   "mode": "light",
   "changelog": {
+    "1.2.5": [
+      "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
+    ],
     "1.2.4": [
       "New: player-bar glow when playing (player-bar + ::before glow + accent text shadow for playing track).",
       "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",

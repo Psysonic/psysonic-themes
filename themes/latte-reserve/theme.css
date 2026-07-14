@@ -429,13 +429,20 @@
    ALBUM CARDS
 ═══════════════════════════════════════════════════════════════ */
 
-/* Fix neumorphic shadow clipping — allow box-shadow glow to render above album cards */
-[data-theme='latte-reserve'] .album-grid,
-[data-theme='latte-reserve'] .album-grid-wrapper,
-[data-theme='latte-reserve'] .album-row-section,
-[data-theme='latte-reserve'] .album-row-section > div,
-[data-theme='latte-reserve'] .album-grid-wrap {
-  overflow: visible !important;
+/* Album card shadows (--nm-shadow: 6px offset + 12px blur = 18px of spill) need
+   room inside the album rail. The rail scrolls, so it clips — do NOT set
+   `overflow: visible` here: that removes the scroll container its prev/next
+   arrows drive and leaves both arrows permanently disabled. Reserve the room
+   instead. `--rail-shadow-room` does this from app 1.50.0; the explicit padding
+   keeps it working on older versions (the negative margin cancels it, so the
+   rail's content box does not move). */
+[data-theme='latte-reserve'] {
+  --rail-shadow-room: 18px;
+}
+
+[data-theme='latte-reserve'] .album-grid {
+  padding: 18px 18px 18px !important;
+  margin: -18px -18px 0 !important;
 }
 
 /* Give the first row of album cards breathing room so top/left shadows aren't clipped by viewport */

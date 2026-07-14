@@ -1,11 +1,14 @@
 {
   "id": "feywild",
   "name": "Feywild",
-  "author": "Asra",
-  "version": "1.2.7",
+  "author": "ImAsra",
+  "version": "1.2.8",
   "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
   "mode": "dark",
   "changelog": {
+    "1.2.8": [
+      "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
+    ],
     "1.2.7": [
       "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
       "Add breathing room for first row of album cards."

@@ -1,11 +1,14 @@
 {
   "id": "latte-reserve",
   "name": "Latte Reserve",
-  "author": "Asra",
-  "version": "1.0.1",
+  "author": "ImAsra",
+  "version": "1.0.2",
   "description": "Catppuccin Latte neumorphic theme. Deep mauve accent over warm cream base.",
   "mode": "light",
   "changelog": {
+    "1.0.2": [
+      "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
+    ],
     "1.0.1": [
       "Fix: allow album-card box-shadow glow to render above album cards (overflow: visible).",
       "Add breathing room for first row of album cards.",

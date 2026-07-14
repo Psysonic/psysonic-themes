@@ -1,11 +1,14 @@
 {
   "id": "monolith-dark",
   "name": "Monolith-dark",
-  "author": "Asra",
-  "version": "1.2.1",
+  "author": "ImAsra",
+  "version": "1.2.2",
   "description": "Monochrome charcoal and white neumorphic theme with circular record player esque album grid patches.",
   "mode": "dark",
   "changelog": {
+    "1.2.2": [
+      "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
+    ],
     "1.2.1": [
       "made volume slider more visible by making it slightly brighter"
     ],
