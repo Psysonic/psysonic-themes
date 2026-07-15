@@ -2,10 +2,13 @@
   "id": "feywild",
   "name": "Feywild",
   "author": "ImAsra",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
   "mode": "dark",
   "changelog": {
+    "1.2.9": [
+      "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+    ],
     "1.2.8": [
       "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
     ],

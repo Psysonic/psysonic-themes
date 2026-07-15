@@ -230,6 +230,20 @@
   color: #b8953f;
 }
 
+/* Collapsed sidebar: make nav buttons square */
+[data-theme='feywild'][data-sidebar-collapsed='true'] .nav-link,
+[data-theme='feywild'] [data-sidebar-collapsed='true'] .nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  margin: 2px 4px !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 /* Player Bar & Transport */
 
 [data-theme='feywild'] .player-bar {
