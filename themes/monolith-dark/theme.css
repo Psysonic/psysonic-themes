@@ -298,12 +298,6 @@
   transition: transform 0.05s ease !important;
 }
 
-/* .track-row is intentionally NOT in the shared rule above. A row contains its
-   own clickable controls (bulk-check, star rating, favorite btn, preview btn).
-   Scaling the whole row on :active shifts those targets out from under the
-   cursor between mousedown and mouseup, so the browser sees mismatched
-   targets and never fires a click — the control just silently stops
-   responding. Same pressed feedback, no transform. */
 [data-theme='monolith-dark'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #0d0e11 !important;
