@@ -19,6 +19,11 @@ tokens — validated automatically and served to the in-app store over a CDN.
    its own validation and visual review, and a problem with one never blocks the
    others from merging).
 
+> **Tip:** running Psysonic from source? Start it with
+> `--theme-watch <path to your checkout>` to hot-reload your edits on every
+> save and switch between all checkout themes in **Settings → Themes** — see
+> **Live preview** in the [README](README.md#make-a-theme).
+
 ## Updating an existing theme
 
 When you change a theme that is already in the store, **bump `version` in its

@@ -104,8 +104,12 @@ node scripts/validate-theme.mjs                    # every theme
 ```
 
 **Live preview (dev build):** if you run Psysonic from source, start it with
-`--theme-watch <path/to/theme.css>` and it hot-reloads your theme on every save —
-no zip, no restart. (Dev builds only.)
+`--theme-watch <path>` and your work hot-reloads on every save — no zip, no
+restart. The path can be a single `theme.css` (or a theme folder), or your
+whole checkout of this repo: every `themes/*/theme.css` is watched, a startup
+sweep makes each theme selectable in **Settings → Themes**, a save applies
+live, and theme folders added while the app runs are picked up automatically.
+(Dev builds only.)
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide — naming,
 description conventions, and the PR checklist.
