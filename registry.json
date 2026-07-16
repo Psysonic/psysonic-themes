@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-16T00:12:57.771Z",
+  "generatedAt": "2026-07-16T00:13:15.520Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -424,10 +424,13 @@
       "id": "feywild",
       "name": "Feywild",
       "author": "ImAsra",
-      "version": "1.2.8",
+      "version": "1.2.9",
       "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
       "mode": "dark",
       "changelog": {
+        "1.2.9": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.2.8": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -438,7 +441,7 @@
       },
       "css": "themes/feywild/theme.css",
       "thumbnail": "themes/feywild/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "frappe",
@@ -459,10 +462,13 @@
       "id": "graceful-ember",
       "name": "Graceful Ember",
       "author": "ImAsra",
-      "version": "1.3.8",
+      "version": "1.3.9",
       "description": "Inspired by Bad Omens - THE DEATH OF PEACE OF MIND. Elegant neumorphic light theme with radiant red-orange accents over a warm, comforting cream canvas.",
       "mode": "light",
       "changelog": {
+        "1.3.9": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.3.8": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -475,7 +481,7 @@
       },
       "css": "themes/graceful-ember/theme.css",
       "thumbnail": "themes/graceful-ember/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "grand-theft-audio",
@@ -732,10 +738,13 @@
       "id": "hollow-ember",
       "name": "Hollow Ember",
       "author": "ImAsra",
-      "version": "1.3.7",
+      "version": "1.3.8",
       "description": "Warm ember and ash neumorphic theme. Deep near-black base with smouldering orange accent. inspired by Bad Omens – THE DEATH OF PEACE OF MIND",
       "mode": "dark",
       "changelog": {
+        "1.3.8": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.3.7": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -750,7 +759,7 @@
       },
       "css": "themes/hollow-ember/theme.css",
       "thumbnail": "themes/hollow-ember/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "horde",
@@ -856,10 +865,13 @@
       "id": "latte-reserve",
       "name": "Latte Reserve",
       "author": "ImAsra",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "Catppuccin Latte neumorphic theme. Deep mauve accent over warm cream base.",
       "mode": "light",
       "changelog": {
+        "1.0.3": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.0.2": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -871,7 +883,7 @@
       },
       "css": "themes/latte-reserve/theme.css",
       "thumbnail": "themes/latte-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "london-79",
@@ -969,10 +981,13 @@
       "id": "mocha-reserve",
       "name": "Mocha Reserve",
       "author": "ImAsra",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "Catppuccin Mocha neumorphic theme. Cream and mauve smoke over deep navy-mauve.",
       "mode": "dark",
       "changelog": {
+        "1.0.3": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.0.2": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -984,16 +999,19 @@
       },
       "css": "themes/mocha-reserve/theme.css",
       "thumbnail": "themes/mocha-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "monolith-dark",
       "name": "Monolith-dark",
       "author": "ImAsra",
-      "version": "1.2.2",
+      "version": "1.2.3",
       "description": "Monochrome charcoal and white neumorphic theme with circular record player esque album grid patches.",
       "mode": "dark",
       "changelog": {
+        "1.2.3": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.2.2": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -1008,16 +1026,19 @@
       },
       "css": "themes/monolith-dark/theme.css",
       "thumbnail": "themes/monolith-dark/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "monolith-light",
       "name": "Monolith-light",
       "author": "ImAsra",
-      "version": "1.2.5",
+      "version": "1.2.6",
       "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
       "mode": "light",
       "changelog": {
+        "1.2.6": [
+          "Fix: collapsed sidebar nav buttons are now square and icon-sized."
+        ],
         "1.2.5": [
           "Fix: the album rail's prev/next arrows work again. The card shadow now gets room inside the rail instead of switching off its overflow, which had disabled the arrows."
         ],
@@ -1029,7 +1050,7 @@
       },
       "css": "themes/monolith-light/theme.css",
       "thumbnail": "themes/monolith-light/thumbnail.webp",
-      "updatedAt": "2026-07-14T18:11:44+02:00"
+      "updatedAt": "2026-07-16T02:13:13+02:00"
     },
     {
       "id": "morpheus",
