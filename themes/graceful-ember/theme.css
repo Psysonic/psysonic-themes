@@ -337,12 +337,16 @@
 [data-theme='graceful-ember'] .song-card-action-btn:active,
 [data-theme='graceful-ember'] .album-card-details-btn:active,
 [data-theme='graceful-ember'] .play-btn:active,
-[data-theme='graceful-ember'] .transport-btn:active,
-[data-theme='graceful-ember'] .track-row:active {
+[data-theme='graceful-ember'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #ebe7de !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+[data-theme='graceful-ember'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #ebe7de !important;
 }
 
 [data-theme='graceful-ember'] .btn-primary,

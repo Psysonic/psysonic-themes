@@ -1,7 +1,7 @@
 /*
  * name: Monolith-light
  * author: asra
- * version: 1.2.4
+ * version: 1.2.5
  * color-scheme: light
  * description: Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.
  */
@@ -291,12 +291,22 @@
 [data-theme='monolith-light'] .song-card-action-btn:active,
 [data-theme='monolith-light'] .album-card-details-btn:active,
 [data-theme='monolith-light'] .play-btn:active,
-[data-theme='monolith-light'] .transport-btn:active,
-[data-theme='monolith-light'] .track-row:active {
+[data-theme='monolith-light'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #edeef3 !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+/* .track-row is intentionally NOT in the shared rule above. A row contains its
+   own clickable controls (bulk-check, star rating, favorite btn, preview btn).
+   Scaling the whole row on :active shifts those targets out from under the
+   cursor between mousedown and mouseup, so the browser sees mismatched
+   targets and never fires a click — the control just silently stops
+   responding. Same pressed feedback, no transform. */
+[data-theme='monolith-light'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #edeef3 !important;
 }
 
 [data-theme='monolith-light'] .btn-primary,

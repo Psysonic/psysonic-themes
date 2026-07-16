@@ -2,10 +2,15 @@
   "id": "graceful-ember",
   "name": "Graceful Ember",
   "author": "ImAsra",
-  "version": "1.3.9",
+  "version": "1.4.0",
   "description": "Inspired by Bad Omens - THE DEATH OF PEACE OF MIND. Elegant neumorphic light theme with radiant red-orange accents over a warm, comforting cream canvas.",
   "mode": "light",
   "changelog": {
+    "1.4.0": [
+      "Bug reported by Legislate3030 on github.",
+      "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+      "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+    ],
     "1.3.9": [
       "Fix: collapsed sidebar nav buttons are now square and icon-sized."
     ],

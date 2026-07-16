@@ -312,12 +312,16 @@
 [data-theme='hollow-ember'] .song-card-action-btn:active,
 [data-theme='hollow-ember'] .album-card-details-btn:active,
 [data-theme='hollow-ember'] .play-btn:active,
-[data-theme='hollow-ember'] .transport-btn:active,
-[data-theme='hollow-ember'] .track-row:active {
+[data-theme='hollow-ember'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #0f0c07 !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+[data-theme='hollow-ember'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #0f0c07 !important;
 }
 
 [data-theme='hollow-ember'] .btn-primary,

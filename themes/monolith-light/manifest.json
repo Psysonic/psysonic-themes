@@ -2,10 +2,13 @@
   "id": "monolith-light",
   "name": "Monolith-light",
   "author": "ImAsra",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
   "mode": "light",
   "changelog": {
+    "1.2.7": [
+      "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again. The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+    ],
     "1.2.6": [
       "Fix: collapsed sidebar nav buttons are now square and icon-sized."
     ],
@@ -18,4 +21,3 @@
       "Add breathing room for first row of album cards."
     ]
   }
-}
