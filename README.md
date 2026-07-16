@@ -111,6 +111,13 @@ sweep makes each theme selectable in **Settings → Themes**, a save applies
 live, and theme folders added while the app runs are picked up automatically.
 (Dev builds only.)
 
+```sh
+npm run tauri:dev -- -- -- --theme-watch path/to/psysonic-themes
+```
+
+The three `--` are one separator per layer (npm → tauri CLI → cargo), all
+needed for the flag to reach the app.
+
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide — naming,
 description conventions, and the PR checklist.
 
