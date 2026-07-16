@@ -51,6 +51,9 @@
   --ctp-teal:      #5a5c65;
   --ctp-rosewater: #111216;
 
+  /* Consolidated from album cards layout room config */
+  --rail-shadow-room:  18px;
+
   --waveform-played:   #111216;
   --waveform-buffered: rgba(0, 0, 0, 0.25);
   --waveform-unplayed: rgba(0, 0, 0, 0.322);
@@ -67,7 +70,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  GLOBAL LAYOUT & SHAPE
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] div,
 [data-theme='monolith-light'] button,
@@ -89,7 +92,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  WINDOW CONTROLS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
 [data-theme='monolith-light'] .window-controls button,
@@ -147,7 +150,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  SIDEBAR COMPONENTS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .sidebar {
   background: #edeef3d0;
@@ -189,7 +192,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  PLAYER BAR & TRACK CONTROL
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .player-bar {
   background: #edeef3;
@@ -234,7 +237,6 @@
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.6) !important;
 }
 
-[data-theme='monolith-light'] [data-playing='true'] .player-track-name,
 [data-theme='monolith-light'] .player-bar .track-name {
   color: var(--accent);
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
@@ -278,8 +280,34 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+ *  SIDEBAR COLLAPSE / RESIZER HANDLE
+ * ══════════════════════════════════════════════════════════════ */
+
+[data-theme='monolith-light'] .collapse-btn {
+  background: #e8e9ef !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='monolith-light'] .collapse-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-primary) !important;
+  background: #edeef3 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
  *  GLOBAL BUTTON INTERACTION ENGINE
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] button:active,
 [data-theme='monolith-light'] .btn-primary:active,
@@ -298,9 +326,48 @@
   transition: transform 0.05s ease !important;
 }
 
+<<<<<<< Updated upstream
+=======
+[data-theme='monolith-light'] .resizer-queue-handle {
+  background: #e8e9ef !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='monolith-light'] .resizer-queue-handle:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-primary) !important;
+  background: #edeef3 !important;
+}
+
+[data-theme='monolith-light'] .resizer-queue-handle:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #edeef3 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+>>>>>>> Stashed changes
 [data-theme='monolith-light'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #edeef3 !important;
+}
+
+[data-theme='monolith-light'] .collapse-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #edeef3 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
 }
 
 [data-theme='monolith-light'] .btn-primary,
@@ -365,7 +432,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  SONG & TRACK INLINE ACTIONS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .song-list-row-btn,
 [data-theme='monolith-light'] .song-list-row-btn--play,
@@ -404,18 +471,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  ALBUM BUTTON CARDS
- ═ *══════════════════════════════════════════════════════════════ */
-
-/* Album card shadows (--nm-shadow: 6px offset + 12px blur = 18px of spill) need
-   room inside the album rail. The rail scrolls, so it clips — do NOT set
-   `overflow: visible` here: that removes the scroll container its prev/next
-   arrows drive and leaves both arrows permanently disabled. Reserve the room
-   instead. `--rail-shadow-room` does this from app 1.50.0; the explicit padding
-   keeps it working on older versions (the negative margin cancels it, so the
-   rail's content box does not move). */
-[data-theme='monolith-light'] {
-  --rail-shadow-room: 18px;
-}
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .album-grid {
   padding: 18px 18px 18px !important;
@@ -462,7 +518,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  SURFACES & CARDS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .album-card {
   background: #e8e9ef !important;
@@ -529,7 +585,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  INPUTS & FIELDS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .input,
 [data-theme='monolith-light'] input[type='text'],
@@ -554,7 +610,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  TRACK ROWS & LISTS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] .queue-panel {
   background: #edeef3;
@@ -582,7 +638,7 @@
 
 /* ═══════════════════════════════════════════════════════════════
  *  MISC DETAILS
- ═ *══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════ */
 
 [data-theme='monolith-light'] ::-webkit-scrollbar-thumb {
   background: #d3d4da;

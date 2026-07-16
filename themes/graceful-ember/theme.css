@@ -277,6 +277,32 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SIDEBAR COLLAPSE / RESIZER HANDLE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='graceful-ember'] .collapse-btn {
+  background: #f5f2eb !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='graceful-ember'] .collapse-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #faf8f5 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    PLAYER BAR & TRANSPORT
 ═══════════════════════════════════════════════════════════════ */
 
@@ -347,6 +373,42 @@
 [data-theme='graceful-ember'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #ebe7de !important;
+}
+
+[data-theme='graceful-ember'] .resizer-queue-handle {
+  background: #f5f2eb !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='graceful-ember'] .resizer-queue-handle:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #faf8f5 !important;
+}
+
+[data-theme='graceful-ember'] .resizer-queue-handle:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #ebe7de !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='graceful-ember'] .collapse-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #ebe7de !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
 }
 
 [data-theme='graceful-ember'] .btn-primary,

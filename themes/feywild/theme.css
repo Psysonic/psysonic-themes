@@ -244,6 +244,32 @@
   justify-content: center !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR COLLAPSE / RESIZER HANDLE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='feywild'] .collapse-btn {
+  background: #1a2e1a !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='feywild'] .collapse-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(125, 107, 158, 0.35) !important;
+  color: var(--text-primary) !important;
+  background: #253d25 !important;
+}
+
 /* Player Bar & Transport */
 
 [data-theme='feywild'] .player-bar {
@@ -311,6 +337,42 @@
 [data-theme='feywild'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #102010 !important;
+}
+
+[data-theme='feywild'] .resizer-queue-handle {
+  background: #1a2e1a !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='feywild'] .resizer-queue-handle:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(125, 107, 158, 0.35) !important;
+  color: var(--text-primary) !important;
+  background: #253d25 !important;
+}
+
+[data-theme='feywild'] .resizer-queue-handle:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #102010 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='feywild'] .collapse-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #102010 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
 }
 
 [data-theme='feywild'] .btn-primary,
