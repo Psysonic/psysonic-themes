@@ -6,18 +6,11 @@
   "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
   "mode": "light",
   "changelog": {
-<<<<<<< Updated upstream
-    "1.2.7": [
-      "Bug reported by Legislate3030 on github.",
-      "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
-      "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
-=======
     "1.2.8": [
       "Bug reported by Legislate3030 on github.",
       "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
       "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click.",
       "Fix: sidebar collapse button and queue resizer handle no longer shift out from under the cursor on press."
->>>>>>> Stashed changes
     ],
     "1.2.6": [
       "Fix: collapsed sidebar nav buttons are now square and icon-sized."
