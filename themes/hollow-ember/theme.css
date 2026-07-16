@@ -252,6 +252,32 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   SIDEBAR COLLAPSE / RESIZER HANDLE
+═══════════════════════════════════════════════════════════════ */
+
+[data-theme='hollow-ember'] .collapse-btn {
+  background: #141008 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='hollow-ember'] .collapse-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #1c1710 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    PLAYER BAR & TRANSPORT
 ═══════════════════════════════════════════════════════════════ */
 
@@ -322,6 +348,42 @@
 [data-theme='hollow-ember'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #0f0c07 !important;
+}
+
+[data-theme='hollow-ember'] .resizer-queue-handle {
+  background: #141008 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='hollow-ember'] .resizer-queue-handle:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(212, 64, 16, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #1c1710 !important;
+}
+
+[data-theme='hollow-ember'] .resizer-queue-handle:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #0f0c07 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='hollow-ember'] .collapse-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #0f0c07 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
 }
 
 [data-theme='hollow-ember'] .btn-primary,

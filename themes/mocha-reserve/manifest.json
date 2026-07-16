@@ -2,14 +2,15 @@
   "id": "mocha-reserve",
   "name": "Mocha Reserve",
   "author": "ImAsra",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Catppuccin Mocha neumorphic theme. Cream and mauve smoke over deep navy-mauve.",
   "mode": "dark",
   "changelog": {
-    "1.0.4": [
+    "1.0.5": [
       "Bug reported by Legislate3030 on github.",
       "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
-      "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+      "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click.",
+      "Fix: sidebar collapse button and queue resizer handle no longer shift out from under the cursor on press."
     ],
     "1.0.3": [
       "Fix: collapsed sidebar nav buttons are now square and icon-sized."
