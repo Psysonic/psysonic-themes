@@ -232,8 +232,28 @@
 
 [data-theme='hifi-modern'] .sidebar {
   background-color: #D7DBDD;
-  background-image: linear-gradient(270deg, #EBEBED 0%, #D7DBDD 100%);
-  background-size: 100% 100%;
+  /* FAINT CHAMFER on the inner edge — same LOGIC as Modern (Black): the
+     faceplate is the raised thing, so its edge CATCHES LIGHT; the shadow side
+     belongs to the content and is already supplied by the recessed well.
+     (A dark seam here instead makes the sidebar itself read as sunken.)
+     Only the alpha differs: silver #D7DBDD has ~40 levels of headroom to
+     white, so the highlight needs to be far stronger than the black theme's
+     0.045 to register at all.
+     Drawn as BACKGROUND layers (not box-shadow) and clipped to
+     calc(100% - 64px) — the .sidebar-brand / .content-header height — so it
+     never enters the top strip. border-right stays free for its seam. */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
+    linear-gradient(270deg, rgba(255, 255, 255, 0.15), transparent),
+    linear-gradient(270deg, #EBEBED 0%, #D7DBDD 100%);
+  background-size:
+    1px calc(100% - 64px),    /* the seam at the panel edge */
+    8px calc(100% - 64px),    /* the slope falling into it */
+    100% 100%;                /* the faceplate itself */
+  background-position:
+    right bottom,
+    right bottom,
+    0 0;
   background-repeat: no-repeat;
   border-right: 0px solid #EBEBED !important;
 }
@@ -429,7 +449,20 @@
 
 /* Queue panel body — silver faceplate */
 [data-theme='hifi-modern'] .queue-panel {
-  background: linear-gradient(90deg, #D7DBDD 0%, #EBEBED 100%);
+  /* mirrored chamfer on the inner (LEFT) edge — lit, same as the sidebar */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15), transparent),
+    linear-gradient(90deg, #D7DBDD 0%, #EBEBED 100%);
+  background-size:
+    1px calc(100% - 64px),
+    8px calc(100% - 64px),
+    100% 100%;
+  background-position:
+    left bottom,
+    left bottom,
+    0 0;
+  background-repeat: no-repeat;
   border-left: 1px solid #D7DBDD !important;
   border-bottom: none !important;
 }
@@ -827,9 +860,12 @@
 
 /* ============================================================
    RECESSED CONTENT WELL — content sits inset below the sidebar /
-   queue for depth. Soft gray shadows fade in from the left/right
-   edges (tuned light for the silver faceplate). No top light on
-   the light themes — the cones are dark-only.
+   queue for depth. Soft gray shadows fade in from the edges. The
+   TOP is shadow-framed like Modern Black (dark corners + troughs
+   between the beams at 36%/64%) so the cones read as distinct
+   shafts — but scaled WAY down for the white face (dark theme uses
+   ~0.50/0.36; here ~0.12/0.08 so it's soft depth, not a smudge).
+   NB: to bottom = TOP edge, to top = BOTTOM edge.
    ============================================================ */
 [data-theme='hifi-modern'] .content-body.app-shell-route-host::after {
   content: '';
@@ -838,12 +874,18 @@
   pointer-events: none;
   z-index: 4;
   background:
+    /* dark top corners frame the outer beams */
+    radial-gradient(200px 130px at 0% 0%,   rgba(0, 0, 0, 0.08), transparent 72%),
+    radial-gradient(200px 130px at 100% 0%, rgba(0, 0, 0, 0.08), transparent 72%),
+    /* troughs between the beams */
+    radial-gradient(130px 110px at 36% 0%,  rgba(0, 0, 0, 0.05), transparent 74%),
+    radial-gradient(130px 110px at 64% 0%,  rgba(0, 0, 0, 0.05), transparent 74%),
+    /* gentle overall top darkening (to bottom = top edge) */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0, rgba(0, 0, 0, 0) 84px),
+    /* recess walls + bottom */
     linear-gradient(to right,  rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 46px),
     linear-gradient(to left,   rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 46px),
-    /* top gets a touch more, reaching further down, so the cones have a
-       darker backdrop to bloom against even on a light page */
-    linear-gradient(to top,    rgba(0, 0, 0, 0.12) 0, rgba(0, 0, 0, 0) 120px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 48px);
+    linear-gradient(to top,    rgba(0, 0, 0, 0.07) 0, rgba(0, 0, 0, 0) 48px);
 }
 
 
@@ -864,42 +906,50 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 380px;
+  height: 100%;
   pointer-events: none;
   z-index: 5;
+  /* screen blend so the light catches on covers/rows beneath it (lifts their
+     darks like reflected light). On the white faceplate screen does nothing
+     (self-limits on bright), so the bg is unchanged — this is purely additive:
+     dark covers/artwork pick up the catch, everything else looks the same. */
+  mix-blend-mode: screen;
   /* warm glow: offset ~7px below the top edge (dark gap = depth),
      brightest just under the lip and fading down */
   background:
     /* CYLINDRICAL source — a wide, thin glowing tube (70s fuse / LED strip)
        sized to the cone's top width, not a dot. Bright thin body + soft glow. */
-    radial-gradient(48px 3px at 22% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(48px 3px at 50% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(48px 3px at 78% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(56px 8px at 22% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
-    radial-gradient(56px 8px at 50% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
-    radial-gradient(56px 8px at 78% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
+    radial-gradient(48px 3px at 22% 1px, rgba(255, 254, 250, 0.84), transparent 66%),
+    radial-gradient(48px 3px at 50% 1px, rgba(255, 254, 250, 0.84), transparent 66%),
+    radial-gradient(48px 3px at 78% 1px, rgba(255, 254, 250, 0.84), transparent 66%),
+    radial-gradient(52px 6px at 22% 2px, rgba(255, 252, 245, 0.21), transparent 74%),
+    radial-gradient(52px 6px at 50% 2px, rgba(255, 252, 245, 0.21), transparent 74%),
+    radial-gradient(52px 6px at 78% 2px, rgba(255, 252, 245, 0.21), transparent 74%),
     /* the beams (spill) */
     linear-gradient(
       to bottom,
       rgba(255, 250, 240, 0)    0,
       rgba(255, 250, 240, 0)    2px,    /* 2px gap under the header */
-      rgba(255, 250, 240, 0.62) 11px,   /* source */
-      rgba(255, 250, 240, 0.38) 34px,   /* upper region */
-      rgba(255, 250, 240, 0.17) 130px,  /* long, slow tail... */
-      rgba(255, 250, 240, 0.07) 250px,
-      rgba(255, 250, 240, 0)    380px
+      rgba(255, 250, 240, 0.58) 11px,   /* source */
+      rgba(255, 250, 240, 0.40) 34px,   /* smooth continuous falloff — each */
+      rgba(255, 250, 240, 0.33) 70px,   /* segment eases off gentler than the */
+      rgba(255, 250, 240, 0.23) 130px,  /* last, so there's no sudden slope */
+      rgba(255, 250, 240, 0.15) 220px,  /* change / visible drop mid-panel */
+      rgba(255, 250, 240, 0.08) 45%,
+      rgba(255, 250, 240, 0.02) 78%,
+      rgba(255, 250, 240, 0)    100%
     );
   /* clip the glow into three TRAPEZOID beams — conic wedges whose apex sits
      46px above the top edge, so the visible part is a truncated triangle that
      fans WIDER toward the bottom (a real light cone, not a taper). */
   -webkit-mask-image:
-    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
   mask-image:
-    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
 }
 
 
