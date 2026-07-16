@@ -69,7 +69,7 @@
   --row-text-secondary: #c4bfb1;
   --row-text-muted:     #8a8576;
   --row-playing-bg:     rgba(46, 155, 212, 0.16);
-  --row-playing-text:   #1B76ED;
+  --row-playing-text:   #E4ECF5;   /* blueish-white LCD — matches the playbar readouts */
   --col-header-text:    #8a8576;
 
   /* ── Cards ── */
@@ -231,8 +231,26 @@
 
 [data-theme='hifi-modern-black'] .sidebar {
   background-color: #141518;
-  background-image: linear-gradient(270deg, #1e2024 0%, #141518 100%);
-  background-size: 100% 100%;
+  /* FAINT CHAMFER on the inner edge — the faceplate has thickness, so its edge
+     catches a hairline of light and the slope behind it falls away, making the
+     backlit content read as glass set BEHIND the panel.
+     Drawn as BACKGROUND layers (not box-shadow) so the height can be clipped:
+     both stop 64px from the top — the height of .sidebar-brand /
+     .content-header — so the chamfer never enters the top strip and that area
+     still reads as one continuous panel. border-right stays free for its seam.
+     Main dial is the 0.045 lit edge: raise to strengthen, drop to soften. */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)),
+    linear-gradient(270deg, rgba(255, 255, 255, 0.035), transparent),
+    linear-gradient(270deg, #1e2024 0%, #141518 100%);
+  background-size:
+    1px calc(100% - 64px),    /* lit front edge of the chamfer */
+    8px calc(100% - 64px),    /* the slope catching light */
+    100% 100%;                /* the faceplate itself */
+  background-position:
+    right bottom,
+    right bottom,
+    0 0;
   background-repeat: no-repeat;
   border-right: 0px solid #EBEBED !important;
 }
@@ -428,7 +446,23 @@
 
 /* Queue panel body — silver faceplate */
 [data-theme='hifi-modern-black'] .queue-panel {
-  background: linear-gradient(90deg, #141518 0%, #1e2024 100%);
+  /* Mirrored chamfer on the inner (LEFT) edge — same construction as the
+     sidebar, flipped: 1px lit edge + 8px slope, both clipped to
+     calc(100% - 64px) so they start below the 64px .queue-header and never
+     enter the top strip. border-left is left free for its seam colour. */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.045)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent),
+    linear-gradient(90deg, #141518 0%, #1e2024 100%);
+  background-size:
+    1px calc(100% - 64px),    /* lit front edge of the chamfer */
+    8px calc(100% - 64px),    /* the slope catching light */
+    100% 100%;                /* the faceplate itself */
+  background-position:
+    left bottom,
+    left bottom,
+    0 0;
+  background-repeat: no-repeat;
   border-left: 1px solid #141518 !important;
   border-bottom: none !important;
 }
@@ -850,42 +884,49 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 380px;
+  height: 100%;
   pointer-events: none;
   z-index: 5;
+  /* screen blend so the light doesn't just paint the dark bg — it also CATCHES
+     on every cover/card/row beneath it (lifts their darks like reflected light,
+     self-limits on bright artwork). One overlay lights the whole content area. */
+  mix-blend-mode: screen;
   /* warm glow: offset ~7px below the top edge (dark gap = depth),
      brightest just under the lip and fading down */
   background:
     /* CYLINDRICAL source — a wide, thin glowing tube (70s fuse / LED strip)
        sized to the cone's top width, not a dot. Bright thin body + soft glow. */
-    radial-gradient(48px 3px at 22% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(48px 3px at 50% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(48px 3px at 78% 1px, rgba(255, 254, 250, 0.92), transparent 66%),
-    radial-gradient(56px 8px at 22% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
-    radial-gradient(56px 8px at 50% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
-    radial-gradient(56px 8px at 78% 2px, rgba(255, 252, 245, 0.42), transparent 74%),
+    radial-gradient(48px 3px at 22% 1px, rgba(255, 254, 250, 0.72), transparent 66%),
+    radial-gradient(48px 3px at 50% 1px, rgba(255, 254, 250, 0.72), transparent 66%),
+    radial-gradient(48px 3px at 78% 1px, rgba(255, 254, 250, 0.72), transparent 66%),
+    radial-gradient(52px 6px at 22% 2px, rgba(255, 252, 245, 0.18), transparent 74%),
+    radial-gradient(52px 6px at 50% 2px, rgba(255, 252, 245, 0.18), transparent 74%),
+    radial-gradient(52px 6px at 78% 2px, rgba(255, 252, 245, 0.18), transparent 74%),
     /* the beams (spill) */
     linear-gradient(
       to bottom,
       rgba(255, 250, 240, 0)    0,
       rgba(255, 250, 240, 0)    2px,    /* 2px gap under the header */
-      rgba(255, 250, 240, 0.62) 11px,   /* source */
-      rgba(255, 250, 240, 0.38) 34px,   /* upper region */
-      rgba(255, 250, 240, 0.17) 130px,  /* long, slow tail... */
-      rgba(255, 250, 240, 0.07) 250px,
-      rgba(255, 250, 240, 0)    380px
+      rgba(255, 250, 240, 0.50) 11px,   /* source */
+      rgba(255, 250, 240, 0.34) 34px,   /* smooth continuous falloff — each */
+      rgba(255, 250, 240, 0.28) 70px,   /* segment eases off gentler than the */
+      rgba(255, 250, 240, 0.20) 130px,  /* last, so there's no sudden slope */
+      rgba(255, 250, 240, 0.13) 220px,  /* change / visible drop mid-panel */
+      rgba(255, 250, 240, 0.07) 45%,
+      rgba(255, 250, 240, 0.02) 78%,
+      rgba(255, 250, 240, 0)    100%
     );
   /* clip the glow into three TRAPEZOID beams — conic wedges whose apex sits
      46px above the top edge, so the visible part is a truncated triangle that
      fans WIDER toward the bottom (a real light cone, not a taper). */
   -webkit-mask-image:
-    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
   mask-image:
-    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg),
-    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 30deg, #fff 130deg, transparent 160deg);
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
 }
 
 
@@ -906,9 +947,9 @@
   height: 16px;
   pointer-events: none;
   background:
-    radial-gradient(54px 9px at 22% 100%, rgba(255, 250, 240, 0.30), transparent 72%),
-    radial-gradient(54px 9px at 50% 100%, rgba(255, 250, 240, 0.30), transparent 72%),
-    radial-gradient(54px 9px at 78% 100%, rgba(255, 250, 240, 0.30), transparent 72%);
+    radial-gradient(54px 9px at 22% 100%, rgba(255, 250, 240, 0.23), transparent 72%),
+    radial-gradient(54px 9px at 50% 100%, rgba(255, 250, 240, 0.23), transparent 72%),
+    radial-gradient(54px 9px at 78% 100%, rgba(255, 250, 240, 0.23), transparent 72%);
 }
 
 
@@ -933,8 +974,12 @@
    RECESSED CONTENT WELL — makes the middle section read as inset
    below the sidebar / queue panel, so the light falls into a well
    rather than onto a flat surface. Inner shadows fade in from the
-   left and right edges (the recess walls); the top is already the
-   lit lip. Static (not playback-reactive). Below the light (z 5).
+   left and right edges (the recess walls) + bottom.
+   TOP is shadow-FRAMED (not flat): dark top corners + dark troughs
+   between the three beams (36% / 64%, interleaved with the cones at
+   22/50/78%) so the light reads as distinct shafts emerging from
+   dark — more pronounced without raising the light intensity.
+   Static (not playback-reactive). Below the light (z 5).
    ============================================================ */
 [data-theme='hifi-modern-black'] .content-body.app-shell-route-host::after {
   content: '';
@@ -943,7 +988,48 @@
   pointer-events: none;
   z-index: 4;
   background:
+    /* dark top corners frame the outer beams */
+    radial-gradient(200px 130px at 0% 0%,   rgba(0, 0, 0, 0.34), transparent 72%),
+    radial-gradient(200px 130px at 100% 0%, rgba(0, 0, 0, 0.34), transparent 72%),
+    /* troughs between the beams — dig the gaps darker */
+    radial-gradient(130px 110px at 36% 0%,  rgba(0, 0, 0, 0.24), transparent 74%),
+    radial-gradient(130px 110px at 64% 0%,  rgba(0, 0, 0, 0.24), transparent 74%),
+    /* gentle overall top darkening */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0, rgba(0, 0, 0, 0) 84px),
+    /* AMBIENT BOTTOM SHADOW — the lit scene falls off into shadow at the floor,
+       so the top-down light reads as directional (top lit → bottom dark), not
+       just a glow up top. Broad + gentle, reaching ~halfway up. */
+    linear-gradient(to top, rgba(0, 0, 0, 0.32) 0, rgba(0, 0, 0, 0.16) 22%, rgba(0, 0, 0, 0.05) 44%, rgba(0, 0, 0, 0) 62%),
+    /* recess walls */
     linear-gradient(to right, rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
     linear-gradient(to left,  rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
     linear-gradient(to top,   rgba(0, 0, 0, 0.34) 0, rgba(0, 0, 0, 0) 58px);
+}
+
+
+/* ============================================================
+   QUEUE ACCENTS → blueish-white LCD, matching the playbar readouts
+   and the now-playing row. Two different problems:
+   - .queue-tab-btn.active is a normal rule (color: var(--accent)),
+     so a scoped colour override wins on specificity.
+   - the header's total-duration span sets color:var(--accent) INLINE,
+     which no colour rule can beat — so instead we re-point --accent
+     on just that element (it's the only span[data-tooltip] in the
+     header). Same trick as the repeat button.
+   ============================================================ */
+[data-theme='hifi-modern-black'] .queue-tab-btn.active {
+  color: #E4ECF5;
+}
+
+[data-theme='hifi-modern-black'] .queue-header span[data-tooltip] {
+  --accent: #E4ECF5;
+}
+
+/* The queue's playing row uses its own hook — .queue-item.active sets
+   color:var(--accent) (NOT --row-playing-text, which only covers the main
+   track lists). Override the colour so it matches the VFD readout above;
+   the --accent-dim background stays so it still reads as selected. The
+   title/artist/duration children are color:inherit, so they follow. */
+[data-theme='hifi-modern-black'] .queue-item.active {
+  color: #E4ECF5;
 }
