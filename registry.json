@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-16T00:13:31.584Z",
+  "generatedAt": "2026-07-16T17:35:36.816Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -424,10 +424,15 @@
       "id": "feywild",
       "name": "Feywild",
       "author": "ImAsra",
-      "version": "1.2.9",
+      "version": "1.3.0",
       "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
       "mode": "dark",
       "changelog": {
+        "1.3.0": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.2.9": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -441,7 +446,7 @@
       },
       "css": "themes/feywild/theme.css",
       "thumbnail": "themes/feywild/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "frappe",
@@ -462,10 +467,15 @@
       "id": "graceful-ember",
       "name": "Graceful Ember",
       "author": "ImAsra",
-      "version": "1.3.9",
+      "version": "1.4.0",
       "description": "Inspired by Bad Omens - THE DEATH OF PEACE OF MIND. Elegant neumorphic light theme with radiant red-orange accents over a warm, comforting cream canvas.",
       "mode": "light",
       "changelog": {
+        "1.4.0": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.3.9": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -481,7 +491,7 @@
       },
       "css": "themes/graceful-ember/theme.css",
       "thumbnail": "themes/graceful-ember/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "grand-theft-audio",
@@ -738,10 +748,15 @@
       "id": "hollow-ember",
       "name": "Hollow Ember",
       "author": "ImAsra",
-      "version": "1.3.8",
+      "version": "1.3.9",
       "description": "Warm ember and ash neumorphic theme. Deep near-black base with smouldering orange accent. inspired by Bad Omens – THE DEATH OF PEACE OF MIND",
       "mode": "dark",
       "changelog": {
+        "1.3.9": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.3.8": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -759,7 +774,7 @@
       },
       "css": "themes/hollow-ember/theme.css",
       "thumbnail": "themes/hollow-ember/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "horde",
@@ -865,10 +880,15 @@
       "id": "latte-reserve",
       "name": "Latte Reserve",
       "author": "ImAsra",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "description": "Catppuccin Latte neumorphic theme. Deep mauve accent over warm cream base.",
       "mode": "light",
       "changelog": {
+        "1.0.4": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.0.3": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -883,7 +903,7 @@
       },
       "css": "themes/latte-reserve/theme.css",
       "thumbnail": "themes/latte-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "london-79",
@@ -981,10 +1001,15 @@
       "id": "mocha-reserve",
       "name": "Mocha Reserve",
       "author": "ImAsra",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "description": "Catppuccin Mocha neumorphic theme. Cream and mauve smoke over deep navy-mauve.",
       "mode": "dark",
       "changelog": {
+        "1.0.4": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.0.3": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -999,16 +1024,21 @@
       },
       "css": "themes/mocha-reserve/theme.css",
       "thumbnail": "themes/mocha-reserve/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "monolith-dark",
       "name": "Monolith-dark",
       "author": "ImAsra",
-      "version": "1.2.3",
+      "version": "1.2.4",
       "description": "Monochrome charcoal and white neumorphic theme with circular record player esque album grid patches.",
       "mode": "dark",
       "changelog": {
+        "1.2.4": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.2.3": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -1026,16 +1056,21 @@
       },
       "css": "themes/monolith-dark/theme.css",
       "thumbnail": "themes/monolith-dark/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "monolith-light",
       "name": "Monolith-light",
       "author": "ImAsra",
-      "version": "1.2.6",
+      "version": "1.2.7",
       "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
       "mode": "light",
       "changelog": {
+        "1.2.7": [
+          "Bug reported by Legislate3030 on github.",
+          "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+          "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+        ],
         "1.2.6": [
           "Fix: collapsed sidebar nav buttons are now square and icon-sized."
         ],
@@ -1050,7 +1085,7 @@
       },
       "css": "themes/monolith-light/theme.css",
       "thumbnail": "themes/monolith-light/thumbnail.webp",
-      "updatedAt": "2026-07-16T02:13:13+02:00"
+      "updatedAt": "2026-07-16T19:35:20+02:00"
     },
     {
       "id": "morpheus",
