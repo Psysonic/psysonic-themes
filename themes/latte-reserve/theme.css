@@ -310,12 +310,16 @@
 [data-theme='latte-reserve'] .song-card-action-btn:active,
 [data-theme='latte-reserve'] .album-card-details-btn:active,
 [data-theme='latte-reserve'] .play-btn:active,
-[data-theme='latte-reserve'] .transport-btn:active,
-[data-theme='latte-reserve'] .track-row:active {
+[data-theme='latte-reserve'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #e6e9ef !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+[data-theme='latte-reserve'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #e6e9ef !important;
 }
 
 [data-theme='latte-reserve'] .btn-primary,

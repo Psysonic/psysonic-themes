@@ -301,12 +301,16 @@
 [data-theme='feywild'] .song-card-action-btn:active,
 [data-theme='feywild'] .album-card-details-btn:active,
 [data-theme='feywild'] .play-btn:active,
-[data-theme='feywild'] .transport-btn:active,
-[data-theme='feywild'] .track-row:active {
+[data-theme='feywild'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #102010 !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+[data-theme='feywild'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #102010 !important;
 }
 
 [data-theme='feywild'] .btn-primary,

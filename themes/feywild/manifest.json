@@ -2,10 +2,15 @@
   "id": "feywild",
   "name": "Feywild",
   "author": "ImAsra",
-  "version": "1.2.9",
+  "version": "1.3.0",
   "description": "Forest green and earthy tones neumorphic theme with warm moss accents.",
   "mode": "dark",
   "changelog": {
+    "1.3.0": [
+      "Bug reported by Legislate3030 on github.",
+      "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
+      "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click."
+    ],
     "1.2.9": [
       "Fix: collapsed sidebar nav buttons are now square and icon-sized."
     ],

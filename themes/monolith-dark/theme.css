@@ -291,12 +291,16 @@
 [data-theme='monolith-dark'] .song-card-action-btn:active,
 [data-theme='monolith-dark'] .album-card-details-btn:active,
 [data-theme='monolith-dark'] .play-btn:active,
-[data-theme='monolith-dark'] .transport-btn:active,
-[data-theme='monolith-dark'] .track-row:active {
+[data-theme='monolith-dark'] .transport-btn:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #0d0e11 !important;
   transform: scale(0.96) !important;
   transition: transform 0.05s ease !important;
+}
+
+[data-theme='monolith-dark'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #0d0e11 !important;
 }
 
 [data-theme='monolith-dark'] .btn-primary,
@@ -581,6 +585,37 @@
   box-shadow: var(--nm-inset-sm);
   background: #111216;
   color: var(--accent);
+}
+/* FIX: Bulk Checkbox contrast & neumorphism in dark mode */
+[data-theme='monolith-dark'] .bulk-check {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background-color: #111216 !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  transition: all 0.15s ease !important;
+}
+
+/* Checked/Selected State */
+[data-theme='monolith-dark'] .track-row.selected .bulk-check,
+[data-theme='monolith-dark'] .track-row.active .bulk-check,
+[data-theme='monolith-dark'] .bulk-check.active,
+[data-theme='monolith-dark'] .bulk-check.checked {
+  background-color: #18191f !important; /* Slightly elevated card bg */
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: var(--nm-shadow-sm) !important; /* Pop it up when checked! */
+}
+
+/* Force the tickmark/checkmark to be crisp white across all rendering methods */
+[data-theme='monolith-dark'] .track-row.selected .bulk-check::after,
+[data-theme='monolith-dark'] .track-row.active .bulk-check::after,
+[data-theme='monolith-dark'] .bulk-check.active::after,
+[data-theme='monolith-dark'] .bulk-check.checked::after {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+[data-theme='monolith-dark'] .bulk-check svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════
