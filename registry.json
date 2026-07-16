@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-14T16:12:04.785Z",
+  "generatedAt": "2026-07-16T00:12:57.771Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -674,7 +674,7 @@
       "id": "hifi-modern",
       "name": "Hi-Fi Modern",
       "author": "JU3RG",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "A modern network audio player (Technics-style): brushed silver, a white-blue dot-matrix LCD, a blue standby light, and blue AUX buttons.",
       "mode": "light",
       "tags": [
@@ -690,13 +690,13 @@
       "animated": true,
       "css": "themes/hifi-modern/theme.css",
       "thumbnail": "themes/hifi-modern/thumbnail.webp",
-      "updatedAt": "2026-07-13T03:04:39+02:00"
+      "updatedAt": "2026-07-16T02:12:37+02:00"
     },
     {
       "id": "hifi-modern-black",
       "name": "Hi-Fi Modern (Black)",
       "author": "JU3RG",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "description": "Dark companion to Hi-Fi Modern. A modern network audio player in black, with white-blue dot-matrix LCD screens, a blue standby light, and blue AUX buttons.",
       "mode": "dark",
       "tags": [
@@ -712,7 +712,7 @@
       "animated": true,
       "css": "themes/hifi-modern-black/theme.css",
       "thumbnail": "themes/hifi-modern-black/thumbnail.webp",
-      "updatedAt": "2026-07-13T03:04:54+02:00"
+      "updatedAt": "2026-07-16T02:12:55+02:00"
     },
     {
       "id": "hill-valley-85",
