@@ -21,4 +21,5 @@ Type your answer after each colon:
 - [ ] `thumbnail.png` (or `.jpg`) added — 16:9 screenshot, ≥ 1280×720
 - [ ] `description` names the inspiration / credits the upstream palette (for recolours)
 - [ ] Only one theme in this PR
+- [ ] Branch cut from an up-to-date `main`, not stacked on another open PR
 - [ ] I agree to contribute under the MIT License

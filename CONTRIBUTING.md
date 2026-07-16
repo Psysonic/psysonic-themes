@@ -32,6 +32,19 @@ Consider adding a matching entry to the optional `changelog` object in
 suffix) — so users can see *what* changed in the store's **What's new**. See the
 README for the shape and limits.
 
+**Cut every update from an up-to-date `main`, and keep separate changes on
+separate branches — don't build one branch on top of another that hasn't merged
+yet.** If you have two changes in flight for the same theme and the first one
+merges, a branch cut from the older `main` still carries that first change, so it
+comes back as a duplicate and the PR conflicts. If your PR falls behind `main`,
+**rebase onto it** rather than merging `main` in, so the PR keeps only your
+changes:
+
+```
+git fetch origin
+git rebase origin/main
+```
+
 ## The CSS contract (enforced by CI)
 
 `theme.css` is **free-form CSS** — any selectors, structure, `@media`, and
