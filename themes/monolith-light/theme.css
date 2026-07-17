@@ -326,8 +326,6 @@
   transition: transform 0.05s ease !important;
 }
 
-<<<<<<< Updated upstream
-=======
 [data-theme='monolith-light'] .resizer-queue-handle {
   background: #e8e9ef !important;
   border: none !important;
@@ -357,7 +355,6 @@
   transition: transform 0.05s ease !important;
 }
 
->>>>>>> Stashed changes
 [data-theme='monolith-light'] .track-row:active {
   box-shadow: var(--nm-inset-sm) !important;
   background: #edeef3 !important;
