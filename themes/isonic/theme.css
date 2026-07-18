@@ -257,7 +257,10 @@
   color: inherit;
 }
 
-/* Now Playing pulse dot — soft iTunes blue instead of a pilot lamp */
+/* Now Playing pulse dot — soft iTunes blue instead of a pilot lamp.
+   Shadow is static; only opacity animates (compositor-only, no
+   per-frame repaint) so the pulse stays cheap while running
+   indefinitely. */
 [data-theme='isonic'] .nav-np-dot {
   background: radial-gradient(
     circle at 50% 45%,
@@ -265,17 +268,16 @@
     #1C79D8 55%,
     #1256A0 100%
   );
+  box-shadow: 0 0 3px rgba(28, 121, 216, 0.4);
   animation: isonic-np-pulse 2.2s ease-in-out infinite;
 }
 
 @keyframes isonic-np-pulse {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 4px rgba(28, 121, 216, 0.55);
   }
   50% {
     opacity: 0.45;
-    box-shadow: 0 0 2px rgba(28, 121, 216, 0.20);
   }
 }
 
@@ -345,9 +347,10 @@
 }
 
 [data-theme='isonic'] .queue-current-track,
-[data-theme='isonic'] .queue-current-track * {
+[data-theme='isonic'] .queue-current-track .queue-current-info,
+[data-theme='isonic'] .queue-current-track .queue-current-sub,
+[data-theme='isonic'] .queue-current-track .queue-current-tech {
   border-bottom: none !important;
-  border-color: transparent !important;
 }
 
 [data-theme='isonic'] .queue-current-track {
