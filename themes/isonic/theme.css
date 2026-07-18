@@ -1,0 +1,580 @@
+/* ============================================================
+   iTunes 11 — inspired by Apple's iTunes 11 (2012–2013).
+
+   Design language:
+   - Frosted white / pale silver-blue faceplate throughout
+   - Glossy iTunes blue accent (links, progress, selected rows)
+   - Full-row blue gradient highlight for the active sidebar item
+     (iTunes 11's signature selected-source look)
+   - Colored per-section sidebar icons kept flat, glow removed —
+     this era of iTunes was glossy, not backlit
+   - Green "available" status dot (iChat/Messages-era Apple green)
+   - Glossy skeuomorphic play button with a soft top highlight
+   - Column headers in small-caps grey, hairline dividers
+
+   CSS is organised top-to-bottom by UI position:
+   Tokens → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: light
+   Validate: node scripts/validate-theme.mjs themes/isonic
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='isonic'] {
+  color-scheme: light;
+
+  /* ── Accent — iTunes glossy blue ── */
+  --accent:      #1C79D8;
+  --accent-dim:  rgba(28, 121, 216, 0.18);
+  --accent-glow: #4A90D9;
+  --accent-2:    #1C79D8;
+
+  /* ── Backgrounds ── */
+  --bg-app:      #ffffff;
+  --bg-sidebar:  #E7EBEF;
+  --bg-card:     #F5F6F8;
+  --bg-hover:    #EEF3FA;
+  --bg-elevated: #F0F2F5;
+  --bg-player:   #F6F7F9;   /* player bar — light glossy toolbar, not a dark dial */
+  --bg-deep:     #D7DBDF;
+  --bg-glass:    rgba(255, 255, 255, 0.55);
+  --modal-bg:    #F3F4F6;
+
+  /* ── Borders ── */
+  --border:          #D2D5D9;
+  --border-subtle:   #E2E4E7;
+  --border-dropdown: #C7CACD;
+
+  /* ── Text ── */
+  --text-primary:   #2B2E33;
+  --text-secondary: #6B6F76;
+  --text-muted:     rgba(43, 46, 51, 0.55);
+  --text-on-accent: #ffffff;
+
+  /* ── Status ── */
+  --danger:    #D33B3B;
+  --positive:  #3FA046;
+  --warning:   #C08A1E;
+  --highlight: #E0A400;   /* rating stars — classic iTunes gold */
+
+  /* ── Select arrow — grey stroke for light faceplate ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B6F76%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.18);
+
+  /* ── Sidebar ── */
+  --sidebar-text:             #33363B;
+  --sidebar-item-hover:       rgba(28, 121, 216, 0.08);
+  --sidebar-item-active-bg:   #2E6DA6;   /* real gradient applied on the row itself below */
+  --sidebar-item-active-text: #ffffff;
+  --sidebar-border:           #C9CDD1;
+
+  /* ── Library rows ── */
+  --row-hover:          #EEF3FA;
+  --row-divider:        #E4E6E9;
+  --row-text:           #2B2E33;
+  --row-text-secondary: #6B6F76;
+  --row-text-muted:     #9A9DA3;
+  --row-playing-bg:     rgba(28, 121, 216, 0.08);
+  --row-playing-text:   #1C79D8;
+  --col-header-text:    #8A8D93;
+
+  /* ── Cards ── */
+  --card-title:          #2B2E33;
+  --card-subtitle:       #6B6F76;
+  --card-hover-border:   #B9C4D0;
+  --card-placeholder-bg: #E7E9EC;
+
+  /* ── Menus / inputs ── */
+  --menu-bg:               #FBFBFC;
+  --menu-item-hover:       #EAF1FB;
+  --menu-item-active-text: #1C79D8;
+  --menu-divider:          #E2E4E7;
+  --input-bg:              #F0F1F3;
+  --input-focus-border:    #1C79D8;
+  --button-hover:          #E7EBEF;
+
+  /* ── Sliders — glossy white knobs ── */
+  --slider-track:       #D6D9DC;
+  --slider-thumb:       #ffffff;
+  --slider-thumb-hover: #ffffff;
+
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #C7CACD;
+  --scrollbar-thumb-hover: #A9ACB0;
+  --scrollbar-track:       transparent;
+
+  /* ── Player bar — light glossy toolbar ── */
+  --volume-accent:             #1C79D8;
+  --waveform-played:           #1C79D8;
+  --waveform-unplayed:         #D6D9DC;
+  --waveform-buffered:         #B9C4D0;
+  --player-title:              #2B2E33;
+  --player-artist:              #6B6F76;
+  --player-control:            #5A5D63;
+  --player-control-hover:      #1C79D8;
+  --player-control-hover-bg:   rgba(28, 121, 216, 0.08);
+  --player-border:             #D2D5D9;
+  --player-time-toggle-hover:  #EEF3FA;
+  --player-time-toggle-active: #1C79D8;
+}
+
+/* Album-art corners line up with the card */
+[data-theme='isonic'] .np-dash-hero-cover .np-cover {
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='isonic'] .titlebar {
+  background: linear-gradient(to bottom, #F7F8FA 0%, #E9EBEE 100%);
+  border-bottom: 1px solid #D2D5D9;
+}
+
+/* ============================================================
+   CONTEXT MENU & SUBMENUS
+   Native macOS-style menu: white surface, hairline border,
+   blue highlight on hover — no dial styling needed here.
+   ============================================================ */
+
+[data-theme='isonic'] {
+  --menu-item-active-text: #1C79D8;
+}
+
+[data-theme='isonic'] .context-menu,
+[data-theme='isonic'] .context-submenu {
+  background: #FBFBFC;
+  border: 1px solid #D2D5D9;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  color: #2B2E33;
+}
+
+[data-theme='isonic'] .context-menu-item {
+  color: #2B2E33;
+}
+[data-theme='isonic'] .context-menu-item svg {
+  color: #6B6F76;
+}
+
+[data-theme='isonic'] .context-menu-item:hover,
+[data-theme='isonic'] .context-menu-item.context-menu-keyboard-active {
+  background: #EAF1FB;
+  color: #1C79D8;
+}
+[data-theme='isonic'] .context-menu-item:hover svg,
+[data-theme='isonic'] .context-menu-item.context-menu-keyboard-active svg {
+  color: #1C79D8;
+}
+
+[data-theme='isonic'] .context-submenu-new,
+[data-theme='isonic'] .context-submenu-new:hover {
+  color: #1C79D8;
+  font-weight: 600;
+}
+
+[data-theme='isonic'] .context-menu-divider {
+  background: #E2E4E7;
+}
+
+[data-theme='isonic'] .context-submenu-empty {
+  color: rgba(43, 46, 51, 0.50);
+}
+[data-theme='isonic'] .context-submenu-input {
+  background: #ffffff;
+  border: 1px solid #D2D5D9;
+  color: #2B2E33;
+}
+[data-theme='isonic'] .context-submenu-input::placeholder {
+  color: rgba(43, 46, 51, 0.40);
+}
+
+/* Play triangle stays white on the currently-playing row */
+[data-theme='isonic'] .song-list-row-btn--play:hover svg,
+[data-theme='isonic'] .song-list-row-btn--play:active svg,
+[data-theme='isonic'] .song-list-row-btn--play:focus-visible svg {
+  color: #ffffff !important;
+  fill:  #ffffff !important;
+}
+
+/* ============================================================
+   SIDEBAR
+   Left panel — pale silver-blue faceplate, faint top-lit
+   gradient. The active source gets iTunes 11's signature
+   full-width glossy blue bar, not just an indicator stripe.
+   ============================================================ */
+
+[data-theme='isonic'] .sidebar-section-label {
+  letter-spacing: 0.08em;
+  font-weight:    700;
+  text-transform: uppercase;
+  color: #9A9DA3;
+}
+
+[data-theme='isonic'] .sidebar {
+  background-color: #E7EBEF;
+  background-image: linear-gradient(180deg, #EDF0F3 0%, #E1E5E9 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-right: 1px solid #C9CDD1 !important;
+}
+
+[data-theme='isonic'] {
+  --logo-color-start: #2B2E33;
+  --logo-color-end:   #2B2E33;
+}
+
+[data-theme='isonic'] .nav-link {
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 4px;
+  transition:
+    background 0.15s ease-out,
+    color      0.15s ease-out;
+}
+
+/* Active row — the classic iTunes 11 glossy blue gradient bar */
+[data-theme='isonic'] .nav-link.active {
+  background: linear-gradient(180deg, #5B9FE0 0%, #1C5FA8 100%);
+  color: #ffffff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.10);
+}
+[data-theme='isonic'] .nav-link.active::before {
+  display: none;   /* the full row carries the active state, no separate bar */
+}
+[data-theme='isonic'] .nav-link.active > svg {
+  color: #ffffff;
+  filter: none;
+}
+
+/* Now Playing nav item — same treatment as any other row */
+[data-theme='isonic'] .nav-link-nowplaying,
+[data-theme='isonic'] .nav-link-nowplaying:hover,
+[data-theme='isonic'] .nav-link-nowplaying.active {
+  color: inherit;
+}
+
+/* Now Playing pulse dot — soft iTunes blue instead of a pilot lamp */
+[data-theme='isonic'] .nav-np-dot {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #4A90D9 0%,
+    #1C79D8 55%,
+    #1256A0 100%
+  );
+  animation: isonic-np-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes isonic-np-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 4px rgba(28, 121, 216, 0.55);
+  }
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 2px rgba(28, 121, 216, 0.20);
+  }
+}
+
+/* ============================================================
+   CONTENT HEADER
+   Top bar — pale gradient matching the faceplate, thin
+   hairline seam, no metallic catch-light like Hi-Fi 73.
+   ============================================================ */
+
+[data-theme='isonic'] .content-header {
+  background: linear-gradient(180deg, #FBFBFC 0%, #F0F2F5 100%);
+  border-bottom: 1px solid #D2D5D9;
+}
+
+/* Search bar — blue focus ring, rounded "pill" like iTunes' search field */
+[data-theme='isonic'] .live-search-field-cluster {
+  border-radius: 999px;
+}
+[data-theme='isonic'] .live-search-field-cluster:focus-within {
+  box-shadow:
+    0 0 0 3px rgba(28, 121, 216, 0.20),
+    inset 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Connection indicator — flat green "available" dot, iChat-style */
+[data-theme='isonic'] .connection-led--connected {
+  background: radial-gradient(
+    circle at 50% 40%,
+    #7ED957 0%,
+    #3FA046 60%,
+    #2C7A32 100%
+  );
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.8),
+    0 0 4px rgba(63, 160, 70, 0.45);
+  transition: background 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+[data-theme='isonic'] .connection-led--disconnected {
+  background: #C7CACD;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+  transition: background 0.3s ease-in, box-shadow 0.3s ease-in;
+}
+
+/* Now-Playing hero favorite heart — Apple red */
+[data-theme='isonic'] .np-dash-hero-actions svg.lucide-heart[fill="var(--highlight)"] {
+  fill:   #E0333F !important;
+  stroke: #E0333F !important;
+}
+
+/* ============================================================
+   QUEUE PANEL
+   Right panel — same pale faceplate. The now-playing card
+   is a light frosted card (not a black dial) with the album
+   art and blue-accented type, closer to the "Up Next" popover.
+   ============================================================ */
+
+[data-theme='isonic'] .queue-panel {
+  background: #EEF1F4;
+  border-left: 1px solid #D2D5D9 !important;
+  border-bottom: 1px solid #C9CDD1 !important;
+}
+
+[data-theme='isonic'] .queue-header {
+  background: #F5F6F8;
+  border-bottom: 1px solid #D2D5D9;
+}
+
+[data-theme='isonic'] .queue-current-track,
+[data-theme='isonic'] .queue-current-track * {
+  border-bottom: none !important;
+  border-color: transparent !important;
+}
+
+[data-theme='isonic'] .queue-current-track {
+  background: #ffffff;
+  box-shadow: inset 0 -1px 0 #E2E4E7;
+}
+
+[data-theme='isonic'] .queue-current-info h3 {
+  color: #2B2E33;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+[data-theme='isonic'] .queue-current-sub,
+[data-theme='isonic'] .queue-current-sub.is-link,
+[data-theme='isonic'] .queue-current-sub .is-link {
+  color: #6B6F76;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+[data-theme='isonic'] .queue-current-sub.is-link:hover,
+[data-theme='isonic'] .queue-current-sub .is-link:hover {
+  color: #1C79D8;
+  text-decoration: underline;
+}
+
+/* Tech info strip — flat grey, no glow */
+[data-theme='isonic'] .queue-current-tech {
+  background: #F5F6F8;
+  color: #9A9DA3;
+  text-shadow: none;
+  border-top:    1px solid #E2E4E7;
+  border-bottom: 1px solid #E2E4E7;
+}
+
+/* RG / Loudness badge */
+[data-theme='isonic'] .queue-current-tech-rg-badge {
+  color: #1C79D8;
+  border-color: rgba(28, 121, 216, 0.35);
+  background: rgba(28, 121, 216, 0.08);
+  box-shadow: none;
+}
+[data-theme='isonic'] .queue-current-tech-rg-badge:hover {
+  color: #ffffff;
+  border-color: #1C79D8;
+  background: #1C79D8;
+}
+
+/* Queue toolbar */
+[data-theme='isonic'] .queue-toolbar {
+  background: #F5F6F8;
+  border-top:    1px solid #E2E4E7;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+[data-theme='isonic'] .queue-toolbar-sep {
+  background: #D2D5D9;
+}
+
+[data-theme='isonic'] .queue-round-btn {
+  background: #ffffff;
+  color: #6B6F76;
+  border: 1px solid #D2D5D9;
+}
+
+[data-theme='isonic'] .queue-round-btn:hover:not(:disabled) {
+  background: #EAF1FB;
+  color: #1C79D8;
+  border-color: #9FC3EA;
+  box-shadow: none;
+}
+
+[data-theme='isonic'] .queue-round-btn.active {
+  background: #1C79D8;
+  color: #ffffff;
+  border-color: #1C79D8;
+  box-shadow: 0 0 0 2px rgba(28, 121, 216, 0.18);
+}
+
+[data-theme='isonic'] .queue-round-btn.active svg {
+  filter: none;
+}
+
+
+/* ============================================================
+   PLAYER BAR — GLOSSY LIGHT TOOLBAR
+   The bottom strip mirrors iTunes 11's transport controls:
+   light brushed toolbar, glossy blue play button with a soft
+   top highlight, plain black/grey type — no backlighting.
+   ============================================================ */
+
+[data-theme='isonic'] .player-bar {
+  border-top: 1px solid #D2D5D9;
+  background: linear-gradient(180deg, #FAFBFC 0%, #EDEFF2 100%);
+}
+
+[data-theme='isonic'] .player-album-art-wrap,
+[data-theme='isonic'] .player-album-art,
+[data-theme='isonic'] .player-album-art-placeholder {
+  background: #E7E9EC;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20);
+}
+
+[data-theme='isonic'] .player-bar.floating {
+  background: var(--bg-player);
+}
+
+/* Favorite heart — Apple red when active */
+[data-theme='isonic'] .player-star-btn.is-starred {
+  color: #E0333F !important;
+}
+[data-theme='isonic'] .player-star-btn.is-starred:has(.lucide-heart) svg {
+  filter: none;
+}
+
+/* Track name — plain, bold, no glow */
+[data-theme='isonic'] .player-track-name {
+  font-weight: 700;
+  text-shadow: none;
+}
+[data-theme='isonic'][data-playing='true'] .player-track-name {
+  font-weight: 700;
+  text-shadow: none;
+}
+
+/* Artist name */
+[data-theme='isonic'] .player-track-artist {
+  text-shadow: none;
+  color: var(--player-artist);
+}
+
+/* Time counter — plain grey, tabular */
+[data-theme='isonic'] .player-time {
+  color: #6B6F76;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+/* Transport icons — flat grey, blue on hover, no drop-shadow glow */
+[data-theme='isonic'] .player-btn:not(.player-btn-primary) svg {
+  filter: none;
+}
+[data-theme='isonic'] .player-btn:not(.player-btn-primary):hover {
+  color: var(--player-control-hover) !important;
+  background: var(--player-control-hover-bg) !important;
+  box-shadow: none !important;
+  border-radius: 4px;
+}
+[data-theme='isonic'] .player-btn:not(.player-btn-primary):hover svg {
+  filter: none;
+}
+
+/* Mute button */
+[data-theme='isonic'] .player-volume-section .player-btn {
+  color: var(--player-control) !important;
+}
+[data-theme='isonic'] .player-volume-section .player-btn:has(.lucide-volume-x) {
+  color: #E0333F !important;
+  filter: none;
+}
+
+/* Rating stars — classic iTunes gold, no glow */
+[data-theme='isonic'] .player-star-btn.is-starred svg {
+  filter: none;
+  color: var(--highlight);
+}
+
+/* Play button — glossy skeuomorphic sphere, three states.
+   Rest: pale blue-grey glass. Playing/Hover: full glossy blue
+   with a soft top highlight arc instead of a neon ring. */
+
+[data-theme='isonic'] .player-btn-primary {
+  background: linear-gradient(180deg, #FDFEFF 0%, #DDE3E9 100%);
+  color: #5A5D63;
+  border: 1px solid #C7CACD;
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(0, 0, 0, 0.15);
+}
+[data-theme='isonic'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='isonic'][data-playing='true'] .player-btn-primary {
+  background: linear-gradient(180deg, #6FA8E0 0%, #1C5FA8 100%);
+  color: #ffffff;
+  border: 1px solid #1256A0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 2px 6px rgba(28, 96, 168, 0.35);
+}
+[data-theme='isonic'][data-playing='true'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='isonic'] .player-btn-primary:hover {
+  background: linear-gradient(180deg, #7FB4E8 0%, #2569B4 100%);
+  color: #ffffff;
+  border: 1px solid #1C5FA8;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 2px 8px rgba(28, 96, 168, 0.45);
+}
+[data-theme='isonic'] .player-btn-primary:hover svg {
+  filter: none;
+}
+
+
+/* ── Custom logo — iSonic wordmark (raster, optimized) ──
+   Source SVG wrapped a 1000x255 PNG (74KB total, mostly base64).
+   Re-encoded as WebP at 336x86 (2x retina for a 168x43 display
+   box) to fit comfortably under the theme size limit. */
+
+[data-theme='isonic'] .sidebar-brand svg {
+  display: none !important;
+}
+
+[data-theme='isonic'] .sidebar-brand::before {
+  content: '';
+  display: block;
+  width: 168px;
+  height: 43px;
+  background-image: url("data:image/webp;base64,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");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
