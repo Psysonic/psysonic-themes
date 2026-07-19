@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-16T23:34:20.286Z",
+  "generatedAt": "2026-07-19T22:53:34.933Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1068,11 +1068,11 @@
       "id": "monolith-light",
       "name": "Monolith-light",
       "author": "ImAsra",
-      "version": "1.2.8",
+      "version": "1.2.9",
       "description": "Monochrome white and charcoal neumorphic theme with circular record player esque album grid patches.",
       "mode": "light",
       "changelog": {
-        "1.2.8": [
+        "1.2.9": [
           "Bug reported by Legislate3030 on github.",
           "Fix: row controls (favorite/heart, star rating, bulk-select checkbox, preview) inside track rows can be clicked reliably again.",
           "The press animation was scaling the whole row on :active, which shifted controls out from under the cursor mid-click and silently swallowed the click.",
@@ -1092,7 +1092,7 @@
       },
       "css": "themes/monolith-light/theme.css",
       "thumbnail": "themes/monolith-light/thumbnail.webp",
-      "updatedAt": "2026-07-17T01:34:01+02:00"
+      "updatedAt": "2026-07-20T00:53:18+02:00"
     },
     {
       "id": "morpheus",
