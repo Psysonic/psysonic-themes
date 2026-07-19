@@ -1,0 +1,14 @@
+{
+  "id": "isonic",
+  "name": "iSonic",
+  "author": "abstractjewel",
+  "version": "1.0.0",
+  "description": "Inspired by classic iTunes and the colorful Apple logo.",
+  "mode": "light",
+  "tags": ["itunes",
+    "apple",
+    "retro",
+    "skeuomorphic",
+    "rainbow"]
+}
+
