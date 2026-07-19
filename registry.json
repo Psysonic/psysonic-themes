@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T22:53:34.933Z",
+  "generatedAt": "2026-07-19T23:18:24.740Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -820,6 +820,25 @@
       "css": "themes/insta/theme.css",
       "thumbnail": "themes/insta/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "isonic",
+      "name": "iSonic",
+      "author": "abstractjewel",
+      "version": "1.0.0",
+      "description": "Inspired by classic iTunes and the colorful Apple logo.",
+      "mode": "light",
+      "tags": [
+        "itunes",
+        "apple",
+        "retro",
+        "skeuomorphic",
+        "rainbow"
+      ],
+      "animated": true,
+      "css": "themes/isonic/theme.css",
+      "thumbnail": "themes/isonic/thumbnail.webp",
+      "updatedAt": "2026-07-20T01:18:07+02:00"
     },
     {
       "id": "jayfin",
