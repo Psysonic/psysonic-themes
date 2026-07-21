@@ -1,0 +1,14 @@
+{
+  "id": "isonic-dark",
+  "name": "iSonic Dark",
+  "author": "abstractjewel",
+  "version": "1.0.0",
+  "description": "Inspired by classic iTunes and the colorful Apple logo. Dark version of iSonic",
+  "mode": "dark",
+  "tags": ["itunes",
+    "apple",
+    "retro",
+    "skeuomorphic",
+    "rainbow"]
+}
+
