@@ -1,0 +1,616 @@
+/* ============================================================
+   Cybersonic 2077 — inspired by Cyberpunk 2077's UI (CD Projekt
+   Red, 2020–2023).
+
+   Design language:
+   - Near-black violet faceplate (#0B0320) — darker than a plain
+     navy, so every panel keeps a bruised purple undertone instead
+     of reading as flat blue-black
+   - Electric cyan (#34EDF3) reserved for "live" signals only: the
+     playing state, connection LED, progress waveform, Now Playing
+     pulse dot — anything telling you audio is actually happening
+   - Corpo purple (#9201CB) carries the structural weight: borders,
+     scrollbars, buffered waveform, active-row fallback fill,
+     input/slider tracks — doing more of the work than before
+   - Militech magenta (#F715AB) has grown from a single "favorite
+     heart" accent into the main decorative/hover color: menu
+     hover, row hover, focus rings, search glow, transport-button
+     hover — the color your cursor lights up as you move around
+   - Royal blue (#0313A6) steps back to a supporting role, mostly
+     inside the active-nav gradient alongside purple
+   - Hard 1px neon borders over soft grey hairlines, glow via
+     box-shadow/text-shadow rather than blur gradients — kept at
+     full strength, since that part was working
+   - Active nav row: dark purple→magenta HUD gradient bar with a
+     glowing cyan left edge and label — the one place all three
+     accent colors meet
+   - Play button: matte violet glass at rest with a thin magenta
+     edge, glowing cyan HUD disc when playing
+
+   CSS is organised top-to-bottom by UI position:
+   Tokens → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: dark
+   Validate: node scripts/validate-theme.mjs themes/cybersonic-2077
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] {
+  color-scheme: dark;
+
+  /* ── Accent — electric cyan, reserved for "live" states ── */
+  --accent:      #34EDF3;
+  --accent-dim:  rgba(52, 237, 243, 0.16);
+  --accent-glow: #8FF5F9;
+  --accent-2:    #9201CB;
+
+  /* ── Backgrounds — near-black violet, darker than plain navy ── */
+  --bg-app:      #0B0320;
+  --bg-sidebar:  #120A2E;
+  --bg-card:     #170D3D;
+  --bg-hover:    rgba(146, 1, 203, 0.16);
+  --bg-elevated: #1A0F45;
+  --bg-player:   #0D0526;   /* player bar — matte dark glass, not glossy */
+  --bg-deep:     #05010E;
+  --bg-glass:    rgba(11, 3, 32, 0.68);
+  --modal-bg:    #140B38;
+
+  /* ── Borders — thin neon hairlines, not soft grey ── */
+  --border:          rgba(146, 1, 203, 0.48);
+  --border-subtle:   rgba(146, 1, 203, 0.24);
+  --border-dropdown: rgba(247, 21, 171, 0.30);
+
+  /* ── Text ── */
+  --text-primary:   #F3EEFF;
+  --text-secondary: #B9A8E8;
+  --text-muted:     rgba(243, 238, 255, 0.55);
+  --text-on-accent: #0B0320;   /* dark text on bright cyan surfaces */
+
+  /* ── Status ── */
+  --danger:    #F715AB;
+  --positive:  #34EDF3;
+  --warning:   #9201CB;
+  --highlight: #F715AB;   /* rating stars / favorite heart — magenta */
+
+  /* ── Select arrow — magenta stroke, matches the dropdown border ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23F715AB%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.55);
+
+  /* ── Sidebar ── */
+  --sidebar-text:             #C6B2F2;
+  --sidebar-item-hover:       rgba(247, 21, 171, 0.07);
+  --sidebar-item-active-bg:   #9201CB;   /* fallback — real gradient on the row below */
+  --sidebar-item-active-text: #34EDF3;
+  --sidebar-border:           rgba(146, 1, 203, 0.35);
+
+  /* ── Library rows ── */
+  --row-hover:          rgba(247, 21, 171, 0.05);
+  --row-divider:        rgba(146, 1, 203, 0.18);
+  --row-text:           #F3EEFF;
+  --row-text-secondary: #B9A8E8;
+  --row-text-muted:     #6A5C94;
+  --row-playing-bg:     rgba(52, 237, 243, 0.08);
+  --row-playing-text:   #34EDF3;
+  --col-header-text:    #7A6BA0;
+
+  /* ── Cards ── */
+  --card-title:          #F3EEFF;
+  --card-subtitle:       #B9A8E8;
+  --card-hover-border:   #F715AB;
+  --card-placeholder-bg: #170D3D;
+
+  /* ── Menus / inputs ── */
+  --menu-bg:               #140B38;
+  --menu-item-hover:       rgba(247, 21, 171, 0.08);
+  --menu-item-active-text: #F715AB;
+  --menu-divider:          rgba(146, 1, 203, 0.22);
+  --input-bg:              #170D3D;
+  --input-focus-border:    #F715AB;
+  --button-hover:          rgba(146, 1, 203, 0.18);
+
+  /* ── Sliders — purple-black track, cyan HUD knob ── */
+  --slider-track:       #24134A;
+  --slider-thumb:       #34EDF3;
+  --slider-thumb-hover: #8FF5F9;
+
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #9201CB;
+  --scrollbar-thumb-hover: #F715AB;
+  --scrollbar-track:       transparent;
+
+  /* ── Player bar — matte dark glass toolbar ── */
+  --volume-accent:             #34EDF3;
+  --waveform-played:           #34EDF3;
+  --waveform-unplayed:         #24134A;
+  --waveform-buffered:         #9201CB;
+  --player-title:              #F3EEFF;
+  --player-artist:              #B9A8E8;
+  --player-control:            #B9A8E8;
+  --player-control-hover:      #F715AB;
+  --player-control-hover-bg:   rgba(247, 21, 171, 0.10);
+  --player-border:             rgba(146, 1, 203, 0.35);
+  --player-time-toggle-hover:  rgba(247, 21, 171, 0.08);
+  --player-time-toggle-active: #34EDF3;
+}
+
+/* Album-art corners get a thin magenta glow edge instead of a plain shadow */
+[data-theme='cybersonic-2077'] .np-dash-hero-cover .np-cover {
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 0 0 1px rgba(247, 21, 171, 0.35),
+    0 2px 12px rgba(146, 1, 203, 0.35);
+}
+
+[data-theme='cybersonic-2077'] .titlebar {
+  background: linear-gradient(to bottom, #120A2E 0%, #0B0320 100%);
+  border-bottom: 1px solid rgba(146, 1, 203, 0.40);
+}
+
+/* ============================================================
+   CONTEXT MENU & SUBMENUS
+   Near-black violet surface, magenta hairline, magenta highlight
+   on hover — reads like a netrunner overlay panel.
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] {
+  --menu-item-active-text: #F715AB;
+}
+
+[data-theme='cybersonic-2077'] .context-menu,
+[data-theme='cybersonic-2077'] .context-submenu {
+  background: #140B38;
+  border: 1px solid rgba(247, 21, 171, 0.22);
+  box-shadow:
+    0 0 0 1px rgba(146, 1, 203, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.55);
+  color: #F3EEFF;
+}
+
+[data-theme='cybersonic-2077'] .context-menu-item {
+  color: #F3EEFF;
+}
+[data-theme='cybersonic-2077'] .context-menu-item svg {
+  color: #B9A8E8;
+}
+
+[data-theme='cybersonic-2077'] .context-menu-item:hover,
+[data-theme='cybersonic-2077'] .context-menu-item.context-menu-keyboard-active {
+  background: rgba(247, 21, 171, 0.08);
+  color: #F715AB;
+}
+[data-theme='cybersonic-2077'] .context-menu-item:hover svg,
+[data-theme='cybersonic-2077'] .context-menu-item.context-menu-keyboard-active svg {
+  color: #F715AB;
+}
+
+[data-theme='cybersonic-2077'] .context-submenu-new,
+[data-theme='cybersonic-2077'] .context-submenu-new:hover {
+  color: #34EDF3;
+  font-weight: 600;
+}
+
+[data-theme='cybersonic-2077'] .context-menu-divider {
+  background: rgba(146, 1, 203, 0.22);
+}
+
+[data-theme='cybersonic-2077'] .context-submenu-empty {
+  color: rgba(243, 238, 255, 0.45);
+}
+[data-theme='cybersonic-2077'] .context-submenu-input {
+  background: #0B0320;
+  border: 1px solid rgba(146, 1, 203, 0.35);
+  color: #F3EEFF;
+}
+[data-theme='cybersonic-2077'] .context-submenu-input::placeholder {
+  color: rgba(243, 238, 255, 0.35);
+}
+
+/* Play triangle stays cyan on the currently-playing row — it's a
+   "live" state, so it keeps the reserved live-signal color */
+[data-theme='cybersonic-2077'] .song-list-row-btn--play:hover svg,
+[data-theme='cybersonic-2077'] .song-list-row-btn--play:active svg,
+[data-theme='cybersonic-2077'] .song-list-row-btn--play:focus-visible svg {
+  color: #34EDF3 !important;
+  fill:  #34EDF3 !important;
+}
+
+/* ============================================================
+   SIDEBAR
+   Left panel — near-black violet faceplate. The active source
+   reads as a HUD callout: dark purple→magenta gradient bar with
+   a bright cyan left edge and glowing cyan label.
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] .sidebar-section-label {
+  letter-spacing: 0.12em;
+  font-weight:    700;
+  text-transform: uppercase;
+  color: #6A5C94;
+}
+
+[data-theme='cybersonic-2077'] .sidebar {
+  background-color: #120A2E;
+  background-image: linear-gradient(180deg, #150C34 0%, #0B0320 100%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-right: 1px solid rgba(146, 1, 203, 0.35) !important;
+}
+
+[data-theme='cybersonic-2077'] {
+  --logo-color-start: #9201CB;
+  --logo-color-end:   #F715AB;
+}
+
+/* ── Custom logo — Psysonic wordmark (raster, recolored) ──
+   Source PNG was a solid black wordmark on a transparent
+   background (229x78). Re-encoded as lossless WebP (2.5KB) and
+   applied as a CSS mask so it can be painted with the theme's
+   purple→magenta gradient instead of shipping a fixed color. */
+
+[data-theme='cybersonic-2077'] .sidebar-brand svg {
+  display: none !important;
+}
+
+[data-theme='cybersonic-2077'] .sidebar-brand::before {
+  content: '';
+  display: block;
+  width: 176px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--logo-color-start) 0%, var(--logo-color-end) 100%);
+  -webkit-mask-image: url("data:image/webp;base64,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");
+  mask-image: url("data:image/webp;base64,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");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  filter: drop-shadow(0 0 4px rgba(247, 21, 171, 0.45));
+}
+
+[data-theme='cybersonic-2077'] .nav-link {
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 2px;
+  transition:
+    background 0.15s ease-out,
+    color      0.15s ease-out,
+    box-shadow 0.15s ease-out;
+}
+
+/* Active row — dark purple→magenta HUD gradient bar with a glowing cyan left edge */
+[data-theme='cybersonic-2077'] .nav-link.active {
+  background: linear-gradient(90deg, rgba(146, 1, 203, 0.55) 0%, rgba(247, 21, 171, 0.28) 100%);
+  color: #34EDF3 !important;
+  text-shadow: 0 0 8px rgba(52, 237, 243, 0.55);
+  box-shadow:
+    inset 3px 0 0 0 #34EDF3,
+    inset 0 0 12px rgba(52, 237, 243, 0.08);
+}
+[data-theme='cybersonic-2077'] .nav-link.active::before {
+  display: none;   /* the row's own left edge carries the active state */
+}
+[data-theme='cybersonic-2077'] .nav-link.active > svg {
+  color: #34EDF3;
+  filter: drop-shadow(0 0 3px rgba(52, 237, 243, 0.5));
+}
+
+/* Now Playing nav item — same treatment as any other row */
+[data-theme='cybersonic-2077'] .nav-link-nowplaying,
+[data-theme='cybersonic-2077'] .nav-link-nowplaying:hover,
+[data-theme='cybersonic-2077'] .nav-link-nowplaying.active {
+  color: inherit;
+}
+
+/* Now Playing pulse dot — electric cyan, the reserved "live" signal
+   color. Shadow is static; only opacity animates (compositor-only,
+   no per-frame repaint) so the pulse stays cheap while running
+   indefinitely. */
+[data-theme='cybersonic-2077'] .nav-np-dot {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #8FF5F9 0%,
+    #34EDF3 55%,
+    #1FB8BE 100%
+  );
+  box-shadow: 0 0 6px rgba(52, 237, 243, 0.6);
+  animation: cybersonic-2077-np-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes cybersonic-2077-np-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ============================================================
+   CONTENT HEADER
+   Top bar — same near-black violet faceplate, thin purple
+   hairline seam, no metallic catch-light.
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] .content-header {
+  background: linear-gradient(180deg, #150C34 0%, #0B0320 100%);
+  border-bottom: 1px solid rgba(146, 1, 203, 0.35);
+}
+
+/* Search bar — magenta focus ring, sharp "terminal" pill */
+[data-theme='cybersonic-2077'] .live-search-field-cluster {
+  border-radius: 4px;
+}
+[data-theme='cybersonic-2077'] .live-search-field-cluster:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(247, 21, 171, 0.35),
+    0 0 12px rgba(247, 21, 171, 0.25);
+}
+
+/* Connection indicator — glowing cyan "online" dot, the reserved live-state color */
+[data-theme='cybersonic-2077'] .connection-led--connected {
+  background: radial-gradient(
+    circle at 50% 40%,
+    #8FF5F9 0%,
+    #34EDF3 60%,
+    #1FB8BE 100%
+  );
+  box-shadow:
+    0 0 0 2px rgba(11, 3, 32, 0.9),
+    0 0 8px rgba(52, 237, 243, 0.6);
+  transition: background 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+[data-theme='cybersonic-2077'] .connection-led--disconnected {
+  background: #423461;
+  box-shadow: 0 0 0 2px rgba(11, 3, 32, 0.9);
+  transition: background 0.3s ease-in, box-shadow 0.3s ease-in;
+}
+
+/* Now-Playing hero favorite heart — militech magenta, glowing */
+[data-theme='cybersonic-2077'] .np-dash-hero-actions svg.lucide-heart[fill="var(--highlight)"] {
+  fill:   #F715AB !important;
+  stroke: #F715AB !important;
+  filter: drop-shadow(0 0 4px rgba(247, 21, 171, 0.55));
+}
+
+/* ============================================================
+   QUEUE PANEL
+   Right panel — same near-black violet faceplate. The now-playing
+   card is a dark glass card with a thin magenta glow edge and
+   magenta-accented type, like a HUD readout popover.
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] .queue-panel {
+  background: #0F0928;
+  border-left: 1px solid rgba(146, 1, 203, 0.35) !important;
+  border-bottom: 1px solid rgba(146, 1, 203, 0.20) !important;
+}
+
+[data-theme='cybersonic-2077'] .queue-header {
+  background: #140B38;
+  border-bottom: 1px solid rgba(146, 1, 203, 0.35);
+}
+
+[data-theme='cybersonic-2077'] .queue-current-track,
+[data-theme='cybersonic-2077'] .queue-current-track .queue-current-info,
+[data-theme='cybersonic-2077'] .queue-current-track .queue-current-sub,
+[data-theme='cybersonic-2077'] .queue-current-track .queue-current-tech {
+  border-bottom: none !important;
+}
+
+[data-theme='cybersonic-2077'] .queue-current-track {
+  background: #170D3D;
+  box-shadow:
+    inset 0 -1px 0 rgba(146, 1, 203, 0.28),
+    0 0 0 1px rgba(247, 21, 171, 0.20);
+}
+
+[data-theme='cybersonic-2077'] .queue-current-info h3 {
+  color: #F3EEFF;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(247, 21, 171, 0.25);
+}
+
+[data-theme='cybersonic-2077'] .queue-current-sub,
+[data-theme='cybersonic-2077'] .queue-current-sub.is-link,
+[data-theme='cybersonic-2077'] .queue-current-sub .is-link {
+  color: #B9A8E8;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+[data-theme='cybersonic-2077'] .queue-current-sub.is-link:hover,
+[data-theme='cybersonic-2077'] .queue-current-sub .is-link:hover {
+  color: #F715AB;
+  text-decoration: underline;
+}
+
+/* Tech info strip — dim purple-grey, no glow */
+[data-theme='cybersonic-2077'] .queue-current-tech {
+  background: #140B38;
+  color: #6A5C94;
+  text-shadow: none;
+  border-top:    1px solid rgba(146, 1, 203, 0.22);
+  border-bottom: 1px solid rgba(146, 1, 203, 0.22);
+}
+
+/* RG / Loudness badge — purple outline pill */
+[data-theme='cybersonic-2077'] .queue-current-tech-rg-badge {
+  color: #B57EE0;
+  border-color: rgba(146, 1, 203, 0.45);
+  background: rgba(146, 1, 203, 0.10);
+  box-shadow: none;
+}
+[data-theme='cybersonic-2077'] .queue-current-tech-rg-badge:hover {
+  color: #F3EEFF;
+  border-color: #9201CB;
+  background: #9201CB;
+}
+
+/* Queue toolbar */
+[data-theme='cybersonic-2077'] .queue-toolbar {
+  background: #140B38;
+  border-top:    1px solid rgba(146, 1, 203, 0.22);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+[data-theme='cybersonic-2077'] .queue-toolbar-sep {
+  background: rgba(146, 1, 203, 0.35);
+}
+
+[data-theme='cybersonic-2077'] .queue-round-btn {
+  background: #1A0F45;
+  color: #B9A8E8;
+  border: 1px solid rgba(146, 1, 203, 0.40);
+}
+
+[data-theme='cybersonic-2077'] .queue-round-btn:hover:not(:disabled) {
+  background: rgba(247, 21, 171, 0.08);
+  color: #F715AB;
+  border-color: rgba(247, 21, 171, 0.45);
+  box-shadow: 0 0 8px rgba(247, 21, 171, 0.25);
+}
+
+[data-theme='cybersonic-2077'] .queue-round-btn.active {
+  background: #9201CB;
+  color: #F3EEFF;
+  border-color: #9201CB;
+  box-shadow: 0 0 0 2px rgba(146, 1, 203, 0.22), 0 0 10px rgba(146, 1, 203, 0.45);
+}
+
+[data-theme='cybersonic-2077'] .queue-round-btn.active svg {
+  filter: none;
+}
+
+
+/* ============================================================
+   PLAYER BAR — MATTE DARK HUD TOOLBAR
+   The bottom strip is a matte near-black violet toolbar with a
+   glowing cyan play button, purple-accented waveform, and pink
+   favorite heart — no metallic gloss, everything reads as
+   backlit glass.
+   ============================================================ */
+
+[data-theme='cybersonic-2077'] .player-bar {
+  border-top: 1px solid rgba(146, 1, 203, 0.35);
+  background: linear-gradient(180deg, #120A2E 0%, #0B0320 100%);
+}
+
+[data-theme='cybersonic-2077'] .player-album-art-wrap,
+[data-theme='cybersonic-2077'] .player-album-art,
+[data-theme='cybersonic-2077'] .player-album-art-placeholder {
+  background: #170D3D;
+  box-shadow: 0 0 0 1px rgba(247, 21, 171, 0.30), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='cybersonic-2077'] .player-bar.floating {
+  background: var(--bg-player);
+}
+
+/* Favorite heart — magenta glow when active */
+[data-theme='cybersonic-2077'] .player-star-btn.is-starred {
+  color: #F715AB !important;
+}
+[data-theme='cybersonic-2077'] .player-star-btn.is-starred:has(.lucide-heart) svg {
+  filter: drop-shadow(0 0 4px rgba(247, 21, 171, 0.5));
+}
+
+/* Track name — bold, faint cyan HUD glow (playback is a "live" state) */
+[data-theme='cybersonic-2077'] .player-track-name {
+  font-weight: 700;
+  text-shadow: none;
+}
+[data-theme='cybersonic-2077'][data-playing='true'] .player-track-name {
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(52, 237, 243, 0.35);
+}
+
+/* Artist name */
+[data-theme='cybersonic-2077'] .player-track-artist {
+  text-shadow: none;
+  color: var(--player-artist);
+}
+
+/* Time counter — cyan digital readout, tabular (ties to live playback) */
+[data-theme='cybersonic-2077'] .player-time {
+  color: #34EDF3;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 4px rgba(52, 237, 243, 0.35);
+}
+
+/* Transport icons — muted lavender, magenta glow on hover */
+[data-theme='cybersonic-2077'] .player-btn:not(.player-btn-primary) svg {
+  filter: none;
+}
+[data-theme='cybersonic-2077'] .player-btn:not(.player-btn-primary):hover {
+  color: var(--player-control-hover) !important;
+  background: var(--player-control-hover-bg) !important;
+  box-shadow: none !important;
+  border-radius: 3px;
+}
+[data-theme='cybersonic-2077'] .player-btn:not(.player-btn-primary):hover svg {
+  filter: drop-shadow(0 0 3px rgba(247, 21, 171, 0.5));
+}
+
+/* Mute button */
+[data-theme='cybersonic-2077'] .player-volume-section .player-btn {
+  color: var(--player-control) !important;
+}
+[data-theme='cybersonic-2077'] .player-volume-section .player-btn:has(.lucide-volume-x) {
+  color: #F715AB !important;
+  filter: none;
+}
+
+/* Rating stars — magenta, glowing */
+[data-theme='cybersonic-2077'] .player-star-btn.is-starred svg {
+  filter: drop-shadow(0 0 3px rgba(247, 21, 171, 0.5));
+  color: var(--highlight);
+}
+
+/* Play button — matte glass sphere, three states.
+   Rest: dark violet glass, thin magenta edge. Playing/Hover: full
+   glowing cyan HUD disc — the reserved "live" color, at the same
+   strength as before. */
+
+[data-theme='cybersonic-2077'] .player-btn-primary {
+  background: linear-gradient(180deg, #2B1150 0%, #170B38 100%);
+  color: #B9A8E8;
+  border: 1px solid rgba(247, 21, 171, 0.35);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+[data-theme='cybersonic-2077'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='cybersonic-2077'][data-playing='true'] .player-btn-primary {
+  background: radial-gradient(circle at 35% 30%, #8FF5F9 0%, #34EDF3 60%, #1FB8BE 100%);
+  color: #0B0320;
+  border: 1px solid #8FF5F9;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 16px rgba(52, 237, 243, 0.55);
+}
+[data-theme='cybersonic-2077'][data-playing='true'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='cybersonic-2077'] .player-btn-primary:hover {
+  background: radial-gradient(circle at 35% 30%, #ADF8FB 0%, #34EDF3 60%, #29CCD1 100%);
+  color: #0B0320;
+  border: 1px solid #ADF8FB;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(52, 237, 243, 0.65);
+}
+[data-theme='cybersonic-2077'] .player-btn-primary:hover svg {
+  filter: none;
+}
