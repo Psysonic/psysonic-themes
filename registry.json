@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-21T23:53:39.611Z",
+  "generatedAt": "2026-07-23T20:18:44.033Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -236,6 +236,23 @@
       "css": "themes/cupertino-light/theme.css",
       "thumbnail": "themes/cupertino-light/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "cybersonic-2077",
+      "name": "CyberSonic 2077",
+      "author": "abstractjewel",
+      "version": "1.0.0",
+      "description": "inspired by Cuberpunk 2077's UI",
+      "mode": "dark",
+      "tags": [
+        "cyberpunk",
+        "neon",
+        "glowing"
+      ],
+      "animated": true,
+      "css": "themes/cybersonic-2077/theme.css",
+      "thumbnail": "themes/cybersonic-2077/thumbnail.webp",
+      "updatedAt": "2026-07-23T22:18:22+02:00"
     },
     {
       "id": "dark-side-of-the-moon",
@@ -857,7 +874,7 @@
       "animated": true,
       "css": "themes/isonic-dark/theme.css",
       "thumbnail": "themes/isonic-dark/thumbnail.webp",
-      "updatedAt": "2026-07-22T01:53:24+02:00"
+      "updatedAt": "2026-07-21T23:53:39Z"
     },
     {
       "id": "jayfin",
