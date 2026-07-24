@@ -1,18 +1,15 @@
 /* ============================================================
-   iTunes 11 Dark — dark-mode companion to isonic, inspired by
-   Apple's iTunes 11 (2012–2013) reimagined for a dark faceplate.
+   iTunes 11 — inspired by Apple's iTunes 11 (2012–2013).
 
    Design language:
-   - Charcoal / graphite faceplate throughout, no pure black
-   - Same glossy iTunes blue accent, lifted a touch for contrast
-     against dark surfaces (links, progress, selected rows)
+   - Frosted white / pale silver-blue faceplate throughout
+   - Glossy iTunes blue accent (links, progress, selected rows)
    - Full-row blue gradient highlight for the active sidebar item
-     (iTunes 11's signature selected-source look), unchanged
+     (iTunes 11's signature selected-source look)
    - Colored per-section sidebar icons kept flat, glow removed —
      this era of iTunes was glossy, not backlit
    - Green "available" status dot (iChat/Messages-era Apple green)
-   - Glossy skeuomorphic play button, now a dark graphite sphere
-     at rest with the same soft top highlight
+   - Glossy skeuomorphic play button with a soft top highlight
    - Column headers in small-caps grey, hairline dividers
 
    CSS is organised top-to-bottom by UI position:
@@ -30,164 +27,167 @@
 [data-theme='isonic-dark'] {
   color-scheme: dark;
 
-  /* -- Accent - iTunes glossy blue, lifted for dark contrast -- */
-  --accent:      #3D8EEA;
-  --accent-dim:  rgba(61, 142, 234, 0.20);
-  --accent-glow: #6FB1F5;
-  --accent-2:    #3D8EEA;
+  /* ── Accent — iTunes glossy blue ── */
+  --accent:      #1C79D8;
+  --accent-dim:  rgba(28, 121, 216, 0.18);
+  --accent-glow: #4A90D9;
+  --accent-2:    #1C79D8;
 
-  /* -- Backgrounds -- */
-  --bg-app:      #1C1E21;
-  --bg-sidebar:  #17181B;
-  --bg-card:     #232629;
-  --bg-hover:    #262A2F;
-  --bg-elevated: #262A2F;
-  --bg-player:   #1A1C1F;
-  --bg-deep:     #131416;
-  --bg-glass:    rgba(28, 30, 33, 0.55);
-  --modal-bg:    #202226;
+  /* ── Backgrounds ── */
+  --bg-app:      #ffffff;
+  --bg-sidebar:  #E7EBEF;
+  --bg-card:     #F5F6F8;
+  --bg-hover:    #EEF3FA;
+  --bg-elevated: #F0F2F5;
+  --bg-player:   #F6F7F9;   /* player bar — light glossy toolbar, not a dark dial */
+  --bg-deep:     #D7DBDF;
+  --bg-glass:    rgba(255, 255, 255, 0.55);
+  --modal-bg:    #F3F4F6;
 
-  /* -- Borders -- */
-  --border:          #33363A;
-  --border-subtle:   #2A2D31;
-  --border-dropdown: #3C4045;
+  /* ── Borders ── */
+  --border:          #D2D5D9;
+  --border-subtle:   #E2E4E7;
+  --border-dropdown: #C7CACD;
 
-  /* -- Text -- */
-  --text-primary:   #EAEBED;
-  --text-secondary: #A2A6AC;
-  --text-muted:     rgba(234, 235, 237, 0.55);
+  /* ── Text ── */
+  --text-primary:   #2B2E33;
+  --text-secondary: #6B6F76;
+  --text-muted:     rgba(43, 46, 51, 0.55);
   --text-on-accent: #ffffff;
 
-  /* -- Status -- */
-  --danger:    #E15A63;
-  --positive:  #4CBE55;
-  --warning:   #D6A23B;
-  --highlight: #E8BE4A;
+  /* ── Status ── */
+  --danger:    #D33B3B;
+  --positive:  #3FA046;
+  --warning:   #C08A1E;
+  --highlight: #E0A400;   /* rating stars — classic iTunes gold */
 
-  /* -- Select arrow (data URI only, no network) -- */
-  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23A2A6AC%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
-  --shadow-dropdown: rgba(0, 0, 0, 0.5);
+  /* ── Select arrow — grey stroke for light faceplate ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B6F76%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.18);
 
-  /* -- Sidebar -- */
-  --sidebar-text:             #CBCED2;
-  --sidebar-item-hover:       rgba(61, 142, 234, 0.12);
-  --sidebar-item-active-bg:   #2E6DA6;
+  /* ── Sidebar ── */
+  --sidebar-text:             #33363B;
+  --sidebar-item-hover:       rgba(28, 121, 216, 0.08);
+  --sidebar-item-active-bg:   #2E6DA6;   /* real gradient applied on the row itself below */
   --sidebar-item-active-text: #ffffff;
-  --sidebar-border:           #2A2D31;
+  --sidebar-border:           #C9CDD1;
 
-  /* -- Library rows -- */
-  --row-hover:          #23262A;
-  --row-divider:        #2C2F33;
-  --row-text:           #EAEBED;
-  --row-text-secondary: #A2A6AC;
-  --row-text-muted:     #6C6F75;
-  --row-playing-bg:     rgba(61, 142, 234, 0.14);
-  --row-playing-text:   #6FB1F5;
-  --col-header-text:    #7A7D83;
+  /* ── Library rows ── */
+  --row-hover:          #EEF3FA;
+  --row-divider:        #E4E6E9;
+  --row-text:           #2B2E33;
+  --row-text-secondary: #6B6F76;
+  --row-text-muted:     #9A9DA3;
+  --row-playing-bg:     rgba(28, 121, 216, 0.08);
+  --row-playing-text:   #1C79D8;
+  --col-header-text:    #8A8D93;
 
-  /* -- Cards -- */
-  --card-title:          #EAEBED;
-  --card-subtitle:       #A2A6AC;
-  --card-hover-border:   #3E4A57;
-  --card-placeholder-bg: #262A2F;
+  /* ── Cards ── */
+  --card-title:          #2B2E33;
+  --card-subtitle:       #6B6F76;
+  --card-hover-border:   #B9C4D0;
+  --card-placeholder-bg: #E7E9EC;
 
-  /* -- Menus / inputs -- */
-  --menu-bg:               #202226;
-  --menu-item-hover:       #24384C;
-  --menu-item-active-text: #6FB1F5;
-  --menu-divider:          #2C2F33;
-  --input-bg:              #23262A;
-  --input-focus-border:    #3D8EEA;
-  --button-hover:          #262A2F;
+  /* ── Menus / inputs ── */
+  --menu-bg:               #FBFBFC;
+  --menu-item-hover:       #EAF1FB;
+  --menu-item-active-text: #1C79D8;
+  --menu-divider:          #E2E4E7;
+  --input-bg:              #F0F1F3;
+  --input-focus-border:    #1C79D8;
+  --button-hover:          #E7EBEF;
 
-  /* -- Sliders -- */
-  --slider-track:       #3A3D42;
+  /* ── Sliders — glossy white knobs ── */
+  --slider-track:       #D6D9DC;
   --slider-thumb:       #ffffff;
   --slider-thumb-hover: #ffffff;
 
-  /* -- Scrollbars -- */
-  --scrollbar-thumb:       #40444A;
-  --scrollbar-thumb-hover: #52565D;
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #C7CACD;
+  --scrollbar-thumb-hover: #A9ACB0;
   --scrollbar-track:       transparent;
 
-  /* -- Player bar -- */
-  --volume-accent:             #3D8EEA;
-  --waveform-played:           #3D8EEA;
-  --waveform-unplayed:         #3A3D42;
-  --waveform-buffered:         #4A5560;
-  --player-title:              #EAEBED;
-  --player-artist:              #A2A6AC;
-  --player-control:            #B0B4BA;
-  --player-control-hover:      #6FB1F5;
-  --player-control-hover-bg:   rgba(61, 142, 234, 0.14);
-  --player-border:             #2C2F33;
-  --player-time-toggle-hover:  #23262A;
-  --player-time-toggle-active: #6FB1F5;
+  /* ── Player bar — light glossy toolbar ── */
+  --volume-accent:             #1C79D8;
+  --waveform-played:           #1C79D8;
+  --waveform-unplayed:         #D6D9DC;
+  --waveform-buffered:         #B9C4D0;
+  --player-title:              #2B2E33;
+  --player-artist:              #6B6F76;
+  --player-control:            #5A5D63;
+  --player-control-hover:      #1C79D8;
+  --player-control-hover-bg:   rgba(28, 121, 216, 0.08);
+  --player-border:             #D2D5D9;
+  --player-time-toggle-hover:  #EEF3FA;
+  --player-time-toggle-active: #1C79D8;
 }
 
+/* Album-art corners line up with the card */
 [data-theme='isonic-dark'] .np-dash-hero-cover .np-cover {
   border-radius: var(--radius-md);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 [data-theme='isonic-dark'] .titlebar {
-  background: linear-gradient(to bottom, #24272B 0%, #1A1C1F 100%);
-  border-bottom: 1px solid #2C2F33;
+  background: linear-gradient(to bottom, #F7F8FA 0%, #E9EBEE 100%);
+  border-bottom: 1px solid #D2D5D9;
 }
 
 /* ============================================================
    CONTEXT MENU & SUBMENUS
+   Native macOS-style menu: white surface, hairline border,
+   blue highlight on hover — no dial styling needed here.
    ============================================================ */
 
 [data-theme='isonic-dark'] {
-  --menu-item-active-text: #6FB1F5;
+  --menu-item-active-text: #1C79D8;
 }
 
 [data-theme='isonic-dark'] .context-menu,
 [data-theme='isonic-dark'] .context-submenu {
-  background: #202226;
-  border: 1px solid #2C2F33;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  color: #EAEBED;
+  background: #FBFBFC;
+  border: 1px solid #D2D5D9;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  color: #2B2E33;
 }
 
 [data-theme='isonic-dark'] .context-menu-item {
-  color: #EAEBED;
+  color: #2B2E33;
 }
 [data-theme='isonic-dark'] .context-menu-item svg {
-  color: #A2A6AC;
+  color: #6B6F76;
 }
 
 [data-theme='isonic-dark'] .context-menu-item:hover,
 [data-theme='isonic-dark'] .context-menu-item.context-menu-keyboard-active {
-  background: #24384C;
-  color: #6FB1F5;
+  background: #EAF1FB;
+  color: #1C79D8;
 }
 [data-theme='isonic-dark'] .context-menu-item:hover svg,
 [data-theme='isonic-dark'] .context-menu-item.context-menu-keyboard-active svg {
-  color: #6FB1F5;
+  color: #1C79D8;
 }
 
 [data-theme='isonic-dark'] .context-submenu-new,
 [data-theme='isonic-dark'] .context-submenu-new:hover {
-  color: #6FB1F5;
+  color: #1C79D8;
   font-weight: 600;
 }
 
 [data-theme='isonic-dark'] .context-menu-divider {
-  background: #2C2F33;
+  background: #E2E4E7;
 }
 
 [data-theme='isonic-dark'] .context-submenu-empty {
-  color: rgba(234, 235, 237, 0.50);
+  color: rgba(43, 46, 51, 0.50);
 }
 [data-theme='isonic-dark'] .context-submenu-input {
-  background: #17181B;
-  border: 1px solid #2C2F33;
-  color: #EAEBED;
+  background: #ffffff;
+  border: 1px solid #D2D5D9;
+  color: #2B2E33;
 }
 [data-theme='isonic-dark'] .context-submenu-input::placeholder {
-  color: rgba(234, 235, 237, 0.40);
+  color: rgba(43, 46, 51, 0.40);
 }
 
 /* Play triangle stays white on the currently-playing row */
@@ -200,26 +200,29 @@
 
 /* ============================================================
    SIDEBAR
+   Left panel — pale silver-blue faceplate, faint top-lit
+   gradient. The active source gets iTunes 11's signature
+   full-width glossy blue bar, not just an indicator stripe.
    ============================================================ */
 
 [data-theme='isonic-dark'] .sidebar-section-label {
   letter-spacing: 0.08em;
   font-weight:    700;
   text-transform: uppercase;
-  color: #6C6F75;
+  color: #9A9DA3;
 }
 
 [data-theme='isonic-dark'] .sidebar {
-  background-color: #17181B;
-  background-image: linear-gradient(180deg, #1B1D20 0%, #15171A 100%);
+  background-color: #E7EBEF;
+  background-image: linear-gradient(180deg, #EDF0F3 0%, #E1E5E9 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  border-right: 1px solid #2A2D31 !important;
+  border-right: 1px solid #C9CDD1 !important;
 }
 
 [data-theme='isonic-dark'] {
-  --logo-color-start: #EAEBED;
-  --logo-color-end:   #EAEBED;
+  --logo-color-start: #2B2E33;
+  --logo-color-end:   #2B2E33;
 }
 
 [data-theme='isonic-dark'] .nav-link {
@@ -231,35 +234,41 @@
     color      0.15s ease-out;
 }
 
+/* Active row — the classic iTunes 11 glossy blue gradient bar */
 [data-theme='isonic-dark'] .nav-link.active {
-  background: linear-gradient(180deg, #4F97E0 0%, #1A5A9E 100%);
+  background: linear-gradient(180deg, #5B9FE0 0%, #1C5FA8 100%);
   color: #ffffff !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.30);
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.10);
 }
 [data-theme='isonic-dark'] .nav-link.active::before {
-  display: none;
+  display: none;   /* the full row carries the active state, no separate bar */
 }
 [data-theme='isonic-dark'] .nav-link.active > svg {
   color: #ffffff;
   filter: none;
 }
 
+/* Now Playing nav item — same treatment as any other row */
 [data-theme='isonic-dark'] .nav-link-nowplaying,
 [data-theme='isonic-dark'] .nav-link-nowplaying:hover,
 [data-theme='isonic-dark'] .nav-link-nowplaying.active {
   color: inherit;
 }
 
+/* Now Playing pulse dot — soft iTunes blue instead of a pilot lamp.
+   Shadow is static; only opacity animates (compositor-only, no
+   per-frame repaint) so the pulse stays cheap while running
+   indefinitely. */
 [data-theme='isonic-dark'] .nav-np-dot {
   background: radial-gradient(
     circle at 50% 45%,
-    #6FB1F5 0%,
-    #3D8EEA 55%,
-    #1A5A9E 100%
+    #4A90D9 0%,
+    #1C79D8 55%,
+    #1256A0 100%
   );
-  box-shadow: 0 0 4px rgba(61, 142, 234, 0.5);
+  box-shadow: 0 0 3px rgba(28, 121, 216, 0.4);
   animation: isonic-dark-np-pulse 2.2s ease-in-out infinite;
 }
 
@@ -274,22 +283,26 @@
 
 /* ============================================================
    CONTENT HEADER
+   Top bar — pale gradient matching the faceplate, thin
+   hairline seam, no metallic catch-light like Hi-Fi 73.
    ============================================================ */
 
 [data-theme='isonic-dark'] .content-header {
-  background: linear-gradient(180deg, #202226 0%, #191B1E 100%);
-  border-bottom: 1px solid #2C2F33;
+  background: linear-gradient(180deg, #FBFBFC 0%, #F0F2F5 100%);
+  border-bottom: 1px solid #D2D5D9;
 }
 
+/* Search bar — blue focus ring, rounded "pill" like iTunes' search field */
 [data-theme='isonic-dark'] .live-search-field-cluster {
   border-radius: 999px;
 }
 [data-theme='isonic-dark'] .live-search-field-cluster:focus-within {
   box-shadow:
-    0 0 0 3px rgba(61, 142, 234, 0.28),
-    inset 0 1px 2px rgba(0, 0, 0, 0.40);
+    0 0 0 3px rgba(28, 121, 216, 0.20),
+    inset 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
+/* Connection indicator — flat green "available" dot, iChat-style */
 [data-theme='isonic-dark'] .connection-led--connected {
   background: radial-gradient(
     circle at 50% 40%,
@@ -298,35 +311,39 @@
     #2C7A32 100%
   );
   box-shadow:
-    0 0 0 2px rgba(28, 30, 33, 0.9),
-    0 0 4px rgba(63, 160, 70, 0.5);
+    0 0 0 2px rgba(255, 255, 255, 0.8),
+    0 0 4px rgba(63, 160, 70, 0.45);
   transition: background 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 [data-theme='isonic-dark'] .connection-led--disconnected {
-  background: #40444A;
-  box-shadow: 0 0 0 2px rgba(28, 30, 33, 0.9);
+  background: #C7CACD;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
   transition: background 0.3s ease-in, box-shadow 0.3s ease-in;
 }
 
+/* Now-Playing hero favorite heart — Apple red */
 [data-theme='isonic-dark'] .np-dash-hero-actions svg.lucide-heart[fill="var(--highlight)"] {
-  fill:   #E24450 !important;
-  stroke: #E24450 !important;
+  fill:   #E0333F !important;
+  stroke: #E0333F !important;
 }
 
 /* ============================================================
    QUEUE PANEL
+   Right panel — same pale faceplate. The now-playing card
+   is a light frosted card (not a black dial) with the album
+   art and blue-accented type, closer to the "Up Next" popover.
    ============================================================ */
 
 [data-theme='isonic-dark'] .queue-panel {
-  background: #191B1E;
-  border-left: 1px solid #2C2F33 !important;
-  border-bottom: 1px solid #2A2D31 !important;
+  background: #EEF1F4;
+  border-left: 1px solid #D2D5D9 !important;
+  border-bottom: 1px solid #C9CDD1 !important;
 }
 
 [data-theme='isonic-dark'] .queue-header {
-  background: #202226;
-  border-bottom: 1px solid #2C2F33;
+  background: #F5F6F8;
+  border-bottom: 1px solid #D2D5D9;
 }
 
 [data-theme='isonic-dark'] .queue-current-track,
@@ -337,12 +354,12 @@
 }
 
 [data-theme='isonic-dark'] .queue-current-track {
-  background: #23262A;
-  box-shadow: inset 0 -1px 0 #2C2F33;
+  background: #ffffff;
+  box-shadow: inset 0 -1px 0 #E2E4E7;
 }
 
 [data-theme='isonic-dark'] .queue-current-info h3 {
-  color: #EAEBED;
+  color: #2B2E33;
   font-weight: 700;
   text-shadow: none;
 }
@@ -350,66 +367,69 @@
 [data-theme='isonic-dark'] .queue-current-sub,
 [data-theme='isonic-dark'] .queue-current-sub.is-link,
 [data-theme='isonic-dark'] .queue-current-sub .is-link {
-  color: #A2A6AC;
+  color: #6B6F76;
   font-weight: 400;
   text-shadow: none;
 }
 
 [data-theme='isonic-dark'] .queue-current-sub.is-link:hover,
 [data-theme='isonic-dark'] .queue-current-sub .is-link:hover {
-  color: #6FB1F5;
+  color: #1C79D8;
   text-decoration: underline;
 }
 
+/* Tech info strip — flat grey, no glow */
 [data-theme='isonic-dark'] .queue-current-tech {
-  background: #202226;
-  color: #6C6F75;
+  background: #F5F6F8;
+  color: #9A9DA3;
   text-shadow: none;
-  border-top:    1px solid #2C2F33;
-  border-bottom: 1px solid #2C2F33;
+  border-top:    1px solid #E2E4E7;
+  border-bottom: 1px solid #E2E4E7;
 }
 
+/* RG / Loudness badge */
 [data-theme='isonic-dark'] .queue-current-tech-rg-badge {
-  color: #6FB1F5;
-  border-color: rgba(61, 142, 234, 0.35);
-  background: rgba(61, 142, 234, 0.12);
+  color: #1C79D8;
+  border-color: rgba(28, 121, 216, 0.35);
+  background: rgba(28, 121, 216, 0.08);
   box-shadow: none;
 }
 [data-theme='isonic-dark'] .queue-current-tech-rg-badge:hover {
   color: #ffffff;
-  border-color: #3D8EEA;
-  background: #3D8EEA;
+  border-color: #1C79D8;
+  background: #1C79D8;
 }
 
+/* Queue toolbar */
 [data-theme='isonic-dark'] .queue-toolbar {
-  background: #202226;
-  border-top:    1px solid #2C2F33;
+  background: #F5F6F8;
+  border-top:    1px solid #E2E4E7;
   border-bottom: none;
   box-shadow: none;
 }
 
 [data-theme='isonic-dark'] .queue-toolbar-sep {
-  background: #2C2F33;
+  background: #D2D5D9;
 }
 
 [data-theme='isonic-dark'] .queue-round-btn {
-  background: #23262A;
-  color: #A2A6AC;
-  border: 1px solid #2C2F33;
+  background: #ffffff;
+  color: #6B6F76;
+  border: 1px solid #D2D5D9;
 }
 
 [data-theme='isonic-dark'] .queue-round-btn:hover:not(:disabled) {
-  background: #24384C;
-  color: #6FB1F5;
-  border-color: #3D6D9E;
+  background: #EAF1FB;
+  color: #1C79D8;
+  border-color: #9FC3EA;
   box-shadow: none;
 }
 
 [data-theme='isonic-dark'] .queue-round-btn.active {
-  background: #3D8EEA;
+  background: #1C79D8;
   color: #ffffff;
-  border-color: #3D8EEA;
-  box-shadow: 0 0 0 2px rgba(61, 142, 234, 0.28);
+  border-color: #1C79D8;
+  box-shadow: 0 0 0 2px rgba(28, 121, 216, 0.18);
 }
 
 [data-theme='isonic-dark'] .queue-round-btn.active svg {
@@ -418,32 +438,37 @@
 
 
 /* ============================================================
-   PLAYER BAR
+   PLAYER BAR — GLOSSY LIGHT TOOLBAR
+   The bottom strip mirrors iTunes 11's transport controls:
+   light brushed toolbar, glossy blue play button with a soft
+   top highlight, plain black/grey type — no backlighting.
    ============================================================ */
 
 [data-theme='isonic-dark'] .player-bar {
-  border-top: 1px solid #2C2F33;
-  background: linear-gradient(180deg, #202226 0%, #16181B 100%);
+  border-top: 1px solid #D2D5D9;
+  background: linear-gradient(180deg, #FAFBFC 0%, #EDEFF2 100%);
 }
 
 [data-theme='isonic-dark'] .player-album-art-wrap,
 [data-theme='isonic-dark'] .player-album-art,
 [data-theme='isonic-dark'] .player-album-art-placeholder {
-  background: #262A2F;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  background: #E7E9EC;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20);
 }
 
 [data-theme='isonic-dark'] .player-bar.floating {
   background: var(--bg-player);
 }
 
+/* Favorite heart — Apple red when active */
 [data-theme='isonic-dark'] .player-star-btn.is-starred {
-  color: #E24450 !important;
+  color: #E0333F !important;
 }
 [data-theme='isonic-dark'] .player-star-btn.is-starred:has(.lucide-heart) svg {
   filter: none;
 }
 
+/* Track name — plain, bold, no glow */
 [data-theme='isonic-dark'] .player-track-name {
   font-weight: 700;
   text-shadow: none;
@@ -453,17 +478,20 @@
   text-shadow: none;
 }
 
+/* Artist name */
 [data-theme='isonic-dark'] .player-track-artist {
   text-shadow: none;
   color: var(--player-artist);
 }
 
+/* Time counter — plain grey, tabular */
 [data-theme='isonic-dark'] .player-time {
-  color: #A2A6AC;
+  color: #6B6F76;
   letter-spacing: 0;
   text-shadow: none;
 }
 
+/* Transport icons — flat grey, blue on hover, no drop-shadow glow */
 [data-theme='isonic-dark'] .player-btn:not(.player-btn-primary) svg {
   filter: none;
 }
@@ -477,60 +505,67 @@
   filter: none;
 }
 
+/* Mute button */
 [data-theme='isonic-dark'] .player-volume-section .player-btn {
   color: var(--player-control) !important;
 }
 [data-theme='isonic-dark'] .player-volume-section .player-btn:has(.lucide-volume-x) {
-  color: #E24450 !important;
+  color: #E0333F !important;
   filter: none;
 }
 
+/* Rating stars — classic iTunes gold, no glow */
 [data-theme='isonic-dark'] .player-star-btn.is-starred svg {
   filter: none;
   color: var(--highlight);
 }
 
+/* Play button — glossy skeuomorphic sphere, three states.
+   Rest: pale blue-grey glass. Playing/Hover: full glossy blue
+   with a soft top highlight arc instead of a neon ring. */
+
 [data-theme='isonic-dark'] .player-btn-primary {
-  background: linear-gradient(180deg, #383C41 0%, #1E2023 100%);
-  color: #C9CCD1;
-  border: 1px solid #40444A;
+  background: linear-gradient(180deg, #FDFEFF 0%, #DDE3E9 100%);
+  color: #5A5D63;
+  border: 1px solid #C7CACD;
   border-radius: 999px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.10),
-    0 1px 2px rgba(0, 0, 0, 0.45);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(0, 0, 0, 0.15);
 }
 [data-theme='isonic-dark'] .player-btn-primary svg {
   filter: none;
 }
 
 [data-theme='isonic-dark'][data-playing='true'] .player-btn-primary {
-  background: linear-gradient(180deg, #5A9FE0 0%, #1A5A9E 100%);
+  background: linear-gradient(180deg, #6FA8E0 0%, #1C5FA8 100%);
   color: #ffffff;
-  border: 1px solid #164B85;
+  border: 1px solid #1256A0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.30),
-    0 2px 6px rgba(0, 0, 0, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 2px 6px rgba(28, 96, 168, 0.35);
 }
 [data-theme='isonic-dark'][data-playing='true'] .player-btn-primary svg {
   filter: none;
 }
 
 [data-theme='isonic-dark'] .player-btn-primary:hover {
-  background: linear-gradient(180deg, #6BADE8 0%, #2569B4 100%);
+  background: linear-gradient(180deg, #7FB4E8 0%, #2569B4 100%);
   color: #ffffff;
   border: 1px solid #1C5FA8;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.40),
-    0 2px 8px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 2px 8px rgba(28, 96, 168, 0.45);
 }
 [data-theme='isonic-dark'] .player-btn-primary:hover svg {
   filter: none;
 }
 
 
-/* Custom logo -- iSonic wordmark (raster, same multi-color asset
-   as the light theme -- it is not dark text on a light chip, so it
-   reads fine unchanged against this dark sidebar too). */
+/* ── Custom logo — iSonic wordmark (raster, optimized) ──
+   Source SVG wrapped a 1000x255 PNG (74KB total, mostly base64).
+   Re-encoded as WebP at 336x86 (2x retina for a 168x43 display
+   box) to fit comfortably under the theme size limit. */
 
 [data-theme='isonic-dark'] .sidebar-brand svg {
   display: none !important;
