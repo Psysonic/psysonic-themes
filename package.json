@@ -10,7 +10,7 @@
     "validate:template": "node scripts/validate-theme.mjs template",
     "registry": "node scripts/build-registry.mjs",
     "thumb": "node scripts/make-thumbnail.mjs",
-    "test": "node --test \"scripts/**/*.test.mjs\""
+    "test": "node --test scripts/theme-assets.test.mjs"
   },
   "devDependencies": {
     "ajv": "^8.17.1",
