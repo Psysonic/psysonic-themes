@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 import postcss from 'postcss';
 import Ajv from 'ajv';
 import sharp from 'sharp';
+import { auditThemeAssets, classifyUrlTarget } from './theme-assets.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, '..');
@@ -55,7 +56,7 @@ async function validateTheme(folder) {
   if (!existsSync(cssPath)) push('missing theme.css');
   const thumbPath = THUMB_EXTS.map((e) => join(folder, `thumbnail.${e}`)).find((p) => existsSync(p)) || null;
   if (!thumbPath) push('missing thumbnail (thumbnail.png / .jpg / .webp)');
-  if (errors.length) return errors; // nothing else is meaningful without the files
+  if (errors.length) return { errors, warnings: [] }; // nothing else is meaningful without the files
 
   // ---- manifest ----
   let manifest;
@@ -63,7 +64,7 @@ async function validateTheme(folder) {
     manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
   } catch (e) {
     push(`manifest.json is not valid JSON: ${e.message}`);
-    return errors;
+    return { errors, warnings: [] };
   }
   if (!validateManifest(manifest)) {
     for (const e of validateManifest.errors) {
@@ -100,7 +101,7 @@ async function validateTheme(folder) {
     root = postcss.parse(css, { from: cssPath });
   } catch (e) {
     push(`theme.css does not parse: ${e.message}`);
-    return errors;
+    return { errors, warnings: [] };
   }
 
   root.walkAtRules((at) => {
@@ -125,14 +126,32 @@ async function validateTheme(folder) {
     const urls = value.match(/url\(\s*['"]?\s*[^'")]*/g) || [];
     for (const u of urls) {
       const inner = u.replace(/^url\(\s*['"]?\s*/i, '');
-      if (!/^data:/i.test(inner)) push(`${decl.prop}: only url(data:...) is allowed (got: ${u})`);
+      // A url() target may be an inline data: URI or a local `assets/…` path;
+      // anything else would reach the network.
+      if (classifyUrlTarget(inner) === 'reject') {
+        push(`${decl.prop}: only url(data:...) or url(assets/...) is allowed (got: ${u})`);
+      }
     }
   });
+
+  // ---- local assets ----
+  // Existence of every referenced file, extension whitelist, per-file/per-theme
+  // budgets, file count, and an SVG content check. Warnings (oversized total,
+  // unreferenced files) do not fail the build.
+  const assetAudit = auditThemeAssets(folder, css);
+  for (const e of assetAudit.errors) push(e);
+  // A theme that ships assets needs an app build that supports them; without a
+  // declared floor it would silently fail to install on every released client.
+  // The concrete version is the release where asset support lands — set it in
+  // manifest.minAppVersion.
+  if (assetAudit.files.length > 0 && !manifest.minAppVersion) {
+    push('theme ships assets/ but manifest.minAppVersion is not set — declare the app version that supports local assets');
+  }
 
   // ---- thumbnail ----
   await validateThumbnail(thumbPath, push);
 
-  return errors;
+  return { errors, warnings: assetAudit.warnings };
 }
 
 /** Thumbnail sanity via sharp: decodable image, format, dimensions, file cap. */
@@ -181,7 +200,7 @@ async function main() {
   let failed = 0;
   for (const folder of folders) {
     const id = basename(folder);
-    const errors = await validateTheme(folder);
+    const { errors, warnings } = await validateTheme(folder);
     if (errors.length === 0) {
       console.log(`PASS  ${id}`);
     } else {
@@ -189,6 +208,9 @@ async function main() {
       console.log(`FAIL  ${id}`);
       for (const e of errors) console.log(`        - ${e}`);
     }
+    // Warnings never fail the build — they nudge (oversized asset total, a
+    // shipped file the CSS never references).
+    for (const w of warnings) console.log(`        ! ${id}: ${w}`);
   }
 
   if (failed > 0) {

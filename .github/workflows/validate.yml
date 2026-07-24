@@ -23,6 +23,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Unit-test the shared tooling contract
+        run: npm test
       - name: Validate all themes
         run: node scripts/validate-theme.mjs
       - name: Validate the template stays contract-valid

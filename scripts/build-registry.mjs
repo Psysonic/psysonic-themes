@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { listAssetFiles } from './theme-assets.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, '..');
@@ -47,6 +48,12 @@ function build() {
       // setups where animation is costly (Nvidia/Linux, compositing off).
       const cssPath = join(themesDir, id, 'theme.css');
       const animated = existsSync(cssPath) && /@(?:-[a-z]+-)?keyframes\b/i.test(readFileSync(cssPath, 'utf8'));
+      // Local assets shipped alongside the theme. The install path reads this
+      // list to fetch and write each file; empty for the vast majority of themes.
+      const assets = listAssetFiles(join(themesDir, id)).map((a) => ({
+        path: `themes/${id}/${a.rel}`,
+        bytes: a.bytes,
+      }));
       themes.push({
         id: m.id,
         name: m.name,
@@ -58,6 +65,7 @@ function build() {
         ...(m.minAppVersion ? { minAppVersion: m.minAppVersion } : {}),
         ...(m.changelog ? { changelog: m.changelog } : {}),
         ...(animated ? { animated: true } : {}),
+        ...(assets.length ? { assets } : {}),
         css: `themes/${id}/theme.css`,
         thumbnail: `themes/${id}/thumbnail.webp`,
         ...(lastModified(id) ? { updatedAt: lastModified(id) } : {}),
