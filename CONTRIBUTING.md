@@ -64,13 +64,30 @@ to app state via same-element attributes on the root, e.g.
 The `validate` workflow does **not** police your design — only a small **safety
 floor**. Quality and taste are handled by review. The floor is:
 
-- **No network** — no `@import`, and every `url()` must be an inline `url(data:...)` URI.
+- **No network** — no `@import`, and every `url()` must be an inline `url(data:...)`
+  URI **or** a local `url(assets/...)` path (see below).
 - **No scripts** — no `expression()`, `javascript:`, `-moz-binding`, or `<style>` / `<script>`.
 - **No `@property`** — it would register a global custom property that could clash.
 - **Namespaced animations** — every `@keyframes` name must start with `<id>-`.
 - **Size cap** — `theme.css` ≤ 256 KB.
 
 Run the validator (see **Quick start** above) before you push.
+
+### Local assets (`assets/`)
+
+Instead of embedding images and fonts as `data:` URIs, you may drop them in an
+`assets/` folder and reference them relatively: `url("assets/logo.svg")`. Full
+guide in the [README](README.md#local-assets-optional). The CI floor:
+
+- Paths resolve under `assets/` only — no leading `/`, no `..`, no backslash, no
+  remote URL.
+- Types: `.webp .png .jpg .jpeg .gif .avif .svg .woff2 .woff`.
+- Budgets: 1 MB/file, 4 MB/theme, 32 files (a total over 1.5 MB warns).
+- SVGs are scanned for `<script>`, inline `on…=` handlers, `<foreignObject>`,
+  `javascript:` and external references, and rejected if any is present.
+- Ship only files your CSS references; unreferenced files warn.
+- Assets need a supporting app build — set `manifest.minAppVersion` accordingly.
+  Any change under `assets/` requires a `version` bump, like editing `theme.css`.
 
 **`thumbnail.png` (or `.jpg`):** a **16:9 screenshot** of Psysonic with your
 theme applied, **at least 1280×720** (aspect 1.5–1.85, source ≤ 6 MB). You don't

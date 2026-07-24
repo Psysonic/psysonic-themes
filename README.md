@@ -34,7 +34,8 @@ thumbnail on demand. Nothing here is bundled into the app.
 themes/<id>/
 ├── manifest.json   # id, name, author, version, description, mode, [tags], [minAppVersion], [changelog]
 ├── theme.css       # your theme's CSS (recolour the semantic tokens, and more)
-└── thumbnail.png   # store preview screenshot — PNG/JPG, 16:9 (CI converts to WebP)
+├── thumbnail.png   # store preview screenshot — PNG/JPG, 16:9 (CI converts to WebP)
+└── assets/         # optional — local images and fonts, referenced by relative url() (see below)
 ```
 
 `theme.css` is free-form CSS. The recommended starting point is to recolour the
@@ -82,6 +83,55 @@ section.
 Keys must be plain `X.Y.Z` versions matching your released versions (no
 pre-release or build suffixes). Each version lists 1–20 lines of up to 200
 characters, and a manifest may carry up to 50 versions.
+
+### Local assets (optional)
+
+Drop images and fonts in an `assets/` folder next to `theme.css` and reference
+them with a **relative** `url()`:
+
+```css
+[data-theme='<id>'] .sidebar-brand::before {
+  background-image: url("assets/wordmark.svg");
+}
+@font-face {
+  font-family: 'MyDisplay';
+  src: url("assets/display.woff2") format("woff2");
+}
+[data-theme='<id>'] { --font-display: 'MyDisplay', sans-serif; }
+```
+
+This is the alternative to cramming everything into a `data:` URI. It keeps
+`theme.css` readable and lets a web font live outside the 256 KB CSS cap. Assets
+stay **fully local** — the whole point of the safety floor is that a theme never
+touches the network, so a `url()` may be either a `data:` URI or an `assets/…`
+path, and nothing else.
+
+**Rules (CI-enforced):**
+
+- Files live under `assets/` (subfolders allowed). Reference them as
+  `url("assets/…")` — no leading `/`, no `..`, no backslashes, no remote URL.
+- Allowed types: `.webp .png .jpg .jpeg .gif .avif .svg .woff2 .woff`.
+- Budgets: **1 MB per file, 4 MB per theme, 32 files.** A total above 1.5 MB is a
+  (non-failing) warning — prefer WebP for images and a Latin-subset woff2 for
+  fonts (typically 30–80 KB). The 256 KB CSS cap is separate and unchanged.
+- Every file you ship should be referenced by the CSS; an unreferenced file is a
+  warning (dead weight in the download).
+- **SVG:** allowed, but it is checked for active/exfiltrating content — no
+  `<script>`, inline `on…=` handlers, `<foreignObject>`, `javascript:` URIs, or
+  external references. Referenced from CSS `url()` an SVG renders as an image and
+  does not run scripts; the check is defence in depth, and it also runs on
+  sideloaded themes where there is no review.
+
+**App version:** local assets need an app build that supports them. Set
+`"minAppVersion"` in your manifest to that version (announced when the feature
+ships) — older clients then show *"requires a newer version"* on your card
+instead of a failed install. Changing any file under `assets/` requires a
+`version` bump, exactly like editing `theme.css`.
+
+Fonts: convert a TTF/OTF with `npx ttf2woff2 < Font.ttf > assets/display.woff2`
+and apply it to `--font-display` (not `--font-sans`) so the user's font and
+accessibility choices are preserved. Check the font's licence allows
+redistribution before bundling it.
 
 ## Make a theme
 
