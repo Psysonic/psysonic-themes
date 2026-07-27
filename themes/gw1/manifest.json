@@ -1,11 +1,23 @@
 {
   "id": "gw1",
-  "name": "Guild Wars 1",
+  "name": "Prophecies",
   "author": "Psysonic",
-  "version": "1.0.0",
-  "description": "Inspired by Guild Wars.",
+  "version": "2.0.0",
+  "description": "Inspired by Guild Wars (2005). Armour-violet surfaces under a gold trim, after the original box art, with an engraved display face.",
   "mode": "dark",
   "tags": [
-    "games"
-  ]
+    "games",
+    "dark",
+    "gold",
+    "fantasy",
+    "purple"
+  ],
+  "changelog": {
+    "2.0.0": [
+      "Rebuilt from a plain recolour into a full theme.",
+      "Armour-violet surfaces with a gold trim along the sidebar, player bar and active navigation.",
+      "Engraved display face (Cinzel) for headings, plus the wordmark in the sidebar.",
+      "Corner filigree on dialogs; the player bar glows faintly while something is playing."
+    ]
+  }
 }
