@@ -14,6 +14,13 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
+    # Maintainer PRs skip the bot. Own themes are already reviewed by hand and
+    # against the validator, and on the free plan every automatic run eats into
+    # an hourly quota that contributor PRs should get instead — those are the
+    # ones where a second pass on contrast, always-on animation and selectors
+    # hiding core controls actually earns its keep.
+    ignore_usernames:
+      - Psychotoxical
   path_filters:
     - "!registry.json"      # auto-generated, never hand-edited
     - "!**/*.png"           # thumbnails are binary
