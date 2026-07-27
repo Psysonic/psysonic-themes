@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T21:57:21.249Z",
+  "generatedAt": "2026-07-27T21:57:44.471Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -648,6 +648,30 @@
       "css": "themes/gw1/theme.css",
       "thumbnail": "themes/gw1/thumbnail.webp",
       "updatedAt": "2026-07-27T23:42:49+02:00"
+    },
+    {
+      "id": "gw1-elementalist",
+      "name": "Prophecies — Elementalist",
+      "author": "Psysonic",
+      "version": "1.0.0",
+      "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Elementalist's red: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+      "mode": "dark",
+      "tags": [
+        "games",
+        "dark",
+        "red",
+        "fantasy"
+      ],
+      "changelog": {
+        "1.0.0": [
+          "Profession variant of Prophecies in the Elementalist's red.",
+          "The accent is lightened from the profession's own colour so links and titles stay readable on a dark surface."
+        ]
+      },
+      "animated": true,
+      "css": "themes/gw1-elementalist/theme.css",
+      "thumbnail": "themes/gw1-elementalist/thumbnail.webp",
+      "updatedAt": "2026-07-27T23:57:29+02:00"
     },
     {
       "id": "gw1-mesmer",
