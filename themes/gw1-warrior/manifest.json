@@ -1,0 +1,19 @@
+{
+  "id": "gw1-warrior",
+  "name": "Prophecies — Warrior",
+  "author": "Psysonic",
+  "version": "1.0.0",
+  "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Warrior's yellow: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+  "mode": "dark",
+  "tags": [
+    "games",
+    "dark",
+    "yellow",
+    "fantasy"
+  ],
+  "changelog": {
+    "1.0.0": [
+      "Profession variant of Prophecies in the Warrior's yellow."
+    ]
+  }
+}
