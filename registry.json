@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T21:47:59.926Z",
+  "generatedAt": "2026-07-27T21:57:21.249Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -699,6 +699,75 @@
       "css": "themes/gw1-monk/theme.css",
       "thumbnail": "themes/gw1-monk/thumbnail.webp",
       "updatedAt": "2026-07-27T23:47:40+02:00"
+    },
+    {
+      "id": "gw1-necromancer",
+      "name": "Prophecies — Necromancer",
+      "author": "Psysonic",
+      "version": "1.0.0",
+      "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Necromancer's green: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+      "mode": "dark",
+      "tags": [
+        "games",
+        "dark",
+        "green",
+        "fantasy"
+      ],
+      "changelog": {
+        "1.0.0": [
+          "Profession variant of Prophecies in the Necromancer's green."
+        ]
+      },
+      "animated": true,
+      "css": "themes/gw1-necromancer/theme.css",
+      "thumbnail": "themes/gw1-necromancer/thumbnail.webp",
+      "updatedAt": "2026-07-27T23:57:17+02:00"
+    },
+    {
+      "id": "gw1-ranger",
+      "name": "Prophecies — Ranger",
+      "author": "Psysonic",
+      "version": "1.0.0",
+      "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Ranger's green: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+      "mode": "dark",
+      "tags": [
+        "games",
+        "dark",
+        "green",
+        "fantasy"
+      ],
+      "changelog": {
+        "1.0.0": [
+          "Profession variant of Prophecies in the Ranger's green."
+        ]
+      },
+      "animated": true,
+      "css": "themes/gw1-ranger/theme.css",
+      "thumbnail": "themes/gw1-ranger/thumbnail.webp",
+      "updatedAt": "2026-07-27T23:57:08+02:00"
+    },
+    {
+      "id": "gw1-warrior",
+      "name": "Prophecies — Warrior",
+      "author": "Psysonic",
+      "version": "1.0.0",
+      "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Warrior's yellow: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+      "mode": "dark",
+      "tags": [
+        "games",
+        "dark",
+        "yellow",
+        "fantasy"
+      ],
+      "changelog": {
+        "1.0.0": [
+          "Profession variant of Prophecies in the Warrior's yellow."
+        ]
+      },
+      "animated": true,
+      "css": "themes/gw1-warrior/theme.css",
+      "thumbnail": "themes/gw1-warrior/thumbnail.webp",
+      "updatedAt": "2026-07-27T23:56:58+02:00"
     },
     {
       "id": "heisenberg",
