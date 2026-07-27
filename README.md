@@ -128,6 +128,9 @@ ships) — older clients then show *"requires a newer version"* on your card
 instead of a failed install. Changing any file under `assets/` requires a
 `version` bump, exactly like editing `theme.css`.
 
+To iterate on assets without reinstalling, run the app against your checkout —
+see **[Live preview](#make-a-theme)** above.
+
 Fonts: convert a TTF/OTF with `npx ttf2woff2 < Font.ttf > assets/display.woff2`
 and apply it to `--font-display` (not `--font-sans`) so the user's font and
 accessibility choices are preserved. Check the font's licence allows
@@ -167,6 +170,13 @@ npm run tauri:dev -- -- -- --theme-watch path/to/psysonic-themes
 
 The three `--` are one separator per layer (npm → tauri CLI → cargo), all
 needed for the flag to reach the app.
+
+[Local assets](#local-assets-optional) hot-reload too: a watched theme's
+`url("assets/…")` resolves against the folder its `theme.css` lives in, so you
+can swap an image or a font in your checkout and see it on the next save,
+without reinstalling. This needs the same app build as local assets themselves —
+older dev builds load the theme but leave its asset urls unresolved, so the
+images simply don't appear.
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide — naming,
 description conventions, and the PR checklist.
