@@ -1,0 +1,20 @@
+{
+  "id": "gw1-mesmer",
+  "name": "Prophecies — Mesmer",
+  "author": "Psysonic",
+  "version": "1.0.0",
+  "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Mesmer's purple: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+  "mode": "dark",
+  "tags": [
+    "games",
+    "dark",
+    "purple",
+    "fantasy"
+  ],
+  "changelog": {
+    "1.0.0": [
+      "Profession variant of Prophecies in the Mesmer's purple.",
+      "The accent is lightened from the profession's own colour so links and titles stay readable on a dark surface."
+    ]
+  }
+}
