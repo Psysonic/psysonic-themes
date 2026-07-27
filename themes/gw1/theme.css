@@ -36,9 +36,10 @@
 
   /* ── The four lines a profession variant replaces ───────────────────── */
   --gw-accent: #d8a03a;                        /* gold, mid tone   */
+  --gw-accent-rgb: 216, 160, 58;               /* same, as channels */
   --gw-accent-hi: #f2cd6b;                     /* gold, highlight  */
-  --gw-accent-dim: rgba(216, 160, 58, 0.16);   /* accent @ 16%     */
-  --gw-accent-glow: rgba(216, 160, 58, 0.38);  /* accent @ 38%     */
+  --gw-accent-dim: rgba(var(--gw-accent-rgb), 0.16);   /* accent @ 16%     */
+  --gw-accent-glow: rgba(var(--gw-accent-rgb), 0.38);  /* accent @ 38%     */
   --gw-tint: #110f17;                          /* tints the slate  */
   /* ───────────────────────────────────────────────────────────────────── */
 
@@ -65,9 +66,9 @@
   --bg-glass: rgba(15, 13, 20, 0.9);
 
   /* Borders */
-  --border: rgba(216, 160, 58, 0.26);
-  --border-subtle: rgba(216, 160, 58, 0.11);
-  --border-dropdown: rgba(216, 160, 58, 0.4);
+  --border: rgba(var(--gw-accent-rgb), 0.26);
+  --border-subtle: rgba(var(--gw-accent-rgb), 0.11);
+  --border-dropdown: rgba(var(--gw-accent-rgb), 0.4);
 
   /* Text — warm parchment rather than white, to sit under the gold. */
   --text-primary: #ece3d2;
@@ -84,22 +85,22 @@
   /* Player */
   --player-title: var(--gw-accent-hi);
   --player-artist: #a99cb8;
-  --player-border: rgba(216, 160, 58, 0.6);
+  --player-border: rgba(var(--gw-accent-rgb), 0.6);
   --volume-accent: var(--gw-accent);
   --waveform-played: var(--gw-accent);
   --waveform-unplayed: rgba(236, 227, 210, 0.16);
-  --waveform-buffered: rgba(216, 160, 58, 0.3);
+  --waveform-buffered: rgba(var(--gw-accent-rgb), 0.3);
 
   /* Sidebar */
-  --sidebar-border: rgba(216, 160, 58, 0.45);
-  --sidebar-item-hover: rgba(216, 160, 58, 0.1);
-  --sidebar-item-active-bg: rgba(216, 160, 58, 0.18);
+  --sidebar-border: rgba(var(--gw-accent-rgb), 0.45);
+  --sidebar-item-hover: rgba(var(--gw-accent-rgb), 0.1);
+  --sidebar-item-active-bg: rgba(var(--gw-accent-rgb), 0.18);
   --sidebar-item-active-text: var(--gw-accent-hi);
   --sidebar-text: #b9aec6;
 
   /* Rows */
-  --row-hover: rgba(216, 160, 58, 0.08);
-  --row-playing-bg: rgba(216, 160, 58, 0.14);
+  --row-hover: rgba(var(--gw-accent-rgb), 0.08);
+  --row-playing-bg: rgba(var(--gw-accent-rgb), 0.14);
   --row-playing-text: var(--gw-accent-hi);
   --row-divider: rgba(236, 227, 210, 0.07);
   --row-text-secondary: #a99cb8;
@@ -113,24 +114,24 @@
 
   /* Menus and modals */
   --menu-bg: var(--gw-panel);
-  --menu-item-hover: rgba(216, 160, 58, 0.12);
+  --menu-item-hover: rgba(var(--gw-accent-rgb), 0.12);
   --menu-item-active-text: var(--gw-accent-hi);
-  --menu-divider: rgba(216, 160, 58, 0.16);
+  --menu-divider: rgba(var(--gw-accent-rgb), 0.16);
   --modal-bg: var(--gw-panel);
   --modal-scrim: rgba(6, 5, 9, 0.78);
   --shadow-dropdown: rgba(0, 0, 0, 0.8);
 
   /* Inputs and controls */
   --input-bg: rgba(11, 9, 16, 0.72);
-  --input-border: rgba(216, 160, 58, 0.24);
+  --input-border: rgba(var(--gw-accent-rgb), 0.24);
   --input-focus-border: var(--gw-accent);
-  --button-hover: rgba(216, 160, 58, 0.14);
+  --button-hover: rgba(var(--gw-accent-rgb), 0.14);
   --slider-track: rgba(236, 227, 210, 0.14);
   --slider-thumb: var(--gw-accent);
   --slider-thumb-hover: var(--gw-accent-hi);
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(216, 160, 58, 0.28);
-  --scrollbar-thumb-hover: rgba(216, 160, 58, 0.5);
+  --scrollbar-thumb: rgba(var(--gw-accent-rgb), 0.28);
+  --scrollbar-thumb-hover: rgba(var(--gw-accent-rgb), 0.5);
 
   --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d8a03a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
 }
@@ -166,7 +167,7 @@ html[data-theme='gw1']:not([data-font='opendyslexic']) {
 }
 
 [data-theme='gw1'] .sidebar-brand {
-  border-bottom: 1px solid rgba(216, 160, 58, 0.5);
+  border-bottom: 1px solid rgba(var(--gw-accent-rgb), 0.5);
 }
 
 /* ── Campaign name in the top bar ──────────────────────────────────────────
@@ -206,25 +207,25 @@ html[data-theme='gw1']:not([data-font='opendyslexic']) {
  * Hairlines where the app already separates regions, so the trim reads as
  * structure rather than as decoration laid on top. */
 [data-theme='gw1'] .sidebar {
-  border-right: 1px solid rgba(216, 160, 58, 0.45);
-  box-shadow: 1px 0 0 rgba(216, 160, 58, 0.12);
+  border-right: 1px solid rgba(var(--gw-accent-rgb), 0.45);
+  box-shadow: 1px 0 0 rgba(var(--gw-accent-rgb), 0.12);
 }
 
 /* The queue panel mirrors the navigation sidebar, so it carries the same edge —
  * without it the content area is framed on one side only. Its own rule uses
  * --border-subtle, which the theme keeps faint for hairlines elsewhere. */
 [data-theme='gw1'] .queue-panel {
-  border-left: 1px solid rgba(216, 160, 58, 0.45);
-  box-shadow: -1px 0 0 rgba(216, 160, 58, 0.12);
+  border-left: 1px solid rgba(var(--gw-accent-rgb), 0.45);
+  box-shadow: -1px 0 0 rgba(var(--gw-accent-rgb), 0.12);
 }
 
 [data-theme='gw1'] .queue-header {
-  border-bottom: 1px solid rgba(216, 160, 58, 0.35);
+  border-bottom: 1px solid rgba(var(--gw-accent-rgb), 0.35);
 }
 
 [data-theme='gw1'] .player-bar {
   border-top: 1px solid var(--gw-accent);
-  box-shadow: 0 -1px 0 rgba(216, 160, 58, 0.45), 0 -12px 28px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 -1px 0 rgba(var(--gw-accent-rgb), 0.45), 0 -12px 28px rgba(0, 0, 0, 0.45);
 }
 
 /* The active entry reads as a tab cut into the sidebar: it takes the colour of
@@ -243,8 +244,8 @@ html[data-theme='gw1']:not([data-font='opendyslexic']) {
   border-radius: var(--radius-md) 0 0 var(--radius-md);
   box-shadow:
     inset 3px 0 0 var(--gw-accent),
-    inset 0 1px 0 rgba(216, 160, 58, 0.5),
-    inset 0 -1px 0 rgba(216, 160, 58, 0.5);
+    inset 0 1px 0 rgba(var(--gw-accent-rgb), 0.5),
+    inset 0 -1px 0 rgba(var(--gw-accent-rgb), 0.5);
 }
 
 /* ── Ornament ──────────────────────────────────────────────────────────────
@@ -302,7 +303,7 @@ html[data-theme='gw1']:not([data-font='opendyslexic']) {
 /* ── Playing state ─────────────────────────────────────────────────────────
  * The only movement in the theme, and it stops when playback does. */
 @keyframes gw1-ember {
-  0%, 100% { box-shadow: 0 -1px 0 rgba(216, 160, 58, 0.45), 0 -12px 28px rgba(0, 0, 0, 0.45); }
+  0%, 100% { box-shadow: 0 -1px 0 rgba(var(--gw-accent-rgb), 0.45), 0 -12px 28px rgba(0, 0, 0, 0.45); }
   50% { box-shadow: 0 -2px 0 var(--gw-accent-glow), 0 -12px 30px rgba(0, 0, 0, 0.45); }
 }
 
@@ -362,7 +363,7 @@ html[data-theme='gw1']:not([data-font='opendyslexic']) {
   margin-top: 5px;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 0 L9 4.5 L4.5 9 L0 4.5 Z' fill='%23d8a03a'/%3E%3C/svg%3E"),
-    linear-gradient(90deg, var(--gw-accent) 0%, rgba(216, 160, 58, 0.35) 30%, transparent 70%);
+    linear-gradient(90deg, var(--gw-accent) 0%, rgba(var(--gw-accent-rgb), 0.35) 30%, transparent 70%);
   background-repeat: no-repeat, no-repeat;
   background-position: left center, 13px center;
   background-size: 9px 9px, calc(100% - 13px) 1px;

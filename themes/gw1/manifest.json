@@ -2,7 +2,7 @@
   "id": "gw1",
   "name": "Prophecies",
   "author": "Psysonic",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Inspired by Guild Wars (2005). Armour-violet surfaces under a gold trim, after the original box art, with an engraved display face.",
   "mode": "dark",
   "tags": [
@@ -13,6 +13,9 @@
     "purple"
   ],
   "changelog": {
+    "2.0.1": [
+      "No visual change — the gold is now defined in one place instead of being repeated throughout the file."
+    ],
     "2.0.0": [
       "Rebuilt from a plain recolour into a full theme.",
       "Armour-violet surfaces with a gold trim along the sidebar, player bar and active navigation.",
