@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T21:23:46.991Z",
+  "generatedAt": "2026-07-27T21:43:12.142Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -620,7 +620,7 @@
       "id": "gw1",
       "name": "Prophecies",
       "author": "Psysonic",
-      "version": "2.0.1",
+      "version": "2.0.2",
       "description": "Inspired by Guild Wars (2005). Armour-violet surfaces under a gold trim, after the original box art, with an engraved display face.",
       "mode": "dark",
       "tags": [
@@ -631,6 +631,9 @@
         "purple"
       ],
       "changelog": {
+        "2.0.2": [
+          "Fixed the preview swatch in Settings showing the colours of whichever theme was applied instead of its own."
+        ],
         "2.0.1": [
           "No visual change — the gold is now defined in one place instead of being repeated throughout the file."
         ],
@@ -644,13 +647,13 @@
       "animated": true,
       "css": "themes/gw1/theme.css",
       "thumbnail": "themes/gw1/thumbnail.webp",
-      "updatedAt": "2026-07-27T23:12:17+02:00"
+      "updatedAt": "2026-07-27T23:42:49+02:00"
     },
     {
       "id": "gw1-mesmer",
       "name": "Prophecies — Mesmer",
       "author": "Psysonic",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Mesmer's purple: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
       "mode": "dark",
       "tags": [
@@ -660,6 +663,9 @@
         "fantasy"
       ],
       "changelog": {
+        "1.0.1": [
+          "Fixed the preview swatch in Settings showing the colours of whichever theme was applied instead of its own."
+        ],
         "1.0.0": [
           "Profession variant of Prophecies in the Mesmer's purple.",
           "The accent is lightened from the profession's own colour so links and titles stay readable on a dark surface."
@@ -668,7 +674,7 @@
       "animated": true,
       "css": "themes/gw1-mesmer/theme.css",
       "thumbnail": "themes/gw1-mesmer/thumbnail.webp",
-      "updatedAt": "2026-07-27T23:23:31+02:00"
+      "updatedAt": "2026-07-27T23:42:49+02:00"
     },
     {
       "id": "heisenberg",
