@@ -1,0 +1,20 @@
+{
+  "id": "gw1-monk",
+  "name": "Prophecies — Monk",
+  "author": "Psysonic",
+  "version": "1.0.0",
+  "description": "Inspired by Guild Wars (2005). The Prophecies theme in the Monk's blue: armour-violet surfaces, an engraved display face, and the profession's colour on the trim.",
+  "mode": "dark",
+  "tags": [
+    "games",
+    "dark",
+    "blue",
+    "fantasy"
+  ],
+  "changelog": {
+    "1.0.0": [
+      "Profession variant of Prophecies in the Monk's blue.",
+      "The accent is lightened from the profession's own colour so links and titles stay readable on a dark surface."
+    ]
+  }
+}
