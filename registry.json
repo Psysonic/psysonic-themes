@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T17:39:57.593Z",
+  "generatedAt": "2026-07-27T17:58:22.171Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -855,13 +855,13 @@
       "animated": true,
       "css": "themes/isonic/theme.css",
       "thumbnail": "themes/isonic/thumbnail.webp",
-      "updatedAt": "2026-07-27T19:39:37+02:00"
+      "updatedAt": "2026-07-27T17:39:58Z"
     },
     {
       "id": "isonic-dark",
       "name": "iSonic Dark",
       "author": "abstractjewel",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "description": "Inspired by classic iTunes and the colorful Apple logo. Dark version of iSonic",
       "mode": "dark",
       "tags": [
@@ -874,7 +874,7 @@
       "animated": true,
       "css": "themes/isonic-dark/theme.css",
       "thumbnail": "themes/isonic-dark/thumbnail.webp",
-      "updatedAt": "2026-07-24T21:25:16+02:00"
+      "updatedAt": "2026-07-27T19:57:59+02:00"
     },
     {
       "id": "jayfin",
