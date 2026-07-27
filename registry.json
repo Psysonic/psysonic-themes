@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T17:58:22.171Z",
+  "generatedAt": "2026-07-27T21:06:21.819Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -618,17 +618,30 @@
     },
     {
       "id": "gw1",
-      "name": "Guild Wars 1",
+      "name": "Prophecies",
       "author": "Psysonic",
-      "version": "1.0.0",
-      "description": "Inspired by Guild Wars.",
+      "version": "2.0.0",
+      "description": "Inspired by Guild Wars (2005). Armour-violet surfaces under a gold trim, after the original box art, with an engraved display face.",
       "mode": "dark",
       "tags": [
-        "games"
+        "games",
+        "dark",
+        "gold",
+        "fantasy",
+        "purple"
       ],
+      "changelog": {
+        "2.0.0": [
+          "Rebuilt from a plain recolour into a full theme.",
+          "Armour-violet surfaces with a gold trim along the sidebar, player bar and active navigation.",
+          "Engraved display face (Cinzel) for headings, plus the wordmark in the sidebar.",
+          "Corner filigree on dialogs; the player bar glows faintly while something is playing."
+        ]
+      },
+      "animated": true,
       "css": "themes/gw1/theme.css",
       "thumbnail": "themes/gw1/thumbnail.webp",
-      "updatedAt": "2026-06-07T19:05:13+02:00"
+      "updatedAt": "2026-07-27T23:06:06+02:00"
     },
     {
       "id": "heisenberg",
@@ -874,7 +887,7 @@
       "animated": true,
       "css": "themes/isonic-dark/theme.css",
       "thumbnail": "themes/isonic-dark/thumbnail.webp",
-      "updatedAt": "2026-07-27T19:57:59+02:00"
+      "updatedAt": "2026-07-27T17:58:22Z"
     },
     {
       "id": "jayfin",
