@@ -1,0 +1,15 @@
+{
+  "id": "lcars",
+  "name": "LCARS",
+  "author": "abstractjewel",
+  "version": "1.0.0",
+  "description": "Okudagram-style panel interface: black void, flat command-orange, peach, salmon, lilac and periwinkle color blocks, pill controls, uppercase readouts. Based on LCARS from Star Trek: TNG.",
+  "mode": "dark",
+  "tags": [
+    "lcars",
+    "retro",
+    "sci-fi",
+    "trek",
+    "flat"
+  ]
+}
