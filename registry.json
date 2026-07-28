@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-27T21:58:09.854Z",
+  "generatedAt": "2026-07-28T00:54:54.259Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1126,6 +1126,25 @@
       "css": "themes/latte-reserve/theme.css",
       "thumbnail": "themes/latte-reserve/thumbnail.webp",
       "updatedAt": "2026-07-17T01:34:01+02:00"
+    },
+    {
+      "id": "lcars",
+      "name": "LCARS",
+      "author": "abstractjewel",
+      "version": "1.0.0",
+      "description": "Okudagram-style panel interface: black void, flat command-orange, peach, salmon, lilac and periwinkle color blocks, pill controls, uppercase readouts. Based on LCARS from Star Trek: TNG.",
+      "mode": "dark",
+      "tags": [
+        "lcars",
+        "retro",
+        "sci-fi",
+        "trek",
+        "flat"
+      ],
+      "animated": true,
+      "css": "themes/lcars/theme.css",
+      "thumbnail": "themes/lcars/thumbnail.webp",
+      "updatedAt": "2026-07-28T02:54:37+02:00"
     },
     {
       "id": "london-79",
