@@ -1,0 +1,828 @@
+/* ============================================================
+   LCARS — inspired by 24th-century okudagram panel interfaces.
+
+   Design language:
+   - Pure black void everywhere; color only lives in the frame
+   - Warm panel palette: command orange, peach, salmon,
+     lilac and periwinkle — never blue-grey, never white
+   - Pill-shaped controls (fully rounded ends, flat color,
+     black text when active — the classic LCARS inversion)
+   - Sidebar reads as a color-block rail: each item a rounded
+     bar, active source becomes a solid orange pill
+   - Data readouts in periwinkle; labels in peach; alerts red
+   - Uppercase condensed type with generous letter-spacing
+   - No gloss, no gradients, no glow — LCARS is FLAT color
+     separated by black gaps, not backlit or skeuomorphic
+
+   CSS is organised top-to-bottom by UI position:
+   Tokens → Type → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: dark
+   Validate: node scripts/validate-theme.mjs themes/lcars
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='lcars'] {
+  color-scheme: dark;
+
+  /* ── LCARS palette ── */
+  --lcars-orange:     #FF9C00;   /* command / active */
+  --lcars-peach:      #FFCC99;   /* labels, neutral panels */
+  --lcars-salmon:     #DD8877;   /* secondary panels */
+  --lcars-mars:       #CC6666;   /* tertiary panels */
+  --lcars-lilac:      #CC99CC;   /* alternate section color */
+  --lcars-periwinkle: #9999FF;   /* data readouts */
+  --lcars-red:        #CC4444;   /* alert */
+
+  /* ── Accent — command orange ── */
+  --accent:      #FF9C00;
+  --accent-dim:  rgba(255, 156, 0, 0.18);
+  --accent-glow: #FFB84D;
+  --accent-2:    #CC99CC;
+
+  /* ── Backgrounds — black void, panels barely lifted ── */
+  --bg-app:      #000000;
+  --bg-sidebar:  #000000;
+  --bg-card:     #0A0A0A;
+  --bg-hover:    #1A1206;   /* faint warm lift, not grey */
+  --bg-elevated: #111111;
+  --bg-player:   #000000;
+  --bg-deep:     #000000;
+  --bg-glass:    rgba(0, 0, 0, 0.75);
+  --modal-bg:    #0A0A0A;
+
+  /* ── Borders — colored frame segments, not hairlines ── */
+  --border:          #664422;
+  --border-subtle:   #33220E;
+  --border-dropdown: #FF9C00;
+
+  /* ── Text ── */
+  --text-primary:   #FFCC99;
+  --text-secondary: #DD8877;
+  --text-muted:     #996644;
+  --text-inverse:   #000000;
+
+  /* ── States ── */
+  --success: #99CC99;
+  --warning: #FF9C00;
+  --danger:  #CC4444;
+}
+
+
+/* ============================================================
+   TYPE TREATMENT
+   LCARS text is uppercase, condensed, tracked-out. Applied to
+   chrome (nav, headers, buttons, labels) only — track titles
+   and artist names keep their real casing so metadata stays
+   readable.
+   ============================================================ */
+
+[data-theme='lcars'] {
+  font-family: 'Antonio', 'Arial Narrow', 'Helvetica Neue',
+               'Segoe UI', system-ui, sans-serif;
+}
+
+[data-theme='lcars'] .sidebar-brand,
+[data-theme='lcars'] .queue-header,
+[data-theme='lcars'] .queue-toolbar,
+[data-theme='lcars'] .queue-current-tech {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+
+/* ============================================================
+   SIDEBAR — COLOR-BLOCK RAIL
+   Black column of square color tiles in grouped bands:
+   red command group, orange build group, coral library tail.
+   The brand panel forms a periwinkle elbow into the header
+   divider line.
+   ============================================================ */
+
+[data-theme='lcars'] .sidebar {
+  background-color: #000000;
+  background-image: none;
+  border-right: none !important;
+}
+
+/* ── Brand panel — the elbow ──
+   Periwinkle block flush to the sidebar's top and right.
+   Bottom-LEFT corner rounded; bottom-right carries an inverse
+   (concave) fillet from a radial-gradient pseudo-element —
+   now flipped over both axes per spec: the transparent
+   quarter-circle opens toward the TOP-RIGHT. */
+[data-theme='lcars'] .sidebar-brand {
+  position: relative;
+  background: #7788FF;
+  color: #000000;
+  margin: 0;
+  border-radius: 0 0 0 24px;
+  /* The border between the logo section and the section below
+     it, colored to match. Confirmed flush at 3px with no
+     extra row beneath — do not add box-shadow rows here. */
+  border-bottom: 3px solid #7788FF;
+  text-shadow: none;
+}
+
+/* ── Wordmark — LCARS block-letter PSYSONIC ──
+   Replaces the default script logo. Drawn as a MASK (the
+   Hi-Fi 73 pattern): the embedded WebP's alpha channel cuts
+   the letterforms out of a solid background-color, so
+   recoloring the logo later is a one-line change. Black on
+   the periwinkle panel, like every LCARS tile label.
+   236x47 source displayed at 157x31 (2/3 scale). */
+[data-theme='lcars'] .sidebar-brand img,
+[data-theme='lcars'] .sidebar-brand svg {
+  display: none;   /* hide the stock wordmark if it is an
+                      element rather than a ::before */
+}
+
+[data-theme='lcars'] .sidebar-brand {
+  font-size: 0;    /* hide any stock text wordmark */
+}
+
+[data-theme='lcars'] .sidebar-brand::before {
+  content: '';
+  display: block;
+  width: 157px;
+  height: 31px;
+  background-color: #000000;
+  -webkit-mask-image: url(data:image/webp;base64,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);
+  mask-image: url(data:image/webp;base64,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);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+}
+
+/* Inverse fillet — the envelope of y = ((k-1)/k)x + 1 - k
+   (x,y > 0), i.e. √x + √y = 1: a quadratic Bézier with its
+   control point at the corner, drawn exactly by the path
+   below. Anchored to the PANEL's right side (immune to how
+   wide the header is): with the segmented line flush against
+   the panel's bottom edge, bottom: 0 makes the curve spring
+   from 16px up the panel's right edge and sweep tangentially
+   down onto the line. If the line is re-tuned, shift this
+   bottom by the same amount. */
+[data-theme='lcars'] .sidebar-brand::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  bottom: 0;      /* raised so the curve clears whatever was
+                     clipping its lower edge — the tail now
+                     lands on TOP of the 3px periwinkle border
+                     instead of at its bottom, which reads as
+                     seamless since border and curve are the
+                     same color */
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' preserveAspectRatio='none'><path fill='%237788FF' d='M0 0 Q0 16 16 16 L0 16 Z'/></svg>");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* ── LIBRARY wrapper ──
+   Solid block around the section word, top-left corner
+   rounded, sitting 4px below the brand panel so a thin black
+   gap separates the two wrappers. Several selector candidates
+   are covered since the exact class is unconfirmed, and the
+   background is forced so the app's own label styling can't
+   suppress the block. Lilac remains the placeholder color. */
+[data-theme='lcars'] .sidebar-section-label,
+[data-theme='lcars'] .sidebar-section-title,
+[data-theme='lcars'] .nav-section-label,
+[data-theme='lcars'] .nav-section-title,
+[data-theme='lcars'] .sidebar-heading {
+  display: block;
+  background: #CC99CC !important;
+  color: #000000 !important;
+  letter-spacing: 0.10em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 16px 16px 6px;   /* tall top padding pulls the
+                               color upward */
+  margin: 0 0 2px 0;   /* flush full-width, hairline gap below */
+  border-radius: 12px 0 0 0;   /* top-left curve ONLY */
+}
+
+/* Kill the dead space between the brand panel and the first
+   label — likely container padding, so several candidate
+   wrappers are zeroed. 2px survives as the black gap. */
+[data-theme='lcars'] .sidebar nav,
+[data-theme='lcars'] .sidebar-nav,
+[data-theme='lcars'] .sidebar-content,
+[data-theme='lcars'] .sidebar-section,
+[data-theme='lcars'] .sidebar > :nth-child(2) {
+  padding-top: 2px;
+  margin-top: 0;
+}
+
+/* Settings — final block of the whole rail, bottom-left curve
+   closes the column the way Library's top-left opened it.
+   Rose pink: in the okudagram family but distinct from every
+   other block — pinker than the coral band, warmer than the
+   lilac, lighter than the red. */
+[data-theme='lcars'] .nav-link[href*='setting' i] {
+  border-radius: 0 0 0 12px;
+  background: #FFAACC;
+}
+
+/* ── Bottom group colors ──
+   Statistics and Help take the queue panel's lilac; Settings
+   keeps the Build a Mix / Artists orange (which is the base
+   color, so exclusion suffices); Now Playing is periwinkle
+   (set in its own rule). Two mechanisms so one lands: the
+   bottom-container fingerprint minus exclusions, and direct
+   href matches as fallback. */
+[data-theme='lcars'] :has(.nav-link-nowplaying):not(:has(.nav-link[href*='album' i])) .nav-link:not(.nav-link-nowplaying):not([href*='now' i]):not([href*='setting' i]),
+[data-theme='lcars'] .nav-link[href*='stat' i],
+[data-theme='lcars'] .nav-link[href*='insight' i],
+[data-theme='lcars'] .nav-link[href*='help' i],
+[data-theme='lcars'] .nav-link[href*='support' i] {
+  background: #CC99CC;
+}
+
+/* ── Nav links — square tiles in grouped color bands ──
+   Order per spec:
+     1 Mainstage      #DD4444
+     2 New Releases   #DD4444
+     3 All Albums     #DD4444
+     4 Tracks         #DD4444
+     5 Build a Mix    #FF7700
+     6 Artists        #FF7700
+     7 Genres         #FFAA90
+     8 Favorites      #FFAA90
+     9 Playlist       #FFAA90  (submenu pills excepted below)
+    10 Internet Radio #FFAA90  (bottom-left corner rounded)
+
+   Base color here is the coral band; the red and orange
+   bands are pinned per-item by href in the rules below. */
+[data-theme='lcars'] .nav-link {
+  background: #FF7700;
+  color: #000000 !important;
+  border-radius: 0;
+  margin: 2px 0 0 0;   /* hairline black separator above each
+                          block; no side inset — the rail is a
+                          continuous full-width column */
+  padding: 12px 16px;  /* taller blocks, reference proportions */
+  font-size: 0.9em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-shadow: none;
+  transition: filter 0.15s ease-out;
+}
+
+/* ── Color bands pinned by link URL ──
+   Position-counting proved unreliable against Psysonic's
+   wrapped-link markup (every link is its own parent's only
+   child, which is why :last-child rounded EVERYTHING last
+   round). Attribute selectors on the href don't care about
+   structure. Base .nav-link color above is the coral band,
+   so Genres / Favorites / Playlist / Internet Radio and any
+   unmatched link land there automatically. */
+
+/* Red band — Mainstage, New Releases, All Albums, Tracks */
+[data-theme='lcars'] .nav-link[href='/'],
+[data-theme='lcars'] .nav-link[href='#/'],
+[data-theme='lcars'] .nav-link[href*='main' i],
+[data-theme='lcars'] .nav-link[href*='stage' i],
+[data-theme='lcars'] .nav-link[href*='home' i],
+[data-theme='lcars'] .nav-link[href*='release' i],
+[data-theme='lcars'] .nav-link[href*='new' i],
+[data-theme='lcars'] .nav-link[href*='recent' i],
+[data-theme='lcars'] .nav-link[href*='latest' i],
+[data-theme='lcars'] .nav-link[href*='album' i],
+[data-theme='lcars'] .nav-link[href*='track' i],
+[data-theme='lcars'] .nav-link[href*='song' i] {
+  background: #DD4444;
+}
+
+/* Coral band — Genres, Favorites, Playlist, Internet Radio.
+   Strategy flip: since Build a Mix dodged every URL guess,
+   ORANGE is now the base color above (so Build a Mix and
+   Artists inherit it automatically), and the coral four are
+   pinned here instead. Their route names follow the same
+   obvious pattern as every href that has already been
+   confirmed matching (albums, tracks, artists, radio).
+   Both favorite/favourite spellings covered. */
+[data-theme='lcars'] .nav-link[href*='genre' i],
+[data-theme='lcars'] .nav-link[href*='favorit' i],
+[data-theme='lcars'] .nav-link[href*='favourit' i],
+[data-theme='lcars'] .nav-link[href*='playlist' i],
+[data-theme='lcars'] .nav-link[href*='now' i],
+[data-theme='lcars'] .nav-link[href*='radio' i] {
+  background: #FFAA90;
+}
+
+/* Internet Radio — closes the rail, bottom-left corner
+   rounded to mirror the Library wrapper's opening curve.
+   Pinned by href so ONLY this tile rounds. */
+[data-theme='lcars'] .nav-link[href*='radio' i] {
+  border-radius: 0 0 0 12px;
+}
+
+
+/* ── Continuous rail: the long segment ──
+   The reference rail has no dead space — one block simply runs
+   long. Internet Radio (last block of the top group) stretches
+   to absorb the leftover height between the top and bottom
+   groups. Two mechanisms attempted, both degrade gracefully to
+   the normal block if unsupported: flex-grow on the link, and
+   flex-grow on its wrapper via :has(). The label anchors to the
+   block's bottom, like the reference frame's readout numbers. */
+[data-theme='lcars'] .nav-link[href*='radio' i] {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 14px;
+  margin-top: 0;   /* flush against whatever sits above —
+                      dropdown open or closed — so the spine
+                      never breaks */
+  /* The interior must be EMPTY (black), so the coral band
+     rule's background fill is overridden to transparent —
+     without this the whole stretch floods solid coral. Two
+     paint layers on top: a 16px coral SPINE down the RIGHT
+     edge spanning the block's full height, and a solid 46px
+     label strip across the bottom holding INTERNET RADIO.
+     The spine runs down the open stretch's right side and
+     fuses into the solid strip. State behavior is inherent:
+     dropdown CLOSED, this block sits flush under Playlists so
+     the spine touches it; dropdown OPEN, the pills push this
+     block down and the spine starts below them, detached from
+     Playlists. */
+  background-color: transparent;
+  background-image:
+    linear-gradient(to left,
+      #FFAA90 0, #FFAA90 6px, transparent 6px);
+  border-radius: 0 0 0 12px;
+  position: relative;   /* anchor for the stub and label strip */
+}
+
+/* Label strip as its own layer so its TOP-LEFT corner can
+   round — a mid-element gradient edge cannot carry a radius,
+   a pseudo-element can. Bottom-left 12px matches the rail's
+   closing curve; z-index -1 keeps it under the label text. */
+[data-theme='lcars'] .nav-link[href*='radio' i]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46px;
+  background: #FFAA90;
+  border-radius: 12px 0 0 12px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Bridging stub — something (likely the collapsed submenu
+   container's margin) keeps a few pixels between this block
+   and Playlists when the menu is closed, breaking the spine's
+   touch. This extends the spine 6px above the block's top
+   edge to bridge it. When the menu is OPEN the stub sits
+   harmlessly under the last pill, far from Playlists. Grows
+   with the gap: if a sliver still shows when closed, raise
+   both numbers together. */
+[data-theme='lcars'] .nav-link[href*='radio' i]::before {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: -20px;
+  width: 6px;
+  height: 20px;
+  background: #FFAA90;
+  pointer-events: none;
+}
+
+[data-theme='lcars'] :has(> .nav-link[href*='radio' i]) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── Playlists row — full-width coral under the caret ──
+   The dropdown caret is a sibling of the link inside a row
+   wrapper, which is why the coral stopped short of the right
+   edge. Painting the WRAPPER extends the color under the
+   caret. The :not() guards exclude submenu-item wrappers
+   (hrefs containing playlist/) so nothing inside the dropdown
+   changes. The hairline separator moves from the link to the
+   wrapper so no coral bleeds into the gap above. */
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) {
+  background: #FFAA90;
+  margin-top: 2px;
+  border-radius: 0 0 0 12px;
+}
+
+[data-theme='lcars'] .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i]) {
+  border-radius: 0 0 0 12px;
+}
+
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) > .nav-link {
+  margin-top: 0;
+}
+
+/* Caret button rides the coral: no box of its own, black glyph */
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) > button,
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) > [role='button'] {
+  background: transparent;
+  border: none;
+  color: #000000;
+}
+
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) > button svg,
+[data-theme='lcars'] :has(> .nav-link[href*='playlist' i]:not([href*='playlist/' i]):not([href*='playlists/' i])) > [role='button'] svg {
+  color: #000000;
+}
+
+/* ── Playlist sub-menu — fully rounded periwinkle pills ──
+   Matches the brand panel color. Placed AFTER the band rules
+   so it wins the tie; forced so it beats everything. */
+[data-theme='lcars'] .nav-link[href*='playlist/' i],
+[data-theme='lcars'] .nav-link[href*='playlists/' i],
+[data-theme='lcars'] .nav-link-playlist,
+[data-theme='lcars'] .nav-sublink {
+  background: #7788FF !important;
+  color: #000000 !important;
+  border-radius: 999px;
+}
+
+/* Icons sit black on the tile like the text */
+[data-theme='lcars'] .nav-link > svg {
+  color: #000000;
+  filter: none;
+}
+
+/* Hover — brighten the tile itself rather than recoloring it,
+   so every tile keeps its identity */
+[data-theme='lcars'] .nav-link:hover {
+  filter: brightness(1.18);
+  color: #000000 !important;
+}
+
+/* Active source — the tile KEEPS its color; selection is
+   marked by a crisp white outline around the label text (an
+   8-direction 1px text-shadow ring — text-shadow works in
+   every browser, unlike -webkit-text-stroke) plus a matching
+   outline on the icon. Shadows are static, no animation. */
+[data-theme='lcars'] .nav-link.active {
+  color: #000000 !important;
+  box-shadow: none;
+  text-shadow:
+    -1px -1px 0 #FFFFFF,
+     1px -1px 0 #FFFFFF,
+    -1px  1px 0 #FFFFFF,
+     1px  1px 0 #FFFFFF,
+    -1px  0   0 #FFFFFF,
+     1px  0   0 #FFFFFF,
+     0   -1px 0 #FFFFFF,
+     0    1px 0 #FFFFFF;
+}
+[data-theme='lcars'] .nav-link.active::before {
+  display: none;   /* the outline carries the active state,
+                      no separate indicator bar */
+}
+[data-theme='lcars'] .nav-link.active > svg {
+  color: #000000;
+  filter:
+    drop-shadow(-1px 0 0 #FFFFFF)
+    drop-shadow(1px 0 0 #FFFFFF)
+    drop-shadow(0 -1px 0 #FFFFFF)
+    drop-shadow(0 1px 0 #FFFFFF);
+}
+
+/* Now Playing nav item — same tile treatment as any other row */
+[data-theme='lcars'] .nav-link-nowplaying,
+[data-theme='lcars'] .nav-link-nowplaying:hover,
+[data-theme='lcars'] .nav-link-nowplaying.active {
+  color: #000000 !important;
+}
+
+[data-theme='lcars'] .nav-link-nowplaying,
+[data-theme='lcars'] .nav-link[href*='now' i] {
+  margin-top: 0;
+  border-radius: 12px 0 0 12px;   /* both left corners curve —
+                                     the bottom one pairs with
+                                     System's top-left, making
+                                     that joint read intentional */
+  position: relative;
+  background: #7788FF;   /* PsySonic logo periwinkle — the two
+                            brand-colored blocks bookend the rail */
+}
+
+/* Bridging stub up to the radio label strip — same trick as
+   the Playlists end of the spine. If no gap exists it hides
+   behind the same-color strip; if one does, it spans it, so
+   the conduit chain touches Now Playing either way. The
+   .active variant keeps it alive against the indicator-hiding
+   .nav-link.active::before rule. */
+[data-theme='lcars'] .nav-link-nowplaying::before,
+[data-theme='lcars'] .nav-link-nowplaying.active::before,
+[data-theme='lcars'] .nav-link[href*='now' i]::before {
+  /* Every property forced: the app styles its own active
+     indicator on .nav-link.active::before, and when Now
+     Playing is selected those styles merge into this stub
+     and deform it (the artifact at radio's bottom-right).
+     The !importants make the stub's geometry final in both
+     states; the resets neutralize typical indicator styling
+     (offsets, transforms, pill radius, shadows). */
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  right: 0 !important;
+  left: auto !important;
+  top: -12px !important;
+  bottom: auto !important;
+  width: 6px !important;
+  height: 12px !important;
+  background: #FFAA90 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+/* Now-playing pilot dot — solid orange lamp.
+   Shadow is static; only opacity animates (compositor-only,
+   no per-frame repaint), matching the pattern that cleared
+   review on the iSonic theme. */
+[data-theme='lcars'] .nav-np-dot {
+  background: #FF9C00;
+  box-shadow: 0 0 3px rgba(255, 156, 0, 0.5);
+  animation: lcars-np-pulse 1.6s steps(2, end) infinite;
+}
+
+/* steps() instead of ease — LCARS indicators blink, they
+   don't breathe. */
+@keyframes lcars-np-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
+
+/* ============================================================
+   CONTENT HEADER
+   ============================================================ */
+
+[data-theme='lcars'] .content-header {
+  background: #000000;
+  /* The segmented colors are painted on the REAL border via
+     border-image, so the line sits exactly where the app
+     draws its divider — no offset overlay, nothing to align.
+     Left to right: periwinkle run, 4px black gap, 44px orange
+     segment, 4px gap, 48px lilac tail. Hard stops, LCARS
+     style. */
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(to right,
+    #7788FF 0,
+    #7788FF calc(100% - 100px),
+    #000000 calc(100% - 100px),
+    #000000 calc(100% - 96px),
+    #FF7700 calc(100% - 96px),
+    #FF7700 calc(100% - 52px),
+    #000000 calc(100% - 52px),
+    #000000 calc(100% - 48px),
+    #CC99CC calc(100% - 48px),
+    #CC99CC 100%) 1;
+}
+
+[data-theme='lcars'] .content-header .spacer {
+  background: transparent;
+}
+
+
+/* ============================================================
+   MAINSTAGE SHELVES — BRACKET FRAMES
+   Each shelf (New Releases, Because You Listened To, ...) is
+   framed by a pair of LCARS bracket caps: C-shaped salmon
+   ends open toward the content, like the reference frame.
+   Selector candidates cover likely shelf class names — if no
+   brackets appear, the class is something else (Inspect one
+   shelf and report it).
+   ============================================================ */
+
+[data-theme='lcars'] .mainstage-section,
+[data-theme='lcars'] .mainstage-shelf,
+[data-theme='lcars'] .home-section,
+[data-theme='lcars'] .content-section,
+[data-theme='lcars'] .shelf,
+[data-theme='lcars'] .media-shelf {
+  position: relative;
+  padding-left: 26px;
+  padding-right: 26px;
+}
+
+/* Left bracket cap */
+[data-theme='lcars'] .mainstage-section::before,
+[data-theme='lcars'] .mainstage-shelf::before,
+[data-theme='lcars'] .home-section::before,
+[data-theme='lcars'] .content-section::before,
+[data-theme='lcars'] .shelf::before,
+[data-theme='lcars'] .media-shelf::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 16px;
+  border: 4px solid #DD8877;
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  pointer-events: none;
+}
+
+/* Right bracket cap — mirror */
+[data-theme='lcars'] .mainstage-section::after,
+[data-theme='lcars'] .mainstage-shelf::after,
+[data-theme='lcars'] .home-section::after,
+[data-theme='lcars'] .content-section::after,
+[data-theme='lcars'] .shelf::after,
+[data-theme='lcars'] .media-shelf::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 16px;
+  border: 4px solid #DD8877;
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   QUEUE PANEL — DATA READOUT COLUMN
+   The queue is treated as a status display: lilac frame edge,
+   periwinkle data text, peach labels. The now-playing card is
+   a black readout inside a rounded lilac-cornered frame.
+   ============================================================ */
+
+[data-theme='lcars'] .queue-panel {
+  background: #000000;
+  border-left: 4px solid #CC99CC !important;
+  border-bottom: none !important;
+  border-radius: 24px 0 0 0;   /* single elbow corner, top-left */
+}
+
+[data-theme='lcars'] .queue-header {
+  background: #CC99CC;
+  color: #000000;
+  border-bottom: none;
+  border-radius: 20px 0 0 0;
+}
+
+/* Border reset scoped to the named rows only — never a bare
+   descendant `*`, per the earlier review fix. */
+[data-theme='lcars'] .queue-current-track,
+[data-theme='lcars'] .queue-current-track .queue-current-info,
+[data-theme='lcars'] .queue-current-track .queue-current-sub,
+[data-theme='lcars'] .queue-current-track .queue-current-tech {
+  border-bottom: none !important;
+}
+
+[data-theme='lcars'] .queue-current-track {
+  background: #0A0A0A;
+  box-shadow: inset 0 -3px 0 #33220E;
+}
+
+[data-theme='lcars'] .queue-current-info h3 {
+  color: #FF9C00;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+[data-theme='lcars'] .queue-current-sub,
+[data-theme='lcars'] .queue-current-sub.is-link,
+[data-theme='lcars'] .queue-current-sub .is-link {
+  color: #DD8877;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+[data-theme='lcars'] .queue-current-sub.is-link:hover,
+[data-theme='lcars'] .queue-current-sub .is-link:hover {
+  color: #FFCC99;
+  text-decoration: underline;
+}
+
+/* Tech info strip — periwinkle telemetry on black */
+[data-theme='lcars'] .queue-current-tech {
+  background: #000000;
+  color: #9999FF;
+  text-shadow: none;
+  border-top:    2px solid #33220E;
+  border-bottom: 2px solid #33220E;
+}
+
+/* RG / Loudness badge — peach pill, inverts to solid on hover */
+[data-theme='lcars'] .queue-current-tech-rg-badge {
+  color: #FFCC99;
+  border-color: #FFCC99;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+}
+[data-theme='lcars'] .queue-current-tech-rg-badge:hover {
+  color: #000000;
+  border-color: #FFCC99;
+  background: #FFCC99;
+}
+
+/* Queue toolbar — black strip framed by salmon bars */
+[data-theme='lcars'] .queue-toolbar {
+  background: #000000;
+  border-top:    3px solid #DD8877;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+[data-theme='lcars'] .queue-toolbar-sep {
+  background: #664422;
+}
+
+/* Round buttons become true LCARS pills: colored fill, black
+   glyph, no outline ring */
+[data-theme='lcars'] .queue-round-btn {
+  background: #996644;
+  color: #000000;
+  border: none;
+  border-radius: 999px;
+}
+
+[data-theme='lcars'] .queue-round-btn:hover:not(:disabled) {
+  background: #FFCC99;
+  color: #000000;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+[data-theme='lcars'] .queue-round-btn.active {
+  background: #FF9C00;
+  color: #000000;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+[data-theme='lcars'] .queue-round-btn.active svg {
+  filter: none;
+}
+
+
+/* ============================================================
+   PLAYER BAR — TRANSPORT RAIL
+   Bottom strip framed by a thick orange bar (the lower sweep
+   of the panel). Transport controls are flat pills; the play
+   control is the command-orange pill that inverts to salmon
+   while engaged. No gloss, no highlight arcs — flat color.
+   ============================================================ */
+
+[data-theme='lcars'] .player-bar,
+[data-theme='lcars'] .player {
+  background: #000000;
+  border-top: 4px solid #CC6666;   /* mars red rail, matches the
+                                      screenshot's lower sweep */
+}
+
+[data-theme='lcars'] .player-btn-primary {
+  background: #FF9C00;
+  color: #000000;
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+}
+[data-theme='lcars'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='lcars'][data-playing='true'] .player-btn-primary {
+  background: #DD8877;
+  color: #000000;
+  border: none;
+  box-shadow: none;
+}
+[data-theme='lcars'][data-playing='true'] .player-btn-primary svg {
+  filter: none;
+}
+
+[data-theme='lcars'] .player-btn-primary:hover {
+  background: #FFCC99;
+  color: #000000;
+  border: none;
+  box-shadow: none;
+}
+[data-theme='lcars'] .player-btn-primary:hover svg {
+  filter: none;
+}
