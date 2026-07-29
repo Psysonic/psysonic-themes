@@ -4,6 +4,8 @@
 
 The community theme catalogue for **[Psysonic](https://github.com/Psychotoxical/psysonic)**, the cross-platform music player.
 
+📖 **[Read the wiki](https://github.com/Psysonic/psysonic-themes/wiki)** for the full guide — theme anatomy, the complete token reference, the validator's safety floor, local assets, versioning, an FAQ, and a browsable gallery of every theme in the store.
+
 Psysonic ships with six core themes built in; every other palette lives here and
 installs **on demand** from the in-app **Theme Store** — 80-plus and counting.
 They range from faithful recolours of beloved open-source palettes (Catppuccin,
@@ -22,11 +24,14 @@ In Psysonic, open **Settings → Themes → Theme Store**, then search, preview,
 hit **Install**. Installed themes apply instantly and keep working offline. You
 don't need to clone this repo — it's just the source the app reads from.
 
+
 ## How it works
 
 The app reads one auto-generated index, [`registry.json`](registry.json), over
 the [jsDelivr](https://www.jsdelivr.com/) CDN, and pulls each theme's CSS and
-thumbnail on demand. Nothing here is bundled into the app.
+thumbnail on demand. Nothing here is bundled into the app. See the wiki's
+**[Registry & Versioning](https://github.com/Psysonic/psysonic-themes/wiki/Registry-%26-Versioning)**
+page for how the registry is generated and how version bumps propagate to users.
 
 ## Anatomy of a theme
 
@@ -46,11 +51,17 @@ react to app state via same-element attributes on the root, e.g.
 `[data-theme='<id>'][data-playing='true']` (also `data-fullscreen`,
 `data-sidebar-collapsed`, `data-lyrics-open`).
 
+The full field-by-field breakdown of `manifest.json` and every token in
+`allowed-tokens.json` lives on the wiki:
+**[Theme Anatomy](https://github.com/Psysonic/psysonic-themes/wiki/Theme-Anatomy)** ·
+**[Design Tokens](https://github.com/Psysonic/psysonic-themes/wiki/Design-Tokens)**.
+
 The validator (`scripts/validate-theme.mjs`) enforces the **safety floor**, not
 your design: no `@import` and `url()` only as `data:` (themes never touch the
 network), no scripts (`expression()`, `javascript:`), no `<style>` breakout, and
 `@keyframes` names must start with `<id>-` so animations don't collide between
-themes. Quality and taste are handled by review.
+themes. Quality and taste are handled by review. Full details:
+**[Validator & CI](https://github.com/Psysonic/psysonic-themes/wiki/Validator-%26-CI)**.
 
 **Restyle appearance, not behaviour.** Free-form means you *can* override any
 property, but a few carry behaviour rather than looks, and overriding them breaks
@@ -60,7 +71,8 @@ and that scroll container is what the rails' `‹` / `›` arrows drive. Setting
 `overflow: visible` on it — the intuitive fix when a card's shadow looks clipped —
 kills both arrows. Use the `--rail-shadow-room` token (see
 [`allowed-tokens.json`](schema/allowed-tokens.json) → `layout`) to give the shadow
-room instead, and leave `overflow` alone.
+room instead, and leave `overflow` alone. More recurring gotchas like this are
+collected on the wiki's **[FAQ](https://github.com/Psysonic/psysonic-themes/wiki/FAQ)**.
 
 ### Changelog (optional)
 
@@ -82,7 +94,9 @@ section.
 
 Keys must be plain `X.Y.Z` versions matching your released versions (no
 pre-release or build suffixes). Each version lists 1–20 lines of up to 200
-characters, and a manifest may carry up to 50 versions.
+characters, and a manifest may carry up to 50 versions. See
+**[Registry & Versioning](https://github.com/Psysonic/psysonic-themes/wiki/Registry-%26-Versioning)**
+on the wiki for how this feeds the store's update detection.
 
 ### Local assets (optional)
 
@@ -129,7 +143,9 @@ instead of a failed install. Changing any file under `assets/` requires a
 `version` bump, exactly like editing `theme.css`.
 
 To iterate on assets without reinstalling, run the app against your checkout —
-see **[Live preview](#make-a-theme)** above.
+see **[Live preview](#make-a-theme)** above. Full rules:
+**[Local Assets](https://github.com/Psysonic/psysonic-themes/wiki/Local-Assets)**
+on the wiki.
 
 Fonts: convert a TTF/OTF with `npx ttf2woff2 < Font.ttf > assets/display.woff2`
 and apply it to `--font-display` (not `--font-sans`) so the user's font and
@@ -179,13 +195,31 @@ older dev builds load the theme but leave its asset urls unresolved, so the
 images simply don't appear.
 
 See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide — naming,
-description conventions, and the PR checklist.
+description conventions, and the PR checklist — or the wiki's
+**[Making a Theme](https://github.com/Psysonic/psysonic-themes/wiki/Making-a-Theme)**
+page for the same walkthrough with more context.
 
 ## Registry
 
 [`registry.json`](registry.json) is the single index the app reads. It is
 **auto-generated** from the theme manifests — never edit it by hand. A workflow
-regenerates it on every push to `main`; locally, run `npm run registry`.
+regenerates it on every push to `main`; locally, run `npm run registry`. See
+**[Registry & Versioning](https://github.com/Psysonic/psysonic-themes/wiki/Registry-%26-Versioning)**
+on the wiki for the full shape of `registry.json` and how versioning drives updates.
+
+## Wiki
+
+The **[wiki](https://github.com/Psysonic/psysonic-themes/wiki)** is the fuller
+reference for everything above:
+
+- **[Home](https://github.com/Psysonic/psysonic-themes/wiki/Home)** — overview and navigation
+- **[Theme Anatomy](https://github.com/Psysonic/psysonic-themes/wiki/Theme-Anatomy)** — `manifest.json` field by field
+- **[Design Tokens](https://github.com/Psysonic/psysonic-themes/wiki/Design-Tokens)** — every token, state selector, and layout token
+- **[Making a Theme](https://github.com/Psysonic/psysonic-themes/wiki/Making-a-Theme)** — step-by-step build and submission guide
+- **[Validator & CI](https://github.com/Psysonic/psysonic-themes/wiki/Validator-%26-CI)** — exactly what the safety floor checks
+- **[Local Assets](https://github.com/Psysonic/psysonic-themes/wiki/Local-Assets)** — shipping images and fonts
+- **[Registry & Versioning](https://github.com/Psysonic/psysonic-themes/wiki/Registry-%26-Versioning)** — how `registry.json` is generated and how updates propagate
+- **[FAQ](https://github.com/Psysonic/psysonic-themes/wiki/FAQ)** — recurring gotchas and their fixes
 
 ## License
 
