@@ -4,7 +4,7 @@
 
 The community theme catalogue for **[Psysonic](https://github.com/Psychotoxical/psysonic)**, the cross-platform music player.
 
-📖 **[Read the wiki](https://github.com/Psysonic/psysonic-themes/wiki)** for the full guide — theme anatomy, the complete token reference, the validator's safety floor, local assets, versioning, an FAQ, and a browsable gallery of every theme in the store.
+📖 **[Read the wiki](https://github.com/Psysonic/psysonic-themes/wiki)** for the full guide — theme anatomy, the complete token reference, the validator's safety floor, local assets, versioning, an FAQ.
 
 Psysonic ships with six core themes built in; every other palette lives here and
 installs **on demand** from the in-app **Theme Store** — 80-plus and counting.
