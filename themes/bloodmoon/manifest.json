@@ -1,0 +1,15 @@
+{
+  "id": "bloodmoon",
+  "name": "Bloodmoon",
+  "author": "asra",
+  "version": "2.0.0",
+  "minAppVersion": "1.51.0",
+  "description": "A slate-blue and blood-red neumorphic theme capturing a moody, nocturnal wolf aesthetic with subtle celestial elements.",
+  "mode": "dark",
+  "tags": ["neumorphic", "wolf", "dark", "animated"],
+  "changelog": {
+    "2.0.0": [
+      "Theme Released"
+    ]
+  }
+}

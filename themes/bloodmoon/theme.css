@@ -1,0 +1,1215 @@
+/*
+  name: Bloodmoon
+  author: asra
+  version: 2.0.0
+  color-scheme: dark
+  description: A slate-blue and blood-red neumorphic theme capturing a moody, nocturnal wolf aesthetic with subtle celestial elements.
+*/
+
+[data-theme='bloodmoon'] {
+  color-scheme: dark;
+
+  --accent:            #c81e3a;
+  --accent-dim:        rgba(200, 30, 58, 0.15);
+  --accent-glow:       rgba(200, 30, 58, 0.35);
+  --bg-app:            #0a0d14;
+  --bg-card:           #0a0d14;
+  --bg-elevated:       #131826;
+  --border:            rgba(200, 30, 58, 0.09);
+  --text-primary:      #e4eaf2;
+  --text-secondary:    #5c6b80;
+  --text-muted:        #3a4552;
+  --positive:          #c81e3a;
+  --warning:           #d4a94a;
+  --volume-accent:     #c81e3a;
+  --logo-color-start:  #fffdfd;
+  --logo-color-end:    #5c6b80;
+
+  --ctp-base:      #0a0d14;
+  --ctp-mantle:    #060810;
+  --ctp-crust:     #05060a;
+  --ctp-surface0:  #131826;
+  --ctp-surface1:  #1c2230;
+  --ctp-surface2:  #1d2330;
+  --ctp-overlay0:  #2c3648;
+  --ctp-overlay1:  #3d4a60;
+  --ctp-overlay2:  #4e5e78;
+  --ctp-text:      #e4eaf2;
+  --ctp-subtext0:  #5c6b80;
+  --ctp-subtext1:  #8494ac;
+  --ctp-blue:      #c81e3a;
+  --ctp-lavender:  #d4a94a;
+  --ctp-sapphire:  #e4eaf2;
+  --ctp-sky:       #e4eaf2;
+  --ctp-mauve:     #c81e3a;
+  --ctp-green:     #e4eaf2;
+  --ctp-yellow:    #d4a94a;
+  --ctp-red:       #c81e3a;
+  --ctp-pink:      #e4eaf2;
+  --ctp-flamingo:  #e4eaf2;
+  --ctp-peach:     #d4a94a;
+  --ctp-teal:      #5c6b80;
+  --ctp-rosewater: #c81e3a;
+
+  --waveform-played:   #c81e3a;
+  --waveform-buffered: rgba(200, 30, 58, 0.35);
+  --waveform-unplayed: rgba(200, 30, 58, 0.10);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c81e3a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --nm-shadow-sm:  3px 3px 6px #030509, -3px -3px 6px #10141f;
+  --nm-shadow:     6px 6px 12px #030509, -6px -6px 12px #10141f;
+  --nm-shadow-lg:  9px 9px 18px #020308, -9px -9px 18px #161c2a;
+  --nm-inset-sm:   inset 2px 2px 4px #030509, inset -2px -2px 4px #10141f;
+  --nm-inset:      inset 4px 4px 8px #030509, inset -4px -4px 8px #10141f;
+  --nm-inset-lg:   inset 6px 6px 12px #020308, inset -6px -6px 12px #161c2a;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL RESETS
+   Box model + generic pressed-state resets shared by many elements
+═══════════════════════════════════════════════════════════════════ */
+
+/* Consistent box model across the app */
+
+[data-theme='bloodmoon'] div,
+[data-theme='bloodmoon'] button,
+[data-theme='bloodmoon'] input,
+[data-theme='bloodmoon'] a,
+[data-theme='bloodmoon'] span,
+[data-theme='bloodmoon'] section,
+[data-theme='bloodmoon'] main,
+[data-theme='bloodmoon'] aside {
+  box-sizing: border-box;
+}
+
+/* Strip default borders from the main layout panels */
+
+[data-theme='bloodmoon'] .app-shell,
+[data-theme='bloodmoon'] .sidebar,
+[data-theme='bloodmoon'] .player-bar,
+[data-theme='bloodmoon'] .main-content {
+  border: none;
+}
+
+/* Generic pressed-state feedback shared by most button types */
+
+[data-theme='bloodmoon'] button:active,
+[data-theme='bloodmoon'] .btn-primary:active,
+[data-theme='bloodmoon'] .hero-play-btn:active,
+[data-theme='bloodmoon'] .btn-surface:active,
+[data-theme='bloodmoon'] .btn-ghost:active,
+[data-theme='bloodmoon'] .queue-round-btn:active,
+[data-theme='bloodmoon'] .song-list-row-btn:active,
+[data-theme='bloodmoon'] .song-card-action-btn:active,
+[data-theme='bloodmoon'] .album-card-details-btn:active,
+[data-theme='bloodmoon'] .play-btn:active,
+[data-theme='bloodmoon'] .transport-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #060810 !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+/* Track row pressed state */
+
+[data-theme='bloodmoon'] .track-row:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #060810 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AMBIENT GLOW — App Shell & Main Content
+   The blood-moon wash and disc behind the whole app and behind the content pane
+═══════════════════════════════════════════════════════════════════ */
+
+/* Base App Canvas Layers */
+
+[data-theme='bloodmoon'] .app-shell,
+[data-theme='bloodmoon'] #app,
+[data-theme='bloodmoon'] .app-root {
+  background-color: #0a0d14 !important;
+  position: relative;
+  z-index: 0;
+}
+
+/* Ambient blood-red wash behind the whole app, hidden until playback starts */
+
+[data-theme='bloodmoon'] .app-shell::before,
+[data-theme='bloodmoon'] #app::before,
+[data-theme='bloodmoon'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    radial-gradient(ellipse 85% 45% at 50% 100%, rgba(200, 30, 58, 0.24) 0%, transparent 72%),
+    #0a0d14 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  
+  opacity: 0 !important;
+  filter: blur(2px);
+  transition: opacity 1.0s ease, filter 1.0s ease !important;
+}
+
+/* Fade the wash in and start it pulsing once something is playing */
+
+[data-theme='bloodmoon'][data-playing='true'] .app-shell::before,
+[data-theme='bloodmoon'][data-playing='true'] #app::before,
+[data-theme='bloodmoon'][data-playing='true'] .app-root::before,
+[data-theme='bloodmoon'] [data-playing='true'] .app-shell::before,
+[data-theme='bloodmoon'] [data-playing='true'] #app::before,
+[data-theme='bloodmoon'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+  filter: blur(0px) !important;
+}
+
+/* ─── Main Content Window Glow ─── */
+
+[data-theme='bloodmoon'] .main-content {
+  position: relative;
+  z-index: 0;
+}
+
+/* The moon behind the main content window. */
+
+[data-theme='bloodmoon'] .main-content::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    /* Layer 1: Bottom red atmospheric glow */
+    radial-gradient(ellipse 100% 35% at 50% 100%, rgba(200, 30, 58, 0.16) 0%, transparent 65%),
+    
+    /* Layer 2: Bloodmoon graphic (renders in front of stars) */
+    url("assets/bloodmoon.svg") no-repeat 50% 130% / 600px 600px,
+    
+    /* Layer 3: Same star preset, but with staggered Y-positions to break the horizontal line */
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3C!--%20Small%20Distant%20Plus%20Stars%20--%3E%3Cpath%20d%3D%22M30%2040%20v3.5%20m-1.75%20-1.75%20h3.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.7%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.35%22%2F%3E%3Cpath%20d%3D%22M180%20110%20v3.5%20m-1.75%20-1.75%20h3.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.7%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.4%22%2F%3E%3Cpath%20d%3D%22M90%20160%20v3.5%20m-1.75%20-1.75%20h3.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.7%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.3%22%2F%3E%3Cpath%20d%3D%22M210%20210%20v3.5%20m-1.75%20-1.75%20h3.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.7%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.35%22%2F%3E%3C!--%20Prominent%20Closer%20Plus%20Stars%20(Shifted%20Y-positions%20%2B%20Slightly%20Smaller)%20--%3E%3Cpath%20d%3D%22M135%2035%20v6%20m-3%20-3%20h6%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.85%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.6%22%2F%3E%3Cpath%20d%3D%22M50%20185%20v5.5%20m-2.75%20-2.75%20h5.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%220.8%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.5%22%2F%3E%3C%2Fsvg%3E") repeat 0 0 / 240px 240px !important;
+    
+  z-index: -1 !important;
+  pointer-events: none !important;  
+  opacity: 0.2 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+/* Bring the moon glow to full strength while playing */
+[data-theme='bloodmoon'][data-playing='true'] .main-content::before,
+[data-theme='bloodmoon'] [data-playing='true'] .main-content::before {
+  opacity: 1 !important;
+}
+
+[data-theme='bloodmoon'] .app-shell::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999 !important;
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+  background-image:
+    radial-gradient(1.2px 1.2px at 15px 40px, rgba(228, 234, 242, 0.65), transparent 100%),
+    radial-gradient(1.2px 1.2px at 120px 90px, rgba(228, 234, 242, 0.55), transparent 100%),
+    radial-gradient(1.2px 1.2px at 200px 30px, rgba(228, 234, 242, 0.6), transparent 100%),
+    radial-gradient(1.2px 1.2px at 60px 180px, rgba(228, 234, 242, 0.5), transparent 100%),
+    radial-gradient(1.2px 1.2px at 230px 220px, rgba(228, 234, 242, 0.55), transparent 100%),
+    radial-gradient(1.8px 1.8px at 50px 60px, rgba(228, 234, 242, 0.8), transparent 100%),
+    radial-gradient(1.8px 1.8px at 180px 140px, rgba(228, 234, 242, 0.7), transparent 100%),
+    radial-gradient(1.8px 1.8px at 280px 40px, rgba(228, 234, 242, 0.75), transparent 100%),
+    radial-gradient(1.8px 1.8px at 100px 260px, rgba(228, 234, 242, 0.65), transparent 100%),
+    radial-gradient(1.8px 1.8px at 300px 300px, rgba(228, 234, 242, 0.7), transparent 100%),
+    radial-gradient(2.4px 2.4px at 40px 100px, rgba(228, 234, 242, 0.85), transparent 100%),
+    radial-gradient(2.4px 2.4px at 150px 40px, rgba(228, 234, 242, 0.8), transparent 100%),
+    radial-gradient(2.4px 2.4px at 190px 180px, rgba(228, 234, 242, 0.9), transparent 100%);
+  background-size:
+    260px 260px, 260px 260px, 260px 260px, 260px 260px, 260px 260px,
+    340px 340px, 340px 340px, 340px 340px, 340px 340px, 340px 340px,
+    220px 220px, 220px 220px, 220px 220px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WINDOW CONTROLS / TITLEBAR
+   Minimize/maximize/close buttons and their icons
+═══════════════════════════════════════════════════════════════════ */
+
+/* 1. Base dark background */
+[data-theme='bloodmoon'] .titlebar {
+  background: linear-gradient(180deg, #060810 0%, #0a0d14 60%, rgba(200, 30, 58, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+  position: relative !important;
+}
+
+/* 2. Star field localized ONLY around the 2 wolf graphic locations */
+[data-theme='bloodmoon'] .titlebar::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  
+  /* star SVG */
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2215%22%20r%3D%221%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.6%22%2F%3E%3Ccircle%20cx%3D%2235%22%20cy%3D%2255%22%20r%3D%220.8%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.45%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2220%22%20r%3D%221.2%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%220.7%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2285%22%20r%3D%221%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2230%22%20r%3D%220.6%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2290%22%20r%3D%220.9%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.45%22%2F%3E%3Ccircle%20cx%3D%2225%22%20cy%3D%2225%22%20r%3D%220.9%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2240%22%20r%3D%221.1%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%2245%22%20cy%3D%2210%22%20r%3D%220.7%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.35%22%2F%3E%3Ccircle%20cx%3D%2285%22%20cy%3D%2215%22%20r%3D%221%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.55%22%2F%3E%3Ccircle%20cx%3D%2215%22%20cy%3D%2260%22%20r%3D%220.8%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.4%22%2F%3E%3C%2Fsvg%3E") !important;
+  background-repeat: repeat !important;
+  background-size: 70px 65px !important;
+
+  /* Red glow coming from above applied strictly to the stars */
+  filter: drop-shadow(0px -5px 4px rgba(220, 38, 38, 0.85)) !important;
+
+  /* Mask centered directly around wolf 1 (left: 35%) and wolf 2 (right: 30% / left: 70%) */
+  -webkit-mask-image: 
+    radial-gradient(circle at 35% 50%, black 0%, transparent 120px),
+    radial-gradient(circle at calc(100% - 30%) 50%, black 0%, transparent 100px) !important;
+  mask-image: 
+    radial-gradient(circle at 35% 50%, black 0%, transparent 120px),
+    radial-gradient(circle at calc(98% - 29%) 50%, black 0%, transparent 100px) !important;
+}
+
+/* 3. Both wolf images combined into ::after using multiple background layers */
+[data-theme='bloodmoon'] .titlebar::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  
+  background-image: 
+    url("assets/wolfpack.svg"),
+    url("assets/wolfpack2.svg") !important;
+  
+  background-repeat: 
+    no-repeat,
+    no-repeat !important;
+    
+  background-position: 
+    left 35% top 20%,
+    right 30% top 800% !important;
+    
+  background-size: 
+    auto 50px,
+    auto 30px !important;
+
+  filter: 
+    brightness(0) invert(1) opacity(0.65)
+    drop-shadow(0px -6px 5px rgba(189, 35, 35, 0.603)) !important;
+}
+
+/* Titlebar minimize/maximize/close buttons */
+
+[data-theme='bloodmoon'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='bloodmoon'] .window-controls button,
+[data-theme='bloodmoon'] .titlebar-button,
+[data-theme='bloodmoon'] .frame-button {
+  background: #0a0d14 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Icon sizing inside titlebar buttons */
+
+[data-theme='bloodmoon'] .titlebar-btn svg,
+[data-theme='bloodmoon'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Titlebar button hover state */
+
+[data-theme='bloodmoon'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='bloodmoon'] .window-controls button:hover,
+[data-theme='bloodmoon'] .titlebar-button:hover,
+[data-theme='bloodmoon'] .frame-button:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(200, 30, 58, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #131826 !important;
+}
+
+/* Close button turns accent red on hover */
+
+[data-theme='bloodmoon'] .titlebar-btn-close:hover,
+[data-theme='bloodmoon'] .window-controls .close:hover,
+[data-theme='bloodmoon'] button[aria-label='Close']:hover {
+  background: #c81e3a !important;
+  color: #0a0d14 !important;
+  box-shadow: 0 0 14px rgba(200, 30, 58, 0.5) !important;
+}
+
+/* Titlebar button pressed state */
+
+[data-theme='bloodmoon'] .titlebar-btn:active,
+[data-theme='bloodmoon'] .window-controls button:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR
+   Sidebar background, brand/logo, wolf watermark, nav links (incl. collapsed state)
+═══════════════════════════════════════════════════════════════════ */
+
+/* Sidebar background + starfield texture */
+
+[data-theme='bloodmoon'] .sidebar {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2215%22%20r%3D%221%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.5%22%2F%3E%3Ccircle%20cx%3D%2235%22%20cy%3D%2255%22%20r%3D%220.8%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.35%22%2F%3E%3Ccircle%20cx%3D%2260%22%20cy%3D%2220%22%20r%3D%221.2%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.45%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%220.7%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2285%22%20r%3D%221%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%2230%22%20r%3D%220.6%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.3%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2290%22%20r%3D%220.9%22%20fill%3D%22%23e4eaf2%22%20opacity%3D%220.35%22%2F%3E%3C%2Fsvg%3E") repeat 0 0 / 140px 140px,
+    linear-gradient(180deg, #060810 0%, #0a0d14 60%, rgba(200, 30, 58, 0.04) 100%);
+  box-shadow: var(--nm-shadow);
+  position: relative;
+}
+
+/* Hide default sidebar brand logo */
+
+[data-theme='bloodmoon'] .sidebar-brand svg {
+  display: none !important;
+}
+
+/* Reposition/scale the brand area to fit the custom logo mask */
+
+[data-theme='bloodmoon'] .sidebar-brand {
+  position: relative !important;
+  top: 20px !important;
+  width: 225px !important;
+  height: 75px !important;
+  transform: scale(1.7);
+  visibility: visible !important;
+}
+
+/* Custom logo, drawn as a gradient masked by an SVG */
+
+[data-theme='bloodmoon'] .sidebar-brand::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: linear-gradient(to right, var(--logo-color-start), var(--logo-color-end)) !important;
+  -webkit-mask-image: url("assets/logo.svg");
+  mask-image: url("assets/logo.svg");
+  -webkit-mask-size: contain !important;
+  mask-size: contain !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+}
+
+/* Gradient-fill any leftover text fallback for the brand */
+
+[data-theme='bloodmoon'] .sidebar-brand {
+  background-image: linear-gradient(to right, var(--logo-color-start), var(--logo-color-end)) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Second decorative mark layered over the brand */
+
+[data-theme='bloodmoon'] .sidebar-brand::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23000' d='M100 30 L60 60 L40 50 L20 80 L40 120 L30 150 L50 170 L70 160 L90 175 L110 175 L130 160 L150 170 L170 150 L180 120 L160 80 L140 50 L120 60 Z M50 70 L35 100 L55 95 L45 130 L70 140 L100 150 L130 140 L155 130 L145 95 L165 100 L150 70 L120 85 L100 75 Z'/%3E%3C/svg%3E") !important;
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20200%22%3E%3Cpath%20fill%3D%22%23000%22%20fill-rule%3D%22evenodd%22%20d%3D%22M50%2C40%20L75%2C40%20L75%2C160%20L50%2C160%20Z%20M75%2C40%20C75%2C20%2090%2C10%20110%2C10%20C120%2C10%20130%2C15%20135%2C25%20C130%2C28%20125%2C32%20120%2C30%20C135%2C35%20145%2C50%20140%2C65%20C130%2C85%20105%2C90%2075%2C90%20L75%2C65%20C95%2C65%20110%2C60%20112%2C50%20C114%2C40%20100%2C32%2085%2C35%20C80%2C36%2077%2C38%2075%2C40%20Z%20M115%2C18%20L122%2C5%20L126%2C20%20Z%20M105%2C28%20L102%2C34%20L108%2C34%20Z%20M160%2C110%20C160%2C95%20190%2C95%20190%2C80%20C190%2C70%20170%2C70%20160%2C80%20L145%2C68%20C160%2C50%20210%2C50%20210%2C80%20C210%2C100%20175%2C100%20175%2C115%20C175%2C125%20195%2C125%20205%2C115%20L218%2C128%20C200%2C150%20150%2C145%20160%2C110%20Z%20M265%2C20%20h6%20v160%20h-6%20z%20M255%2C40%20h6%20v120%20h-6%20z%20M275%2C30%20h6%20v140%20h-6%20z%20M245%2C60%20h6%20v80%20h-6%20z%20M285%2C50%20h6%20v100%20h-6%20z%20M230%2C65%20L255%2C65%20L270%2C110%20L285%2C65%20L310%2C65%20L275%2C150%20C265%2C175%20240%2C180%20225%2C175%20L230%2C155%20C238%2C158%20250%2C155%20255%2C140%20L230%2C65%20Z%20M330%2C110%20C330%2C95%20360%2C95%20360%2C80%20C360%2C70%20340%2C70%20330%2C80%20L315%2C68%20C330%2C50%20380%2C50%20380%2C80%20C380%2C100%20345%2C100%20345%2C115%20C345%2C125%20365%2C125%20375%2C115%20L388%2C128%20C370%2C150%20320%2C145%20330%2C110%20Z%20M430%2C65%20C455%2C65%20475%2C85%20475%2C110%20C475%2C135%20455%2C155%20430%2C155%20C405%2C155%20385%2C135%20385%2C110%20C385%2C85%20405%2C65%20430%2C65%20Z%20M430%2C85%20C416%2C85%20405%2C96%20405%2C110%20C405%2C124%20416%2C135%20430%2C135%20C444%2C135%20455%2C124%20455%2C110%20C455%2C96%20444%2C85%20430%2C85%20Z%20M423%2C98%20L442%2C110%20L423%2C122%20Z%20M490%2C65%20h22%20v15%20C520%2C65%20540%2C75%20540%2C100%20v50%20h-22%20v-45%20C518%2C92%20510%2C85%20500%2C85%20h-10%20v65%20h-22%20Z%20M555%2C80%20h22%20v70%20h-22%20Z%20M566%2C55%20m-11%2C0%20a11%2C11%200%201%2C0%2022%200%20a11%2C11%200%201%2C0%20-22%200%20M640%2C80%20C630%2C68%20610%2C65%20595%2C80%20C580%2C95%20580%2C125%20595%2C140%20C610%2C152%20630%2C150%20640%2C138%20L655%2C150%20C635%2C170%20595%2C170%20570%2C142%20C550%2C120%20550%2C88%20570%2C65%20C595%2C40%20635%2C40%20655%2C65%20Z%20M620%2C100%20Q660%2C85%20700%2C105%20T780%2C95%20Q720%2C115%20670%2C105%20Z%20M620%2C110%20Q660%2C95%20700%2C115%20T780%2C105%20Q720%2C125%20670%2C115%20Z%20M620%2C120%20Q660%2C105%20700%2C125%20T780%2C115%20Q720%2C135%20670%2C125%20Z%22%2F%3E%3C%2Fsvg%3E") !important;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23000' d='M100 30 L60 60 L40 50 L20 80 L40 120 L30 150 L50 170 L70 160 L90 175 L110 175 L130 160 L150 170 L170 150 L180 120 L160 80 L140 50 L120 60 Z M50 70 L35 100 L55 95 L45 130 L70 140 L100 150 L130 140 L155 130 L145 95 L165 100 L150 70 L120 85 L100 75 Z'/%3E%3C/svg%3E") !important;
+  mask-size: contain !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  -webkit-mask-position: center !important;
+  mask-position: center !important;
+}
+
+/* Logo glows red while something is playing */
+
+[data-theme='bloodmoon'][data-playing='true'] .sidebar-brand::before,
+[data-theme='bloodmoon'] [data-playing='true'] .sidebar-brand::before {
+  background-color: #c81e3a !important;
+  opacity: 0.85 !important;
+  filter: drop-shadow(0 0 12px rgba(200, 30, 58, 0.6)) !important;
+}
+
+/* Low-poly wolf head watermark */
+
+[data-theme='bloodmoon'][data-sidebar-collapsed='false'] .sidebar::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 0px !important;
+  bottom: 0px !important;
+  width: 150px !important;
+  height: 165px !important;
+  background-color: var(--accent) !important;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20fill%3D%22%23000%22%20d%3D%22M100%2C50%20L50%2C20%20L20%2C100%20L50%2C150%20L85%2C180%20L115%2C180%20L150%2C150%20L180%2C100%20L150%2C20%20Z%20M50%2C40%20L35%2C80%20L75%2C55%20Z%20M150%2C40%20L165%2C80%20L125%2C55%20Z%20M100%2C70%20L45%2C100%20L65%2C120%20L55%2C145%20L85%2C160%20L100%2C165%20L115%2C160%20L145%2C145%20L135%2C120%20L155%2C100%20Z%20M60%2C100%20L75%2C105%20L65%2C115%20L50%2C110%20Z%20M140%2C100%20L125%2C105%20L135%2C115%20L150%2C110%20Z%20M88%2C145%20L112%2C145%20L115%2C152%20L100%2C162%20L85%2C152%20Z%22%2F%3E%3C%2Fsvg%3E") !important;
+  mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20fill%3D%22%23000%22%20d%3D%22M100%2C50%20L50%2C20%20L20%2C100%20L50%2C150%20L85%2C180%20L115%2C180%20L150%2C150%20L180%2C100%20L150%2C20%20Z%20M50%2C40%20L35%2C80%20L75%2C55%20Z%20M150%2C40%20L165%2C80%20L125%2C55%20Z%20M100%2C70%20L45%2C100%20L65%2C120%20L55%2C145%20L85%2C160%20L100%2C165%20L115%2C160%20L145%2C145%20L135%2C120%20L155%2C100%20Z%20M60%2C100%20L75%2C105%20L65%2C115%20L50%2C110%20Z%20M140%2C100%20L125%2C105%20L135%2C115%20L150%2C110%20Z%20M88%2C145%20L112%2C145%20L115%2C152%20L100%2C162%20L85%2C152%20Z%22%2F%3E%3C%2Fsvg%3E") !important;
+  -webkit-mask-size: contain !important;
+  mask-size: contain !important;
+  -webkit-mask-repeat: no-repeat !important;
+  mask-repeat: no-repeat !important;
+  opacity: 0.35 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  transition: background-color 0.6s ease, opacity 0.6s ease, filter 0.6s ease !important;
+}
+
+/* Wolf watermark brightens and glows while playing */
+
+[data-theme='bloodmoon'][data-playing='true'] .sidebar::after,
+[data-theme='bloodmoon'] [data-playing='true'] .sidebar::after {
+  background-color: #c81e3a !important;
+  opacity: 0.85 !important;
+  filter: drop-shadow(0 0 16px rgba(200, 30, 58, 0.5)) !important;
+}
+
+/* Lift real sidebar content above the watermark layer */
+
+[data-theme='bloodmoon'] .sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sidebar nav item base style */
+
+[data-theme='bloodmoon'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+}
+
+/* Nav item hover state */
+
+[data-theme='bloodmoon'] .nav-link:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #0a0d14;
+}
+
+/* Active nav item highlight */
+
+[data-theme='bloodmoon'] .nav-link.active,
+[data-theme='bloodmoon'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm);
+  background: #060810;
+  color: var(--accent);
+}
+
+/* Collapsed sidebar: make nav buttons square */
+
+[data-theme='bloodmoon'][data-sidebar-collapsed='true'] .nav-link,
+[data-theme='bloodmoon'] [data-sidebar-collapsed='true'] .nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  margin: 2px 4px !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Active nav item picks up an orange ring when sidebar is icon-only */
+
+[data-theme='bloodmoon'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='bloodmoon'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='bloodmoon'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='bloodmoon'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
+  box-shadow: var(--nm-inset-sm), 0 0 12px rgba(200, 30, 58, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR BUTTONS
+   Collapse toggle and queue-panel resize handle
+═════════════════════════════════════════════════════════════════════ */
+
+/* Sidebar collapse toggle */
+
+[data-theme='bloodmoon'] .collapse-btn {
+  background: #0a0d14 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* Collapse button hover state */
+
+[data-theme='bloodmoon'] .collapse-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(200, 30, 58, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #131826 !important;
+}
+
+/* Collapse button pressed state */
+
+[data-theme='bloodmoon'] .collapse-btn:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #060810 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+/* Queue panel resize handle, styled to match the collapse button (layout/sizing left native — see note) */
+
+[data-theme='bloodmoon'] .resizer-queue-handle {
+  background: #0a0d14 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--nm-inset-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+/* Resize handle hover state */
+
+[data-theme='bloodmoon'] .resizer-queue-handle:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 6px rgba(200, 30, 58, 0.25) !important;
+  color: var(--text-primary) !important;
+  background: #131826 !important;
+}
+
+/* Resize handle pressed state */
+
+[data-theme='bloodmoon'] .resizer-queue-handle:active {
+  box-shadow: var(--nm-inset-sm) !important;
+  background: #060810 !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+   Player bar, its playing-state glow, waveform/seek UI, range slider
+═══════════════════════════════════════════════════════════════════ */
+
+/* Player bar base surface */
+
+[data-theme='bloodmoon'] .player-bar {
+  background: linear-gradient(180deg, #060810 0%, #0a0d14 100%);
+  box-shadow: 0 -8px 24px #020308, 0 -2px 6px #1c2230;
+  transition: box-shadow 0.3s ease;
+}
+
+/* --- data-playing='true' --- */
+
+/* Player bar: base structure and outer glow layout */
+
+[data-theme='bloodmoon'][data-playing='true'] .player-bar,
+[data-theme='bloodmoon'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  background: linear-gradient(180deg, #060810 0%, #0a0d14 100%) !important;
+  box-shadow:
+    0 -1px 24px #020308,
+    0 -0px 3px #1c2230,
+    0 -8px 20px rgba(200, 30, 58, 0.60) !important;
+}
+
+/* The top orange part: Isolated to allow the black vignette overlay */
+
+[data-theme='bloodmoon'][data-playing='true'] .player-bar::before,
+[data-theme='bloodmoon'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5px !important;
+  background: linear-gradient(to top right, rgba(0, 0, 0, 0.75) 20%, transparent 85%), 
+              linear-gradient(#c81e3a, #c81e3a) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* Track name in player: orange + glow */
+
+[data-theme='bloodmoon'][data-playing='true'] .player-track-name,
+[data-theme='bloodmoon'] [data-playing='true'] .player-track-name,
+[data-theme='bloodmoon'][data-playing='true'] .player-bar .track-name,
+[data-theme='bloodmoon'] [data-playing='true'] .player-bar .track-name,
+[data-theme='bloodmoon'][data-playing='true'] .player-bar .track-title,
+[data-theme='bloodmoon'] [data-playing='true'] .player-bar .track-title,
+[data-theme='bloodmoon'][data-playing='true'] .now-playing-title,
+[data-theme='bloodmoon'] [data-playing='true'] .now-playing-title {
+  color: var(--accent) !important;
+  text-shadow: 0 0 12px rgba(200, 30, 58, 0.6) !important;
+}
+
+/* Recessed groove for the waveform and seek bar */
+[data-theme='bloodmoon'] .waveform-container,
+[data-theme='bloodmoon'] .seekbar-trough {
+  box-shadow: var(--nm-inset);
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+/* Allow the waveform framework to maintain its native layout spacing */
+
+[data-theme='bloodmoon'] .player-waveform-wrap,
+[data-theme='bloodmoon'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Style the audio canvas itself without crushing its physical wave data */
+
+[data-theme='bloodmoon'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px #7a1626) 
+          drop-shadow(0 0 1px rgba(200, 30, 58, 0.5)) !important;
+}
+
+/* Reset native range input styling */
+
+[data-theme='bloodmoon'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+/* Volume/seek slider track */
+
+[data-theme='bloodmoon'] input[type='range']::-webkit-slider-runnable-track {
+  background: #8a1428;
+  box-shadow: var(--nm-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+/* Volume/seek slider thumb */
+
+[data-theme='bloodmoon'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2c3648;
+  box-shadow: var(--nm-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+/* Slider thumb hover state */
+
+[data-theme='bloodmoon'] input[type='range']::-webkit-slider-thumb:hover {
+  background: #1c2230;
+  box-shadow: var(--nm-shadow-sm), 0 0 10px rgba(200, 30, 58, 0.4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS
+   Primary/surface/ghost buttons, queue round button, hero play button
+═══════════════════════════════════════════════════════════════════ */
+
+/* Primary / hero play button */
+
+[data-theme='bloodmoon'] .btn-primary,
+[data-theme='bloodmoon'] .hero-play-btn {
+  background: #0a0d14;
+  color: var(--accent);
+  border: 1px solid rgba(200, 30, 58, 0.25);
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow), 0 0 12px rgba(200, 30, 58, 0.07);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+/* Primary/hero button hover state */
+
+[data-theme='bloodmoon'] .btn-primary:hover,
+[data-theme='bloodmoon'] .hero-play-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 22px rgba(200, 30, 58, 0.25);
+  border-color: rgba(200, 30, 58, 0.5);
+}
+
+/* Secondary "surface" button */
+
+[data-theme='bloodmoon'] .btn-surface {
+  background: #0a0d14;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+/* Surface button hover state */
+
+[data-theme='bloodmoon'] .btn-surface:hover {
+  box-shadow: var(--nm-shadow);
+}
+
+/* Ghost/text button */
+
+[data-theme='bloodmoon'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.18s ease, color 0.18s ease;
+}
+
+/* Ghost button hover state */
+
+[data-theme='bloodmoon'] .btn-ghost:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #0a0d14;
+}
+
+/* Round icon button (queue controls) */
+
+[data-theme='bloodmoon'] .queue-round-btn {
+  background: #0a0d14;
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--nm-shadow-sm);
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+/* Round button hover state */
+
+[data-theme='bloodmoon'] .queue-round-btn:hover {
+  color: var(--accent);
+}
+
+/* Round button active/selected state */
+
+[data-theme='bloodmoon'] .queue-round-btn.active,
+[data-theme='bloodmoon'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--nm-inset-sm) !important; 
+  background: #101420 !important;
+  color: var(--accent) !important;
+}
+
+/* Round button active + hover state */
+
+[data-theme='bloodmoon'] .queue-round-btn.active:hover,
+[data-theme='bloodmoon'] .queue-round-btn[data-active='true']:hover {
+  background: var(--accent) !important;
+  color: #0a0d14 !important; 
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+/* Transport play button */
+
+[data-theme='bloodmoon'] .play-btn,
+[data-theme='bloodmoon'] .transport-btn {
+  background: #0a0d14;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nm-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+/* Transport button hover state */
+
+[data-theme='bloodmoon'] .play-btn:hover,
+[data-theme='bloodmoon'] .transport-btn:hover {
+  box-shadow: var(--nm-shadow), 0 0 14px rgba(200, 30, 58, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SONG LIST / TRACK ACTION BUTTONS
+   Per-row play/action icon buttons
+═══════════════════════════════════════════════════════════════════ */
+
+/* Per-row action buttons (play/queue/etc.) */
+
+[data-theme='bloodmoon'] .song-list-row-btn,
+[data-theme='bloodmoon'] .song-list-row-btn--play,
+[data-theme='bloodmoon'] .song-card-action-btn {
+  background: #0a0d14 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--nm-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Row action button hover state */
+
+[data-theme='bloodmoon'] .song-list-row-btn:hover,
+[data-theme='bloodmoon'] .song-list-row-btn--play:hover,
+[data-theme='bloodmoon'] .song-card-action-btn:hover {
+  box-shadow: var(--nm-shadow-sm), 0 0 10px var(--accent-glow) !important;
+}
+
+/* Icon sizing/stroke for row action buttons */
+
+[data-theme='bloodmoon'] .song-list-row-btn svg,
+[data-theme='bloodmoon'] .song-list-row-btn--play svg,
+[data-theme='bloodmoon'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+/* Row action icon hover state */
+
+[data-theme='bloodmoon'] .song-list-row-btn:hover svg,
+[data-theme='bloodmoon'] .song-list-row-btn--play:hover svg,
+[data-theme='bloodmoon'] .song-card-action-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ALBUM GRID & CARDS
+   Album rail layout, cards, cover art, play overlay, badges
+═══════════════════════════════════════════════════════════════════ */
+
+/* Extra padding room so album card shadows aren't clipped — do not remove; see --rail-shadow-room note in the github repo */
+/*only remove if you dont want shadows on the album grid*/
+
+[data-theme='bloodmoon'] {
+  --rail-shadow-room: 18px;
+}
+
+/* Give the first row of album cards in All albums breathing room so top/left shadows aren't clipped by viewport */
+
+[data-theme='bloodmoon'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
+
+/* "..." details button on album cards */
+
+[data-theme='bloodmoon'] .album-card-details-btn {
+  background: #131826 !important;
+  border-radius: 10px !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(200, 30, 58, 0.07) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+/* Details button hover state */
+
+[data-theme='bloodmoon'] .album-card-details-btn:hover {
+  box-shadow: var(--nm-shadow-lg), 0 0 12px rgba(200, 30, 58, 0.18) !important;
+  background: #1c2230 !important;
+}
+
+/* Details button icon */
+
+[data-theme='bloodmoon'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+/* Details button icon hover state */
+
+[data-theme='bloodmoon'] .album-card-details-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* Long-press progress ring */
+
+[data-theme='bloodmoon'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.60 !important;
+}
+
+/* Long-press progress fill */
+
+[data-theme='bloodmoon'] .long-press-wave .long-press-wave__fill {
+  background: rgba(200, 30, 58, 0.18) !important;
+}
+
+/* Long-press play icon */
+
+[data-theme='bloodmoon'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5)) !important;
+}
+
+/* Album card container */
+
+[data-theme='bloodmoon'] .album-card {
+  background: #0a0d14 !important;
+  box-shadow: var(--nm-shadow) !important;
+  border: 1px solid rgba(200, 30, 58, 0.04) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+/* Album cover frame */
+
+[data-theme='bloodmoon'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: #060810 !important;
+  box-shadow: var(--nm-inset), 0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* Cover image + hover play overlay base */
+
+[data-theme='bloodmoon'] .album-card-cover img,
+[data-theme='bloodmoon'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+/* Play overlay appearance */
+
+[data-theme='bloodmoon'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Cover image sizing/fit */
+
+[data-theme='bloodmoon'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+/* Cover image zoom on card hover */
+
+[data-theme='bloodmoon'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+/* "New"/status badges on cards */
+
+[data-theme='bloodmoon'] .album-card [class*="badge"],
+[data-theme='bloodmoon'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 4px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INPUTS
+   Text inputs and focus state
+═══════════════════════════════════════════════════════════════════ */
+
+/* Text inputs */
+
+[data-theme='bloodmoon'] .input,
+[data-theme='bloodmoon'] input[type='text'],
+[data-theme='bloodmoon'] input[type='search'],
+[data-theme='bloodmoon'] input[type='password'],
+[data-theme='bloodmoon'] textarea,
+[data-theme='bloodmoon'] select {
+  background: #0a0d14;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--nm-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+/* Text input focus state */
+
+[data-theme='bloodmoon'] .input:focus,
+[data-theme='bloodmoon'] input:focus,
+[data-theme='bloodmoon'] textarea:focus {
+  box-shadow: var(--nm-inset), 0 0 0 2px rgba(200, 30, 58, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   QUEUE PANEL & TRACK ROWS
+   Queue list, track rows, active-row highlight
+═══════════════════════════════════════════════════════════════════ */
+
+/* Queue panel container */
+
+[data-theme='bloodmoon'] .queue-panel {
+  background: #060810;
+  box-shadow: -8px 0 24px #020308;
+}
+
+/* Queue list item / track row base style */
+
+[data-theme='bloodmoon'] .queue-item,
+[data-theme='bloodmoon'] .track-row {
+  border-radius: 10px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+/* Row hover state */
+
+[data-theme='bloodmoon'] .track-row:hover,
+[data-theme='bloodmoon'] .queue-item:hover {
+  box-shadow: var(--nm-shadow-sm);
+  background: #0a0d14;
+}
+
+/* Active/current row highlight */
+
+[data-theme='bloodmoon'] .queue-item.active,
+[data-theme='bloodmoon'] .track-row.active {
+  box-shadow: var(--nm-inset-sm);
+  background: #0a0d14;
+  color: var(--accent);
+}
+
+/* Active track row in queue: stronger orange highlight */
+
+[data-theme='bloodmoon'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STAR RATINGS
+   Paw-print rating engine (text stars + SVG lucide-star variants) and the starred-icon glow
+═══════════════════════════════════════════════════════════════════ */
+
+/* Starred-track icon: accent color + glow */
+
+[data-theme='bloodmoon'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(200, 30, 58, 0.55));
+}
+
+/* --- 1. Target Text/Button Based Star Ratings (Trackbar) --- */
+
+/* Hide the original text stars ONLY under Bloodmoon */
+
+[data-theme='bloodmoon'] .star-rating .star {
+    color: transparent !important; 
+    position: relative;
+}
+
+/* Inject new rating shape (paw print) ONLY under Bloodmoon */
+
+[data-theme='bloodmoon'] .star-rating .star::before {
+    content: "\1F43E";     
+    color: #c81e3a !important;  
+    font-size: 12px;         
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.18; 
+    filter: brightness(40%) grayscale(1);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Fill shape color transitions ONLY under Bloodmoon */
+
+[data-theme='bloodmoon'] .star-rating .star.filled::before {
+    opacity: 1 !important;
+    filter: brightness(90%) 
+            invert(26%) 
+            sepia(91%) 
+            saturate(4000%) 
+            hue-rotate(350deg) 
+            brightness(90%) 
+            contrast(100%) !important;  
+}
+
+/* --- 2. Target SVG Vector Based Star Ratings (Track Rows, Queue, Inline Containers) --- */
+
+/* Hide vector paths completely on any lucide-star matching target lists or sibling ratings groups */
+
+[data-theme='bloodmoon'] .queue-current-info svg.lucide-star path,
+[data-theme='bloodmoon'] .track-row svg.lucide-star path,
+[data-theme='bloodmoon'] .track-item svg.lucide-star path,
+[data-theme='bloodmoon'] svg.lucide-star:has(~ svg.lucide-star) path,
+[data-theme='bloodmoon'] svg.lucide-star ~ svg.lucide-star path {
+  display: none !important;
+}
+
+/* Base configuration for all target SVG rating clusters to display the custom emoji asset */
+
+[data-theme='bloodmoon'] .queue-current-info svg.lucide-star,
+[data-theme='bloodmoon'] .track-row svg.lucide-star,
+[data-theme='bloodmoon'] .track-item svg.lucide-star,
+[data-theme='bloodmoon'] svg.lucide-star:has(~ svg.lucide-star),
+[data-theme='bloodmoon'] svg.lucide-star ~ svg.lucide-star {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctext y='18' font-size='20'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E") !important;
+  background-size: 12px 12px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  display: inline-block !important;
+  
+  /* Default: Dim/unfilled state */
+  opacity: 0.3 !important;
+  filter: brightness(80%) grayscale(1) !important;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+/* Active State Validation: Correctly ordered token checking to protect the CSS parser engine */
+
+[data-theme='bloodmoon'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='bloodmoon'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='bloodmoon'] .track-item svg.lucide-star:not([fill="none"]),
+[data-theme='bloodmoon'] svg.lucide-star:not([fill="none"]):has(~ svg.lucide-star),
+[data-theme='bloodmoon'] svg.lucide-star ~ svg.lucide-star:not([fill="none"]),
+[data-theme='bloodmoon'] svg.lucide-star[fill*="highlight"] {
+  opacity: 1 !important;
+  filter: brightness(90%) 
+          invert(26%) 
+          sepia(91%) 
+          saturate(4000%) 
+          hue-rotate(350deg) 
+          brightness(90%) 
+          contrast(100%) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════════════════════════ */
+
+/* Scrollbar thumb */
+
+[data-theme='bloodmoon'] ::-webkit-scrollbar-thumb {
+  background: #1c2230;
+  border-radius: 999px;
+  box-shadow: inset 1px 1px 2px #030509;
+}
