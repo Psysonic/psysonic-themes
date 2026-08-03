@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-28T00:54:54.259Z",
+  "generatedAt": "2026-08-03T16:33:26.887Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -87,6 +87,47 @@
       "css": "themes/blade/theme.css",
       "thumbnail": "themes/blade/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "bloodmoon",
+      "name": "Bloodmoon",
+      "author": "asra",
+      "version": "2.0.0",
+      "description": "A slate-blue and blood-red neumorphic theme capturing a moody, nocturnal wolf aesthetic with subtle celestial elements.",
+      "mode": "dark",
+      "tags": [
+        "neumorphic",
+        "wolf",
+        "dark",
+        "animated"
+      ],
+      "minAppVersion": "1.51.0",
+      "changelog": {
+        "2.0.0": [
+          "Theme Released"
+        ]
+      },
+      "assets": [
+        {
+          "path": "themes/bloodmoon/assets/bloodmoon.svg",
+          "bytes": 429946
+        },
+        {
+          "path": "themes/bloodmoon/assets/logo.svg",
+          "bytes": 36818
+        },
+        {
+          "path": "themes/bloodmoon/assets/wolfpack.svg",
+          "bytes": 25784
+        },
+        {
+          "path": "themes/bloodmoon/assets/wolfpack2.svg",
+          "bytes": 10614
+        }
+      ],
+      "css": "themes/bloodmoon/theme.css",
+      "thumbnail": "themes/bloodmoon/thumbnail.webp",
+      "updatedAt": "2026-08-03T18:32:11+02:00"
     },
     {
       "id": "borealis",
@@ -1144,7 +1185,7 @@
       "animated": true,
       "css": "themes/lcars/theme.css",
       "thumbnail": "themes/lcars/thumbnail.webp",
-      "updatedAt": "2026-07-28T02:54:37+02:00"
+      "updatedAt": "2026-07-28T00:54:54Z"
     },
     {
       "id": "london-79",
