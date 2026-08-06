@@ -8,6 +8,10 @@
   "mode": "dark",
   "tags": ["aero", "glass", "frutiger", "glossy", "green"],
   "changelog": {
-    "1.0.0": "Initial release featuring Frutiger Aero theme styling, custom sidebar PsySonic logo, and static bubble accents."
+    "1.0.0": [
+      "Initial release featuring Frutiger Aero theme styling",
+      "Custom sidebar PsySonic logo branding",
+      "Static bubble overlay accents"
+    ]
   }
 }
