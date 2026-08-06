@@ -1,0 +1,995 @@
+/*
+  name: Fruitger Aero
+  author: asra
+  version: 1.0.0
+  color-scheme: light
+  description: A glossy, glassy Frutiger Aero theme — chrome bubbles, translucent panels and the classic a backdrop.
+*/
+
+[data-theme='fruitger-aero'] {
+  color-scheme: light;
+
+  --accent:            #1fb6c9;
+  --accent-dim:        rgba(31, 182, 201, 0.15);
+  --accent-glow:       rgba(31, 182, 201, 0.40);
+  --bg-app:            #0f3b42;
+  --bg-card:           rgba(255, 255, 255, 0.14);
+  --bg-elevated:       rgba(255, 255, 255, 0.22);
+  --border:            rgba(255, 255, 255, 0.38);
+  --text-primary:      #f4fdfd;
+  --text-secondary:    rgba(244, 253, 253, 0.75);
+  --text-muted:        rgba(244, 253, 253, 0.48);
+  --positive:          #8bd346;
+  --warning:           #f6e358;
+  --volume-accent:     #1fb6c9;
+  --logo-color-start:  #ffffff;
+  --logo-color-end:    #6be2c9;
+
+  --ctp-base:      rgba(255, 255, 255, 0.14);
+  --ctp-mantle:    rgba(255, 255, 255, 0.09);
+  --ctp-crust:     rgba(6, 30, 34, 0.55);
+  --ctp-surface0:  rgba(255, 255, 255, 0.20);
+  --ctp-surface1:  rgba(255, 255, 255, 0.28);
+  --ctp-surface2:  rgba(255, 255, 255, 0.34);
+  --ctp-overlay0:  rgba(255, 255, 255, 0.45);
+  --ctp-overlay1:  rgba(255, 255, 255, 0.58);
+  --ctp-overlay2:  rgba(255, 255, 255, 0.70);
+  --ctp-text:      #f4fdfd;
+  --ctp-subtext0:  rgba(244, 253, 253, 0.75);
+  --ctp-subtext1:  rgba(244, 253, 253, 0.88);
+  --ctp-blue:      #1fb6c9;
+  --ctp-lavender:  #6be2c9;
+  --ctp-sapphire:  #2f8fe0;
+  --ctp-sky:       #6bd6f2;
+  --ctp-mauve:     #8bd346;
+  --ctp-green:     #8bd346;
+  --ctp-yellow:    #f6e358;
+  --ctp-red:       #f27878;
+  --ctp-pink:      #f4fdfd;
+  --ctp-flamingo:  #f4fdfd;
+  --ctp-peach:     #f6e358;
+  --ctp-teal:      #1fb6c9;
+  --ctp-rosewater: #f4fdfd;
+
+  --waveform-played:   #eafcff;
+  --waveform-buffered: rgba(234, 252, 255, 0.45);
+  --waveform-unplayed: rgba(234, 252, 255, 0.20);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231fb6c9' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --glass-shadow-sm:  0 1px 2px rgba(4, 16, 19, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --glass-shadow:     0 3px 8px rgba(4, 16, 19, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.90);
+  --glass-shadow-lg:  0 6px 18px rgba(4, 16, 19, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --glass-inset-sm:   0 1px 2px rgba(4, 16, 19, 0.45);
+  --glass-inset:      0 2px 4px rgba(4, 16, 19, 0.45);
+  --glass-inset-lg:   0 3px 6px rgba(4, 16, 19, 0.50);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL RESETS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] div,
+[data-theme='fruitger-aero'] button,
+[data-theme='fruitger-aero'] input,
+[data-theme='fruitger-aero'] a,
+[data-theme='fruitger-aero'] span,
+[data-theme='fruitger-aero'] section,
+[data-theme='fruitger-aero'] main,
+[data-theme='fruitger-aero'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='fruitger-aero'] .app-shell,
+[data-theme='fruitger-aero'] .sidebar,
+[data-theme='fruitger-aero'] .player-bar,
+[data-theme='fruitger-aero'] .main-content {
+  border: none;
+}
+
+[data-theme='fruitger-aero'] button:active,
+[data-theme='fruitger-aero'] .btn-primary:active,
+[data-theme='fruitger-aero'] .hero-play-btn:active,
+[data-theme='fruitger-aero'] .btn-surface:active,
+[data-theme='fruitger-aero'] .btn-ghost:active,
+[data-theme='fruitger-aero'] .queue-round-btn:active,
+[data-theme='fruitger-aero'] .song-list-row-btn:active,
+[data-theme='fruitger-aero'] .song-card-action-btn:active,
+[data-theme='fruitger-aero'] .album-card-details-btn:active,
+[data-theme='fruitger-aero'] .play-btn:active,
+[data-theme='fruitger-aero'] .transport-btn:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: rgba(255, 255, 255, 0.30) !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='fruitger-aero'] .track-row:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: rgba(255, 255, 255, 0.20) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AURORA BACKGROUND — App Shell & Main Content
+   Static aurora backdrop behind the whole app; glass wash over the content pane
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .app-shell,
+[data-theme='fruitger-aero'] #app,
+[data-theme='fruitger-aero'] .app-root {
+  background-color: var(--bg-app) !important;
+  background-image:
+    linear-gradient(rgba(3, 14, 17, 0.55), rgba(3, 14, 17, 0.55)),
+    url("assets/aurora-bg.webp") !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-attachment: fixed, fixed !important;
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='fruitger-aero'] .app-shell::before,
+[data-theme='fruitger-aero'] #app::before,
+[data-theme='fruitger-aero'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(31, 182, 201, 0.22) 0%, transparent 72%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+
+  opacity: 0 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .app-shell::before,
+[data-theme='fruitger-aero'][data-playing='true'] #app::before,
+[data-theme='fruitger-aero'][data-playing='true'] .app-root::before,
+[data-theme='fruitger-aero'] [data-playing='true'] .app-shell::before,
+[data-theme='fruitger-aero'] [data-playing='true'] #app::before,
+[data-theme='fruitger-aero'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+}
+
+/* ─── Main Content Glass Pane ─── */
+
+[data-theme='fruitger-aero'] .main-content {
+  position: relative;
+  z-index: 0;
+  background: rgba(255, 255, 255, 0.07) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+  backdrop-filter: blur(18px) saturate(140%) !important;
+}
+
+/* Static bokeh highlight scatter, echoes the bright streak in the aurora image */
+
+[data-theme='fruitger-aero'] .app-shell::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999 !important;
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+  background-image:
+    radial-gradient(60px 60px at 12% 82%, rgba(255, 255, 255, 0.10), transparent 100%),
+    radial-gradient(90px 90px at 78% 88%, rgba(255, 255, 255, 0.08), transparent 100%),
+    radial-gradient(40px 40px at 55% 92%, rgba(255, 255, 255, 0.12), transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WINDOW CONTROLS / TITLEBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .titlebar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 60%, rgba(31, 182, 201, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  backdrop-filter: blur(14px) !important;
+  box-shadow: var(--glass-shadow-sm);
+  position: relative !important;
+}
+
+[data-theme='fruitger-aero'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='fruitger-aero'] .window-controls button,
+[data-theme='fruitger-aero'] .titlebar-button,
+[data-theme='fruitger-aero'] .frame-button {
+  background: rgba(255, 255, 255, 0.28) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='fruitger-aero'] .titlebar-btn svg,
+[data-theme='fruitger-aero'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='fruitger-aero'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='fruitger-aero'] .window-controls button:hover,
+[data-theme='fruitger-aero'] .titlebar-button:hover,
+[data-theme='fruitger-aero'] .frame-button:hover {
+  box-shadow: var(--glass-shadow-sm), 0 0 8px var(--accent-glow) !important;
+  color: var(--text-primary) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+}
+
+[data-theme='fruitger-aero'] .titlebar-btn-close:hover,
+[data-theme='fruitger-aero'] .window-controls .close:hover,
+[data-theme='fruitger-aero'] button[aria-label='Close']:hover {
+  background: #f27878 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 14px rgba(242, 120, 120, 0.55) !important;
+}
+
+[data-theme='fruitger-aero'] .titlebar-btn:active,
+[data-theme='fruitger-aero'] .window-controls button:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .sidebar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  box-shadow: var(--glass-shadow);
+  position: relative;
+}
+
+[data-theme='fruitger-aero'] .sidebar-brand {
+  background-image: linear-gradient(to right, var(--logo-color-start), var(--logo-color-end)) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 1px rgba(6, 30, 34, 0.25));
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .sidebar-brand,
+[data-theme='fruitger-aero'] [data-playing='true'] .sidebar-brand {
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+[data-theme='fruitger-aero'] .sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='fruitger-aero'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease, background 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+  color: var(--text-secondary);
+}
+
+[data-theme='fruitger-aero'] .nav-link:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--text-primary);
+}
+
+[data-theme='fruitger-aero'] .nav-link.active,
+[data-theme='fruitger-aero'] .nav-link[aria-current] {
+  box-shadow: var(--glass-inset-sm);
+  background: rgba(31, 182, 201, 0.22);
+  color: var(--text-primary);
+}
+
+[data-theme='fruitger-aero'][data-sidebar-collapsed='true'] .nav-link,
+[data-theme='fruitger-aero'] [data-sidebar-collapsed='true'] .nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  margin: 2px 4px !important;
+  padding: 0 !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='fruitger-aero'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='fruitger-aero'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='fruitger-aero'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='fruitger-aero'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
+  box-shadow: var(--glass-inset-sm), 0 0 12px var(--accent-glow) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR BRAND / CUSTOM LOGO
+═══════════════════════════════════════════════════════════════════ */
+
+/* 1. Reset container filters, text clips, and shadows */
+[data-theme='fruitger-aero'] .sidebar-brand,
+[data-theme='fruitger-aero'][data-playing='true'] .sidebar-brand,
+[data-theme='fruitger-aero'] [data-playing='true'] .sidebar-brand {
+  position: relative !important;
+  width: 100% !important;
+  height: 82px !important;
+  background: transparent !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  filter: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* 2. Suppress default HTML child elements inside sidebar-brand */
+[data-theme='fruitger-aero'] .sidebar-brand * {
+  display: none !important;
+}
+
+/* 3. Render WebP logo with smooth 0.65px blur + pop adjustments */
+[data-theme='fruitger-aero'] .sidebar-brand::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background-image: url("assets/fruitger-psysonic.webp") !important;
+  background-size: auto 90% !important;
+  background-position: calc(50% + 10px) center !important;
+  background-repeat: no-repeat !important;
+  filter: blur(0.65px) brightness(1.18) saturate(1.25) drop-shadow(0 2px 10px rgba(255, 255, 255, 0.3)) !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+/* 4. Base64 Vector Glass Bubbles Layer (Guaranteed 100% Round) */
+[data-theme='fruitger-aero'] .sidebar-brand::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: -6px -10px !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMjAgMTAwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSIzNSUiIGN5PSIzMCUiIHI9IjYwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iIzhmZjBmYSIgc3RvcC1vcGFjaXR5PSIwLjUiLz48c3RvcCBvZmZzZXQ9Ijg1JSIgc3RvcC1jb2xvcj0iIzFmYjZjOSIgc3RvcC1vcGFjaXR5PSIwLjMiLz48c3RvcCBvZmZzZXQ9Ijk4JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxnPjxjaXJjbGUgY3g9IjIyIiBjeT0iMjIiIHI9IjgiIGZpbGw9InVybCgjZykiLz48Y2lyY2xlIGN4PSIxOS41IiBjeT0iMTkuNSIgcj0iMiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC45NSIvPjxjaXJjbGUgY3g9IjE5MiIgY3k9IjE4IiByPSIxMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4OC41IiBjeT0iMTQuNSIgcj0iMi44IiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjk1Ii8+PGNpcmNsZSBjeD0iMzYiIGN5PSI3MiIgcj0iNSIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjM0LjUiIGN5PSI3MC41IiByPSIxLjIiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOTUiLz48Y2lyY2xlIGN4PSIxNzQiIGN5PSI3MCIgcj0iMTIiIGZpbGw9InVybCgjZykiLz48Y2lyY2xlIGN4PSIxNzAiIGN5PSI2NiIgcj0iMy4yIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIwLjk1Ii8+PGNpcmNsZSBjeD0iMjA4IiBjeT0iNDQiIHI9IjQiIGZpbGw9InVybCgjZykiLz48Y2lyY2xlIGN4PSIyMDYuNSIgY3k9IjQyLjUiIHI9IjEiIGZpbGw9IiNmZmZmZmYiIG9wYWNpdHk9IjAuOTUiLz48L2c+PC9zdmc+") !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: drop-shadow(0 0 4px rgba(31, 182, 201, 0.5)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .sidebar-brand,
+[data-theme='fruitger-aero'][data-playing='true'] .sidebar-brand,
+[data-theme='fruitger-aero'] [data-playing='true'] .sidebar-brand {
+  position: relative !important;
+  width: 100% !important;
+  height: 82px !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+[data-theme='fruitger-aero'] .sidebar-brand * {
+  display: none !important;
+}
+
+[data-theme='fruitger-aero'] .sidebar-brand::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background: transparent url("assets/fruitger-psysonic.webp") no-repeat calc(50% + 10px) center / auto 90% !important;
+  filter: blur(0.65px) brightness(1.18) saturate(1.25) drop-shadow(0 2px 10px rgba(255, 255, 255, 0.3)) !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+[data-theme='fruitger-aero'] .sidebar-brand::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  opacity: 0.85 !important;
+  background-image: 
+    url("assets/bubble.webp"),
+    url("assets/bubble.webp"),
+    url("assets/bubble.webp"),
+    url("assets/bubble.webp"),
+    url("assets/bubble.webp") !important;
+  background-position: 
+    15px 10px,
+    calc(100% - 20px) 8px,
+    30px 52px,
+    calc(100% - 30px) 46px,
+    calc(100% - 5px) 28px !important;
+  background-size: 
+    18px 18px,
+    24px 24px,
+    14px 14px,
+    22px 22px,
+    12px 12px !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .player-bar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  box-shadow: 0 -8px 24px rgba(6, 30, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .player-bar,
+[data-theme='fruitger-aero'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  box-shadow:
+    0 -1px 24px rgba(6, 30, 34, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 -8px 22px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .player-bar::before,
+[data-theme='fruitger-aero'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, var(--accent), var(--positive)) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .player-track-name,
+[data-theme='fruitger-aero'] [data-playing='true'] .player-track-name,
+[data-theme='fruitger-aero'][data-playing='true'] .player-bar .track-name,
+[data-theme='fruitger-aero'] [data-playing='true'] .player-bar .track-name,
+[data-theme='fruitger-aero'][data-playing='true'] .player-bar .track-title,
+[data-theme='fruitger-aero'] [data-playing='true'] .player-bar .track-title,
+[data-theme='fruitger-aero'][data-playing='true'] .now-playing-title,
+[data-theme='fruitger-aero'] [data-playing='true'] .now-playing-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'] .waveform-container,
+[data-theme='fruitger-aero'] .seekbar-trough {
+  background: rgba(3, 14, 17, 0.55);
+  box-shadow: var(--glass-inset-sm), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+[data-theme='fruitger-aero'] .player-waveform-wrap,
+[data-theme='fruitger-aero'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+[data-theme='fruitger-aero'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px rgba(3, 14, 17, 0.9))
+          drop-shadow(0 0 3px var(--accent-glow)) !important;
+}
+
+[data-theme='fruitger-aero'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='fruitger-aero'] input[type='range']::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: var(--glass-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='fruitger-aero'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, var(--accent) 75%);
+  box-shadow: var(--glass-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='fruitger-aero'] input[type='range']::-webkit-slider-thumb:hover {
+  box-shadow: var(--glass-shadow-sm), 0 0 10px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS
+   Classic Aero "gel bubble": light glossy fill + bright top sheen
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .btn-primary,
+[data-theme='fruitger-aero'] .hero-play-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(31, 182, 201, 0.35) 100%);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 14px;
+  box-shadow: var(--glass-shadow), 0 0 14px var(--accent-glow);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='fruitger-aero'] .btn-primary:hover,
+[data-theme='fruitger-aero'] .hero-play-btn:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 24px var(--accent-glow);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+[data-theme='fruitger-aero'] .btn-surface {
+  background: rgba(255, 255, 255, 0.20);
+  border: none;
+  border-radius: 14px;
+  box-shadow: var(--glass-shadow-sm);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='fruitger-aero'] .btn-surface:hover {
+  box-shadow: var(--glass-shadow);
+}
+
+[data-theme='fruitger-aero'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  transition: box-shadow 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+
+[data-theme='fruitger-aero'] .btn-ghost:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--glass-shadow-sm);
+  color: var(--text-primary);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn:hover {
+  color: var(--accent);
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn.active,
+[data-theme='fruitger-aero'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: rgba(31, 182, 201, 0.30) !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn.active:hover,
+[data-theme='fruitger-aero'] .queue-round-btn[data-active='true']:hover {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'] .play-btn,
+[data-theme='fruitger-aero'] .transport-btn,
+[data-theme='fruitger-aero'] .player-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.15) 100%);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--glass-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease;
+}
+
+[data-theme='fruitger-aero'] .play-btn:hover,
+[data-theme='fruitger-aero'] .transport-btn:hover,
+[data-theme='fruitger-aero'] .player-btn:hover {
+  box-shadow: var(--glass-shadow), 0 0 16px var(--accent-glow);
+}
+
+[data-theme='fruitger-aero'] .player-btn-primary {
+  position: relative !important;
+  background:
+    radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.55) 8%, rgba(255, 255, 255, 0) 26%),
+    radial-gradient(circle at 66% 74%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 10%),
+    radial-gradient(circle at 50% 42%, #8ff0fa 0%, #2fc3dd 32%, #1487a8 60%, #0a3f52 84%, #062631 100%) !important;
+  color: #f4fdfd !important;
+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.55),
+    inset 0 -8px 12px rgba(3, 18, 22, 0.55),
+    0 4px 10px rgba(3, 14, 17, 0.55),
+    0 0 16px var(--accent-glow) !important;
+  overflow: hidden !important;
+  transition: box-shadow 0.18s ease, transform 0.1s ease !important;
+}
+
+/* Wireframe globe grid */
+[data-theme='fruitger-aero'] .player-btn-primary::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.85' stroke-width='3.2'%3E%3Cellipse cx='50' cy='50' rx='40' ry='48'/%3E%3Cellipse cx='50' cy='50' rx='24' ry='48'/%3E%3Cellipse cx='50' cy='50' rx='8' ry='48'/%3E%3Cellipse cx='50' cy='50' rx='48' ry='40'/%3E%3Cellipse cx='50' cy='50' rx='48' ry='24'/%3E%3Cellipse cx='50' cy='50' rx='48' ry='8'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  mix-blend-mode: overlay !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+}
+
+[data-theme='fruitger-aero'] .player-btn-primary::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 50% !important;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.10) 22%, rgba(255, 255, 255, 0) 40%) !important;
+  pointer-events: none !important;
+}
+
+[data-theme='fruitger-aero'] .player-btn-primary svg {
+  position: relative !important;
+  z-index: 1 !important;
+  color: #f4fdfd !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 1px 2px rgba(3, 14, 17, 0.6)) !important;
+}
+
+[data-theme='fruitger-aero'] .player-btn-primary:hover {
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.65),
+    inset 0 -8px 12px rgba(3, 18, 22, 0.55),
+    0 6px 14px rgba(3, 14, 17, 0.55),
+    0 0 26px var(--accent-glow) !important;
+  transform: scale(1.03) !important;
+}
+
+[data-theme='fruitger-aero'] .player-btn-primary:active {
+  box-shadow:
+    inset 0 3px 6px rgba(3, 18, 22, 0.55),
+    0 2px 6px rgba(3, 14, 17, 0.55),
+    0 0 10px var(--accent-glow) !important;
+  transform: scale(0.95) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SONG LIST / TRACK ACTION BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .song-list-row-btn,
+[data-theme='fruitger-aero'] .song-list-row-btn--play,
+[data-theme='fruitger-aero'] .song-card-action-btn {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='fruitger-aero'] .song-list-row-btn:hover,
+[data-theme='fruitger-aero'] .song-list-row-btn--play:hover,
+[data-theme='fruitger-aero'] .song-card-action-btn:hover {
+  box-shadow: var(--glass-shadow-sm), 0 0 10px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'] .song-list-row-btn svg,
+[data-theme='fruitger-aero'] .song-list-row-btn--play svg,
+[data-theme='fruitger-aero'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='fruitger-aero'] .song-list-row-btn:hover svg,
+[data-theme='fruitger-aero'] .song-list-row-btn--play:hover svg,
+[data-theme='fruitger-aero'] .song-card-action-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIBRARY SCOPE DROPDOWN (context menu)
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-panel {
+  background: rgba(3, 20, 24, 0.62) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--glass-shadow-lg) !important;
+  color: var(--text-primary) !important;
+  overflow: hidden !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-server-group-heading {
+  color: var(--text-muted) !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-item-main {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-item--selected {
+  background: rgba(31, 182, 201, 0.18) !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-item--selected .nav-library-dropdown-item-main {
+  color: var(--text-primary) !important;
+}
+
+[data-theme='fruitger-aero'] .nav-library-dropdown-item-toggle--on {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ALBUM GRID & CARDS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] {
+  --rail-shadow-room: 18px;
+}
+
+[data-theme='fruitger-aero'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-details-btn {
+  background: rgba(255, 255, 255, 0.28) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--glass-shadow) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-details-btn:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 12px var(--accent-glow) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-details-btn svg {
+  color: var(--text-secondary) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-details-btn:hover svg {
+  color: var(--accent) !important;
+}
+
+[data-theme='fruitger-aero'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.60 !important;
+}
+
+[data-theme='fruitger-aero'] .long-press-wave .long-press-wave__fill {
+  background: rgba(31, 182, 201, 0.22) !important;
+}
+
+[data-theme='fruitger-aero'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(6, 30, 34, 0.5)) !important;
+}
+
+[data-theme='fruitger-aero'] .album-card {
+  background: rgba(255, 255, 255, 0.14) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: var(--glass-shadow) !important;
+  border: 1px solid rgba(255, 255, 255, 0.30) !important;
+  border-radius: 18px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: var(--glass-inset), 0 0 0 1px rgba(255, 255, 255, 0.35) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-cover img,
+[data-theme='fruitger-aero'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='fruitger-aero'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(6, 30, 34, 0.4) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='fruitger-aero'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='fruitger-aero'] .album-card [class*="badge"],
+[data-theme='fruitger-aero'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 999px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  background: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INPUTS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .input,
+[data-theme='fruitger-aero'] input[type='text'],
+[data-theme='fruitger-aero'] input[type='search'],
+[data-theme='fruitger-aero'] input[type='password'],
+[data-theme='fruitger-aero'] textarea,
+[data-theme='fruitger-aero'] select {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 14px;
+  box-shadow: var(--glass-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='fruitger-aero'] .input:focus,
+[data-theme='fruitger-aero'] input:focus,
+[data-theme='fruitger-aero'] textarea:focus {
+  box-shadow: var(--glass-inset), 0 0 0 2px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   QUEUE PANEL & TRACK ROWS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .queue-panel {
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: -8px 0 24px rgba(6, 30, 34, 0.25);
+}
+
+[data-theme='fruitger-aero'] .queue-item,
+[data-theme='fruitger-aero'] .track-row {
+  border-radius: 12px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='fruitger-aero'] .track-row:hover,
+[data-theme='fruitger-aero'] .queue-item:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme='fruitger-aero'] .queue-item.active,
+[data-theme='fruitger-aero'] .track-row.active {
+  box-shadow: var(--glass-inset-sm);
+  background: rgba(31, 182, 201, 0.20);
+  color: var(--text-primary);
+}
+
+[data-theme='fruitger-aero'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STAR RATINGS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+[data-theme='fruitger-aero'] .star-rating .star {
+  color: rgba(255, 255, 255, 0.30) !important;
+  transition: color 0.2s ease, filter 0.2s ease;
+}
+
+[data-theme='fruitger-aero'] .star-rating .star.filled {
+  color: var(--accent) !important;
+  filter: drop-shadow(0 0 4px var(--accent-glow));
+}
+
+[data-theme='fruitger-aero'] .queue-current-info svg.lucide-star,
+[data-theme='fruitger-aero'] .track-row svg.lucide-star,
+[data-theme='fruitger-aero'] .track-item svg.lucide-star {
+  color: rgba(255, 255, 255, 0.30) !important;
+  transition: color 0.2s ease, filter 0.2s ease !important;
+}
+
+[data-theme='fruitger-aero'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='fruitger-aero'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='fruitger-aero'] .track-item svg.lucide-star:not([fill="none"]) {
+  color: var(--accent) !important;
+  fill: var(--accent) !important;
+  filter: drop-shadow(0 0 4px var(--accent-glow)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='fruitger-aero'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(31, 182, 201, 0.35));
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(6, 30, 34, 0.3);
+}
