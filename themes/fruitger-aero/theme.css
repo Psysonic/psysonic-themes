@@ -139,7 +139,6 @@
     radial-gradient(ellipse 80% 40% at 50% 100%, rgba(31, 182, 201, 0.22) 0%, transparent 72%) !important;
   z-index: -1 !important;
   pointer-events: none !important;
-
   opacity: 0 !important;
   transition: opacity 1.0s ease !important;
 }
@@ -675,7 +674,7 @@
   position: relative !important;
   z-index: 1 !important;
   color: #f4fdfd !important;
-  fill: currentColor !important;
+  fill: currentcolor !important;
   filter: drop-shadow(0 1px 2px rgba(3, 14, 17, 0.6)) !important;
 }
 
@@ -821,7 +820,7 @@
 
 [data-theme='fruitger-aero'] .long-press-play-btn__icon svg {
   color: var(--accent) !important;
-  fill: currentColor !important;
+  fill: currentcolor !important;
   filter: drop-shadow(0 2px 4px rgba(6, 30, 34, 0.5)) !important;
 }
 
