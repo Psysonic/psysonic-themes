@@ -7,7 +7,7 @@
   "description": "A vibrant glossy theme inspired by the mid-2000s Frutiger Aero aesthetic, featuring aquatic aqua greens, glowing accents, glass UI elements, and custom bubble logo details.",
   "mode": "dark",
   "tags": ["aero", "glass", "frutiger", "glossy", "green"],
-"changelog": {
+  "changelog": {
     "1.0.0": [
       "Initial release featuring Frutiger Aero theme styling",
       "Custom sidebar PsySonic logo branding",
