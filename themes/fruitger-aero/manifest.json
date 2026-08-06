@@ -1,0 +1,17 @@
+{
+  "id": "fruitger-aero",
+  "name": "Frutiger Aero",
+  "author": "ImAsra",
+  "version": "1.0.0",
+  "minAppVersion": "1.51.0",
+  "description": "A vibrant glossy theme inspired by the mid-2000s Frutiger Aero aesthetic and Windows vista, featuring aquatic aqua greens, glowing accents, glass UI elements, and custom bubble logo details.",
+  "mode": "dark",
+  "tags": ["aero", "glass", "frutiger", "glossy", "green"],
+  "changelog": {
+    "1.0.0": [
+      "Initial release featuring Frutiger Aero theme styling",
+      "Custom sidebar PsySonic logo branding",
+      "Static bubble overlay accents"
+    ]
+  }
+}
