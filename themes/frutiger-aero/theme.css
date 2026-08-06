@@ -139,7 +139,6 @@
     radial-gradient(ellipse 80% 40% at 50% 100%, rgba(31, 182, 201, 0.22) 0%, transparent 72%) !important;
   z-index: -1 !important;
   pointer-events: none !important;
-
   opacity: 0 !important;
   transition: opacity 1.0s ease !important;
 }
