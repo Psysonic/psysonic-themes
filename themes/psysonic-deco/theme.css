@@ -1,0 +1,1104 @@
+/* ============================================================
+   Psysonic Deco — a 1940s jazz-supper-club art deco theme.
+
+   Design language:
+   - Onyx-black lacquer faceplate (#0A0812) — near-black with a
+     faint indigo undertone, like the felt lining of a jewel case
+   - The four suits from a deck of cards anchor the whole palette,
+     each one a real jewel rather than a flat color:
+       ♥ Hearts   → Ruby      (#C41E4A) — the PRIMARY accent and
+         "live" signal color: playing state, row hover, focus
+         rings, search glow, and the favorite heart itself. NOT
+         the connection LED (that's the olive icon now) and NOT
+         the sidebar selection — the currently-selected nav row
+         is a spotlight instead (see below), warm white-gold
+         rather than any single jewel.
+       ♦ Diamonds → Sapphire  (#2C5FCE) — demoted to a secondary/
+         supporting jewel. It still IS the diamond suit wherever
+         the suits are drawn literally (the header emblem, the
+         now-playing card's corner pip), and it still appears in
+         a couple of two-jewel decorative combos (the context-menu
+         double-ring, the album-art jewel ring), but it's no
+         longer the reserved "live" color anywhere.
+       ♣ Clubs    → Emerald   (#16915F) — a supporting jewel: the
+         buffered-waveform segment, the context-menu hover cycle
+       ♠ Spades   → Chrome    (#AEB4BC) — the structural metal:
+         borders, scrollbars, dividers, badges
+     Topaz (#C9791E) rounds things out as the lone warning color.
+   - Gold (#C9A227) is ARCHITECTURAL TRIM ONLY: a thin double line
+     with a small diamond medallion at its center, run along the
+     top edge of every major panel — pulled directly from the
+     art-deco line-divider reference (nested diamonds, thin
+     parallel rules) rather than a soft glow. It is never a fill.
+   - The context-menu hover cycle (sapphire → ruby → emerald →
+     topaz down the list) is a deliberate rotation through all
+     four jewels for variety — it isn't a statement about which
+     one is "the" accent.
+   - Sidebar stays a velvet curtain: fold texture, a spotlight
+     wash from the top, gold trim + medallion at the very top edge.
+   - The card-suit emblem sits centered in the top bar — no olive
+     there, just the four suits, drawn large and bold.
+   - The currently-selected nav row is a spotlight, not a fill: a
+     blurred, animated color blob drifts in 3D behind the row's
+     real content, brightest near center. The olive-with-pimento
+     icon that used to live on this row has moved to the
+     connection LED instead (that dot used to be a plain ruby
+     glow; now it's the olive).
+   - The play button is an actual vinyl record built from an
+     embedded SVG (crisp stroked rings, not a blurry CSS
+     gradient): a champagne disc with a black label, identical
+     across rest/playing/hover — only the outer rim border/glow
+     differs. The play/pause icon itself is scaled to 90%. The
+     loading spinner is a separate, plain rotating gold ring.
+     Neither one carries the ruby accent, by design; both are
+     meant to read as objects, not status indicators.
+   - The connection LED (now showing the olive icon, per above)
+     is scaled up 1.8x via `transform` rather than resizing its
+     box, so it doesn't disturb the layout around it.
+   - Album/mainstage/playlist cards get a hover-triggered spotlight
+     glow plus a masked border-edge highlight, both fading in on
+     :hover — adapted from a reference that used JavaScript to
+     track the cursor position, which a CSS-only theme can't do,
+     so it's centered/fixed rather than cursor-following. The
+     selectors this targets are educated guesses, unconfirmed.
+
+   CSS is organised top-to-bottom by UI position:
+   Tokens → Sidebar → Content Header → Queue Panel → Player Bar
+
+   mode: dark
+   Validate: node scripts/validate-theme.mjs themes/psysonic-deco
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='psysonic-deco'] {
+  color-scheme: dark;
+
+  /* ── Accent — ruby, the ♥ suit, reserved for "live" states ── */
+  --accent:      #C41E4A;
+  --accent-dim:  rgba(196, 30, 74, 0.18);
+  --accent-glow: #E0577D;
+  --accent-2:    #AEB4BC;   /* chrome/platinum — the ♠ suit, structural */
+
+  /* ── Supporting jewel — emerald, the ♣ suit / the olive ── */
+  --supporting:     #16915F;
+  --supporting-dim: rgba(22, 145, 95, 0.20);
+
+  /* ── Decorative jewel — ruby, the ♥ suit ── */
+  --decorative: #C41E4A;
+
+  /* ── Gold — architectural trim ONLY, never a fill ── */
+  --trim-gold:      #C9A227;
+  --trim-gold-glow: #E8C766;
+  --trim-gold-dim:  rgba(201, 162, 39, 0.18);
+
+  /* ── Backgrounds — onyx-black with a faint indigo undertone ── */
+  --bg-app:      #0A0812;
+  --bg-sidebar:  #0E0A17;
+  --bg-card:     #150F22;
+  --bg-hover:    rgba(196, 30, 74, 0.14);
+  --bg-elevated: #1B1330;
+  --bg-player:   #0B0814;   /* now-playing bar — jewel-washed lacquer */
+  --bg-deep:     #050308;
+  --bg-glass:    rgba(10, 8, 18, 0.68);
+  --modal-bg:    #130E20;
+
+  /* ── Borders — chrome hairlines, gold trim on dropdowns ── */
+  --border:          rgba(201, 162, 39, 0.45);
+  --border-subtle:   rgba(201, 162, 39, 0.22);
+  --border-dropdown: rgba(201, 162, 39, 0.32);
+
+  /* ── Text ── */
+  --text-primary:   #EFE3B8;   /* light champagne */
+  --text-secondary: #B9A9CE;   /* dusty mauve */
+  --text-muted:     rgba(239, 234, 245, 0.55);
+  --text-on-accent: #0A0812;
+
+  /* ── Status ── */
+  --danger:    #C41E4A;   /* ruby */
+  --positive:  #16915F;   /* emerald */
+  --warning:   #C9791E;   /* topaz */
+  --highlight: #C41E4A;   /* rating stars / favorite heart — ruby */
+
+  /* ── Select arrow — ruby stroke ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23C41E4A%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.60);
+
+  /* ── Deco pattern tokens ──
+     Trim lines: a thin gold double rule, per the line-divider
+     reference, run along the top of every major panel.
+     Diamond medallion: the small nested-diamond ornament that
+     sits centered on top of the trim lines.
+     Curtain fold: vertical velvet-drape shading for the sidebar.
+     Card emblem: the four suits, centered in the content header.
+     The play button is a flat vinyl record now (see the player-bar
+     section below), not a sunburst — there's no gradient pattern
+     token for it since it's built from plain radial-gradient
+     bands directly on the element. ── */
+  --pattern-trim-lines: linear-gradient(to bottom,
+      transparent 0 2px, rgba(201, 162, 39, 0.85) 2px 3px,
+      transparent 3px 6px, rgba(201, 162, 39, 0.85) 6px 7px,
+      transparent 7px 100%);
+  --pattern-curtain-fold: repeating-linear-gradient(90deg,
+      rgba(0, 0, 0, 0.24) 0 4px, transparent 4px 9px,
+      rgba(255, 255, 255, 0.025) 9px 10px, transparent 10px 42px);
+  --deco-trim-double: inset 0 0 0 1px rgba(174, 180, 188, 0.35), inset 0 0 0 3px rgba(201, 162, 39, 0.16);
+  --deco-trim-jewel:  inset 0 0 0 1px rgba(44, 95, 206, 0.38), inset 0 0 0 3px rgba(196, 30, 74, 0.22);
+  --deco-diamond-medallion: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%3E%0A%3Crect%20x%3D%222%22%20y%3D%222%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23C9A227%22%20transform%3D%22rotate%2845%2010%2010%29%22%2F%3E%0A%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%227%22%20height%3D%227%22%20fill%3D%22%230B0810%22%20transform%3D%22rotate%2845%2010%2010%29%22%2F%3E%0A%3C%2Fsvg%3E");
+  --deco-emblem: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22190%22%20height%3D%2240%22%20viewBox%3D%220%200%20190%2040%22%3E%0A%3Cg%20font-family%3D%22Georgia%2C%20%27Times%20New%20Roman%27%2C%20serif%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20opacity%3D%220.78%22%3E%0A%3Ctext%20x%3D%2226%22%20y%3D%2232%22%20fill%3D%22%232C5FCE%22%3E%26%239830%3B%3C%2Ftext%3E%0A%3Ctext%20x%3D%2272%22%20y%3D%2232%22%20fill%3D%22%23C41E4A%22%3E%26%239829%3B%3C%2Ftext%3E%0A%3Ctext%20x%3D%22118%22%20y%3D%2232%22%20fill%3D%22%2316915F%22%3E%26%239827%3B%3C%2Ftext%3E%0A%3Ctext%20x%3D%22164%22%20y%3D%2232%22%20fill%3D%22%23AEB4BC%22%3E%26%239824%3B%3C%2Ftext%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+  --pattern-fan-frieze: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2252%22%20height%3D%2232%22%20viewBox%3D%220%200%2052%2032%22%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%23C9A227%22%20stroke-width%3D%220.9%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.4%22%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%220.10%22%20y2%3D%2227.73%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%221.44%22%20y2%3D%2221.46%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%224.28%22%20y2%3D%2215.71%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%228.43%22%20y2%3D%2210.83%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2213.66%22%20y2%3D%227.11%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2219.64%22%20y2%3D%224.79%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2226.00%22%20y2%3D%224.00%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2232.36%22%20y2%3D%224.79%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2238.34%22%20y2%3D%227.11%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2243.57%22%20y2%3D%2210.83%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2247.72%22%20y2%3D%2215.71%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2250.56%22%20y2%3D%2221.46%22%2F%3E%0A%3Cline%20x1%3D%2226%22%20y1%3D%2230%22%20x2%3D%2251.90%22%20y2%3D%2227.73%22%2F%3E%0A%3Cpath%20d%3D%22M%200.10%2027.73%20A%2026%2026%200%200%201%2051.90%2027.73%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+
+  /* ── Sidebar ── */
+  --sidebar-text:             #C9BEDA;
+  --sidebar-item-hover:       rgba(196, 30, 74, 0.07);
+  --sidebar-item-active-bg:   #2A2416;   /* fallback — real gradient on the row below */
+  --sidebar-item-active-text: #F5EFDD;
+  --sidebar-border:           rgba(201, 162, 39, 0.35);
+
+  /* ── Library rows ── */
+  --row-hover:          rgba(196, 30, 74, 0.05);
+  --row-divider:        rgba(201, 162, 39, 0.20);
+  --row-text:           #EFE3B8;
+  --row-text-secondary: #B9A9CE;
+  --row-text-muted:     #5B5570;
+  --row-playing-bg:     rgba(196, 30, 74, 0.10);
+  --row-playing-text:   #E0577D;
+  --col-header-text:    #756E8C;
+
+  /* ── Cards ── */
+  --card-title:          #EFE3B8;
+  --card-subtitle:       #B9A9CE;
+  --card-hover-border:   #C41E4A;
+  --card-placeholder-bg: #150F22;
+
+  /* ── Menus / inputs — jewel-ringed context menus ── */
+  --menu-bg:               #130E20;
+  --menu-item-hover:       rgba(196, 30, 74, 0.08);
+  --menu-item-active-text: #C41E4A;
+  --menu-divider:          rgba(201, 162, 39, 0.25);
+  --input-bg:              #150F22;
+  --input-focus-border:    #C41E4A;
+  --button-hover:          rgba(174, 180, 188, 0.16);
+
+  /* ── Sliders — dark amber track, champagne knob (deliberately
+     NOT the same gold as --trim-gold — this is a paler, softer
+     champagne straw color) ── */
+  --slider-track:       #241C10;
+  --slider-thumb:       #D9C48A;
+  --slider-thumb-hover: #EFE3B8;
+
+  /* ── Scrollbars ── */
+  --scrollbar-thumb:       #AEB4BC;
+  --scrollbar-thumb-hover: #C41E4A;
+  --scrollbar-track:       transparent;
+
+  /* ── Now-playing bar — jewel-washed lacquer toolbar ──
+     Seek bar reads as champagne: a pale straw-gold for played,
+     distinct from the --trim-gold used in the ceiling trim
+     elsewhere, dark amber for unplayed, emerald for buffered.
+     The seek bar's actual shape (waveform, liquid fill, bar,
+     etc.) is controlled by the app's own "Seekbar Style" setting
+     — this theme only sets color. ── */
+  --volume-accent:             #D9C48A;
+  --waveform-played:           #D9C48A;
+  --waveform-unplayed:         #241C10;
+  --waveform-buffered:         #16915F;
+  --player-title:              #EFE3B8;
+  --player-artist:              #B9A9CE;
+  --player-control:            #B9A9CE;
+  --player-control-hover:      #C41E4A;
+  --player-control-hover-bg:   rgba(196, 30, 74, 0.10);
+  --player-border:             rgba(201, 162, 39, 0.35);
+  --player-time-toggle-hover:  rgba(196, 30, 74, 0.08);
+  --player-time-toggle-active: #C41E4A;
+}
+
+/* Album-art corners get a sapphire+ruby jewel double-ring instead
+   of the chrome+gold trim — this is a "now playing" surface */
+[data-theme='psysonic-deco'] .np-dash-hero-cover .np-cover {
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 0 0 1px rgba(44, 95, 206, 0.38),
+    0 0 0 3px rgba(196, 30, 74, 0.22),
+    0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+/* Titlebar — gold trim-lines + centered diamond medallion along
+   the very top edge. Built as plain background layers (not a
+   positioned pseudo-element) so this never touches the element's
+   position/containing-block behavior — safe even if the app has
+   its own absolutely-positioned children in here. */
+[data-theme='psysonic-deco'] .titlebar {
+  background-image:
+    var(--deco-diamond-medallion),
+    var(--pattern-trim-lines),
+    linear-gradient(to bottom, #0E0A17 0%, #0A0812 100%);
+  background-size:
+    15px 15px,
+    100% 7px,
+    100% 100%;
+  background-position:
+    top center,
+    top,
+    top;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+}
+
+/* ============================================================
+   CONTEXT MENU & SUBMENUS
+   Jewel-ringed black-lacquer panel — a sapphire+ruby double
+   outline instead of a plain chrome hairline, and each menu item
+   picks up a different jewel on hover as you move down the list
+   (sapphire → ruby → emerald → topaz), reading like a run of
+   jewel-toned menu chips rather than one flat hover color.
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .context-menu,
+[data-theme='psysonic-deco'] .context-submenu {
+  background: linear-gradient(165deg, #150F2E 0%, #130E20 55%, #1A0F24 100%);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  box-shadow:
+    0 0 0 1px rgba(44, 95, 206, 0.24),
+    0 0 0 2px rgba(196, 30, 74, 0.14),
+    0 8px 24px rgba(0, 0, 0, 0.60);
+  color: #EFE3B8;
+}
+
+[data-theme='psysonic-deco'] .context-menu-item {
+  color: #EFE3B8;
+}
+[data-theme='psysonic-deco'] .context-menu-item svg {
+  color: #B9A9CE;
+}
+
+/* Default hover (fallback for items outside the 4-cycle, e.g. a
+   list with only one or two entries) */
+[data-theme='psysonic-deco'] .context-menu-item:hover,
+[data-theme='psysonic-deco'] .context-menu-item.context-menu-keyboard-active {
+  background: rgba(196, 30, 74, 0.08);
+  color: #C41E4A;
+}
+[data-theme='psysonic-deco'] .context-menu-item:hover svg,
+[data-theme='psysonic-deco'] .context-menu-item.context-menu-keyboard-active svg {
+  color: #C41E4A;
+}
+
+/* Jewel cycle — sapphire, ruby, emerald, topaz, repeating */
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+1):hover,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+1).context-menu-keyboard-active {
+  background: rgba(44, 95, 206, 0.10);
+  color: #6E97F0;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+1):hover svg,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+1).context-menu-keyboard-active svg {
+  color: #6E97F0;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+2):hover,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+2).context-menu-keyboard-active {
+  background: rgba(196, 30, 74, 0.10);
+  color: #E0577D;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+2):hover svg,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+2).context-menu-keyboard-active svg {
+  color: #E0577D;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+3):hover,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+3).context-menu-keyboard-active {
+  background: rgba(22, 145, 95, 0.10);
+  color: #35C08B;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+3):hover svg,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n+3).context-menu-keyboard-active svg {
+  color: #35C08B;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n):hover,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n).context-menu-keyboard-active {
+  background: rgba(201, 121, 30, 0.10);
+  color: #E0A24C;
+}
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n):hover svg,
+[data-theme='psysonic-deco'] .context-menu-item:nth-child(4n).context-menu-keyboard-active svg {
+  color: #E0A24C;
+}
+
+[data-theme='psysonic-deco'] .context-submenu-new,
+[data-theme='psysonic-deco'] .context-submenu-new:hover {
+  color: #C41E4A;
+  font-weight: 600;
+}
+
+[data-theme='psysonic-deco'] .context-menu-divider {
+  background: rgba(201, 162, 39, 0.30);
+}
+
+[data-theme='psysonic-deco'] .context-submenu-empty {
+  color: rgba(239, 234, 245, 0.45);
+}
+[data-theme='psysonic-deco'] .context-submenu-input {
+  background: #0A0812;
+  border: 1px solid rgba(174, 180, 188, 0.30);
+  color: #EFE3B8;
+}
+[data-theme='psysonic-deco'] .context-submenu-input::placeholder {
+  color: rgba(239, 234, 245, 0.35);
+}
+
+/* Play triangle stays ruby on the currently-playing row —
+   it's a "live" state, so it keeps the reserved accent color */
+[data-theme='psysonic-deco'] .song-list-row-btn--play:hover svg,
+[data-theme='psysonic-deco'] .song-list-row-btn--play:active svg,
+[data-theme='psysonic-deco'] .song-list-row-btn--play:focus-visible svg {
+  color: #C41E4A !important;
+  fill:  #C41E4A !important;
+}
+
+/* ============================================================
+   SIDEBAR — VELVET CURTAIN + SPOTLIGHT
+   Four stacked layers, front to back:
+     1. gold trim-lines + centered diamond medallion at the top
+     2. vertical velvet fold texture, the whole height
+     3. a warm spotlight wash falling from the top, like a single
+        follow-spot hitting the top of a stage curtain
+     4. the base near-black gradient
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .sidebar-section-label {
+  letter-spacing: 0.12em;
+  font-weight:    700;
+  text-transform: uppercase;
+  color: #756E8C;
+}
+
+[data-theme='psysonic-deco'] .sidebar {
+  background-color: #0E0A17;
+  background-image:
+    var(--deco-diamond-medallion),
+    var(--pattern-trim-lines),
+    var(--pattern-curtain-fold),
+    radial-gradient(ellipse 75% 50% at 50% -10%, rgba(232, 199, 102, 0.20), transparent 62%),
+    linear-gradient(180deg, #150F22 0%, #0A0812 65%, #0A0812 100%);
+  background-size:
+    15px 15px,
+    100% 7px,
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  background-position:
+    top center,
+    top,
+    top,
+    top,
+    top;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  border-right: 1px solid rgba(201, 162, 39, 0.45) !important;
+}
+
+/* ── Custom logo — Psysonic wordmark (raster, recolored) ──
+   Source PNG was a solid black wordmark on a transparent
+   background (319x47). Re-encoded as lossless WebP (~1.6KB) and
+   applied as a CSS mask. Painted as a SOLID champagne fill
+   (the darker base tone, not the light variant — light read as
+   too pale against the rest of the palette) with a soft gold
+   glow underneath, like a marquee letter lit from behind rather
+   than a printed color blend — champagne and
+   gold reads as one cohesive family rather than the earlier
+   chrome (which felt like a separate, colder material next to
+   all the warm tones elsewhere). */
+
+[data-theme='psysonic-deco'] .sidebar-brand svg {
+  display: none !important;
+}
+
+[data-theme='psysonic-deco'] {
+  --logo-mask-image: url("data:image/webp;base64,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");
+}
+
+[data-theme='psysonic-deco'] .sidebar-brand::before {
+  content: '';
+  display: block;
+  width: 200px;
+  height: 32px;
+  background: #D9C48A;
+  -webkit-mask-image: var(--logo-mask-image);
+  mask-image: var(--logo-mask-image);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  filter: drop-shadow(0 0 5px rgba(201, 162, 39, 0.50)) drop-shadow(0 0 1px rgba(255, 255, 255, 0.35));
+}
+
+[data-theme='psysonic-deco'] .nav-link {
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 2px;
+  /* NOTE: deliberately no `background` here. Transitioning
+     background causes the active row's olive marker to animate
+     its background-position in from the default 0% 0% (top-left)
+     origin, which reads as a sweep in from the left. The olive's
+     own "drop from above" entrance below handles that instead. */
+  transition:
+    color      0.15s ease-out,
+    box-shadow 0.15s ease-out;
+}
+
+/* Active row spotlight, take two: a blurred, animated color blob
+   drifting in 3D behind the row's real content — adapted from a
+   supplied reference (a `.box` element rotating in a body-level
+   perspective). Adjustments made to fit a sidebar row rather
+   than a full page: no real extra element exists to position, so
+   this lives on ::before instead; `perspective` is scoped to
+   this row alone rather than <body>; the 300px/100px-blur blob
+   sized for a viewport is scaled down to fit a ~36px-tall row;
+   the pink→blue gradient is swapped for gold→cream to match the
+   spotlight palette already established elsewhere; and z-index:-1
+   keeps it painting behind the row's icon/label rather than over
+   them. The olive marker (kept in place, pending a new home) and
+   its entrance animation are unchanged — they don't touch
+   `transform`, so there's no conflict with the blob's motion. */
+/* Active row spotlight: a blurred, animated color blob drifting
+   in 3D behind the row's real content (see ::before below). The
+   olive marker that used to live here has moved to the
+   connection LED instead — this row no longer needs its own
+   background-image or entrance animation for it. */
+[data-theme='psysonic-deco'] .nav-link.active {
+  position: relative;
+  overflow: hidden;
+  perspective: 220px;
+  color: #F5EFDD !important;
+  text-shadow: 0 0 10px rgba(243, 233, 201, 0.55);
+  box-shadow:
+    0 -6px 14px rgba(243, 233, 201, 0.18),
+    inset 3px 0 0 0 rgba(201, 162, 39, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+[data-theme='psysonic-deco'] .nav-link.active::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  background: linear-gradient(90deg, #C9A227, #F5EFDD);
+  border-radius: 50%;
+  filter: blur(22px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+  animation: psysonic-deco-spotlight-drift 5s ease-in-out infinite alternate;
+}
+
+@keyframes psysonic-deco-spotlight-drift {
+  0%   { transform: rotateY(30deg) rotate(-25deg) translateZ(45px); }
+  25%  { transform: rotateY(-30deg) translateZ(45px); }
+  50%  { transform: rotateX(-50deg) translateZ(-45px); }
+  75%  { transform: rotateX(-50deg) translateZ(-45px); }
+  100% { transform: rotateX(20deg) translateZ(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'] .nav-link.active::before {
+    animation: none;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'] .nav-link.active {
+    animation: none;
+  }
+}
+
+[data-theme='psysonic-deco'] .nav-link.active > svg {
+  color: #F5EFDD;
+  filter: drop-shadow(0 0 3px rgba(243, 233, 201, 0.5));
+}
+
+/* Now Playing nav item — same treatment as any other row */
+[data-theme='psysonic-deco'] .nav-link-nowplaying,
+[data-theme='psysonic-deco'] .nav-link-nowplaying:hover,
+[data-theme='psysonic-deco'] .nav-link-nowplaying.active {
+  color: inherit;
+}
+
+/* Now Playing pulse dot — ruby, the reserved "live" signal
+   color. Shadow is static; only opacity animates (compositor-only,
+   no per-frame repaint) so the pulse stays cheap while running
+   indefinitely. Respects reduced-motion preference. */
+[data-theme='psysonic-deco'] .nav-np-dot {
+  background: radial-gradient(
+    circle at 50% 45%,
+    #E0577D 0%,
+    #C41E4A 55%,
+    #7A1230 100%
+  );
+  box-shadow: 0 0 6px rgba(196, 30, 74, 0.6);
+  animation: psysonic-deco-np-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes psysonic-deco-np-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'] .nav-np-dot {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   CONTENT HEADER
+   Top bar — gold trim-lines + medallion along the top edge, and
+   the card-suit emblem centered in the header. All of this is
+   built as background-image layers rather than positioned
+   pseudo-elements, so it never sets position:relative on
+   .content-header — that was hijacking the containing block for
+   real, absolutely-positioned children in the app (the search
+   bar / now-playing bar disappearing was caused by exactly this).
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .content-header {
+  background-image:
+    var(--deco-diamond-medallion),
+    var(--deco-emblem),
+    var(--pattern-trim-lines),
+    linear-gradient(180deg, #150F22 0%, #0A0812 100%);
+  background-size:
+    15px 15px,
+    190px 34px,
+    100% 7px,
+    100% 100%;
+  background-position:
+    top center,
+    center,
+    top,
+    top;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+}
+
+/* Search bar — ruby focus ring, sharp "menu card" pill */
+[data-theme='psysonic-deco'] .live-search-field-cluster {
+  border-radius: 4px;
+}
+[data-theme='psysonic-deco'] .live-search-field-cluster:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(196, 30, 74, 0.35),
+    0 0 12px rgba(196, 30, 74, 0.25);
+}
+
+/* Connection indicator — swapped from a plain colored dot to the
+   olive-with-pimento icon (moved here from the sidebar's active
+   row, per request). Disconnected state stays a plain muted dot
+   — only "connected" gets the olive. */
+/* Connection indicator — swapped from a plain colored dot to the
+   olive-with-pimento icon (moved here from the sidebar's active
+   row, per request). Disconnected state stays a plain muted dot
+   — only "connected" gets the olive. Scaled up 1.8x visually via
+   transform rather than width/height, since transform doesn't
+   participate in layout — it won't push or overlap the
+   "Extern MasalaMedia" label next to it the way actually resizing
+   the box could. transform-origin: center keeps the growth even
+   in all directions from the dot's own middle. */
+[data-theme='psysonic-deco'] .connection-led--connected {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%226.5%22%20fill%3D%22%237C9C3D%22%2F%3E%3Cellipse%20cx%3D%226%22%20cy%3D%226%22%20rx%3D%222.8%22%20ry%3D%222.1%22%20fill%3D%22%23A6C05C%22%20opacity%3D%220.5%22%2F%3E%3Cellipse%20cx%3D%2210%22%20cy%3D%227%22%20rx%3D%222.3%22%20ry%3D%221.8%22%20fill%3D%22%23D6503E%22%2F%3E%3C%2Fsvg%3E");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  box-shadow:
+    0 0 0 2px rgba(10, 8, 18, 0.9),
+    0 0 6px rgba(124, 156, 61, 0.55);
+  transform: scale(1.8);
+  transform-origin: center;
+  transition: background 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+[data-theme='psysonic-deco'] .connection-led--disconnected {
+  background: #3A3450;
+  box-shadow: 0 0 0 2px rgba(10, 8, 18, 0.9);
+  transition: background 0.3s ease-in, box-shadow 0.3s ease-in;
+}
+
+/* Now-Playing hero favorite heart — ruby (♥ suit), glowing */
+[data-theme='psysonic-deco'] .np-dash-hero-actions svg.lucide-heart[fill="var(--highlight)"] {
+  fill:   #C41E4A !important;
+  stroke: #C41E4A !important;
+  filter: drop-shadow(0 0 4px rgba(196, 30, 74, 0.55));
+}
+
+/* ============================================================
+   QUEUE PANEL
+   Right panel — gold trim-lines + medallion at the top of its
+   header. The now-playing card is dealt like a playing card: a
+   sapphire ♦ pip top-left, a ruby ♥ pip bottom-right, wrapped in
+   a sapphire+ruby jewel double-ring rather than chrome+gold.
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .queue-panel {
+  background: #0C0815;
+  border-left: 1px solid rgba(201, 162, 39, 0.45) !important;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.25) !important;
+}
+
+[data-theme='psysonic-deco'] .queue-header {
+  background-image:
+    var(--deco-diamond-medallion),
+    var(--pattern-trim-lines),
+    linear-gradient(180deg, #130E20 0%, #130E20 100%);
+  background-size:
+    13px 13px,
+    100% 7px,
+    100% 100%;
+  background-position:
+    top center,
+    top,
+    top;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.40);
+}
+
+[data-theme='psysonic-deco'] .queue-current-track,
+[data-theme='psysonic-deco'] .queue-current-track .queue-current-info,
+[data-theme='psysonic-deco'] .queue-current-track .queue-current-sub,
+[data-theme='psysonic-deco'] .queue-current-track .queue-current-tech {
+  border-bottom: none !important;
+}
+
+[data-theme='psysonic-deco'] .queue-current-track {
+  background-color: #150F22 !important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%3Ctext%20x%3D%227%22%20y%3D%2211%22%20font-family%3D%22Georgia%2C%20%27Times%20New%20Roman%27%2C%20serif%22%20font-size%3D%2212%22%20fill%3D%22%236E97F0%22%20text-anchor%3D%22middle%22%20opacity%3D%220.75%22%3E%26%239830%3B%3C%2Ftext%3E%3C%2Fsvg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%3Ctext%20x%3D%227%22%20y%3D%2211%22%20font-family%3D%22Georgia%2C%20%27Times%20New%20Roman%27%2C%20serif%22%20font-size%3D%2212%22%20fill%3D%22%23E0577D%22%20text-anchor%3D%22middle%22%20opacity%3D%220.75%22%3E%26%239829%3B%3C%2Ftext%3E%3C%2Fsvg%3E") !important;
+  background-size: 14px 14px, 14px 14px !important;
+  background-position: top 6px left 8px, bottom 6px right 8px !important;
+  background-repeat: no-repeat, no-repeat !important;
+  box-shadow: var(--deco-trim-jewel) !important;
+}
+
+/* Playing-card corner pips (♦ top-left, ♥ bottom-right) are the
+   two SVG background layers above — folded in there instead of
+   positioned pseudo-elements, so .queue-current-track never
+   needs position:relative. */
+
+[data-theme='psysonic-deco'] .queue-current-info h3 {
+  color: #EFE3B8;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(196, 30, 74, 0.20);
+}
+
+[data-theme='psysonic-deco'] .queue-current-sub,
+[data-theme='psysonic-deco'] .queue-current-sub.is-link,
+[data-theme='psysonic-deco'] .queue-current-sub .is-link {
+  color: #B9A9CE;
+  font-weight: 400;
+  text-shadow: none;
+}
+
+[data-theme='psysonic-deco'] .queue-current-sub.is-link:hover,
+[data-theme='psysonic-deco'] .queue-current-sub .is-link:hover {
+  color: #C41E4A;
+  text-decoration: underline;
+}
+
+/* Tech info strip — dim chrome-grey, no glow */
+[data-theme='psysonic-deco'] .queue-current-tech {
+  background: #130E20;
+  color: #756E8C;
+  text-shadow: none;
+  border-top:    1px solid rgba(201, 162, 39, 0.25);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+}
+
+/* RG / Loudness badge — chrome (♠) outline pill */
+[data-theme='psysonic-deco'] .queue-current-tech-rg-badge {
+  color: #C6CCD2;
+  border-color: rgba(174, 180, 188, 0.45);
+  background: rgba(174, 180, 188, 0.10);
+  box-shadow: none;
+}
+[data-theme='psysonic-deco'] .queue-current-tech-rg-badge:hover {
+  color: #0A0812;
+  border-color: #AEB4BC;
+  background: #AEB4BC;
+}
+
+/* Queue toolbar */
+[data-theme='psysonic-deco'] .queue-toolbar {
+  background: #130E20;
+  border-top:    1px solid rgba(201, 162, 39, 0.25);
+  border-bottom: none;
+  box-shadow: none;
+}
+
+[data-theme='psysonic-deco'] .queue-toolbar-sep {
+  background: rgba(201, 162, 39, 0.40);
+}
+
+[data-theme='psysonic-deco'] .queue-round-btn {
+  background: #1B1330;
+  color: #B9A9CE;
+  border: 1px solid rgba(174, 180, 188, 0.40);
+}
+
+[data-theme='psysonic-deco'] .queue-round-btn:hover:not(:disabled) {
+  background: rgba(196, 30, 74, 0.08);
+  color: #C41E4A;
+  border-color: rgba(196, 30, 74, 0.45);
+  box-shadow: 0 0 8px rgba(196, 30, 74, 0.25);
+}
+
+[data-theme='psysonic-deco'] .queue-round-btn.active {
+  background: #C41E4A;
+  color: #EFE3B8;
+  border-color: #C41E4A;
+  box-shadow: 0 0 0 2px rgba(196, 30, 74, 0.22), 0 0 10px rgba(196, 30, 74, 0.45);
+}
+
+[data-theme='psysonic-deco'] .queue-round-btn.active svg {
+  filter: none;
+}
+
+
+/* ============================================================
+   NOW-PLAYING BAR — JEWEL-WASHED LACQUER TOOLBAR
+   A faint indigo-to-wine gradient wash behind everything, a
+   sapphire+ruby jewel double-ring around the album art, an
+   emerald buffered-waveform segment, a flat art-deco play
+   button, a gold trim-line + diamond medallion along the top
+   edge, and the gold fan-frieze texture — rounded corners as
+   the app's own default (no border-radius override).
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .player-bar {
+  background-image:
+    var(--deco-diamond-medallion),
+    var(--pattern-trim-lines),
+    var(--pattern-fan-frieze),
+    linear-gradient(180deg,
+      rgba(196, 30, 74, 0.10) 0%,
+      #0B0814 14%,
+      rgba(44, 95, 206, 0.06) 55%,
+      #0A0812 100%);
+  background-size:
+    15px 15px,
+    100% 7px,
+    130px 80px,
+    100% 100%;
+  background-position:
+    top center,
+    top,
+    top left,
+    top;
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    repeat,
+    no-repeat;
+  border-top: 1px solid rgba(201, 162, 39, 0.40);
+}
+
+[data-theme='psysonic-deco'] .player-album-art-wrap,
+[data-theme='psysonic-deco'] .player-album-art,
+[data-theme='psysonic-deco'] .player-album-art-placeholder {
+  background: #150F22;
+  box-shadow: var(--deco-trim-jewel), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme='psysonic-deco'] .player-bar.floating {
+  background: var(--bg-player);
+}
+
+/* Favorite heart — ruby glow when active */
+[data-theme='psysonic-deco'] .player-star-btn.is-starred {
+  color: #C41E4A !important;
+}
+[data-theme='psysonic-deco'] .player-star-btn.is-starred:has(.lucide-heart) svg {
+  filter: drop-shadow(0 0 4px rgba(196, 30, 74, 0.5));
+}
+
+/* Track name — bold, faint ruby HUD glow (playback is the
+   room's one "live" signal) */
+[data-theme='psysonic-deco'] .player-track-name {
+  font-weight: 700;
+  text-shadow: none;
+}
+[data-theme='psysonic-deco'][data-playing='true'] .player-track-name {
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(196, 30, 74, 0.35);
+}
+
+/* Artist name */
+[data-theme='psysonic-deco'] .player-track-artist {
+  text-shadow: none;
+  color: var(--player-artist);
+}
+
+/* Time counter — ruby digital readout, tabular (ties to live playback) */
+[data-theme='psysonic-deco'] .player-time {
+  color: #E0577D;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 4px rgba(196, 30, 74, 0.35);
+}
+
+/* Transport icons — muted mauve, ruby glow on hover */
+[data-theme='psysonic-deco'] .player-btn:not(.player-btn-primary) svg {
+  filter: none;
+}
+[data-theme='psysonic-deco'] .player-btn:not(.player-btn-primary):hover {
+  color: var(--player-control-hover) !important;
+  background: var(--player-control-hover-bg) !important;
+  box-shadow: none !important;
+  border-radius: 3px;
+}
+[data-theme='psysonic-deco'] .player-btn:not(.player-btn-primary):hover svg {
+  filter: drop-shadow(0 0 3px rgba(196, 30, 74, 0.5));
+}
+
+/* Mute button */
+[data-theme='psysonic-deco'] .player-volume-section .player-btn {
+  color: var(--player-control) !important;
+}
+[data-theme='psysonic-deco'] .player-volume-section .player-btn:has(.lucide-volume-x) {
+  color: #C41E4A !important;
+  filter: none;
+}
+
+/* Rating stars — ruby, glowing */
+[data-theme='psysonic-deco'] .player-star-btn.is-starred svg {
+  filter: drop-shadow(0 0 3px rgba(196, 30, 74, 0.5));
+  color: var(--highlight);
+}
+
+/* Play button — an actual vinyl record, built from an embedded
+   SVG background image (crisp stroked <circle> rings) rather
+   than a CSS radial-gradient — the gradient approach produced
+   only soft, blurry band edges, not genuinely thin grooves.
+   Disc face: a champagne radial gradient (light-to-dark, for a
+   bit of metallic sheen) with darker bronze-champagne groove
+   rings, a solid black label, and a small champagne spindle dot
+   — champagne record body, black label. (An intermediate version
+   used full gold instead of champagne; this settled on champagne
+   to match the rest of the theme's palette instead.)
+   The disc face is IDENTICAL across all three states (rest/
+   playing/hover); only the outer rim `border` and glow differ
+   (chrome at rest, gold once playing or hovered). The play/pause
+   icon itself is scaled to 90% (felt slightly too large at full
+   size) — baked into the counter-rotation keyframe's `transform`
+   for the playing state specifically, since that state's
+   transform is fully driven by the animation and a separate
+   static `transform: scale()` would've been overridden by it. */
+
+[data-theme='psysonic-deco'] .player-btn-primary {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%0A%3Cdefs%3E%0A%3CradialGradient%20id%3D%22g%22%20cx%3D%2238%25%22%20cy%3D%2232%25%22%20r%3D%2275%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23EFE3B8%22%2F%3E%0A%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22%23D9C48A%22%2F%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238A7A52%22%2F%3E%0A%3C%2FradialGradient%3E%0A%3C%2Fdefs%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2249%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2235.5%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2229%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2224%22%20fill%3D%22%230A0812%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%224%22%20fill%3D%22%23D9C48A%22%2F%3E%0A%3C%2Fsvg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #EFE3B8;
+  border: 2px solid rgba(174, 180, 188, 0.55);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: none;
+}
+[data-theme='psysonic-deco'] .player-btn-primary svg {
+  filter: none;
+  transform: scale(0.9);
+}
+
+[data-theme='psysonic-deco'][data-playing='true'] .player-btn-primary {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%0A%3Cdefs%3E%0A%3CradialGradient%20id%3D%22g%22%20cx%3D%2238%25%22%20cy%3D%2232%25%22%20r%3D%2275%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23EFE3B8%22%2F%3E%0A%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22%23D9C48A%22%2F%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238A7A52%22%2F%3E%0A%3C%2FradialGradient%3E%0A%3C%2Fdefs%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2249%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2235.5%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2229%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2224%22%20fill%3D%22%230A0812%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%224%22%20fill%3D%22%23D9C48A%22%2F%3E%0A%3C%2Fsvg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #EFE3B8;
+  border: 2px solid #C9A227;
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
+  animation: psysonic-deco-record-spin 6s linear infinite;
+}
+[data-theme='psysonic-deco'][data-playing='true'] .player-btn-primary svg {
+  filter: none;
+  animation: psysonic-deco-record-spin-reverse 6s linear infinite;
+}
+
+[data-theme='psysonic-deco'] .player-btn-primary:hover {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%0A%3Cdefs%3E%0A%3CradialGradient%20id%3D%22g%22%20cx%3D%2238%25%22%20cy%3D%2232%25%22%20r%3D%2275%25%22%3E%0A%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23EFE3B8%22%2F%3E%0A%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22%23D9C48A%22%2F%3E%0A%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%238A7A52%22%2F%3E%0A%3C%2FradialGradient%3E%0A%3C%2Fdefs%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2249%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2242%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2235.5%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2229%22%20fill%3D%22none%22%20stroke%3D%22%238A7A52%22%20stroke-width%3D%221.6%22%20opacity%3D%220.7%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2224%22%20fill%3D%22%230A0812%22%2F%3E%0A%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%224%22%20fill%3D%22%23D9C48A%22%2F%3E%0A%3C%2Fsvg%3E");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #EFE3B8;
+  border: 2px solid #E8C766;
+  box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.35);
+}
+[data-theme='psysonic-deco'] .player-btn-primary:hover svg {
+  filter: none;
+}
+
+@keyframes psysonic-deco-record-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes psysonic-deco-record-spin-reverse {
+  from { transform: scale(0.9) rotate(0deg); }
+  to   { transform: scale(0.9) rotate(-360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'][data-playing='true'] .player-btn-primary,
+  [data-theme='psysonic-deco'][data-playing='true'] .player-btn-primary svg {
+    animation: none;
+  }
+}
+
+
+/* ============================================================
+   LOADING SPINNER — gold ring sweep
+   Confirmed selector. A plain rotating ring: a dark amber base
+   ring with one gold arc (two adjoining border sides) sweeping
+   around it — classic, legible at small sizes, no reliance on
+   generated text content or pseudo-elements at all.
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .loading-spinner,
+[data-theme='psysonic-deco'] .spinner,
+[data-theme='psysonic-deco'] .loader {
+  background: transparent !important;
+  border: 3px solid #241C10 !important;
+  border-top-color: #C9A227 !important;
+  border-right-color: #C9A227 !important;
+  border-radius: 999px !important;
+  animation: psysonic-deco-ring-sweep 1s linear infinite;
+}
+@keyframes psysonic-deco-ring-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'] .loading-spinner,
+  [data-theme='psysonic-deco'] .spinner,
+  [data-theme='psysonic-deco'] .loader {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   CARD HOVER SPOTLIGHT — best-effort selectors, unconfirmed
+   Adapted from a reference that used JavaScript to track the
+   cursor position via --mx/--my custom properties, updated on
+   mousemove. A CSS-only theme has no way to attach that listener
+   — if copied literally, the gradient's `var(--mx, -200px)`
+   fallback would never be overwritten, and the spotlight would
+   sit permanently off-card at -200px, invisible. This version
+   keeps the same visual language (a soft radial glow plus a
+   masked border-edge highlight, both fading in together) but
+   fixed at a set point rather than following the cursor, driven
+   by :hover instead of mousemove. Colors swapped from the
+   reference's purple to the theme's warm gold/cream spotlight
+   tone. Selectors are educated guesses — unconfirmed, same
+   situation as .loading-spinner earlier in this file.
+   ============================================================ */
+
+[data-theme='psysonic-deco'] .card,
+[data-theme='psysonic-deco'] .album-card,
+[data-theme='psysonic-deco'] .mainstage-card,
+[data-theme='psysonic-deco'] .playlist-card,
+[data-theme='psysonic-deco'] .featured-card {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='psysonic-deco'] .card::before,
+[data-theme='psysonic-deco'] .album-card::before,
+[data-theme='psysonic-deco'] .mainstage-card::before,
+[data-theme='psysonic-deco'] .playlist-card::before,
+[data-theme='psysonic-deco'] .featured-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(320px circle at 50% 30%,
+    rgba(243, 233, 201, 0.16),
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+[data-theme='psysonic-deco'] .card:hover::before,
+[data-theme='psysonic-deco'] .album-card:hover::before,
+[data-theme='psysonic-deco'] .mainstage-card:hover::before,
+[data-theme='psysonic-deco'] .playlist-card:hover::before,
+[data-theme='psysonic-deco'] .featured-card:hover::before {
+  opacity: 1;
+}
+
+[data-theme='psysonic-deco'] .card::after,
+[data-theme='psysonic-deco'] .album-card::after,
+[data-theme='psysonic-deco'] .mainstage-card::after,
+[data-theme='psysonic-deco'] .playlist-card::after,
+[data-theme='psysonic-deco'] .featured-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(220px circle at 50% 30%,
+    rgba(201, 162, 39, 0.55),
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+[data-theme='psysonic-deco'] .card:hover::after,
+[data-theme='psysonic-deco'] .album-card:hover::after,
+[data-theme='psysonic-deco'] .mainstage-card:hover::after,
+[data-theme='psysonic-deco'] .playlist-card:hover::after,
+[data-theme='psysonic-deco'] .featured-card:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='psysonic-deco'] .card::before,
+  [data-theme='psysonic-deco'] .album-card::before,
+  [data-theme='psysonic-deco'] .mainstage-card::before,
+  [data-theme='psysonic-deco'] .playlist-card::before,
+  [data-theme='psysonic-deco'] .featured-card::before,
+  [data-theme='psysonic-deco'] .card::after,
+  [data-theme='psysonic-deco'] .album-card::after,
+  [data-theme='psysonic-deco'] .mainstage-card::after,
+  [data-theme='psysonic-deco'] .playlist-card::after,
+  [data-theme='psysonic-deco'] .featured-card::after {
+    transition: none;
+  }
+}
