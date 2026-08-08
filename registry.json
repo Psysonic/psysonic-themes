@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T16:33:26.887Z",
+  "generatedAt": "2026-08-08T03:16:35.282Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -91,7 +91,7 @@
     {
       "id": "bloodmoon",
       "name": "Bloodmoon",
-      "author": "asra",
+      "author": "ImAsra",
       "version": "2.0.0",
       "description": "A slate-blue and blood-red neumorphic theme capturing a moody, nocturnal wolf aesthetic with subtle celestial elements.",
       "mode": "dark",
@@ -127,7 +127,7 @@
       ],
       "css": "themes/bloodmoon/theme.css",
       "thumbnail": "themes/bloodmoon/thumbnail.webp",
-      "updatedAt": "2026-08-03T18:32:11+02:00"
+      "updatedAt": "2026-08-06T20:50:51+02:00"
     },
     {
       "id": "borealis",
@@ -521,6 +521,46 @@
       "css": "themes/frappe/theme.css",
       "thumbnail": "themes/frappe/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "fruitger-aero",
+      "name": "Frutiger Aero",
+      "author": "ImAsra",
+      "version": "1.0.0",
+      "description": "A vibrant glossy theme inspired by the mid-2000s Frutiger Aero aesthetic and Windows vista, featuring aquatic aqua greens, glowing accents, glass UI elements, and custom bubble logo details.",
+      "mode": "dark",
+      "tags": [
+        "aero",
+        "glass",
+        "frutiger",
+        "glossy",
+        "green"
+      ],
+      "minAppVersion": "1.51.0",
+      "changelog": {
+        "1.0.0": [
+          "Initial release featuring Frutiger Aero theme styling",
+          "Custom sidebar PsySonic logo branding",
+          "Static bubble overlay accents"
+        ]
+      },
+      "assets": [
+        {
+          "path": "themes/fruitger-aero/assets/aurora-bg.webp",
+          "bytes": 66964
+        },
+        {
+          "path": "themes/fruitger-aero/assets/bubble.webp",
+          "bytes": 511490
+        },
+        {
+          "path": "themes/fruitger-aero/assets/fruitger-psysonic.webp",
+          "bytes": 98060
+        }
+      ],
+      "css": "themes/fruitger-aero/theme.css",
+      "thumbnail": "themes/fruitger-aero/thumbnail.webp",
+      "updatedAt": "2026-08-06T20:44:23+02:00"
     },
     {
       "id": "graceful-ember",
@@ -1641,6 +1681,26 @@
       "css": "themes/psychowave/theme.css",
       "thumbnail": "themes/psychowave/thumbnail.webp",
       "updatedAt": "2026-07-05T23:57:07+02:00"
+    },
+    {
+      "id": "psysonic-deco",
+      "name": "Psysonic Deco",
+      "author": "abstractjewel",
+      "version": "1.0.0",
+      "description": "A 1940s jazz-lounge art deco theme — black lacquer, ruby/sapphire/emerald jewel tones, gold line-and-medallion trim, a velvet-curtain sidebar, and a four-suit card emblem",
+      "mode": "dark",
+      "tags": [
+        "art-deco",
+        "jazz",
+        "1940s",
+        "jewel-tones",
+        "chrome",
+        "luxury"
+      ],
+      "animated": true,
+      "css": "themes/psysonic-deco/theme.css",
+      "thumbnail": "themes/psysonic-deco/thumbnail.webp",
+      "updatedAt": "2026-08-08T05:16:18+02:00"
     },
     {
       "id": "readit",
