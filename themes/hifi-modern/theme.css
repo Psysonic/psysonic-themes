@@ -308,28 +308,7 @@
   display: none;
 }
 
-/* Active nav icon — glows blue (selected item).
-   Shares the LAN LED's cyan-leaning hue (~200deg) rather than the old 207deg
-   violet lean, so the sidebar accent and the pilot lamp read as one family.
-   INVERTED against the black theme: on a light faceplate contrast comes from
-   going DARKER, not brighter, so this sits below the LED's body colour where
-   Modern (Black) sits above it. The black theme's #51C1ED would fall to
-   1.5:1 on #D7DBDD and dissolve into the panel.
-
-   GLOW = the LAN LED's colour ramp (see .connection-led--connected): near-white
-   inner layer descending to blue outward. The inner layer MUST stay light —
-   a halo that starts at the icon's own dark blue darkens the faceplate and
-   reads as a drop shadow instead of a lamp.
-   GEOMETRY = Modern (Black)'s nav glow verbatim (2/8/13 at 0.65/0.30/0.14), so
-   both themes wear the same size lamp and only the colour ramp differs. Apparent
-   halo size is driven by ALPHA as much as by radius: an earlier pass at
-   3/7/13/20 with 0.95/0.80/0.55/0.30 read far too big even on the 18px icons,
-   and scaling only the radii didn't fix it — the outer layer's opacity is what
-   keeps it visible out there. Note chained drop-shadow() COMPOUNDS (each blurs
-   the previous one's output, unlike independent box-shadow layers), so these
-   radii spread wider than the same numbers would as a box-shadow.
-   Deliberately NOT scaled down for the 12px playlist icons (main nav is 18px) —
-   Black doesn't differentiate them either and the user prefers it that way. */
+/* Active nav icon — glows blue (selected item). */
 [data-theme='hifi-modern'] .nav-link.active > svg {
   color: #1E8FC7;
   filter:
