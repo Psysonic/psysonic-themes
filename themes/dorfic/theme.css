@@ -817,7 +817,7 @@
 
 [data-theme='dorfic'] .long-press-play-btn__icon svg {
   color: var(--accent) !important;
-  fill: currentColor !important;
+  fill: currentcolor !important;
   filter: drop-shadow(0 2px 4px rgba(40, 10, 0, 0.5)) !important;
 }
 
