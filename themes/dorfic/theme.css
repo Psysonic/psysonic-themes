@@ -1,0 +1,1079 @@
+/*
+  name: DORFic
+  author: asra
+  version: 1.0.0
+  color-scheme: light
+  description: Daylight, Orange, Red, Futurism — the abstract-tech sibling of Fruitger Aero, all sunburst gradients and HUD circles.
+*/
+
+[data-theme='dorfic'] {
+  color-scheme: light;
+
+  --accent:            #ff6a1a;
+  --accent-dim:        rgba(255, 106, 26, 0.15);
+  --accent-glow:       rgba(255, 106, 26, 0.42);
+  --bg-app:            #96350c;
+  --bg-card:           rgba(255, 248, 240, 0.22);
+  --bg-elevated:       rgba(255, 248, 240, 0.34);
+  --border:            rgba(255, 255, 255, 0.45);
+  --text-primary:      #fffaf4;
+  --text-secondary:    rgba(255, 250, 244, 0.82);
+  --text-muted:        rgba(255, 250, 244, 0.55);
+  --positive:          #ffce54;
+  --warning:           #ffe28a;
+  --volume-accent:     #ff6a1a;
+  --logo-color-start:  #ffffff;
+  --logo-color-end:    #ffab5c;
+
+  --ctp-base:      rgba(255, 255, 255, 0.14);
+  --ctp-mantle:    rgba(255, 255, 255, 0.09);
+  --ctp-crust:     rgba(40, 10, 0, 0.55);
+  --ctp-surface0:  rgba(255, 255, 255, 0.20);
+  --ctp-surface1:  rgba(255, 255, 255, 0.28);
+  --ctp-surface2:  rgba(255, 255, 255, 0.34);
+  --ctp-overlay0:  rgba(255, 255, 255, 0.45);
+  --ctp-overlay1:  rgba(255, 255, 255, 0.58);
+  --ctp-overlay2:  rgba(255, 255, 255, 0.70);
+  --ctp-text:      #fff7ef;
+  --ctp-subtext0:  rgba(255, 247, 239, 0.75);
+  --ctp-subtext1:  rgba(255, 247, 239, 0.88);
+  --ctp-blue:      #ff6a1a;
+  --ctp-lavender:  #ffab5c;
+  --ctp-sapphire:  #ff8a3d;
+  --ctp-sky:       #ffce54;
+  --ctp-mauve:     #ff4d4d;
+  --ctp-green:     #ffce54;
+  --ctp-yellow:    #ffe28a;
+  --ctp-red:       #ff4d4d;
+  --ctp-pink:      #fff7ef;
+  --ctp-flamingo:  #fff7ef;
+  --ctp-peach:     #ffb347;
+  --ctp-teal:      #ff8a3d;
+  --ctp-rosewater: #fff7ef;
+
+  --waveform-played:   #fff1e0;
+  --waveform-buffered: rgba(255, 241, 224, 0.45);
+  --waveform-unplayed: rgba(255, 241, 224, 0.20);
+
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ff6a1a' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  --glass-shadow-sm:  0 1px 2px rgba(40, 10, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --glass-shadow:     0 3px 8px rgba(40, 10, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.90);
+  --glass-shadow-lg:  0 6px 18px rgba(40, 10, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --glass-inset-sm:   0 1px 2px rgba(40, 10, 0, 0.45);
+  --glass-inset:      0 2px 4px rgba(40, 10, 0, 0.45);
+  --glass-inset-lg:   0 3px 6px rgba(40, 10, 0, 0.50);
+
+  --btn-gel:          linear-gradient(180deg, rgba(255, 210, 170, 0.85) 0%, var(--accent) 45%, #d1470a 100%);
+  --btn-gel-hover:    linear-gradient(180deg, rgba(255, 225, 195, 0.90) 0%, #ff7a2e 45%, #e0540f 100%);
+  --btn-gel-active:   linear-gradient(180deg, #ff8a3d 0%, #d1470a 100%);
+  --btn-gel-color:    #fffaf4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GLOBAL RESETS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] div,
+[data-theme='dorfic'] button,
+[data-theme='dorfic'] input,
+[data-theme='dorfic'] a,
+[data-theme='dorfic'] span,
+[data-theme='dorfic'] section,
+[data-theme='dorfic'] main,
+[data-theme='dorfic'] aside {
+  box-sizing: border-box;
+}
+
+[data-theme='dorfic'] .app-shell,
+[data-theme='dorfic'] .sidebar,
+[data-theme='dorfic'] .player-bar,
+[data-theme='dorfic'] .main-content {
+  border: none;
+}
+
+[data-theme='dorfic'] button:active,
+[data-theme='dorfic'] .btn-primary:active,
+[data-theme='dorfic'] .hero-play-btn:active,
+[data-theme='dorfic'] .btn-surface:active,
+[data-theme='dorfic'] .btn-ghost:active,
+[data-theme='dorfic'] .queue-round-btn:active,
+[data-theme='dorfic'] .song-list-row-btn:active,
+[data-theme='dorfic'] .song-card-action-btn:active,
+[data-theme='dorfic'] .album-card-details-btn:active,
+[data-theme='dorfic'] .play-btn:active,
+[data-theme='dorfic'] .transport-btn:active,
+[data-theme='dorfic'] .player-btn:active,
+[data-theme='dorfic'] .player-btn-primary:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: rgba(255, 255, 255, 0.30) !important;
+  transform: scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+[data-theme='dorfic'] .track-row:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: rgba(255, 255, 255, 0.20) !important;
+}
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR BRAND / CUSTOM LOGO
+═══════════════════════════════════════════════════════════════════ */
+
+/* 1. Reset container filters, text clips, and shadows */
+[data-theme='dorfic'] .sidebar-brand,
+[data-theme='dorfic'][data-playing='true'] .sidebar-brand,
+[data-theme='dorfic'] [data-playing='true'] .sidebar-brand {
+  position: relative !important;
+  width: 100% !important;
+  height: 82px !important;
+  background: transparent !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  filter: none !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* 2. Suppress default HTML child elements inside sidebar-brand */
+[data-theme='dorfic'] .sidebar-brand * {
+  display: none !important;
+}
+
+/* 3. Render WebP logo with smooth 0.65px blur + pop adjustments */
+[data-theme='dorfic'] .sidebar-brand::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background-image: url("assets/dorfic-psysonic.webp") !important;
+  background-size: auto 90% !important;
+  background-position: calc(50% + 10px) center !important;
+  background-repeat: no-repeat !important;
+  filter: blur(0.65px) brightness(1.0) saturate(1.5) drop-shadow(0 2px 10px rgb(255, 255, 255)) !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SUNBURST BACKGROUND
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .app-shell,
+[data-theme='dorfic'] #app,
+[data-theme='dorfic'] .app-root {
+  background-color: var(--bg-app) !important;
+  background-image:
+    linear-gradient(rgba(40, 10, 0, 0.28), rgba(40, 10, 0, 0.28)),
+    url("assets/aurora-bg.webp") !important;
+  background-size: cover, cover !important;
+  background-position: center, center !important;
+  background-repeat: no-repeat, no-repeat !important;
+  background-attachment: fixed, fixed !important;
+  position: relative;
+  z-index: 0;
+}
+
+[data-theme='dorfic'] .app-shell::before,
+[data-theme='dorfic'] #app::before,
+[data-theme='dorfic'] .app-root::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(255, 106, 26, 0.25) 0%, transparent 72%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+
+  opacity: 0 !important;
+  transition: opacity 1.0s ease !important;
+}
+
+[data-theme='dorfic'][data-playing='true'] .app-shell::before,
+[data-theme='dorfic'][data-playing='true'] #app::before,
+[data-theme='dorfic'][data-playing='true'] .app-root::before,
+[data-theme='dorfic'] [data-playing='true'] .app-shell::before,
+[data-theme='dorfic'] [data-playing='true'] #app::before,
+[data-theme='dorfic'] [data-playing='true'] .app-root::before {
+  opacity: 1 !important;
+}
+
+[data-theme='dorfic'] .main-content {
+  position: relative;
+  z-index: 0;
+  background: rgba(255, 200, 150, 0.05) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(140%) !important;
+  backdrop-filter: blur(4px) saturate(140%) !important;
+}
+
+
+[data-theme='dorfic'] .app-shell::after {
+  content: '' !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 999 !important;
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+  background-image:
+    radial-gradient(60px 60px at 88% 14%, rgba(255, 255, 255, 0.10), transparent 100%),
+    radial-gradient(90px 90px at 8% 22%, rgba(255, 255, 255, 0.08), transparent 100%);
+}
+
+[data-theme='dorfic'] .settings-card,
+[data-theme='dorfic'] .settings-tabs,
+[data-theme='dorfic'] .queue-current-tech {
+  background-color: var(--bg-app) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   WINDOW CONTROLS / TITLEBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .titlebar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.14) 60%, rgba(255, 106, 26, 0.10) 100%) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  backdrop-filter: blur(6px) !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  position: relative !important;
+}
+
+[data-theme='dorfic'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn,
+[data-theme='dorfic'] .window-controls button,
+[data-theme='dorfic'] .titlebar-button,
+[data-theme='dorfic'] .frame-button {
+  background: rgba(255, 255, 255, 0.24) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  color: var(--text-secondary) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+  margin: 0 1px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+[data-theme='dorfic'] .titlebar-btn svg,
+[data-theme='dorfic'] .titlebar-controls svg {
+  width: 10px !important;
+  height: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+[data-theme='dorfic'] .titlebar-controls[data-btnstyle="dots"] .titlebar-btn:hover,
+[data-theme='dorfic'] .window-controls button:hover,
+[data-theme='dorfic'] .titlebar-button:hover,
+[data-theme='dorfic'] .frame-button:hover {
+  box-shadow: var(--glass-shadow-sm), 0 0 8px var(--accent-glow) !important;
+  color: var(--text-primary) !important;
+  background: rgba(255, 255, 255, 0.42) !important;
+}
+
+[data-theme='dorfic'] .titlebar-btn-close:hover,
+[data-theme='dorfic'] .window-controls .close:hover,
+[data-theme='dorfic'] button[aria-label='Close']:hover {
+  background: #ff4d4d !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 14px rgba(255, 77, 77, 0.55) !important;
+}
+
+[data-theme='dorfic'] .titlebar-btn:active,
+[data-theme='dorfic'] .window-controls button:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  transform: scale(0.94) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .sidebar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(150%) !important;
+  backdrop-filter: blur(8px) saturate(150%) !important;
+  box-shadow: var(--glass-shadow) !important;
+  position: relative;
+}
+
+[data-theme='dorfic'] .sidebar-brand {
+  background-image: linear-gradient(to right, var(--logo-color-start), var(--logo-color-end)) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 1px 1px rgba(40, 10, 0, 0.25));
+}
+
+[data-theme='dorfic'][data-playing='true'] .sidebar-brand,
+[data-theme='dorfic'] [data-playing='true'] .sidebar-brand {
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+[data-theme='dorfic'] .sidebar > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme='dorfic'] .nav-link {
+  border-radius: 12px;
+  transition: box-shadow 0.18s ease, color 0.18s ease, background 0.18s ease;
+  box-shadow: none;
+  margin: 2px 8px;
+  color: var(--text-secondary);
+}
+
+[data-theme='dorfic'] .nav-link:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--text-primary);
+}
+
+[data-theme='dorfic'] .nav-link.active,
+[data-theme='dorfic'] .nav-link[aria-current] {
+  box-shadow: var(--glass-inset-sm);
+  background: rgba(255, 106, 26, 0.24);
+  color: var(--text-primary);
+}
+
+[data-theme='dorfic'][data-sidebar-collapsed='true'] .nav-link,
+[data-theme='dorfic'] [data-sidebar-collapsed='true'] .nav-link {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  margin: 2px 4px !important;
+  padding: 0 !important;
+  border-radius: 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='dorfic'][data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='dorfic'] [data-sidebar-collapsed='true'] .nav-link.active,
+[data-theme='dorfic'][data-sidebar-collapsed='true'] .nav-link[aria-current],
+[data-theme='dorfic'] [data-sidebar-collapsed='true'] .nav-link[aria-current] {
+  box-shadow: var(--glass-inset-sm), 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='dorfic'] .queue-item-title {
+  color: rgb(253, 253, 253) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SIDEBAR BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .collapse-btn,
+[data-theme='dorfic'] .resizer-queue-handle {
+  background: var(--btn-gel) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  color: var(--btn-gel-color) !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.15s ease, color 0.15s ease, background-color 0.15s ease !important;
+}
+
+[data-theme='dorfic'] .collapse-btn:hover,
+[data-theme='dorfic'] .resizer-queue-handle:hover {
+  box-shadow: var(--glass-shadow), 0 0 8px var(--accent-glow) !important;
+  color: var(--btn-gel-color) !important;
+  background: var(--btn-gel-hover) !important;
+}
+
+[data-theme='dorfic'] .collapse-btn:active,
+[data-theme='dorfic'] .resizer-queue-handle:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: var(--btn-gel-active) !important;
+  transform: translateY(-50%) scale(0.96) !important;
+  transition: transform 0.05s ease !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PLAYER BAR & TRANSPORT
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .player-bar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.12) 100%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(150%) !important;
+  backdrop-filter: blur(8px) saturate(150%) !important;
+  box-shadow: 0 -8px 24px rgba(40, 10, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+  transition: box-shadow 0.3s ease;
+}
+
+[data-theme='dorfic'][data-playing='true'] .player-bar,
+[data-theme='dorfic'] [data-playing='true'] .player-bar {
+  position: relative !important;
+  box-shadow:
+    0 -1px 24px rgba(40, 10, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 -8px 22px var(--accent-glow) !important;
+}
+
+[data-theme='dorfic'][data-playing='true'] .player-bar::before,
+[data-theme='dorfic'] [data-playing='true'] .player-bar::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, var(--accent), var(--positive)) !important;
+  border-radius: 0px !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+[data-theme='dorfic'][data-playing='true'] .player-track-name,
+[data-theme='dorfic'] [data-playing='true'] .player-track-name,
+[data-theme='dorfic'][data-playing='true'] .player-bar .track-name,
+[data-theme='dorfic'] [data-playing='true'] .player-bar .track-name,
+[data-theme='dorfic'][data-playing='true'] .player-bar .track-title,
+[data-theme='dorfic'] [data-playing='true'] .player-bar .track-title,
+[data-theme='dorfic'][data-playing='true'] .now-playing-title,
+[data-theme='dorfic'] [data-playing='true'] .now-playing-title {
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='dorfic'] .waveform-container,
+[data-theme='dorfic'] .seekbar-trough {
+  background: rgba(30, 6, 0, 0.55);
+  box-shadow: var(--glass-inset-sm), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 4px 8px;
+}
+
+[data-theme='dorfic'] .player-waveform-wrap,
+[data-theme='dorfic'] .waveform-seek-container {
+  height: 24px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+[data-theme='dorfic'][data-playing='true'] .waveform-seek-container canvas {
+  height: 24px !important;
+  filter: drop-shadow(0 0 1px rgba(30, 6, 0, 0.9))
+          drop-shadow(0 0 3px var(--accent-glow)) !important;
+}
+
+[data-theme='dorfic'] input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+[data-theme='dorfic'] input[type='range']::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: var(--glass-inset-sm);
+  border-radius: 999px;
+  height: 6px;
+}
+
+[data-theme='dorfic'] input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, var(--accent) 75%);
+  box-shadow: var(--glass-shadow-sm);
+  margin-top: -5px;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+[data-theme='dorfic'] input[type='range']::-webkit-slider-thumb:hover {
+  box-shadow: var(--glass-shadow-sm), 0 0 10px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .btn-primary,
+[data-theme='dorfic'] .hero-play-btn {
+  background: linear-gradient(180deg, rgba(255, 210, 170, 0.85) 0%, var(--accent) 45%, #d1470a 100%) !important;
+  color: #fffaf4 !important;
+  border: 1px solid rgba(255, 255, 255, 0.50) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--glass-shadow), 0 0 14px var(--accent-glow) !important;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease !important;
+}
+
+[data-theme='dorfic'] .btn-primary:hover,
+[data-theme='dorfic'] .hero-play-btn:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 24px var(--accent-glow) !important;
+  background: linear-gradient(180deg, rgba(255, 225, 195, 0.90) 0%, #ff7a2e 45%, #e0540f 100%) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+}
+
+[data-theme='dorfic'] .btn-surface {
+  background: var(--btn-gel) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  color: var(--btn-gel-color) !important;
+  transition: box-shadow 0.18s ease, transform 0.1s ease, background-color 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .btn-surface:hover {
+  box-shadow: var(--glass-shadow), 0 0 10px var(--accent-glow) !important;
+  background: var(--btn-gel-hover) !important;
+}
+
+[data-theme='dorfic'] .btn-ghost {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  transition: box-shadow 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+
+[data-theme='dorfic'] .btn-ghost:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--text-primary);
+}
+
+[data-theme='dorfic'] .queue-round-btn {
+  background: var(--btn-gel);
+  border-radius: 50%;
+  border: none;
+  box-shadow: var(--glass-shadow-sm);
+  color: var(--btn-gel-color);
+  transition: box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+[data-theme='dorfic'] .queue-round-btn:hover {
+  background: var(--btn-gel-hover);
+  box-shadow: var(--glass-shadow), 0 0 8px var(--accent-glow);
+  color: var(--btn-gel-color);
+}
+
+[data-theme='dorfic'] .queue-round-btn.active,
+[data-theme='dorfic'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--glass-inset-sm), 0 0 8px var(--accent-glow) !important;
+  background: linear-gradient(180deg, #fff6ec 0%, #ffd9b3 100%) !important;
+  color: #b8420a !important;
+}
+
+[data-theme='dorfic'] .queue-round-btn.active:hover,
+[data-theme='dorfic'] .queue-round-btn[data-active='true']:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #ffe4c4 100%) !important;
+  color: #b8420a !important;
+  box-shadow: 0 0 14px var(--accent-glow) !important;
+}
+
+[data-theme='dorfic'] .live-search-field-cluster {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.30) !important;
+  border-radius: 999px !important;
+  box-shadow: var(--glass-inset-sm) !important;
+  padding: 0 12px !important;
+  transition: box-shadow 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .live-search-field-cluster:focus-within {
+  box-shadow: var(--glass-inset-sm), 0 0 0 2px var(--accent-glow) !important;
+}
+
+[data-theme='dorfic'] .live-search-field {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dorfic'] .live-search-leading-icon {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme='dorfic'] .live-search-adv-btn,
+[data-theme='dorfic'] .dev-network-mode-toggle,
+[data-theme='dorfic'] .connection-sync-btn,
+[data-theme='dorfic'] .connection-meta,
+[data-theme='dorfic'] .queue-action-btn {
+  background: var(--btn-gel) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  color: var(--btn-gel-color) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, background-color 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .live-search-adv-btn:hover,
+[data-theme='dorfic'] .dev-network-mode-toggle:hover,
+[data-theme='dorfic'] .connection-sync-btn:hover,
+[data-theme='dorfic'] .connection-meta:hover,
+[data-theme='dorfic'] .queue-action-btn:hover {
+  box-shadow: var(--glass-shadow), 0 0 8px var(--accent-glow) !important;
+  color: var(--btn-gel-color) !important;
+  background: var(--btn-gel-hover) !important;
+}
+
+[data-theme='dorfic'] .live-search-adv-btn:active,
+[data-theme='dorfic'] .dev-network-mode-toggle:active,
+[data-theme='dorfic'] .connection-sync-btn:active,
+[data-theme='dorfic'] .queue-action-btn:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: var(--btn-gel-active) !important;
+  transform: scale(0.94) !important;
+}
+
+[data-theme='dorfic'] .connection-indicator{
+  border-radius: 999px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 3px 10px 3px 3px !important;
+}
+
+[data-theme='dorfic'] .connection-sync-btn {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+[data-theme='dorfic'] .connection-meta {
+  border-radius: 999px !important;
+  padding: 3px 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  line-height: 1.1 !important;
+}
+
+[data-theme='dorfic'] .connection-led--connected {
+  background: var(--positive) !important;
+  box-shadow: 0 0 6px var(--positive) !important;
+}
+
+[data-theme='dorfic'] .queue-toolbar-sep {
+  background: rgba(255, 255, 255, 0.28) !important;
+  width: 1px !important;
+}
+
+[data-theme='dorfic'] .queue-header {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(150%) !important;
+  backdrop-filter: blur(10px) saturate(150%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20) !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+}
+
+[data-theme='dorfic'] .content-header,
+[data-theme='dorfic'] .queue-toolbar {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 100%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
+  backdrop-filter: blur(12px) saturate(150%) !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+}
+
+[data-theme='dorfic'] .play-btn,
+[data-theme='dorfic'] .transport-btn,
+[data-theme='dorfic'] .player-btn {
+  background: var(--btn-gel);
+  color: var(--btn-gel-color);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--glass-shadow);
+  transition: box-shadow 0.18s ease, transform 0.1s ease, background 0.18s ease;
+}
+
+[data-theme='dorfic'] .play-btn:hover,
+[data-theme='dorfic'] .transport-btn:hover,
+[data-theme='dorfic'] .player-btn:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 16px var(--accent-glow);
+  background: var(--btn-gel-hover);
+}
+
+[data-theme='dorfic'] .player-btn-primary {
+  background: linear-gradient(180deg, rgba(255, 210, 170, 0.85) 0%, var(--accent) 45%, #d1470a 100%) !important;
+  color: #fffaf4 !important;
+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
+  border-radius: 50% !important;
+  box-shadow: var(--glass-shadow), 0 0 14px var(--accent-glow) !important;
+  transition: box-shadow 0.18s ease, transform 0.1s ease, background 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .player-btn-primary:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 22px var(--accent-glow) !important;
+  background: linear-gradient(180deg, rgba(255, 225, 195, 0.90) 0%, #ff7a2e 45%, #e0540f 100%) !important;
+}
+
+[data-theme='dorfic'] .player-btn-primary:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: linear-gradient(180deg, #ff8a3d 0%, #d1470a 100%) !important;
+  transform: scale(0.96) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SONG LIST / TRACK ACTION BUTTONS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .song-list-row-btn,
+[data-theme='dorfic'] .song-list-row-btn--play,
+[data-theme='dorfic'] .song-card-action-btn {
+  background: var(--btn-gel) !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+  transition: box-shadow 0.18s ease, color 0.18s ease, transform 0.1s ease, background 0.18s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme='dorfic'] .song-list-row-btn:hover,
+[data-theme='dorfic'] .song-list-row-btn--play:hover,
+[data-theme='dorfic'] .song-card-action-btn:hover {
+  box-shadow: var(--glass-shadow), 0 0 10px var(--accent-glow) !important;
+  background: var(--btn-gel-hover) !important;
+}
+
+[data-theme='dorfic'] .song-list-row-btn svg,
+[data-theme='dorfic'] .song-list-row-btn--play svg,
+[data-theme='dorfic'] .song-card-action-btn svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke-width: 2 !important;
+  color: var(--btn-gel-color) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .song-list-row-btn:hover svg,
+[data-theme='dorfic'] .song-list-row-btn--play:hover svg,
+[data-theme='dorfic'] .song-card-action-btn:hover svg {
+  color: var(--btn-gel-color) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ALBUM GRID & CARDS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] {
+  --rail-shadow-room: 18px;
+}
+
+[data-theme='dorfic'] .album-grid-wrap > div {
+  margin-top: 12px !important;
+  margin-left: 12px !important;
+}
+
+[data-theme='dorfic'] .album-card-details-btn {
+  background: var(--btn-gel) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--glass-shadow) !important;
+  border: 1px solid rgba(255, 255, 255, 0.40) !important;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+  overflow: hidden !important;
+}
+
+[data-theme='dorfic'] .album-card-details-btn:hover {
+  box-shadow: var(--glass-shadow-lg), 0 0 12px var(--accent-glow) !important;
+  background: var(--btn-gel-hover) !important;
+}
+
+[data-theme='dorfic'] .album-card-details-btn svg {
+  color: var(--btn-gel-color) !important;
+  transition: color 0.18s ease !important;
+}
+
+[data-theme='dorfic'] .album-card-details-btn:hover svg {
+  color: var(--btn-gel-color) !important;
+}
+
+[data-theme='dorfic'] .long-press-wave .long-press-wave__crest {
+  fill: var(--accent) !important;
+  opacity: 0.60 !important;
+}
+
+[data-theme='dorfic'] .long-press-wave .long-press-wave__fill {
+  background: rgba(255, 106, 26, 0.22) !important;
+}
+
+[data-theme='dorfic'] .long-press-play-btn__icon svg {
+  color: var(--accent) !important;
+  fill: currentColor !important;
+  filter: drop-shadow(0 2px 4px rgba(40, 10, 0, 0.5)) !important;
+}
+
+[data-theme='dorfic'] .album-card {
+  background: rgba(255, 255, 255, 0.14) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: var(--glass-shadow) !important;
+  border: 1px solid rgba(255, 255, 255, 0.30) !important;
+  border-radius: 18px !important;
+  padding: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  transition: box-shadow 0.22s ease, transform 0.22s ease !important;
+}
+
+[data-theme='dorfic'] .album-card-cover {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  position: relative !important;
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  box-shadow: var(--glass-inset), 0 0 0 1px rgba(255, 255, 255, 0.35) !important;
+  padding: 6px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+
+[data-theme='dorfic'] .album-card-cover img,
+[data-theme='dorfic'] .album-card-play-overlay {
+  grid-area: 1 / 1 / 2 / 2 !important;
+}
+
+[data-theme='dorfic'] .album-card-play-overlay {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+[data-theme='dorfic'] .album-card-cover img {
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  box-shadow: 2px 2px 5px rgba(40, 10, 0, 0.4) !important;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform !important;
+}
+
+[data-theme='dorfic'] .album-card:hover .album-card-cover img {
+  transform: scale(0.97) rotate(4deg) !important;
+}
+
+[data-theme='dorfic'] .album-card [class*="badge"],
+[data-theme='dorfic'] .album-card .new-badge {
+  position: absolute !important;
+  top: 10px !important;
+  right: 3px !important;
+  padding: 2px 6px !important;
+  min-width: 45px !important;
+  border-radius: 999px !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  background: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INPUTS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .input,
+[data-theme='dorfic'] input[type='text'],
+[data-theme='dorfic'] input[type='search'],
+[data-theme='dorfic'] input[type='password'],
+[data-theme='dorfic'] textarea,
+[data-theme='dorfic'] select {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  border-radius: 14px;
+  box-shadow: var(--glass-inset);
+  color: var(--text-primary);
+  outline: none;
+  transition: box-shadow 0.18s ease;
+}
+
+[data-theme='dorfic'] .input:focus,
+[data-theme='dorfic'] input:focus,
+[data-theme='dorfic'] textarea:focus {
+  box-shadow: var(--glass-inset), 0 0 0 2px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   QUEUE PANEL & TRACK ROWS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .queue-panel {
+  background: rgba(255, 255, 255, 0.18) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(150%) !important;
+  backdrop-filter: blur(8px) saturate(150%) !important;
+  box-shadow: -8px 0 24px rgba(40, 10, 0, 0.30) !important;
+}
+
+[data-theme='dorfic'] .queue-item,
+[data-theme='dorfic'] .track-row {
+  border-radius: 12px;
+  transition: box-shadow 0.15s ease, background 0.15s ease;
+}
+
+[data-theme='dorfic'] .track-row:hover,
+[data-theme='dorfic'] .queue-item:hover {
+  box-shadow: var(--glass-shadow-sm);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme='dorfic'] .queue-item.active,
+[data-theme='dorfic'] .track-row.active {
+  box-shadow: var(--glass-inset-sm);
+  background: rgba(255, 106, 26, 0.22);
+  color: var(--text-primary);
+}
+
+[data-theme='dorfic'] .queue-item-info {
+  color: var(--accent) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STAR RATINGS
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .is-starred {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+[data-theme='dorfic'] .star-rating .star {
+  color: rgba(255, 255, 255, 0.30) !important;
+  transition: color 0.2s ease, filter 0.2s ease;
+}
+
+[data-theme='dorfic'] .star-rating .star.filled {
+  color: var(--accent) !important;
+  filter: drop-shadow(0 0 4px var(--accent-glow));
+}
+
+[data-theme='dorfic'] .queue-current-info svg.lucide-star,
+[data-theme='dorfic'] .track-row svg.lucide-star,
+[data-theme='dorfic'] .track-item svg.lucide-star {
+  color: rgba(255, 255, 255, 0.30) !important;
+  transition: color 0.2s ease, filter 0.2s ease !important;
+}
+
+[data-theme='dorfic'] .queue-current-info svg.lucide-star:not([fill="none"]),
+[data-theme='dorfic'] .track-row svg.lucide-star:not([fill="none"]),
+[data-theme='dorfic'] .track-item svg.lucide-star:not([fill="none"]) {
+  color: var(--accent) !important;
+  fill: var(--accent) !important;
+  filter: drop-shadow(0 0 4px var(--accent-glow)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 106, 26, 0.30));
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(40, 10, 0, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIBRARY SCOPE DROPDOWN
+═══════════════════════════════════════════════════════════════════ */
+
+[data-theme='dorfic'] .nav-library-dropdown-panel {
+  background: rgba(28, 8, 0, 0.90) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
+  backdrop-filter: blur(16px) saturate(140%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--glass-shadow-lg) !important;
+  padding: 6px !important;
+  color: var(--text-primary) !important;
+}
+
+[data-theme='dorfic'] .nav-library-server-group-heading {
+  color: rgba(255, 250, 244, 0.50) !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  padding: 6px 10px 4px !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item {
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 1px 2px !important;
+  transition: background 0.15s ease !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item--selected {
+  background: rgba(255, 106, 26, 0.22) !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-main {
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-primary) !important;
+  padding: 7px 10px !important;
+  flex: 1 !important;
+  text-align: left !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-label {
+  color: inherit !important;
+  font-size: 13px !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-toggle {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  margin-right: 6px !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-toggle--align-only {
+  border: none !important;
+  background: transparent !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-toggle--on {
+  background: var(--btn-gel) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: #fffaf4 !important;
+  box-shadow: var(--glass-shadow-sm) !important;
+}
+
+[data-theme='dorfic'] .nav-library-dropdown-item-toggle-box {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  display: block !important;
+}
