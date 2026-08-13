@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-08T05:10:14.013Z",
+  "generatedAt": "2026-08-13T11:03:46.000Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -368,6 +368,39 @@
       "css": "themes/doh-matic/theme.css",
       "thumbnail": "themes/doh-matic/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "dorfic",
+      "name": "DORFic",
+      "author": "ImAsra",
+      "version": "1.0.0",
+      "description": "Daylight, Orange, Red, Futurism — the abstract-tech sibling of Frutiger Aero, all sunburst gradients and HUD circles.",
+      "mode": "light",
+      "tags": [
+        "daylight",
+        "orange",
+        "red",
+        "futurism"
+      ],
+      "minAppVersion": "1.51.0",
+      "changelog": {
+        "1.0.0": [
+          "Theme Released"
+        ]
+      },
+      "assets": [
+        {
+          "path": "themes/dorfic/assets/aurora-bg.webp",
+          "bytes": 88090
+        },
+        {
+          "path": "themes/dorfic/assets/dorfic-psysonic.webp",
+          "bytes": 114558
+        }
+      ],
+      "css": "themes/dorfic/theme.css",
+      "thumbnail": "themes/dorfic/thumbnail.webp",
+      "updatedAt": "2026-08-13T13:02:56+02:00"
     },
     {
       "id": "dos",
