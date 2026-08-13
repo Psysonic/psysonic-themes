@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "minAppVersion": "1.51.0",
   "description": "Daylight, Orange, Red, Futurism — the abstract-tech sibling of Frutiger Aero, all sunburst gradients and HUD circles.",
-  "mode": "dark",
+  "mode": "light",
   "tags": ["daylight", "orange", "red", "futurism"],
   "changelog": {
     "1.0.0": [
