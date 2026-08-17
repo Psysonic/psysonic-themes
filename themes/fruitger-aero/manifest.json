@@ -12,6 +12,10 @@
       "Initial release featuring Frutiger Aero theme styling",
       "Custom sidebar PsySonic logo branding",
       "Static bubble overlay accents"
+    ],
+    "1.0.1": [
+      "Fix suggested by Hivemind on discord:" ,
+      "Fixed minor UI inconsistencies and improved color contrast for better readability"
     ]
   }
 }
