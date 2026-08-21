@@ -16,7 +16,7 @@
   --bg-card:           rgba(255, 255, 255, 0.14);
   --bg-elevated:       rgba(255, 255, 255, 0.22);
   --border:            rgba(255, 255, 255, 0.38);
-  --text-primary:      #f4fdfd;
+  --text-primary:      #fffcfc;
   --text-secondary:    rgba(244, 253, 253, 0.75);
   --text-muted:        rgba(244, 253, 253, 0.48);
   --positive:          #8bd346;
@@ -64,13 +64,46 @@
   --glass-inset:      0 2px 4px rgba(4, 16, 19, 0.45);
   --glass-inset-lg:   0 3px 6px rgba(4, 16, 19, 0.50);
 
-  /* 3D Gel Button Variables */
-  --btn-gel:          linear-gradient(180deg, rgba(185, 240, 248, 0.85) 0%, var(--accent) 45%, #0f7a8c 100%);
-  --btn-gel-hover:    linear-gradient(180deg, rgba(215, 248, 252, 0.90) 0%, #30c8dc 45%, #148ea3 100%);
-  --btn-gel-active:   linear-gradient(180deg, #2f8fe0 0%, #0f7a8c 100%);
-  --btn-gel-color:    #f4fdfd;
-}
+/* 3D Glass Sphere/Orb & Gel Capsule Button Variables */
+  --btn-glass-orb: radial-gradient(
+    circle at 50% 20%,
+    #a8f5ff 0%,
+    #42bbf0 25%,
+    #07357b 55%,
+    #052c42 82%,
+    #01111c 100%
+  );
+  
+  --btn-glass-orb-hover: radial-gradient(
+    circle at 50% 18%,
+    #c8fbff 0%,
+    #59cbff 25%,
+    #1b83be 55%,
+    #073b57 82%,
+    #021826 100%
+  );
 
+  --btn-glass-pill: linear-gradient(
+    180deg,
+    #73ebfb 0%,
+    #32b3ed 30%,
+    #07357b 58%,
+    #04293e 85%,
+    #01121d 100%
+  );
+
+  --btn-glass-pill-hover: linear-gradient(
+    180deg,
+    #9bf1fd 0%,
+    #4cc3f8 30%,
+    #167cb8 58%,
+    #063753 85%,
+    #021b2b 100%
+  );
+
+  --btn-glass-rim: #004c7e;
+ }
+}
 /* ═══════════════════════════════════════════════════════════════════
    GLOBAL RESETS
 ═══════════════════════════════════════════════════════════════════ */
@@ -426,15 +459,18 @@
 }
 
 [data-theme='fruitger-aero'][data-playing='true'] .player-track-name,
-[data-theme='fruitger-aero'] [data-playing='true'] .player-track-name,
-[data-theme='fruitger-aero'][data-playing='true'] .player-bar .track-name,
 [data-theme='fruitger-aero'] [data-playing='true'] .player-bar .track-name,
 [data-theme='fruitger-aero'][data-playing='true'] .player-bar .track-title,
-[data-theme='fruitger-aero'] [data-playing='true'] .player-bar .track-title,
 [data-theme='fruitger-aero'][data-playing='true'] .now-playing-title,
 [data-theme='fruitger-aero'] [data-playing='true'] .now-playing-title {
   color: var(--text-primary) !important;
   text-shadow: 0 0 12px var(--accent-glow) !important;
+}
+
+.player-track-info {
+  overflow: visible !important;
+  width: auto !important;
+  max-width: none !important;
 }
 
 [data-theme='fruitger-aero'] .waveform-container,
@@ -494,148 +530,159 @@
 
 [data-theme='fruitger-aero'] .btn-primary,
 [data-theme='fruitger-aero'] .hero-play-btn {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(31, 182, 201, 0.35) 100%);
-  color: var(--text-primary);
+  position: relative !important;
+  overflow: hidden !important;
+  background: var(--btn-glass-orb) !important;
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 14px;
-  box-shadow: var(--glass-shadow), 0 0 14px var(--accent-glow);
-  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.75),
+    0 4px 10px rgba(0, 0, 0, 0.65),
+    inset 0 -6px 10px rgba(56, 119, 255, 0.85),
+    inset 0 -1px 2px #ffffff !important;
+  color: #ffffff !important;
 }
 
 [data-theme='fruitger-aero'] .btn-primary:hover,
 [data-theme='fruitger-aero'] .hero-play-btn:hover {
-  box-shadow: var(--glass-shadow-lg), 0 0 24px var(--accent-glow);
-  border-color: rgba(255, 255, 255, 0.65);
+  background: var(--btn-gel-orb-hover) !important;
+  box-shadow:
+    inset 0 2px 5px rgba(255, 255, 255, 0.85),
+    inset 0 -6px 8px rgba(3, 18, 22, 0.65),
+    0 4px 12px rgba(3, 14, 17, 0.65),
+    0 0 14px var(--accent-glow) !important;
 }
 
-/* Updated General and Interface Buttons using 3D Gel */
-[data-theme='fruitger-aero'] .btn-surface,
+[data-theme='fruitger-aero'] .btn-primary::after,
+[data-theme='fruitger-aero'] .hero-play-btn::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 3% !important;
+  left: 4% !important;
+  right: 4% !important;
+  height: 50% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.60) 45%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  pointer-events: none !important;
+}
+
+
+/* 1. Circular / Orb Gel Buttons */
 [data-theme='fruitger-aero'] .collapse-btn,
 [data-theme='fruitger-aero'] .resizer-queue-handle,
 [data-theme='fruitger-aero'] .live-search-adv-btn,
 [data-theme='fruitger-aero'] .connection-sync-btn,
-[data-theme='fruitger-aero'] .connection-meta,
 [data-theme='fruitger-aero'] .queue-action-btn,
 [data-theme='fruitger-aero'] .queue-round-btn,
 [data-theme='fruitger-aero'] .play-btn,
 [data-theme='fruitger-aero'] .transport-btn,
 [data-theme='fruitger-aero'] .player-btn,
 [data-theme='fruitger-aero'] .song-list-row-btn,
-[data-theme='fruitger-aero'] .song-list-row-btn--play,
-[data-theme='fruitger-aero'] .song-card-action-btn,
-[data-theme='fruitger-aero'] .album-card-details-btn {
-  background: var(--btn-gel) !important;
-  border: none !important;
-  box-shadow: var(--glass-shadow-sm) !important;
-  color: var(--btn-gel-color) !important;
-  transition: box-shadow 0.18s ease, transform 0.1s ease, background-color 0.18s ease, color 0.18s ease !important;
+[data-theme='fruitger-aero'] .song-card-action-btn {
+  position: relative !important;
+  overflow: hidden !important;
+  background: var(--btn-glass-orb) !important;
+  border: 0.5px solid var(--btn-glass-rim) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.75),
+    0 4px 10px rgba(0, 0, 0, 0.65),
+    inset 0 -6px 10px rgba(38, 106, 254, 0.85),
+    inset 0 -1px 2px #ffffff !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.18s ease, transform 0.1s ease, background 0.18s ease !important;
 }
 
-[data-theme='fruitger-aero'] .btn-surface { border-radius: 14px !important; }
+[data-theme='fruitger-aero'] .collapse-btn::after,
+[data-theme='fruitger-aero'] .resizer-queue-handle::after,
+[data-theme='fruitger-aero'] .live-search-adv-btn::after,
+[data-theme='fruitger-aero'] .connection-sync-btn::after,
+[data-theme='fruitger-aero'] .queue-action-btn::after,
+[data-theme='fruitger-aero'] .queue-round-btn::after,
+[data-theme='fruitger-aero'] .play-btn::after,
+[data-theme='fruitger-aero'] .transport-btn::after,
+[data-theme='fruitger-aero'] .player-btn::after,
+[data-theme='fruitger-aero'] .song-list-row-btn::after,
+[data-theme='fruitger-aero'] .song-card-action-btn::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 4% !important;
+  left: 15% !important;
+  right: 15% !important;
+  height: 48% !important;
+  border-radius: 50% 50% 45% 45% / 80% 80% 25% 25% !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.75) 40%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  pointer-events: none !important;
+}
 
+/* 2. Capsule / Pill / Surface Gel Buttons */
+[data-theme='fruitger-aero'] .btn-surface,
+[data-theme='fruitger-aero'] .connection-meta,
+[data-theme='fruitger-aero'] .album-card-details-btn,
+[data-theme='fruitger-aero'] .dev-network-mode-toggle {
+  position: relative !important;
+  overflow: hidden !important;
+  background: var(--btn-glass-pill) !important;
+  border: 0.5px solid var(--btn-glass-rim) !important;
+  border-radius: 999px !important;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.75),
+    0 4px 10px rgba(0, 0, 0, 0.65),
+    inset 0 -6px 10px rgba(42, 108, 250, 0.85),
+    inset 0 -1px 2px #ffffff !important;
+  color: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: box-shadow 0.18s ease, transform 0.1s ease, background 0.18s ease !important;
+}
+
+/* Elongated Crescent Highlight for Pill Buttons */
+[data-theme='fruitger-aero'] .btn-surface::after,
+[data-theme='fruitger-aero'] .connection-meta::after,
+[data-theme='fruitger-aero'] .album-card-details-btn::after,
+[data-theme='fruitger-aero'] .dev-network-mode-toggle::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 3% !important;
+  left: 4% !important;
+  right: 4% !important;
+  height: 50% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.60) 45%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  pointer-events: none !important;
+}
+
+/* Button Sizing & Layout Adjustments */
 [data-theme='fruitger-aero'] .collapse-btn,
 [data-theme='fruitger-aero'] .resizer-queue-handle,
 [data-theme='fruitger-aero'] .live-search-adv-btn,
 [data-theme='fruitger-aero'] .queue-action-btn {
-  border-radius: 999px !important;
   width: 22px !important;
   height: 22px !important;
   min-width: 22px !important;
   padding: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
 }
 
-[data-theme='fruitger-aero'] .queue-round-btn,
-[data-theme='fruitger-aero'] .play-btn,
-[data-theme='fruitger-aero'] .transport-btn,
-[data-theme='fruitger-aero'] .player-btn,
-[data-theme='fruitger-aero'] .song-list-row-btn,
-[data-theme='fruitger-aero'] .song-list-row-btn--play,
-[data-theme='fruitger-aero'] .song-card-action-btn {
-  border-radius: 50% !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-[data-theme='fruitger-aero'] .album-card-details-btn {
-  border-radius: 12px !important;
-  border: 1px solid rgba(255, 255, 255, 0.40) !important;
-  overflow: hidden !important;
-}
-
-[data-theme='fruitger-aero'] .btn-surface:hover,
-[data-theme='fruitger-aero'] .collapse-btn:hover,
-[data-theme='fruitger-aero'] .resizer-queue-handle:hover,
-[data-theme='fruitger-aero'] .live-search-adv-btn:hover,
-[data-theme='fruitger-aero'] .connection-sync-btn:hover,
-[data-theme='fruitger-aero'] .connection-meta:hover,
-[data-theme='fruitger-aero'] .queue-action-btn:hover,
-[data-theme='fruitger-aero'] .queue-round-btn:hover,
-[data-theme='fruitger-aero'] .song-list-row-btn:hover,
-[data-theme='fruitger-aero'] .song-list-row-btn--play:hover,
-[data-theme='fruitger-aero'] .song-card-action-btn:hover,
-[data-theme='fruitger-aero'] .album-card-details-btn:hover {
-  box-shadow: var(--glass-shadow), 0 0 10px var(--accent-glow) !important;
-  background: var(--btn-gel-hover) !important;
-}
-
-[data-theme='fruitger-aero'] .play-btn:hover,
-[data-theme='fruitger-aero'] .transport-btn:hover,
-[data-theme='fruitger-aero'] .player-btn:hover {
-  box-shadow: var(--glass-shadow-lg), 0 0 16px var(--accent-glow) !important;
-  background: var(--btn-gel-hover) !important;
-}
-
-[data-theme='fruitger-aero'] .queue-round-btn.active,
-[data-theme='fruitger-aero'] .queue-round-btn[data-active='true'] {
-  box-shadow: var(--glass-inset-sm), 0 0 8px var(--accent-glow) !important;
-  background: linear-gradient(180deg, #eafcff 0%, #bcf2fa 100%) !important;
-  color: #0f7a8c !important;
-}
-
-[data-theme='fruitger-aero'] .queue-round-btn.active:hover,
-[data-theme='fruitger-aero'] .queue-round-btn[data-active='true']:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #dcf7fc 100%) !important;
-  color: #0f7a8c !important;
-  box-shadow: 0 0 14px var(--accent-glow) !important;
-}
-
-[data-theme='fruitger-aero'] .live-search-adv-btn,
-[data-theme='fruitger-aero'] .dev-network-mode-toggle,
-[data-theme='fruitger-aero'] .connection-sync-btn,
-[data-theme='fruitger-aero'] .connection-meta,
-[data-theme='fruitger-aero'] .queue-action-btn {
-  background: var(--btn-gel) !important;
-  border: none !important;
-  border-radius: 999px !important;
-  box-shadow: var(--glass-shadow-sm) !important;
-  color: var(--btn-gel-color) !important;
-  transition: box-shadow 0.18s ease, color 0.18s ease, background-color 0.18s ease !important;
-}
-
-[data-theme='fruitger-aero'] .live-search-adv-btn:hover,
-[data-theme='fruitger-aero'] .dev-network-mode-toggle:hover,
-[data-theme='fruitger-aero'] .connection-sync-btn:hover,
-[data-theme='fruitger-aero'] .connection-meta:hover,
-[data-theme='fruitger-aero'] .queue-action-btn:hover {
-  box-shadow: var(--glass-shadow), 0 0 8px var(--accent-glow) !important;
-  color: var(--btn-gel-color) !important;
-  background: var(--btn-gel-hover) !important;
-}
-
-[data-theme='fruitger-aero'] .live-search-adv-btn:active,
-[data-theme='fruitger-aero'] .dev-network-mode-toggle:active,
-[data-theme='fruitger-aero'] .connection-sync-btn:active,
-[data-theme='fruitger-aero'] .queue-action-btn:active {
-  box-shadow: var(--glass-inset-sm) !important;
-  background: var(--btn-gel-active) !important;
-  transform: scale(0.94) !important;
-}
-
-[data-theme='fruitger-aero'] .connection-indicator{
+[data-theme='fruitger-aero'] .connection-indicator {
   border-radius: 999px !important;
   display: flex !important;
   align-items: center !important;
@@ -648,17 +695,11 @@
   height: 30px !important;
   min-width: 30px !important;
   padding: 0 !important;
-  border-radius: 50% !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative !important;
   flex-shrink: 0 !important;
 }
 
 [data-theme='fruitger-aero'] .connection-meta {
-  border-radius: 999px !important;
-  padding: 3px 10px !important;
+  padding: 3px 12px !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 4px !important;
@@ -670,6 +711,57 @@
   box-shadow: 0 0 6px var(--positive) !important;
 }
 
+/* Button Hover / Active States */
+[data-theme='fruitger-aero'] .collapse-btn:hover,
+[data-theme='fruitger-aero'] .resizer-queue-handle:hover,
+[data-theme='fruitger-aero'] .live-search-adv-btn:hover,
+[data-theme='fruitger-aero'] .connection-sync-btn:hover,
+[data-theme='fruitger-aero'] .queue-action-btn:hover,
+[data-theme='fruitger-aero'] .queue-round-btn:hover,
+[data-theme='fruitger-aero'] .play-btn:hover,
+[data-theme='fruitger-aero'] .transport-btn:hover,
+[data-theme='fruitger-aero'] .player-btn:hover,
+[data-theme='fruitger-aero'] .song-list-row-btn:hover,
+[data-theme='fruitger-aero'] .song-card-action-btn:hover {
+  background: var(--btn-gel-orb-hover) !important;
+  box-shadow:
+    inset 0 2px 5px rgba(255, 255, 255, 0.85),
+    inset 0 -6px 8px rgba(3, 18, 22, 0.65),
+    0 4px 12px rgba(3, 11, 17, 0.65),
+    0 0 14px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'] .btn-surface:hover,
+[data-theme='fruitger-aero'] .connection-meta:hover,
+[data-theme='fruitger-aero'] .album-card-details-btn:hover,
+[data-theme='fruitger-aero'] .dev-network-mode-toggle:hover {
+  background: var(--btn-gel-pill-hover) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -5px 8px rgba(3, 18, 22, 0.75),
+    0 4px 12px rgba(3, 14, 17, 0.65),
+    0 0 12px var(--accent-glow) !important;
+}
+
+[data-theme='fruitger-aero'] .dev-network-mode-toggle:active {
+  box-shadow: var(--glass-inset-sm) !important;
+  background: var(--btn-gel-pill-active) !important;
+  transform: scale(0.94) !important;
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn.active,
+[data-theme='fruitger-aero'] .queue-round-btn[data-active='true'] {
+  box-shadow: var(--glass-inset-sm), 0 0 8px var(--accent-glow) !important;
+  background: linear-gradient(180deg, #caf7ff 0%, #9af2ff 100%) !important;
+  color: #176c94 !important;
+}
+
+[data-theme='fruitger-aero'] .queue-round-btn.active:hover,
+[data-theme='fruitger-aero'] .queue-round-btn[data-active='true']:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #dcf7fc 100%) !important;
+  color: #176c94 !important;
+  box-shadow: 0 0 14px var(--accent-glow) !important;
+}
 
 [data-theme='fruitger-aero'] .btn-ghost {
   background: transparent;
@@ -694,16 +786,20 @@
   color: #f4fdfd !important;
   border: 1px solid rgba(255, 255, 255, 0.55) !important;
   border-radius: 50% !important;
+  
   box-shadow:
+    0 0 0 1px #04141c,
+    0 0 0 3px #1a3c4f,
+    0 0 0 4.5px rgba(255, 255, 255, 0.45),
     inset 0 2px 3px rgba(255, 255, 255, 0.55),
     inset 0 -8px 12px rgba(3, 18, 22, 0.55),
-    0 4px 10px rgba(3, 14, 17, 0.55),
-    0 0 16px var(--accent-glow) !important;
+    0 6px 14px rgba(3, 14, 17, 0.65),
+    0 0 20px var(--accent-glow) !important;
+  
   overflow: hidden !important;
   transition: box-shadow 0.18s ease, transform 0.1s ease !important;
 }
 
-/* Wireframe globe grid */
 [data-theme='fruitger-aero'] .player-btn-primary::before {
   content: '' !important;
   position: absolute !important;
@@ -737,6 +833,9 @@
 
 [data-theme='fruitger-aero'] .player-btn-primary:hover {
   box-shadow:
+    0 0 0 1px #061c28,
+    0 0 0 3px #224d66,
+    0 0 0 4.5px rgba(255, 255, 255, 0.65),
     inset 0 2px 3px rgba(255, 255, 255, 0.65),
     inset 0 -8px 12px rgba(3, 18, 22, 0.55),
     0 6px 14px rgba(3, 14, 17, 0.65),
@@ -747,7 +846,11 @@
    GENRE POPOVER FIX
 ═══════════════════════════════════════════════════════════════════ */
 
-[data-theme='fruitger-aero'] .genre-filter-popover {
+[data-theme='fruitger-aero'] .genre-filter-popover,
+[data-theme='fruitger-aero'] .live-search-dropdown,
+[data-theme='fruitger-aero'] .nav-library-dropdown-panel,
+[data-theme='fruitger-aero'] .custom-select-dropdown,
+[data-theme='fruitger-aero'] .entity-source-picker__menu{
   background: rgba(6, 30, 34, 0.85) !important;
   -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
@@ -805,4 +908,3 @@
   color: var(--text-secondary) !important;
   font-size: 0.85em !important;
 }
-
