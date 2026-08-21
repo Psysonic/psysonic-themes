@@ -2,7 +2,7 @@
   "id": "dorfic",
   "name": "DORFic",
   "author": "ImAsra",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.51.0",
   "description": "Daylight, Orange, Red, Futurism — the abstract-tech sibling of Frutiger Aero, all sunburst gradients and HUD circles.",
   "mode": "light",
@@ -10,6 +10,10 @@
   "changelog": {
     "1.0.0": [
       "Theme Released"
+    ],
+    "1.0.1": [
+      "Fix suggested by Hivemind on discord",
+      "Fixed genre popover and genre tab styling"
     ]
   }
 }
