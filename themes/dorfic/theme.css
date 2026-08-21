@@ -451,6 +451,16 @@
   text-shadow: 0 0 12px var(--accent-glow) !important;
 }
 
+[data-theme='dorfic'] .now-playing-dropdown__live-icon--active {
+  color:#ffe28a !important;
+}
+
+.player-track-info {
+  overflow: visible !important;
+  width: auto !important; /* Ensures it isn't locked to a narrow fixed width */
+  max-width: none !important;
+}
+
 [data-theme='dorfic'] .waveform-container,
 [data-theme='dorfic'] .seekbar-trough {
   background: rgba(30, 6, 0, 0.55);
@@ -664,6 +674,10 @@
   align-items: center !important;
   gap: 4px !important;
   line-height: 1.1 !important;
+}
+
+[data-theme='dorfic'] .connection-type {
+  color: var(--text-primary) !important;
 }
 
 [data-theme='dorfic'] .connection-led--connected {
@@ -1082,7 +1096,11 @@
    GENRE POPOVER FIX
 ═══════════════════════════════════════════════════════════════════ */
 
-[data-theme='dorfic'] .genre-filter-popover {
+[data-theme='dorfic'] .genre-filter-popover,
+[data-theme='dorfic'] .live-search-dropdown,
+[data-theme='dorfic'] .nav-library-dropdown-panel,
+[data-theme='dorfic'] .custom-select-dropdown,
+[data-theme='dorfic'] .entity-source-picker__menu {
   background: rgba(73, 41, 13, 0.719) !important;
   -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
@@ -1093,10 +1111,10 @@
 }
 
 [data-theme='dorfic'] .genre-pill {  
-  background: rgba(253, 105, 25, 1) !important;
+  background: rgba(252, 162, 114, 0.329) !important;
   -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
-  border: 1px solid rgba(255, 164, 80, 0.3) !important;
+  border: 1px solid rgba(255, 165, 80, 0.253) !important;
   border-radius: 14px !important;
   box-shadow: var(--glass-shadow-lg) !important;
   color: var(--text-primary) !important;
