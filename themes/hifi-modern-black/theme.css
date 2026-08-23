@@ -85,7 +85,14 @@
   --menu-divider:          #2e2e33;
   --input-bg:              #202326;
   --input-focus-border:    #0069D1;
-  --button-hover:          #252729;
+  /* Button hover (.btn-surface / .btn-ghost / select options / the sort and
+     filter toolbar buttons). Lifted from #252729 so hover reads as the button
+     lighting up. Headroom here is TIGHT, unlike the silver theme: the border
+     (#2e2e33) is itself only rgb(46,46,51), so a hover much above this collides
+     with it and the outline disappears mid-hover. This sits just under the
+     border on every channel — rgb(42,44,48) — which is as lit as it can get
+     while the edge still holds. To go brighter, raise --border with it. */
+  --button-hover:          #2A2C30;
 
   /* ── Sliders — bright silver knobs ── */
   --slider-track:       #3a3832;
@@ -1041,4 +1048,32 @@
    title/artist/duration children are color:inherit, so they follow. */
 [data-theme='hifi-modern-black'] .queue-item.active {
   color: #E4ECF5;
+}
+
+
+/* ============================================================
+   ALBUM DETAIL — "Back" button  (app 1.51+)
+   The app ships this as .btn-ghost, whose 1.51 fill is TRANSLUCENT
+   (color-mix of --text-primary at 4%). Everywhere else that reads fine,
+   but this button sits over the blurred cover-art hero: the artwork
+   shows straight through the fill, so the light --border-subtle hairline
+   is left stranded against whatever is behind it and reads as a hard
+   outline rather than the edge of a solid face. On a dark cover it
+   glows; on a light one it vanishes.
+
+   Fix: give it the same treatment as the toolbar / filter buttons
+   (.btn-surface) — an OPAQUE --bg-card face so the border sits on the
+   button instead of on the artwork, and --button-hover on hover, which
+   is the same hover those buttons use. All tokens, no magic numbers,
+   so it tracks the palette if the faceplate is ever retuned.
+   ============================================================ */
+[data-theme='hifi-modern-black'] .album-detail-back {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+[data-theme='hifi-modern-black'] .album-detail-back:hover,
+[data-theme='hifi-modern-black'] .album-detail-back:focus-visible {
+  background: var(--button-hover);
+  border-color: var(--border);
+  color: var(--text-primary);
 }
