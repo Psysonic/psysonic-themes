@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T16:35:54.240Z",
+  "generatedAt": "2026-08-23T16:39:45.190Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1021,7 +1021,7 @@
       "id": "hifi-modern-black",
       "name": "Hi-Fi Modern (Black)",
       "author": "JU3RG",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "description": "Dark companion to Hi-Fi Modern. A modern network audio player in black, with white-blue dot-matrix LCD screens, a blue standby light, and blue AUX buttons.",
       "mode": "dark",
       "tags": [
@@ -1037,7 +1037,7 @@
       "animated": true,
       "css": "themes/hifi-modern-black/theme.css",
       "thumbnail": "themes/hifi-modern-black/thumbnail.webp",
-      "updatedAt": "2026-08-08T07:09:52+02:00"
+      "updatedAt": "2026-08-22T23:03:30-07:00"
     },
     {
       "id": "hill-valley-85",
