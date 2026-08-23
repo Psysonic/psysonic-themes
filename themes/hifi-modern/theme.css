@@ -86,7 +86,15 @@
   --menu-divider:          #ababab;
   --input-bg:              #D7DBDD;
   --input-focus-border:    #0069D1;
-  --button-hover:          #c9cfd1;
+  /* Button hover (.btn-surface / .btn-ghost / select options / the sort and
+     filter toolbar buttons). Was #c9cfd1 — that is --bg-deep, the DARKEST
+     silver in the palette, so hovering a #eeeeee button face dropped it two
+     full steps and read as a muddy slab. Now hover LIFTS instead: brighter
+     than the #eeeeee face, so the button lights up rather than pressing in,
+     which is the language the rest of the theme speaks. Still a step below
+     the #f7f7f7 content bg so it never floats off the faceplate, and well
+     clear of the #D7DBDD border so the outline holds. */
+  --button-hover:          #F4F6F7;
 
   /* ── Sliders — bright silver knobs ── */
   --slider-track:       #9a9a93;
@@ -994,4 +1002,32 @@
 [data-theme='hifi-modern'][data-playing='true'] .content-body.app-shell-route-host::before,
 [data-theme='hifi-modern'][data-playing='true'] .content-header::after {
   opacity: 1;
+}
+
+
+/* ============================================================
+   ALBUM DETAIL — "Back" button  (app 1.51+)
+   The app ships this as .btn-ghost, whose 1.51 fill is TRANSLUCENT
+   (color-mix of --text-primary at 4%). Everywhere else that reads fine,
+   but this button sits over the blurred cover-art hero: the artwork
+   shows straight through the fill, so the light --border-subtle hairline
+   is left stranded against whatever is behind it and reads as a hard
+   outline rather than the edge of a solid face. On a dark cover it
+   glows; on a light one it vanishes.
+
+   Fix: give it the same treatment as the toolbar / filter buttons
+   (.btn-surface) — an OPAQUE --bg-card face so the border sits on the
+   button instead of on the artwork, and --button-hover on hover, which
+   is the same hover those buttons use. All tokens, no magic numbers,
+   so it tracks the palette if the faceplate is ever retuned.
+   ============================================================ */
+[data-theme='hifi-modern'] .album-detail-back {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+[data-theme='hifi-modern'] .album-detail-back:hover,
+[data-theme='hifi-modern'] .album-detail-back:focus-visible {
+  background: var(--button-hover);
+  border-color: var(--border);
+  color: var(--text-primary);
 }
