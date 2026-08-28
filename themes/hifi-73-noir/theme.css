@@ -81,7 +81,11 @@
   /* ── Cards ── */
   --card-title:          #efeade;
   --card-subtitle:       #c4bfb1;
-  --card-hover-border:   #6b4a33;
+  /* Album/artist card hover ring (1px inset, painted by the app on
+     .album-card:hover). Was #6b4a33 walnut — against the neutral #202326 card
+     it read as a brown outline rather than faceplate trim. Silver at the SAME
+     luminance (79), so it is a pure hue swap: ring weight is unchanged. */
+  --card-hover-border:   #4F5052;
   --card-placeholder-bg: #202326;
 
   /* ── Menus / inputs ── */
@@ -170,6 +174,23 @@
   transition:
     background 0.30s ease-out,
     color      0.30s ease-out;
+}
+
+/* Playlist names keep their natural case + lighter weight for readability —
+   only the fixed main-menu items stay all-caps. .sidebar-playlist-item is the
+   per-playlist link; the "PLAYLISTS" entry (.sidebar-playlists-main-link) is
+   not matched, so it stays uppercase. */
+[data-theme='hifi-73-noir'] .nav-link.sidebar-playlist-item {
+  text-transform: none;
+  letter-spacing: -0.02em;  /* pulled in a bit for name width */
+  font-weight: 500;
+}
+
+/* Tighter playlist indent — the app uses padding-left:16px (--space-4); halve it
+   so long playlist names get more room. Wraps the whole tree, so folders and
+   their nested items both pull left while staying visibly nested. */
+[data-theme='hifi-73-noir'] .sidebar-playlists-list {
+  padding-left: 6px;
 }
 
 /* Active indicator bar — amber tuning-scale glow.
@@ -649,4 +670,130 @@
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: right center;
+}
+
+/* ============================================================
+   TOP LIGHT CONES — 70s receiver dial-lamp glow (Hi-Fi 73 Noir)
+   Same backlit-console effect as Hi-Fi Modern (Black), but warm
+   AMBER (period-correct 70s incandescent dial lamps) instead of
+   cool white — also ties into the 73's amber tuning accent.
+   Three trapezoid cones fan down from cylindrical tube sources at
+   the header lip; the silver seam catches the light; warms up
+   when a track is playing. Pinned to the non-scrolling route host.
+   ============================================================ */
+[data-theme='hifi-73-noir'] .content-body.app-shell-route-host::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  /* screen blend so the light doesn't just paint the dark bg — it also CATCHES
+     on every cover/card/row beneath it. NOTE the difference from Modern (Black):
+     that theme's light is near-neutral warm white, so screen only lifts darks.
+     This one is AMBER, so it also warms whatever it falls on — album art near
+     the top picks up a gallery-lamp tint. That is the intent here; if covers
+     ever read as yellowed, this line is the one to drop. */
+  mix-blend-mode: screen;
+  background:
+    /* cylindrical amber tube sources */
+    radial-gradient(48px 3px at 22% 1px, rgba(255, 236, 198, 0.48), transparent 66%),
+    radial-gradient(48px 3px at 50% 1px, rgba(255, 236, 198, 0.48), transparent 66%),
+    radial-gradient(48px 3px at 78% 1px, rgba(255, 236, 198, 0.48), transparent 66%),
+    /* de-fogged: halo tightened 56x8 -> 52x6. The fat halo plus the broad mid
+       tail had read as a hazy band rather than a beam. Alpha stays at 0.22 —
+       this theme is already at ~60% of Modern's intensity by design. */
+    radial-gradient(52px 6px at 22% 2px, rgba(255, 222, 168, 0.22), transparent 74%),
+    radial-gradient(52px 6px at 50% 2px, rgba(255, 222, 168, 0.22), transparent 74%),
+    radial-gradient(52px 6px at 78% 2px, rgba(255, 222, 168, 0.22), transparent 74%),
+    /* amber beams (spill). Bridging stops at 70px and 220px fix a slope KINK
+       that showed as a visible drop-line mid-panel; the original anchors
+       (0.30/0.18/0.09/0.04) are unchanged, so this is smoother, not brighter.
+       Runs to 100% now instead of stopping dead at 380px. */
+    linear-gradient(
+      to bottom,
+      rgba(255, 216, 156, 0)     0,
+      rgba(255, 216, 156, 0)     2px,   /* gap under the header */
+      rgba(255, 216, 156, 0.30)  11px,  /* source */
+      rgba(255, 216, 156, 0.18)  34px,
+      rgba(255, 216, 156, 0.14)  70px,  /* bridging */
+      rgba(255, 216, 156, 0.09)  130px,
+      rgba(255, 216, 156, 0.06)  220px, /* bridging */
+      rgba(255, 216, 156, 0.04)  45%,
+      rgba(255, 216, 156, 0.012) 78%,
+      rgba(255, 216, 156, 0)     100%
+    );
+  -webkit-mask-image:
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
+  mask-image:
+    conic-gradient(from 100deg at 22% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 50% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg),
+    conic-gradient(from 100deg at 78% -22px, transparent 0deg, #fff 27deg, #fff 133deg, transparent 160deg);
+}
+
+/* the header's silver seam catches the amber light under each tube */
+[data-theme='hifi-73-noir'] .content-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  pointer-events: none;
+  background:
+    radial-gradient(54px 9px at 22% 100%, rgba(255, 216, 156, 0.19), transparent 72%),
+    radial-gradient(54px 9px at 50% 100%, rgba(255, 216, 156, 0.19), transparent 72%),
+    radial-gradient(54px 9px at 78% 100%, rgba(255, 216, 156, 0.19), transparent 72%);
+}
+
+/* playback reactivity — the dial lamps warm up when a track plays */
+[data-theme='hifi-73-noir'] .content-body.app-shell-route-host::before,
+[data-theme='hifi-73-noir'] .content-header::after {
+  opacity: 0.85;
+  transition: opacity 0.8s ease-out;
+}
+[data-theme='hifi-73-noir'][data-playing='true'] .content-body.app-shell-route-host::before,
+[data-theme='hifi-73-noir'][data-playing='true'] .content-header::after {
+  opacity: 1;
+}
+
+
+/* ============================================================
+   RECESSED CONTENT WELL — content sits inset below the sidebar /
+   queue so the amber light falls into a well, not onto a flat
+   surface. Inner shadows fade in from the left/right edges.
+   ============================================================ */
+[data-theme='hifi-73-noir'] .content-body.app-shell-route-host::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background:
+    /* SHADOW-FRAMED TOP — makes the beams pop by CONTRAST, not brightness.
+       Dark top corners frame the outer two beams, and troughs at 36%/64% dig
+       the gaps BETWEEN the three tubes (which sit at 22/50/78) darker, so the
+       lit wedges read as separate cones instead of one wash. Same values as
+       Modern (Black) — both themes sit on --bg-app #18191c. */
+    radial-gradient(200px 130px at 0% 0%,   rgba(0, 0, 0, 0.34), transparent 72%),
+    radial-gradient(200px 130px at 100% 0%, rgba(0, 0, 0, 0.34), transparent 72%),
+    radial-gradient(130px 110px at 36% 0%,  rgba(0, 0, 0, 0.24), transparent 74%),
+    radial-gradient(130px 110px at 64% 0%,  rgba(0, 0, 0, 0.24), transparent 74%),
+    /* gentle overall top darkening */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0, rgba(0, 0, 0, 0) 84px),
+    /* AMBIENT BOTTOM SHADOW — the lit scene falls off into shadow at the floor,
+       so the amber tubes overhead read as DIRECTIONAL light (top lit → bottom
+       dark) rather than just a glow along the top edge. Broad and gentle,
+       reaching ~halfway up. Same values as Modern (Black): both themes sit on
+       --bg-app #18191c, so it lands identically. Below 0.32 it disappears.
+       CSS DIRECTION: `to top` puts the shadow at the BOTTOM edge. */
+    linear-gradient(to top, rgba(0, 0, 0, 0.32) 0, rgba(0, 0, 0, 0.16) 22%, rgba(0, 0, 0, 0.05) 44%, rgba(0, 0, 0, 0) 62%),
+    /* recess walls */
+    linear-gradient(to right, rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to left,  rgba(0, 0, 0, 0.38) 0, rgba(0, 0, 0, 0) 46px),
+    linear-gradient(to top,   rgba(0, 0, 0, 0.34) 0, rgba(0, 0, 0, 0) 58px);
 }
