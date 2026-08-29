@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T16:39:45.190Z",
+  "generatedAt": "2026-08-29T21:56:26.801Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -958,7 +958,7 @@
       "id": "hifi-73-noir",
       "name": "Hi-Fi 73 Noir",
       "author": "JU3RG",
-      "version": "1.1.4",
+      "version": "1.2.0",
       "description": "Inspired by the stereo receivers from the golden era of Hi-Fi. Dark companion to Hi-Fi 73.",
       "mode": "dark",
       "tags": [
@@ -972,7 +972,7 @@
       "animated": true,
       "css": "themes/hifi-73-noir/theme.css",
       "thumbnail": "themes/hifi-73-noir/thumbnail.webp",
-      "updatedAt": "2026-07-02T11:18:14+02:00"
+      "updatedAt": "2026-08-29T23:56:10+02:00"
     },
     {
       "id": "hifi-83",
