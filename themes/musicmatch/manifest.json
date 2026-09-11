@@ -8,6 +8,8 @@
   "tags": ["retro", "chrome", "skeuomorphic", "y2k", "blue"],
   "minAppVersion": "1.5.2",
   "changelog": {
-    "1.0.0": "Initial release."
+    "1.0.0": [
+      "Initial release."
+    ]
   }
 }
