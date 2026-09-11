@@ -9,9 +9,7 @@
   "minAppVersion": "1.5.2",
   "changelog": {
     "1.0.0": [
-      "Initial release featuring Frutiger Aero theme styling",
-      "Custom sidebar PsySonic logo branding",
-      "Static bubble overlay accents"
+      "Initial release."
     ],
     "1.0.1": [
       "Fixed settings card backgrounds for better visibility and better cohesion" ,
