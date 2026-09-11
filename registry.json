@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-29T21:56:26.801Z",
+  "generatedAt": "2026-09-11T10:14:25.534Z",
   "themes": [
     {
       "id": "aero-glass",
@@ -1485,6 +1485,37 @@
       "css": "themes/muma-jukebox/theme.css",
       "thumbnail": "themes/muma-jukebox/thumbnail.webp",
       "updatedAt": "2026-06-07T19:05:13+02:00"
+    },
+    {
+      "id": "musicmatch",
+      "name": "MusicMatch Jukebox",
+      "author": "ImAsra",
+      "version": "1.0.0",
+      "description": "A nostalgic early-2000s theme capturing the classic metallic blue curves, polished glossy buttons, and silver accents of MusicMatch Jukebox. Inspired by and credited to MusicMatch Jukebox.",
+      "mode": "light",
+      "tags": [
+        "retro",
+        "chrome",
+        "skeuomorphic",
+        "y2k",
+        "blue"
+      ],
+      "minAppVersion": "1.5.2",
+      "changelog": {
+        "1.0.0": [
+          "Initial release."
+        ]
+      },
+      "animated": true,
+      "assets": [
+        {
+          "path": "themes/musicmatch/assets/psysonic_logo.webp",
+          "bytes": 57526
+        }
+      ],
+      "css": "themes/musicmatch/theme.css",
+      "thumbnail": "themes/musicmatch/thumbnail.webp",
+      "updatedAt": "2026-09-11T12:10:39+02:00"
     },
     {
       "id": "neon-drift",
