@@ -3,14 +3,11 @@
   "name": "MusicMatch Jukebox",
   "author": "ImAsra",
   "version": "1.0.0",
-  "description": "A nostalgic early-2000s theme capturing the classic metallic blue curves, polished glossy buttons, and silver accents of MusicMatch Jukebox",
+  "description": "A nostalgic early-2000s theme capturing the classic metallic blue curves, polished glossy buttons, and silver accents of MusicMatch Jukebox. Inspired by and credited to MusicMatch Jukebox.",
   "mode": "light",
   "tags": ["retro", "chrome", "skeuomorphic", "y2k", "blue"],
   "minAppVersion": "1.5.2",
-  "changelog": [
-    {
-      "version": "1.0.0",
-      "notes": "Initial release."
-    }
-  ]
+  "changelog": {
+    "1.0.0": "Initial release."
+  }
 }
