@@ -2,7 +2,7 @@
   "id": "musicmatch",
   "name": "MusicMatch Jukebox",
   "author": "ImAsra",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A nostalgic early-2000s theme capturing the classic metallic blue curves, polished glossy buttons, and silver accents of MusicMatch Jukebox. Inspired by and credited to MusicMatch Jukebox.",
   "mode": "light",
   "tags": ["retro", "chrome", "skeuomorphic", "y2k", "blue"],
@@ -10,6 +10,11 @@
   "changelog": {
     "1.0.0": [
       "Initial release."
+    ],
+    "1.0.1": [
+      "Fixed settings card backgrounds for better visibility and better cohesion" ,
+      "Fixed the folder buttons in the sidebar to be visible and have the gel look"
     ]
   }
 }
+
