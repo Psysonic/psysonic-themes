@@ -3,8 +3,8 @@
   "name": "MusicMatch Jukebox",
   "author": "ImAsra",
   "version": "1.0.0",
-  "description": "A period-accurate 2001-era tribute skin — cobalt brushed-chrome gradients, hard specular highlights, beveled window chrome, and electric-blue selection, in the spirit of the classic default skin from that era's jukebox software.",
-  "mode": "dark",
+  "description": "A nostalgic early-2000s theme capturing the classic metallic blue curves, polished glossy buttons, and silver accents of MusicMatch Jukebox",
+  "mode": "light",
   "tags": ["retro", "chrome", "skeuomorphic", "y2k", "blue"],
   "minAppVersion": "1.5.2",
   "changelog": [
