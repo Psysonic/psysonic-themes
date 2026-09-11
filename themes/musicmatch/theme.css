@@ -9,7 +9,7 @@
 */
 
 [data-theme='musicmatch'] {
-  color-scheme: dark;
+  color-scheme: light;
 
   --accent:            #4fb3ff;
   --accent-dim:        rgba(79, 179, 255, 0.15);
