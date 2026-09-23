@@ -591,3 +591,206 @@
   background-repeat: no-repeat;
   background-position: left center;
 }
+
+/* ============================================================================
+   CUSTOM MODIFICATIONS
+   Dark-mode counterpart of the same customizations applied to the light
+   iSonic theme. Token-based rules (var(--bg-app), var(--text-secondary),
+   etc.) are unchanged — they already adapt automatically. Rules that had
+   hardcoded light-mode hex values have been re-tuned against this theme's
+   own dark tokens (--bg-elevated, --card-hover-border, --border-subtle)
+   rather than guessed from scratch.
+   ============================================================================ */
+
+/* ── Shared tokens ──
+   --color-star-active brightened the same way --danger and --highlight
+   were (a lighter, more saturated step so it still reads on dark
+   surfaces). --menu-bg becomes translucent instead of the original solid
+   #23262C, so the base CSS's backdrop-filter blur has something to show
+   through — same fix as the light theme, just dark instead of light
+   glass. --menu-divider is lifted from the default #33373E (too close to
+   --bg-card to register) up to the theme's own --card-hover-border tone,
+   which was already established elsewhere in this file for "visible
+   against dark" lines. */
+[data-theme='isonic-dark'] {
+  --color-star-active: #FF5C78;
+  --menu-bg: rgba(35, 38, 44, 0.82);
+  --menu-divider: #454B54;
+}
+
+/* ============================================================
+   ALBUM CARDS (New Releases rail + All Albums grid)
+   Same as light — flat art, no "New" badge, card fill matches
+   the page background, tighter grid + text spacing. All
+   token-based, so no color changes needed here.
+   ============================================================ */
+[data-theme='isonic-dark'] .album-card {
+  background: var(--bg-app);
+  border-radius: 0;
+  box-shadow: none;
+}
+[data-theme='isonic-dark'] .album-card:hover {
+  box-shadow: none;
+}
+[data-theme='isonic-dark'] .album-card-new-badge {
+  display: none;
+}
+[data-theme='isonic-dark'] .album-card-title {
+  margin-bottom: 0;
+}
+[data-theme='isonic-dark'] .album-card-year {
+  margin-top: 0;
+}
+[data-theme='isonic-dark'] .album-grid,
+[data-theme='isonic-dark'] .album-grid-wrap {
+  --space-3: 6px;
+  --space-4: 6px;
+}
+
+/* ============================================================
+   QUEUE PANEL
+   ============================================================ */
+
+/* Track rows — token-based, unchanged from light */
+[data-theme='isonic-dark'] .queue-item {
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+}
+[data-theme='isonic-dark'] .queue-item .track-row-cover-thumb {
+  --track-list-cover-size: 40px;
+  border-radius: 0;
+}
+[data-theme='isonic-dark'] .queue-item-title {
+  font-weight: 600;
+}
+[data-theme='isonic-dark'] .queue-item-artist {
+  color: var(--text-secondary);
+}
+
+/* "Now Playing" row — light theme used a pale grey gradient sitting
+   slightly darker than the page; the dark equivalent is a gradient
+   sitting slightly LIGHTER than the page, built from this theme's own
+   --card-hover-border/--bg-elevated tones rather than an arbitrary
+   guess. Text stays on var(--text-primary), which already adapts. */
+[data-theme='isonic-dark'] .queue-item.active {
+  background: linear-gradient(180deg, #2F343D 0%, #262A31 100%);
+  color: var(--text-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+[data-theme='isonic-dark'] .queue-item.active .queue-item-artist,
+[data-theme='isonic-dark'] .queue-item.active .queue-item-duration,
+[data-theme='isonic-dark'] .queue-item.active .queue-item-attribution {
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   CONTEXT MENU
+   ============================================================ */
+[data-theme='isonic-dark'] .context-menu,
+[data-theme='isonic-dark'] .context-submenu {
+  background: var(--menu-bg);
+}
+[data-theme='isonic-dark'] .context-menu-divider {
+  margin: 6px 10px;
+}
+
+/* ============================================================
+   SIDEBAR
+   Light theme pulled the sidebar close to --bg-app for cohesion,
+   landing near its --bg-card tone. Same move here: instead of
+   the original #1B1E23/#181A1F (notably darker than --bg-app
+   #14161A is light), the sidebar now sits close to this theme's
+   own --bg-card (#21242A) family — a touch lighter than the page,
+   same relationship as the light version has to its page.
+   ============================================================ */
+[data-theme='isonic-dark'] .sidebar {
+  background-color: #21242A;
+  background-image: linear-gradient(180deg, #24272D 0%, #21242A 100%);
+  border-right: 1px solid var(--border-subtle) !important;
+}
+[data-theme='isonic-dark'] .nav-link {
+  padding: 6px var(--space-3);
+}
+
+/* ============================================================
+   MINI PLAYER
+   Buttons rebuilt for a dark bevel: light theme mixed --bg-card
+   toward white for the raised highlight; here it mixes toward
+   --card-hover-border (already the theme's own "lighter than
+   card" reference) instead, so the top-of-button highlight is a
+   lighter grey rather than a wash of white. The primary/active
+   button already mixes from var(--accent) toward white/black,
+   which works unchanged since --accent itself is already the
+   brighter dark-mode blue.
+   ============================================================ */
+[data-theme='isonic-dark'] .mini-player__btn,
+[data-theme='isonic-dark'] .mini-player__tool {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--bg-card) 40%, var(--card-hover-border)) 0%,
+    var(--bg-card) 100%
+  );
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+[data-theme='isonic-dark'] .mini-player__btn:hover,
+[data-theme='isonic-dark'] .mini-player__tool:hover:not(:disabled) {
+  background: linear-gradient(
+    180deg,
+    var(--card-hover-border) 0%,
+    color-mix(in srgb, var(--bg-card) 70%, var(--card-hover-border)) 100%
+  );
+  color: var(--accent);
+}
+[data-theme='isonic-dark'] .mini-player__btn--primary,
+[data-theme='isonic-dark'] .mini-player__tool--active {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 70%, white) 0%,
+    var(--accent) 100%
+  );
+  color: var(--text-on-accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, black);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.4);
+}
+[data-theme='isonic-dark'] .mini-player__btn--primary:hover {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 80%, white) 0%,
+    color-mix(in srgb, var(--accent) 90%, black) 100%
+  );
+  filter: none;
+}
+[data-theme='isonic-dark'] .mini-queue__item {
+  position: relative;
+}
+[data-theme='isonic-dark'] .mini-queue__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 1px;
+  background: var(--menu-divider);
+}
+
+/* ============================================================
+   PLAYER BAR
+   Same selector-collision fix as the light theme: this file has
+   the identical bug (a "rating stars" rule more specific than
+   the heart's own color rule, silently repainting the heart
+   gold via --highlight). Fixed the same way, pointed at the
+   dark-tuned --color-star-active token above.
+   ============================================================ */
+[data-theme='isonic-dark'] .player-star-btn.is-starred,
+[data-theme='isonic-dark'] .player-star-btn.is-starred svg {
+  color: var(--color-star-active) !important;
+}
