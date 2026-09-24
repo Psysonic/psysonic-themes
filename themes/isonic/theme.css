@@ -582,3 +582,202 @@
   background-repeat: no-repeat;
   background-position: left center;
 }
+
+/* ============================================================================
+   CUSTOM MODIFICATIONS
+   Everything below this point is layered on top of the original iSonic
+   theme above. Organized by area; each rule reflects the final intended
+   look, not the history of edits that got it there.
+   ============================================================================ */
+
+/* ── Shared tokens ──
+   --color-star-active is read by the base app's .track-star-btn rules
+   (tracklist + queue hearts) with a fallback to --accent; defining it here
+   retints both without touching their own CSS. The player bar heart below
+   points at the same token so all three stay in sync. --menu-bg feeds
+   several OTHER menus (custom-select, sidebar submenu, player-bar menu,
+   np-dash) that reference it directly — context-menu itself is handled by
+   the explicit override further down, since it hardcodes its background
+   rather than using this variable. */
+[data-theme='isonic'] {
+  --color-star-active: #E63950;
+  --menu-bg: rgba(251, 251, 252, 0.82);
+  --menu-divider: #D6D9DC;
+}
+
+/* ============================================================
+   ALBUM CARDS (New Releases rail + All Albums grid)
+   Flat art (no rounding/shadow), no "New" badge, card fill
+   matches the page background, tighter grid + text spacing.
+   ============================================================ */
+[data-theme='isonic'] .album-card {
+  background: var(--bg-app);
+  border-radius: 0;
+  box-shadow: none;
+}
+[data-theme='isonic'] .album-card:hover {
+  box-shadow: none;
+}
+[data-theme='isonic'] .album-card-new-badge {
+  display: none;
+}
+[data-theme='isonic'] .album-card-title {
+  margin-bottom: 0;
+}
+[data-theme='isonic'] .album-card-year {
+  margin-top: 0;
+}
+/* Scoped to just these two grid containers so it doesn't touch
+   --space-3/--space-4 anywhere else in the app */
+[data-theme='isonic'] .album-grid,
+[data-theme='isonic'] .album-grid-wrap {
+  --space-3: 6px;
+  --space-4: 6px;
+}
+
+/* ============================================================
+   QUEUE PANEL
+   ============================================================ */
+
+/* Track rows — hairline divider between each, square flat cover
+   thumbnail (once cover art is enabled via Settings → Appearance),
+   bolder title, more legible artist line */
+[data-theme='isonic'] .queue-item {
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+}
+[data-theme='isonic'] .queue-item .track-row-cover-thumb {
+  --track-list-cover-size: 40px;
+  border-radius: 0;
+}
+[data-theme='isonic'] .queue-item-title {
+  font-weight: 600;
+}
+[data-theme='isonic'] .queue-item-artist {
+  color: var(--text-secondary);
+}
+
+/* "Now Playing" row — light grey selector instead of a blue one, so
+   it doesn't compete with the blue/red accents used for hearts, links,
+   and active nav elsewhere. Favorite hearts on this row need no special
+   casing: with a light background, the same colors every other row
+   uses already have enough contrast. */
+[data-theme='isonic'] .queue-item.active {
+  background: linear-gradient(180deg, #EDEFF1 0%, #DEE1E4 100%);
+  color: var(--text-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.06);
+}
+[data-theme='isonic'] .queue-item.active .queue-item-artist,
+[data-theme='isonic'] .queue-item.active .queue-item-duration,
+[data-theme='isonic'] .queue-item.active .queue-item-attribution {
+  color: inherit;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   CONTEXT MENU
+   Frosted/translucent panel (so the base CSS's existing
+   backdrop-filter blur actually shows through), darker and
+   inset divider lines between grouped sections.
+   ============================================================ */
+[data-theme='isonic'] .context-menu,
+[data-theme='isonic'] .context-submenu {
+  background: var(--menu-bg);
+}
+[data-theme='isonic'] .context-menu-divider {
+  margin: 6px 10px;
+}
+
+/* ============================================================
+   SIDEBAR
+   Pulled near-white to feel cohesive with the white content
+   area, keeping just a whisper of gradient. Tighter vertical
+   padding on nav rows for a denser, classic-iTunes list feel.
+   ============================================================ */
+[data-theme='isonic'] .sidebar {
+  background-color: #FBFBFC;
+  background-image: linear-gradient(180deg, #FDFDFE 0%, #F5F6F8 100%);
+  border-right: 1px solid #E2E4E7 !important;
+}
+[data-theme='isonic'] .nav-link {
+  padding: 6px var(--space-3);
+}
+
+/* ============================================================
+   MINI PLAYER
+   Raised "plastic disc" buttons built from the theme's own
+   tokens (bg-card, accent, border-subtle) via color-mix(), so
+   they stay in step with the rest of iSonic. Mini-queue tracks
+   get the same tapered divider style as the context menu.
+   ============================================================ */
+[data-theme='isonic'] .mini-player__btn,
+[data-theme='isonic'] .mini-player__tool {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--bg-card) 40%, white) 0%,
+    var(--bg-card) 100%
+  );
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.15);
+}
+[data-theme='isonic'] .mini-player__btn:hover,
+[data-theme='isonic'] .mini-player__tool:hover:not(:disabled) {
+  background: linear-gradient(
+    180deg,
+    white 0%,
+    color-mix(in srgb, var(--bg-card) 70%, white) 100%
+  );
+  color: var(--accent);
+}
+[data-theme='isonic'] .mini-player__btn--primary,
+[data-theme='isonic'] .mini-player__tool--active {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 70%, white) 0%,
+    var(--accent) 100%
+  );
+  color: var(--text-on-accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, black);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-theme='isonic'] .mini-player__btn--primary:hover {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 80%, white) 0%,
+    color-mix(in srgb, var(--accent) 90%, black) 100%
+  );
+  filter: none;
+}
+[data-theme='isonic'] .mini-queue__item {
+  position: relative;
+}
+[data-theme='isonic'] .mini-queue__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 0;
+  height: 1px;
+  background: var(--menu-divider);
+}
+
+/* ============================================================
+   PLAYER BAR
+   Favorite heart fixed to use the same --color-star-active
+   token as the tracklist/queue hearts. In the original file, a
+   rule labeled "rating stars" was more specific than the heart's
+   own color rule and was silently repainting it gold — this app
+   only has one .player-star-btn (the heart), so that selector
+   was unintentionally hijacking it.
+   ============================================================ */
+[data-theme='isonic'] .player-star-btn.is-starred,
+[data-theme='isonic'] .player-star-btn.is-starred svg {
+  color: var(--color-star-active) !important;
+}
