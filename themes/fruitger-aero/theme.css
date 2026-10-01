@@ -849,7 +849,9 @@
 [data-theme='fruitger-aero'] .live-search-dropdown,
 [data-theme='fruitger-aero'] .nav-library-dropdown-panel,
 [data-theme='fruitger-aero'] .custom-select-dropdown,
-[data-theme='fruitger-aero'] .entity-source-picker__menu{
+[data-theme='fruitger-aero'] .entity-source-picker__menu,
+[data-theme='fruitger-aero'] .song-info-body,
+[data-theme='fruitger-aero'] .song-info-header {
   background: rgba(6, 30, 34, 0.85) !important;
   -webkit-backdrop-filter: blur(16px) saturate(140%) !important;
   backdrop-filter: blur(16px) saturate(140%) !important;
