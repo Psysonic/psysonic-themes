@@ -1,0 +1,12 @@
+{
+  "id": "melancholy-95",
+  "name": "Melancholy '95",
+  "author": "ryaneford",
+  "version": "1.0.0",
+  "description": "Dark night-sky theme — slate-blue canvas, star-gold accent and waveform, cream text. Inspired by The Smashing Pumpkins' 'Mellon Collie and the Infinite Sadness' cover.",
+  "mode": "dark",
+  "tags": ["dark", "blue", "yellow", "90s"],
+  "changelog": {
+    "1.0.0": ["Initial release."]
+  }
+}
