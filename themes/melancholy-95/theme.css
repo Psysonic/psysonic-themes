@@ -1,0 +1,56 @@
+/* Melancholy '95 — night sky, star gold and cream lettering.
+   Palette sampled from The Smashing Pumpkins' 'Mellon Collie and the Infinite Sadness' (1995) cover. */
+[data-theme='melancholy-95'] {
+  color-scheme: dark;
+
+  /* Accent — the star */
+  --accent: #e2bc71;
+  --accent-dim: rgba(226, 188, 113, 0.16);
+  --accent-glow: rgba(226, 188, 113, 0.34);
+  --accent-2: #b9955f;
+
+  /* Backgrounds — the night sky */
+  --bg-app: #1a2838;
+  --bg-sidebar: #142030;
+  --bg-card: #22344a;
+  --bg-hover: #2d4560;
+  --bg-elevated: #36506c;
+  --bg-player: #132030;
+  --bg-deep: #0d1724;
+  --bg-glass: rgba(26, 40, 56, 0.78);
+
+  /* Borders — the planets' blue-grey */
+  --border: rgba(91, 120, 131, 0.45);
+  --border-subtle: rgba(71, 102, 122, 0.30);
+  --border-dropdown: rgba(91, 120, 131, 0.55);
+
+  /* Text — the cream title lettering */
+  --text-primary: #f2e4c4;
+  --text-secondary: #b8c4cc;
+  --text-muted: #7d91a3;
+  --text-on-accent: #142030;
+
+  /* Status — cloak red, sleeve green, star gold */
+  --danger: #c4493a;
+  --positive: #6f9a63;
+  --warning: #e2a85a;
+  --highlight: #f0d48a;
+
+  /* Dropdown chevron (cream) */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23f2e4c4%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(5, 10, 18, 0.6);
+
+  /* Player & waveform */
+  --volume-accent: #e2bc71;
+  --waveform-played: #e2bc71;
+  --waveform-unplayed: #22344a;
+  --waveform-buffered: #47667a;
+  --player-title: #f2e4c4;
+  --player-artist: #b8c4cc;
+
+  /* Per-region */
+  --sidebar-item-hover: #1f3044;
+  --row-playing-bg: rgba(226, 188, 113, 0.16);
+  --row-playing-text: #e2bc71;
+  --menu-item-hover: #2d4560;
+}
