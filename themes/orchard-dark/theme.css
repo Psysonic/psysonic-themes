@@ -1,0 +1,303 @@
+/* ============================================================
+   Orchard Dark — inspired by Apple Music on iOS (dark mode).
+   Pairs with Orchard Light through the day/night theme scheduler.
+
+   Design language:
+   - Pure black canvas with Apple's grey surface steps
+     (#1C1C1E, #2C2C2E, #3A3A3C) and translucent label greys
+   - One accent, Apple Music's pink-red (#FA2D48), used for
+     links, the active tab, the artist line and the Play/Shuffle
+     button labels; everything else stays neutral
+   - Settings switches use the system green, like iOS
+   - The full-screen player ignores the theme surface: it fills
+     the screen with the cover's color and draws everything in
+     white, like Apple Music's Now Playing screen
+
+   Layout:
+   Tokens → Desktop → Phone (everything under
+   [data-mobile-app], which only the iOS/Android app sets)
+
+   mode: dark
+   Validate: node scripts/validate-theme.mjs themes/orchard-dark
+   ============================================================ */
+
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+[data-theme='orchard-dark'] {
+  color-scheme: dark;
+
+  /* ── Accent ── */
+  --accent:      #FA2D48;
+  --accent-dim:  rgba(250, 45, 72, 0.16);
+  --accent-glow: rgba(250, 45, 72, 0.32);
+  --accent-2:    #FF6482;
+
+  /* ── Backgrounds — black base, Apple grey steps ── */
+  --bg-app:      #000000;
+  --bg-sidebar:  #1C1C1E;
+  --bg-card:     #1C1C1E;
+  --bg-hover:    rgba(255, 255, 255, 0.07);
+  --bg-elevated: #2C2C2E;
+  --bg-player:   rgba(28, 28, 30, 0.92);
+  --bg-deep:     #000000;
+  --bg-glass:    rgba(28, 28, 30, 0.72);
+  --modal-bg:    #1C1C1E;
+  --modal-scrim: rgba(0, 0, 0, 0.5);
+
+  /* ── Borders — iOS separators ── */
+  --border:          rgba(255, 255, 255, 0.12);
+  --border-subtle:   rgba(255, 255, 255, 0.07);
+  --border-dropdown: rgba(255, 255, 255, 0.12);
+
+  /* ── Text — iOS label colors ── */
+  --text-primary:   #FFFFFF;
+  --text-secondary: rgba(235, 235, 245, 0.6);
+  --text-muted:     rgba(235, 235, 245, 0.3);
+  --text-on-accent: #FFFFFF;
+
+  /* ── Status — iOS system colors (dark variants) ── */
+  --danger:    #FF453A;
+  --positive:  #30D158;
+  --warning:   #FFD60A;
+  --highlight: #FA2D48;
+
+  /* ── Select arrow — secondary-label grey ── */
+  --select-arrow: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%238E8E93%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  --shadow-dropdown: rgba(0, 0, 0, 0.6);
+
+  /* ── Sidebar (desktop) — grey selection pill, like the macOS app ── */
+  --sidebar-text:             rgba(235, 235, 245, 0.75);
+  --sidebar-item-hover:       rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg:   rgba(255, 255, 255, 0.10);
+  --sidebar-item-active-text: #FFFFFF;
+  --sidebar-border:           rgba(255, 255, 255, 0.08);
+
+  /* ── Rows ── */
+  --row-hover:          rgba(255, 255, 255, 0.05);
+  --row-divider:        rgba(255, 255, 255, 0.08);
+  --row-playing-bg:     rgba(255, 255, 255, 0.06);
+  --row-playing-text:   #FA2D48;
+  --col-header-text:    rgba(235, 235, 245, 0.45);
+
+  /* ── Cards ── */
+  --card-title:          #FFFFFF;
+  --card-subtitle:       rgba(235, 235, 245, 0.6);
+  --card-hover-border:   rgba(255, 255, 255, 0.18);
+  --card-placeholder-bg: #2C2C2E;
+
+  /* ── Menus / inputs ── */
+  --menu-bg:               #2C2C2E;
+  --menu-item-hover:       rgba(255, 255, 255, 0.08);
+  --menu-item-active-text: #FA2D48;
+  --menu-divider:          rgba(255, 255, 255, 0.10);
+  --input-bg:              rgba(118, 118, 128, 0.24);
+  --input-border:          transparent;
+  --input-focus-border:    #FA2D48;
+  --button-hover:          rgba(255, 255, 255, 0.08);
+
+  /* ── Sliders / scrollbars ── */
+  --slider-track:          rgba(255, 255, 255, 0.18);
+  --slider-thumb:          #FFFFFF;
+  --slider-thumb-hover:    #FFFFFF;
+  --scrollbar-thumb:       rgba(255, 255, 255, 0.22);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.36);
+  --scrollbar-track:       transparent;
+
+  /* ── Player bar (desktop) ── */
+  --volume-accent:            #FFFFFF;
+  --waveform-played:          #FA2D48;
+  --waveform-unplayed:        rgba(255, 255, 255, 0.16);
+  --waveform-buffered:        rgba(255, 255, 255, 0.30);
+  --player-title:             #FFFFFF;
+  --player-artist:            rgba(235, 235, 245, 0.6);
+  --player-control:           #FFFFFF;
+  --player-control-hover:     #FFFFFF;
+  --player-control-hover-bg:  rgba(255, 255, 255, 0.08);
+  --player-border:            rgba(255, 255, 255, 0.08);
+}
+
+
+/* ============================================================
+   DESKTOP — layout touches modelled on Apple Music
+   ============================================================ */
+
+/* Sidebar — red icons, grey pill for the active item, no side bar */
+[data-theme='orchard-dark'] .nav-link > svg:first-child {
+  color: var(--accent);
+  opacity: 1;
+}
+[data-theme='orchard-dark'] .nav-link.active {
+  background: rgba(255, 255, 255, 0.10);
+  font-weight: 600;
+}
+[data-theme='orchard-dark'] .nav-link.active::before {
+  display: none;
+}
+
+/* Section labels ("Library", "System") — small grey sentence case */
+[data-theme='orchard-dark'] .nav-section-label {
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Album cards — bare covers with rounded corners, text below, no box.
+   The focus and selection rings are drawn on ::after, so they stay. */
+[data-theme='orchard-dark'] .album-card,
+[data-theme='orchard-dark'] .album-card:hover {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 8px;
+}
+[data-theme='orchard-dark'] .album-card-cover {
+  border-radius: 8px;
+}
+[data-theme='orchard-dark'] .album-card-info {
+  padding: 8px 2px 0;
+}
+[data-theme='orchard-dark'] .album-card-title {
+  font-weight: 500;
+}
+
+/* "Because you listened to …" — neutral edge instead of the red one */
+[data-theme='orchard-dark'] .because-card {
+  border-color: var(--border-subtle);
+  box-shadow: none;
+}
+
+/* Floating player — frosted glass pill */
+[data-theme='orchard-dark'] .player-bar.floating {
+  background: rgba(44, 44, 46, 0.80);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Play / pause — a bare glyph in the text color, no red disc */
+[data-theme='orchard-dark'] .player-btn-primary:not(.is-previewing),
+[data-theme='orchard-dark'] .player-btn-primary:not(.is-previewing):hover {
+  background: transparent;
+  color: var(--text-primary);
+  box-shadow: none;
+  filter: none;
+}
+[data-theme='orchard-dark'] .player-btn-primary:not(.is-previewing):hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Queue — the current track keeps red text on a neutral row */
+[data-theme='orchard-dark'] .queue-item.active {
+  background: var(--row-playing-bg);
+}
+
+
+/* ============================================================
+   PHONE — iOS / Android app only
+   ============================================================ */
+
+/* Shared glass, separators, and the waveform seekbar. The app
+   reads the waveform colors from <html>, and on the phone the
+   waveform only appears in the white-on-color full-screen player. */
+[data-theme='orchard-dark'][data-mobile-app] {
+  --mobile-glass-bg:     rgba(30, 30, 32, 0.72);
+  --mobile-glass-border: rgba(255, 255, 255, 0.10);
+  --mobile-row-border:   rgba(255, 255, 255, 0.10);
+
+  --waveform-played:   rgba(255, 255, 255, 0.92);
+  --waveform-unplayed: rgba(255, 255, 255, 0.22);
+  --waveform-buffered: rgba(255, 255, 255, 0.38);
+}
+
+/* Tab bar — red icon and label on a neutral pill */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-tabbar__tab.is-active {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--accent);
+}
+
+/* Covers — Apple's smaller corner radii */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-miniplayer__cover {
+  border-radius: 8px;
+}
+[data-theme='orchard-dark'][data-mobile-app] .mobile-album__cover {
+  border-radius: 10px;
+}
+
+/* Album page — Play and Shuffle are both grey with red labels */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-album__btn,
+[data-theme='orchard-dark'][data-mobile-app] .mobile-album__btn--primary {
+  background: #1C1C1E;
+  color: var(--accent);
+}
+
+/* Segmented control — iOS fill with a raised selected segment */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-segmented {
+  background: rgba(118, 118, 128, 0.24);
+  border-radius: 9px;
+}
+[data-theme='orchard-dark'][data-mobile-app] .mobile-segmented__item {
+  border-radius: 7px;
+  color: var(--text-primary);
+}
+[data-theme='orchard-dark'][data-mobile-app] .mobile-segmented__item.is-active {
+  background: #636366;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Switches — system green, like iOS Settings */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-switch {
+  background: rgba(120, 120, 128, 0.32);
+}
+[data-theme='orchard-dark'][data-mobile-app] .mobile-switch[aria-checked='true'] {
+  background: #30D158;
+}
+
+/* ── Full-screen player — Now Playing ──
+   The app sets --mobile-player-tint from the cover (the cover's
+   main color at 42% alpha). Layering it twice over a dark grey
+   base fills the whole screen with that color, and a dark fade at
+   the bottom keeps the white controls readable on light covers.
+   The tokens are redefined on the player itself, so everything
+   inside it turns white without touching the rest of the app
+   (sheets open outside it, in their own portal). */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player {
+  color-scheme: dark;
+  --text-primary:   #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.62);
+  --text-muted:     rgba(255, 255, 255, 0.38);
+  --accent:         #FFFFFF;
+  --accent-dim:     rgba(255, 255, 255, 0.16);   /* also the tint when there is no cover */
+  --text-on-accent: #000000;
+  --bg-card:        rgba(255, 255, 255, 0.10);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.45) 100%),
+    linear-gradient(180deg, var(--mobile-player-tint) 0%, transparent 75%),
+    linear-gradient(var(--mobile-player-tint), var(--mobile-player-tint)),
+    #2C2C2E;
+}
+
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player__cover {
+  border-radius: 12px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.38);
+}
+
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player__artist {
+  color: var(--text-secondary);
+}
+
+/* Play / pause — a bare white glyph, no disc */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player__play {
+  background: none;
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+/* Shuffle, repeat, heart, EQ when on — white glyph on a soft pill */
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player .mobile-icon-btn.is-active,
+[data-theme='orchard-dark'][data-mobile-app] .mobile-player .mobile-footer-btn.is-active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
