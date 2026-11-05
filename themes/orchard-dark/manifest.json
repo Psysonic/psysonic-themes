@@ -1,0 +1,9 @@
+{
+  "id": "orchard-dark",
+  "name": "Orchard Dark",
+  "author": "abstractjewel",
+  "version": "1.0.1",
+  "description": "Inspired by Apple Music (dark mode). Pairs with Orchard Light.",
+  "mode": "dark",
+  "tags": ["mediaplayer", "dark", "black", "red", "modern"]
+}
